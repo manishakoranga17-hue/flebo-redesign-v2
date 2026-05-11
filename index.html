@@ -3865,7 +3865,11 @@ main { padding: 0 16px; }
   .hero-v2-caption-sub { font-size: 12px; }
 }
 
-/* ---------- POPULAR PACKAGES: horizontal manual-scroll row ---------- */
+/* ---------- POPULAR PACKAGES: horizontal scroll with arrow controls ---------- */
+.pkg-scroller {
+  position: relative;
+  margin: 0 -4px 8px;
+}
 .packages-grid {
   display: flex !important;
   flex-direction: row !important;
@@ -3874,21 +3878,54 @@ main { padding: 0 16px; }
   overflow-y: visible !important;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
-  padding: 8px 4px 18px !important;
-  margin: 0 -4px 8px !important;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 8px 4px 12px !important;
+  margin: 0 !important;
   height: auto !important;
   max-width: none !important;
   perspective: none !important;
   grid-template-columns: none !important;
+  scroll-behavior: smooth;
 }
-.packages-grid::-webkit-scrollbar { height: 8px; }
-.packages-grid::-webkit-scrollbar-track { background: transparent; }
-.packages-grid::-webkit-scrollbar-thumb {
-  background: rgba(27, 42, 91, 0.18);
-  border-radius: 999px;
+.packages-grid::-webkit-scrollbar { display: none; height: 0; width: 0; }
+
+.pkg-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--primary);
+  border: 1px solid #E5E9F3;
+  box-shadow: 0 6px 20px rgba(11, 21, 48, 0.16);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 5;
+  transition: background 0.2s, color 0.2s, transform 0.15s, opacity 0.2s;
+  font-size: 14px;
 }
-.packages-grid::-webkit-scrollbar-thumb:hover { background: rgba(27, 42, 91, 0.32); }
+.pkg-arrow:hover {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+.pkg-arrow:active { transform: translateY(-50%) scale(0.92); }
+.pkg-arrow--prev { left: -6px; }
+.pkg-arrow--next { right: -6px; }
+.pkg-arrow.is-disabled {
+  opacity: 0;
+  pointer-events: none;
+}
+@media (min-width: 768px) {
+  .pkg-arrow { width: 48px; height: 48px; font-size: 15px; }
+  .pkg-arrow--prev { left: -18px; }
+  .pkg-arrow--next { right: -18px; }
+}
 
 .package-card,
 .package-card.pkg-active,
@@ -4342,7 +4379,14 @@ main { padding: 0 16px; }
       <button class="pkg-cat-tab" data-cat="corporate">Corporate</button>
     </div>
 
-    <!-- Stacked Carousel Cards -->
+    <!-- Horizontal scroll with arrow controls -->
+    <div class="pkg-scroller">
+      <button class="pkg-arrow pkg-arrow--prev" id="pkgArrowPrev" aria-label="Scroll to previous packages" type="button">
+        <i class="fas fa-chevron-left" aria-hidden="true"></i>
+      </button>
+      <button class="pkg-arrow pkg-arrow--next" id="pkgArrowNext" aria-label="Scroll to next packages" type="button">
+        <i class="fas fa-chevron-right" aria-hidden="true"></i>
+      </button>
     <div class="packages-grid" id="packagesGrid">
 
       <!-- 1. Advanced Health Package -->
@@ -4461,6 +4505,7 @@ main { padding: 0 16px; }
       </article>
 
     </div>
+    </div><!-- /.pkg-scroller -->
     <div class="carousel-dots" id="pkgDots">
       <span class="dot active" data-index="0"></span>
       <span class="dot" data-index="1"></span>
@@ -5536,6 +5581,35 @@ document.querySelectorAll('.pkg-cat-tab').forEach(tab => {
 
   input.addEventListener('keydown', (e) => { if (e.key === 'Enter') applyBtn.click(); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closePopup(); });
+})();
+
+/* ===== Popular Packages: arrow scroll controls ===== */
+(function() {
+  const grid = document.getElementById('packagesGrid');
+  const prevBtn = document.getElementById('pkgArrowPrev');
+  const nextBtn = document.getElementById('pkgArrowNext');
+  if (!grid || !prevBtn || !nextBtn) return;
+
+  function step() {
+    const card = grid.querySelector('.package-card');
+    if (!card) return 320;
+    const cs = getComputedStyle(grid);
+    const gap = parseInt(cs.columnGap || cs.gap, 10) || 18;
+    return card.getBoundingClientRect().width + gap;
+  }
+
+  function updateArrows() {
+    const max = grid.scrollWidth - grid.clientWidth - 2;
+    prevBtn.classList.toggle('is-disabled', grid.scrollLeft <= 2);
+    nextBtn.classList.toggle('is-disabled', grid.scrollLeft >= max);
+  }
+
+  prevBtn.addEventListener('click', () => grid.scrollBy({ left: -step(), behavior: 'smooth' }));
+  nextBtn.addEventListener('click', () => grid.scrollBy({ left:  step(), behavior: 'smooth' }));
+  grid.addEventListener('scroll', updateArrows, { passive: true });
+  window.addEventListener('resize', updateArrows);
+  // Wait for layout then update
+  setTimeout(updateArrows, 0);
 })();
 
 </script>
