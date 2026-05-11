@@ -4114,14 +4114,15 @@ main { padding: 0 16px; }
   .banner-slide img { aspect-ratio: 1080 / 420; }
 }
 
-/* ---------- TESTS BY CATEGORY: force single-row horizontal scroll ---------- */
+/* ---------- TESTS BY CATEGORY: single-row horizontal scroll, spread across section width ---------- */
 .tests-category-scroll {
   display: flex !important;
   flex-direction: row !important;
   flex-wrap: nowrap !important;
-  gap: 18px !important;
+  gap: 22px !important;
   overflow-x: auto !important;
   overflow-y: visible !important;
+  justify-content: space-between;
   scroll-snap-type: x proximity;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
@@ -4133,6 +4134,12 @@ main { padding: 0 16px; }
 .test-cat-item {
   flex: 0 0 auto !important;
   scroll-snap-align: start;
+}
+@media (min-width: 768px) {
+  .tests-category-scroll { gap: 28px !important; }
+}
+@media (min-width: 1024px) {
+  .tests-category-scroll { gap: 36px !important; }
 }
 
 .banner-arrow {
