@@ -4114,6 +4114,27 @@ main { padding: 0 16px; }
   .banner-slide img { aspect-ratio: 1080 / 420; }
 }
 
+/* ---------- TESTS BY CATEGORY: force single-row horizontal scroll ---------- */
+.tests-category-scroll {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  gap: 18px !important;
+  overflow-x: auto !important;
+  overflow-y: visible !important;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 4px 2px 14px !important;
+  grid-template-columns: none !important;
+}
+.tests-category-scroll::-webkit-scrollbar { display: none; height: 0; width: 0; }
+.test-cat-item {
+  flex: 0 0 auto !important;
+  scroll-snap-align: start;
+}
+
 .banner-arrow {
   position: absolute;
   top: 50%;
