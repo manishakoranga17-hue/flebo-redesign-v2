@@ -3960,13 +3960,23 @@ main { padding: 0 16px; }
 
 /* ---------- TRUST SECTION (V2) ---------- */
 .trust-v2 {
-  background: linear-gradient(180deg, #E4E9F4 0%, #C9D2E6 100%);
+  background: linear-gradient(135deg, #C8DFF8 0%, #8FB6E3 55%, #6F9CD6 100%);
   border-radius: 24px;
   padding: 56px 0;
   margin: 32px 0;
   position: relative;
   overflow: hidden;
 }
+.trust-v2::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 12% 18%, rgba(255, 255, 255, 0.55), transparent 45%),
+    radial-gradient(circle at 88% 82%, rgba(27, 42, 91, 0.12), transparent 50%);
+  pointer-events: none;
+}
+.trust-v2-inner { position: relative; z-index: 1; }
 .trust-v2-inner {
   max-width: 1280px;
   margin: 0 auto;
