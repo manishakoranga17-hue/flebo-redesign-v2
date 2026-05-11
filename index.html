@@ -4069,6 +4069,99 @@ main { padding: 0 16px; }
   .trust-v2-star { font-size: 22px; }
   .trust-v2-label { font-size: 10.5px; }
 }
+
+/* ---------- PROMO BANNER CAROUSEL ---------- */
+.banner-carousel {
+  position: relative;
+  margin: 24px 0;
+}
+.banner-track {
+  display: flex;
+  gap: 18px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-behavior: smooth;
+  padding: 4px 4px 8px;
+  margin: 0 -4px;
+}
+.banner-track::-webkit-scrollbar { display: none; height: 0; width: 0; }
+.banner-slide {
+  flex: 0 0 100%;
+  scroll-snap-align: center;
+  border-radius: 18px;
+  overflow: hidden;
+  display: block;
+  cursor: pointer;
+  transition: transform 0.25s;
+  box-shadow: 0 8px 24px rgba(11, 21, 48, 0.08);
+}
+.banner-slide:hover { transform: translateY(-2px); }
+.banner-slide img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 18px;
+  aspect-ratio: 1080 / 360;
+  object-fit: cover;
+}
+
+.banner-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--primary);
+  border: 1px solid #E5E9F3;
+  box-shadow: 0 6px 20px rgba(11, 21, 48, 0.18);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 5;
+  transition: background 0.2s, color 0.2s, transform 0.15s;
+  font-size: 14px;
+}
+.banner-arrow:hover {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+.banner-arrow:active { transform: translateY(-50%) scale(0.92); }
+.banner-arrow--prev { left: 12px; }
+.banner-arrow--next { right: 12px; }
+@media (min-width: 768px) {
+  .banner-arrow { width: 48px; height: 48px; font-size: 15px; }
+  .banner-arrow--prev { left: 18px; }
+  .banner-arrow--next { right: 18px; }
+}
+
+.banner-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+.banner-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #CBD3E1;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: width 0.25s, background 0.25s;
+}
+.banner-dot.active {
+  width: 24px;
+  border-radius: 999px;
+  background: var(--accent);
+}
 </style>
 </head>
 <body>
@@ -4656,10 +4749,23 @@ main { padding: 0 16px; }
     </div>
   </section>
 
-  <!-- Special Offer Banner -->
-  <section aria-label="Special offer on health tests and packages">
-    <div class="special-offer-banner" tabindex="0" role="link">
-      <img src="special-offer-banner.png" alt="Special Offer: 50% Cashback + 20% Off on health tests and packages. Use coupon FLEBO2050 on your first booking." loading="lazy">
+  <!-- Promo banners carousel -->
+  <section class="banner-carousel" aria-label="Special offers and promotions" aria-roledescription="carousel">
+    <button class="banner-arrow banner-arrow--prev" id="bannerArrowPrev" aria-label="Previous offer" type="button">
+      <i class="fas fa-chevron-left" aria-hidden="true"></i>
+    </button>
+    <button class="banner-arrow banner-arrow--next" id="bannerArrowNext" aria-label="Next offer" type="button">
+      <i class="fas fa-chevron-right" aria-hidden="true"></i>
+    </button>
+    <div class="banner-track" id="bannerTrack">
+      <a href="#" class="banner-slide" aria-label="Offer 1"><img src="banners/banner-1.avif" alt="Special offer banner 1" loading="lazy"></a>
+      <a href="#" class="banner-slide" aria-label="Offer 2"><img src="banners/banner-2.avif" alt="Special offer banner 2" loading="lazy"></a>
+      <a href="#" class="banner-slide" aria-label="Offer 3"><img src="banners/banner-3.avif" alt="Special offer banner 3" loading="lazy"></a>
+    </div>
+    <div class="banner-dots" id="bannerDots" role="tablist" aria-label="Choose offer">
+      <button class="banner-dot active" data-index="0" aria-label="Show offer 1"></button>
+      <button class="banner-dot" data-index="1" aria-label="Show offer 2"></button>
+      <button class="banner-dot" data-index="2" aria-label="Show offer 3"></button>
     </div>
   </section>
 
@@ -5697,6 +5803,78 @@ document.querySelectorAll('.pkg-cat-tab').forEach(tab => {
 
   input.addEventListener('keydown', (e) => { if (e.key === 'Enter') applyBtn.click(); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closePopup(); });
+})();
+
+/* ===== Promo banner carousel: auto-advance + arrows + dots ===== */
+(function() {
+  const track = document.getElementById('bannerTrack');
+  const prevBtn = document.getElementById('bannerArrowPrev');
+  const nextBtn = document.getElementById('bannerArrowNext');
+  const dots = document.querySelectorAll('#bannerDots .banner-dot');
+  if (!track || !prevBtn || !nextBtn) return;
+
+  const slides = track.querySelectorAll('.banner-slide');
+  const total = slides.length;
+  if (!total) return;
+
+  let current = 0;
+  const AUTO_MS = 4500;
+  let timer = null;
+  let paused = false;
+
+  function goTo(index, smooth = true) {
+    current = (index + total) % total;
+    const slide = slides[current];
+    if (!slide) return;
+    track.scrollTo({ left: slide.offsetLeft - track.offsetLeft, behavior: smooth ? 'smooth' : 'auto' });
+    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+  }
+
+  function next() { goTo(current + 1); }
+  function prev() { goTo(current - 1); }
+
+  function start() {
+    stop();
+    if (paused) return;
+    timer = setInterval(next, AUTO_MS);
+  }
+  function stop() { if (timer) { clearInterval(timer); timer = null; } }
+
+  prevBtn.addEventListener('click', () => { prev(); start(); });
+  nextBtn.addEventListener('click', () => { next(); start(); });
+  dots.forEach(dot => dot.addEventListener('click', () => {
+    goTo(parseInt(dot.dataset.index, 10)); start();
+  }));
+
+  // Pause on hover/focus/touch
+  const carousel = track.closest('.banner-carousel');
+  ['mouseenter', 'focusin', 'touchstart'].forEach(ev =>
+    carousel.addEventListener(ev, () => { paused = true; stop(); }, { passive: true })
+  );
+  ['mouseleave', 'focusout', 'touchend'].forEach(ev =>
+    carousel.addEventListener(ev, () => { paused = false; start(); }, { passive: true })
+  );
+
+  // Update active dot when user manually scrolls (drag / swipe)
+  let scrollDebounce;
+  track.addEventListener('scroll', () => {
+    clearTimeout(scrollDebounce);
+    scrollDebounce = setTimeout(() => {
+      const slideWidth = slides[0].getBoundingClientRect().width + 18;
+      const idx = Math.round(track.scrollLeft / slideWidth);
+      if (idx !== current && idx >= 0 && idx < total) {
+        current = idx;
+        dots.forEach((d, i) => d.classList.toggle('active', i === current));
+      }
+    }, 80);
+  }, { passive: true });
+
+  // Pause auto-advance when tab is hidden
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stop(); else start();
+  });
+
+  start();
 })();
 
 /* ===== Popular Packages: arrow scroll controls ===== */
