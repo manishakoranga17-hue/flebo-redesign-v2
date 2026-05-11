@@ -4076,6 +4076,7 @@ main { padding: 0 16px; }
   margin: 24px 0;
 }
 .banner-track {
+  position: relative;
   display: flex;
   gap: 18px;
   overflow-x: auto;
@@ -4089,8 +4090,9 @@ main { padding: 0 16px; }
 }
 .banner-track::-webkit-scrollbar { display: none; height: 0; width: 0; }
 .banner-slide {
-  flex: 0 0 100%;
-  scroll-snap-align: center;
+  flex: 0 0 calc((100% - 18px) / 2);
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
   border-radius: 18px;
   overflow: hidden;
   display: block;
@@ -4106,6 +4108,10 @@ main { padding: 0 16px; }
   border-radius: 18px;
   aspect-ratio: 1080 / 360;
   object-fit: cover;
+}
+@media (max-width: 700px) {
+  .banner-slide { flex: 0 0 100%; }
+  .banner-slide img { aspect-ratio: 1080 / 420; }
 }
 
 .banner-arrow {
@@ -5810,10 +5816,10 @@ document.querySelectorAll('.pkg-cat-tab').forEach(tab => {
   const track = document.getElementById('bannerTrack');
   const prevBtn = document.getElementById('bannerArrowPrev');
   const nextBtn = document.getElementById('bannerArrowNext');
-  const dots = document.querySelectorAll('#bannerDots .banner-dot');
+  const dots = Array.from(document.querySelectorAll('#bannerDots .banner-dot'));
   if (!track || !prevBtn || !nextBtn) return;
 
-  const slides = track.querySelectorAll('.banner-slide');
+  const slides = Array.from(track.querySelectorAll('.banner-slide'));
   const total = slides.length;
   if (!total) return;
 
@@ -5821,14 +5827,28 @@ document.querySelectorAll('.pkg-cat-tab').forEach(tab => {
   const AUTO_MS = 4500;
   let timer = null;
   let paused = false;
+  let isProgrammatic = false;
 
-  function goTo(index, smooth = true) {
-    current = (index + total) % total;
-    const slide = slides[current];
-    if (!slide) return;
-    track.scrollTo({ left: slide.offsetLeft - track.offsetLeft, behavior: smooth ? 'smooth' : 'auto' });
+  function step() {
+    const rect = slides[0].getBoundingClientRect();
+    const cs = getComputedStyle(track);
+    const gap = parseInt(cs.columnGap || cs.gap, 10) || 0;
+    return rect.width + gap;
+  }
+
+  function updateDots() {
     dots.forEach((d, i) => d.classList.toggle('active', i === current));
   }
+
+  function goTo(index, smooth = true) {
+    current = ((index % total) + total) % total;
+    isProgrammatic = true;
+    track.scrollTo({ left: Math.round(current * step()), behavior: smooth ? 'smooth' : 'auto' });
+    updateDots();
+    clearTimeout(progClear);
+    progClear = setTimeout(() => { isProgrammatic = false; }, 600);
+  }
+  let progClear;
 
   function next() { goTo(current + 1); }
   function prev() { goTo(current - 1); }
@@ -5840,41 +5860,43 @@ document.querySelectorAll('.pkg-cat-tab').forEach(tab => {
   }
   function stop() { if (timer) { clearInterval(timer); timer = null; } }
 
-  prevBtn.addEventListener('click', () => { prev(); start(); });
-  nextBtn.addEventListener('click', () => { next(); start(); });
-  dots.forEach(dot => dot.addEventListener('click', () => {
-    goTo(parseInt(dot.dataset.index, 10)); start();
+  prevBtn.addEventListener('click', (e) => { e.preventDefault(); prev(); start(); });
+  nextBtn.addEventListener('click', (e) => { e.preventDefault(); next(); start(); });
+  dots.forEach(dot => dot.addEventListener('click', (e) => {
+    e.preventDefault();
+    goTo(parseInt(dot.dataset.index, 10));
+    start();
   }));
 
-  // Pause on hover/focus/touch
+  // Pause on hover/focus
   const carousel = track.closest('.banner-carousel');
-  ['mouseenter', 'focusin', 'touchstart'].forEach(ev =>
-    carousel.addEventListener(ev, () => { paused = true; stop(); }, { passive: true })
-  );
-  ['mouseleave', 'focusout', 'touchend'].forEach(ev =>
-    carousel.addEventListener(ev, () => { paused = false; start(); }, { passive: true })
-  );
+  carousel.addEventListener('mouseenter', () => { paused = true; stop(); });
+  carousel.addEventListener('mouseleave', () => { paused = false; start(); });
+  carousel.addEventListener('focusin', () => { paused = true; stop(); });
+  carousel.addEventListener('focusout', () => { paused = false; start(); });
 
-  // Update active dot when user manually scrolls (drag / swipe)
+  // Sync active dot when user manually scrolls (drag/swipe/wheel)
   let scrollDebounce;
   track.addEventListener('scroll', () => {
+    if (isProgrammatic) return;
     clearTimeout(scrollDebounce);
     scrollDebounce = setTimeout(() => {
-      const slideWidth = slides[0].getBoundingClientRect().width + 18;
-      const idx = Math.round(track.scrollLeft / slideWidth);
-      if (idx !== current && idx >= 0 && idx < total) {
+      const idx = Math.round(track.scrollLeft / step());
+      if (idx >= 0 && idx < total && idx !== current) {
         current = idx;
-        dots.forEach((d, i) => d.classList.toggle('active', i === current));
+        updateDots();
       }
     }, 80);
   }, { passive: true });
 
-  // Pause auto-advance when tab is hidden
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) stop(); else start();
   });
 
-  start();
+  window.addEventListener('resize', () => { goTo(current, false); });
+
+  // Kick off after layout settles
+  setTimeout(() => { goTo(0, false); start(); }, 50);
 })();
 
 /* ===== Popular Packages: arrow scroll controls ===== */
