@@ -3579,24 +3579,13 @@ main { padding: 0 16px; }
 .hero-v2-inner {
   max-width: 1320px;
   margin: 0 auto;
-  padding: 56px 32px 72px;
+  padding: 40px 32px 40px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 56px;
   align-items: center;
   position: relative;
   z-index: 1;
-  /* Hero + sample-tested strip together fill the first viewport on desktop.
-     Subtract sticky chrome (top-bar ~38 + site-header ~98) and sample strip (~70). */
-  min-height: calc(100vh - 206px);
-  min-height: calc(100dvh - 206px);
-}
-/* Small tablet: chrome shrinks slightly, sample strip becomes 2-line column */
-@media (max-width: 900px) {
-  .hero-v2-inner {
-    min-height: calc(100vh - 230px);
-    min-height: calc(100dvh - 230px);
-  }
 }
 
 /* Hero content (left column) — pin to top so tab position doesn't shift between panels */
@@ -4088,7 +4077,7 @@ main { padding: 0 16px; }
   position: relative;
   border-radius: 28px;
   overflow: visible;
-  aspect-ratio: 4 / 3.8;
+  aspect-ratio: 4 / 3;
   width: 100%;
 }
 .hero-v2-img {
