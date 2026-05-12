@@ -4532,6 +4532,115 @@ main { padding: 0 16px; }
   .promo-cta-icon-wrap::before { inset: -10px; }
   .promo-cta-icon-wrap i { font-size: 36px; }
 }
+
+/* ---------- REAL STORIES (customer reviews) ---------- */
+.real-stories { margin: 48px 0; }
+.real-stories-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+.real-stories-eyebrow {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.real-stories-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(28px, 3.4vw, 44px);
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--primary);
+  margin: 0 0 10px;
+  letter-spacing: -0.01em;
+}
+.real-stories-sub {
+  font-size: 15px;
+  line-height: 1.5;
+  color: #6B7592;
+  margin: 0;
+  max-width: 620px;
+}
+.real-stories-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 1.5px solid #C5CCDB;
+  background: #fff;
+  color: var(--primary);
+  border-radius: 999px;
+  padding: 10px 22px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.real-stories-cta:hover { border-color: var(--primary); transform: translateX(2px); }
+.real-stories-cta i { font-size: 12px; }
+
+.real-stories-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+.story-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 22px 22px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: 0 1px 2px rgba(11, 21, 48, 0.04);
+}
+.story-stars {
+  color: #F6A621;
+  font-size: 14px;
+  display: inline-flex;
+  gap: 2px;
+}
+.story-quote {
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--primary);
+  margin: 0;
+}
+.story-footer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid #ECEFF4;
+  margin-top: auto;
+}
+.story-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #E1E8F2;
+  color: var(--primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 800;
+  flex-shrink: 0;
+  letter-spacing: 0.04em;
+}
+.story-meta { min-width: 0; }
+.story-name { font-size: 14px; font-weight: 800; color: var(--primary); line-height: 1.2; }
+.story-tag { font-size: 12.5px; color: #7A839A; line-height: 1.3; margin-top: 2px; }
+
+@media (max-width: 900px) {
+  .real-stories-grid { grid-template-columns: 1fr; gap: 14px; }
+  .real-stories-header { flex-direction: column; }
+}
 </style>
 </head>
 <body>
@@ -5400,93 +5509,59 @@ main { padding: 0 16px; }
     </div>
   </div>
 
-  <!-- Testimonials -->
-  <section class="testimonials-section" aria-label="Customer Testimonials">
-    <h2>What Our Customers Say</h2>
-    <div class="testimonial-carousel" id="testimonialCarousel">
-
-      <div class="testimonial-card active" data-index="0">
-        <div class="testimonial-quote-icon">&#10077;&#10077;</div>
-        <div class="testimonial-body">
-          <div class="testimonial-avatar">👨</div>
-          <div class="testimonial-text">Flebo.in has made it so easy for me to track my past results. I had low levels of Vitamin D and over the last 6 months have been easily able to monitor and improve my results with the help of their health trend graphs. Would highly recommend this service to others!</div>
-        </div>
-        <div class="testimonial-footer">
-          <div>
-            <div class="testimonial-name">Paarth Khanna</div>
-            <div class="testimonial-stars">★★★★★</div>
-          </div>
-          <div class="testimonial-close-quote">&#10078;&#10078;</div>
-        </div>
+  <!-- Real Stories (Customer Reviews) -->
+  <section class="real-stories" aria-label="Customer reviews">
+    <div class="real-stories-header">
+      <div>
+        <div class="real-stories-eyebrow">REAL STORIES</div>
+        <h2 class="real-stories-title">What our drivers — sorry, our patients — say</h2>
+        <p class="real-stories-sub">12,400+ verified reviews across Google, Apple App Store, and Google Play.</p>
       </div>
-
-      <div class="testimonial-card" data-index="1">
-        <div class="testimonial-quote-icon">&#10077;&#10077;</div>
-        <div class="testimonial-body">
-          <div class="testimonial-avatar">👩</div>
-          <div class="testimonial-text">Booked a full body checkup for my parents through Flebo.in. The phlebotomist came right on time, was very professional, and reports were delivered within 24 hours. The prices are much lower than what we used to pay at the lab directly. Very happy with the service!</div>
-        </div>
-        <div class="testimonial-footer">
-          <div>
-            <div class="testimonial-name">Sneha Mehta</div>
-            <div class="testimonial-stars">★★★★★</div>
-          </div>
-          <div class="testimonial-close-quote">&#10078;&#10078;</div>
-        </div>
-      </div>
-
-      <div class="testimonial-card" data-index="2">
-        <div class="testimonial-quote-icon">&#10077;&#10077;</div>
-        <div class="testimonial-body">
-          <div class="testimonial-avatar">👨‍💼</div>
-          <div class="testimonial-text">I was skeptical about online lab booking but Flebo.in changed my mind completely. Got a corporate health package for my entire team at 50% less than market rates. Reports are easy to read and the customer support team is excellent. 10/10 would recommend!</div>
-        </div>
-        <div class="testimonial-footer">
-          <div>
-            <div class="testimonial-name">Rajiv Sharma</div>
-            <div class="testimonial-stars">★★★★★</div>
-          </div>
-          <div class="testimonial-close-quote">&#10078;&#10078;</div>
-        </div>
-      </div>
-
-      <div class="testimonial-card" data-index="3">
-        <div class="testimonial-quote-icon">&#10077;&#10077;</div>
-        <div class="testimonial-body">
-          <div class="testimonial-avatar">👩‍⚕️</div>
-          <div class="testimonial-text">As a doctor, I recommend Flebo.in to all my patients. The lab partners are NABL certified, pricing is transparent, and the health trend tracking feature helps me monitor my patients' progress over time. A truly innovative healthcare platform!</div>
-        </div>
-        <div class="testimonial-footer">
-          <div>
-            <div class="testimonial-name">Dr. Ananya Gupta</div>
-            <div class="testimonial-stars">★★★★★</div>
-          </div>
-          <div class="testimonial-close-quote">&#10078;&#10078;</div>
-        </div>
-      </div>
-
-      <div class="testimonial-card" data-index="4">
-        <div class="testimonial-quote-icon">&#10077;&#10077;</div>
-        <div class="testimonial-body">
-          <div class="testimonial-avatar">🧑</div>
-          <div class="testimonial-text">Best experience ever! I booked a diabetes screening and the entire process from booking to report delivery was seamless. The app is very user-friendly and I love how I can compare my results over different time periods. Great job Flebo team!</div>
-        </div>
-        <div class="testimonial-footer">
-          <div>
-            <div class="testimonial-name">Vikram Patel</div>
-            <div class="testimonial-stars">★★★★<span style="opacity:0.3">★</span></div>
-          </div>
-          <div class="testimonial-close-quote">&#10078;&#10078;</div>
-        </div>
-      </div>
-
+      <a href="#" class="real-stories-cta">Read all reviews <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
     </div>
-    <div class="carousel-dots" id="testimonialDots">
-      <span class="dot active" data-index="0"></span>
-      <span class="dot" data-index="1"></span>
-      <span class="dot" data-index="2"></span>
-      <span class="dot" data-index="3"></span>
-      <span class="dot" data-index="4"></span>
+
+    <div class="real-stories-grid">
+      <article class="story-card">
+        <div class="story-stars" aria-label="Rated 5 out of 5">
+          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+        </div>
+        <p class="story-quote">"Booked the full body checkup at 9pm, phlebotomist arrived next morning at 7am sharp. Reports came in 18 hours via WhatsApp. The pricing was nearly half of what my local lab quoted."</p>
+        <div class="story-footer">
+          <div class="story-avatar">PS</div>
+          <div class="story-meta">
+            <div class="story-name">Priya Sharma</div>
+            <div class="story-tag">Gurgaon · Verified booking</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="story-card">
+        <div class="story-stars" aria-label="Rated 5 out of 5">
+          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+        </div>
+        <p class="story-quote">"Their Care Manager actually called me to explain my Vitamin D values and suggested a follow-up. Felt less like a lab and more like a real health partner."</p>
+        <div class="story-footer">
+          <div class="story-avatar">RB</div>
+          <div class="story-meta">
+            <div class="story-name">Rohit Bansal</div>
+            <div class="story-tag">Delhi NCR · Diabetes Advanced</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="story-card">
+        <div class="story-stars" aria-label="Rated 5 out of 5">
+          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+        </div>
+        <p class="story-quote">"Booked a couple's package for me and my husband. Single visit, both samples, separate reports. Saved me a whole Saturday morning of running between two labs."</p>
+        <div class="story-footer">
+          <div class="story-avatar">AM</div>
+          <div class="story-meta">
+            <div class="story-name">Anjali Mehta</div>
+            <div class="story-tag">Noida · Couple's Package</div>
+          </div>
+        </div>
+      </article>
     </div>
   </section>
 
