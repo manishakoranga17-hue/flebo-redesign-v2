@@ -4377,6 +4377,155 @@ main { padding: 0 16px; }
   border-radius: 999px;
   background: var(--accent);
 }
+
+/* ---------- PROMO CTA SECTION (cashback + app download) ---------- */
+.promo-cta-section {
+  max-width: 1320px;
+  margin: 40px auto;
+  padding: 0 32px;
+}
+.promo-cta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.promo-cta-card {
+  position: relative;
+  border-radius: 28px;
+  padding: 36px 40px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  min-height: 280px;
+  color: #fff;
+}
+.promo-cta-card--cashback {
+  background:
+    radial-gradient(circle at 78% 50%, rgba(255,255,255,0.10), transparent 55%),
+    linear-gradient(135deg, #E54D4D 0%, #BE3636 100%);
+  box-shadow: 0 18px 50px rgba(190, 54, 54, 0.28);
+}
+.promo-cta-card--app {
+  background:
+    radial-gradient(circle at 78% 50%, rgba(255,255,255,0.06), transparent 55%),
+    linear-gradient(135deg, #0E1A45 0%, #1F2A5F 100%);
+  box-shadow: 0 18px 50px rgba(20, 34, 84, 0.32);
+}
+.promo-cta-content { position: relative; z-index: 1; flex: 1; min-width: 0; }
+.promo-cta-eyebrow {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  margin-bottom: 14px;
+  opacity: 0.85;
+  text-transform: uppercase;
+}
+.promo-cta-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: 34px;
+  font-weight: 400;
+  line-height: 1.15;
+  margin: 0 0 14px;
+  letter-spacing: -0.005em;
+}
+.promo-cta-body {
+  font-size: 15px;
+  line-height: 1.55;
+  opacity: 0.88;
+  margin: 0 0 20px;
+  max-width: 380px;
+}
+.promo-cta-code {
+  display: inline-block;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px dashed rgba(255, 255, 255, 0.55);
+  padding: 10px 22px;
+  border-radius: 10px;
+  margin-bottom: 18px;
+  color: #fff;
+}
+.promo-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.promo-cta-btn--white {
+  background: #fff;
+  color: #BE3636;
+}
+.promo-cta-btn:hover {
+  transform: translateX(3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+}
+.promo-cta-btn i { font-size: 11px; }
+
+.promo-cta-stores { display: flex; gap: 12px; flex-wrap: wrap; }
+.promo-cta-store {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #000;
+  color: #fff;
+  padding: 9px 18px;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: transform 0.2s;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.promo-cta-store:hover { transform: translateY(-2px); }
+.promo-cta-store i { font-size: 26px; }
+.promo-cta-store-text { display: inline-flex; flex-direction: column; line-height: 1.15; }
+.promo-cta-store-label { font-size: 9.5px; opacity: 0.85; }
+.promo-cta-store-name { font-size: 14px; font-weight: 700; }
+
+.promo-cta-icon-wrap {
+  width: 190px;
+  height: 190px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.10);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+}
+.promo-cta-icon-wrap::before {
+  content: '';
+  position: absolute;
+  inset: -22px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  z-index: -1;
+}
+.promo-cta-icon-wrap i {
+  font-size: 80px;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+@media (max-width: 900px) {
+  .promo-cta-grid { grid-template-columns: 1fr; gap: 18px; }
+  .promo-cta-card { padding: 28px 26px; min-height: 0; gap: 16px; }
+  .promo-cta-title { font-size: 28px; }
+  .promo-cta-icon-wrap { width: 120px; height: 120px; }
+  .promo-cta-icon-wrap i { font-size: 50px; }
+}
+@media (max-width: 540px) {
+  .promo-cta-section { padding: 0 16px; margin: 28px auto; }
+  .promo-cta-card { flex-direction: column; align-items: flex-start; padding: 26px 22px; }
+  .promo-cta-icon-wrap { width: 96px; height: 96px; align-self: flex-end; margin-top: -88px; }
+  .promo-cta-icon-wrap i { font-size: 38px; }
+}
 </style>
 </head>
 <body>
@@ -5182,6 +5331,51 @@ main { padding: 0 16px; }
         {"thumb":"media-thumbs/thumb-4.webp","title":"New & Disruptive Health Trend Graphs"},
         {"thumb":"media-thumbs/thumb-5.webp","title":"Get Personalised Health Packages"}
       ]'>
+    </div>
+  </section>
+
+  <!-- ===== PROMO CTA: First-time offer + App download ===== -->
+  <section class="promo-cta-section" aria-label="Offers and app download">
+    <div class="promo-cta-grid">
+      <div class="promo-cta-card promo-cta-card--cashback">
+        <div class="promo-cta-content">
+          <div class="promo-cta-eyebrow">FIRST-TIME BOOKING</div>
+          <h3 class="promo-cta-title">Flat 50% Cashback + 20% Off</h3>
+          <p class="promo-cta-body">Use code below on your first booking. Valid on all tests and packages.</p>
+          <div class="promo-cta-code">FLEBO2050</div>
+          <a href="#" class="promo-cta-btn promo-cta-btn--white">Claim offer <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+        </div>
+        <div class="promo-cta-icon-wrap" aria-hidden="true">
+          <i class="fas fa-gift"></i>
+        </div>
+      </div>
+
+      <div class="promo-cta-card promo-cta-card--app">
+        <div class="promo-cta-content">
+          <div class="promo-cta-eyebrow">REPORTS ON THE GO</div>
+          <h3 class="promo-cta-title">Get the Flebo app.</h3>
+          <p class="promo-cta-body">Track samples in real-time, access reports from 5 years back, and consult with a doctor in one tap.</p>
+          <div class="promo-cta-stores">
+            <a href="#" class="promo-cta-store" aria-label="Download on the App Store">
+              <i class="fab fa-apple" aria-hidden="true"></i>
+              <span class="promo-cta-store-text">
+                <span class="promo-cta-store-label">Download on</span>
+                <span class="promo-cta-store-name">App Store</span>
+              </span>
+            </a>
+            <a href="#" class="promo-cta-store" aria-label="Get it on Google Play">
+              <i class="fab fa-google-play" aria-hidden="true"></i>
+              <span class="promo-cta-store-text">
+                <span class="promo-cta-store-label">Get it on</span>
+                <span class="promo-cta-store-name">Google Play</span>
+              </span>
+            </a>
+          </div>
+        </div>
+        <div class="promo-cta-icon-wrap" aria-hidden="true">
+          <i class="fas fa-mobile-screen"></i>
+        </div>
+      </div>
     </div>
   </section>
 
