@@ -3791,13 +3791,13 @@ main { padding: 0 16px; }
   top: 8%;
   left: -4%;
   max-width: 280px;
-  animation: hero-floater-float 5.2s ease-in-out infinite;
+  animation: hero-floater-float 4s ease-in-out infinite;
 }
 .hero-v2-nabl {
   bottom: -4%;
   right: 4%;
   max-width: 290px;
-  animation: hero-floater-float 6s ease-in-out infinite 0.8s;
+  animation: hero-floater-float 4s ease-in-out infinite 1.2s;
 }
 .hero-v2-cashback {
   position: absolute;
@@ -3812,7 +3812,7 @@ main { padding: 0 16px; }
   gap: 10px;
   box-shadow: 0 18px 40px rgba(211, 53, 53, 0.4);
   z-index: 3;
-  animation: hero-floater-float 4.6s ease-in-out infinite 0.4s;
+  transform: rotate(2deg);
 }
 
 @keyframes hero-floater-float {
@@ -3821,8 +3821,7 @@ main { padding: 0 16px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .hero-v2-collection,
-  .hero-v2-nabl,
-  .hero-v2-cashback { animation: none; }
+  .hero-v2-nabl { animation: none; }
 }
 .hero-v2-cb-pct {
   font-family: var(--font-primary);
