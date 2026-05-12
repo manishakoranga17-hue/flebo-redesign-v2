@@ -3846,6 +3846,79 @@ main { padding: 0 16px; }
   .hero-v2-collection,
   .hero-v2-nabl { animation: none; }
 }
+
+/* ---------- SAMPLE TESTED BY (lab marquee) ---------- */
+.sample-tested {
+  background: #fff;
+  border-top: 1px solid #E6EAF2;
+  border-bottom: 1px solid #E6EAF2;
+}
+.sample-tested-inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 18px 32px;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.sample-tested-label { flex-shrink: 0; }
+.sample-tested-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: #6B7592;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.sample-tested-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--primary);
+  white-space: nowrap;
+}
+.sample-tested-marquee {
+  flex: 1;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+          mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+.sample-tested-track {
+  display: inline-flex;
+  align-items: center;
+  gap: 36px;
+  width: max-content;
+  animation: sample-marquee 36s linear infinite;
+}
+.sample-tested-marquee:hover .sample-tested-track { animation-play-state: paused; }
+.sample-lab {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--primary);
+  white-space: nowrap;
+}
+.sample-lab-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+@keyframes sample-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sample-tested-track { animation: none; }
+}
+@media (max-width: 768px) {
+  .sample-tested-inner { padding: 14px 16px; gap: 16px; flex-direction: column; align-items: flex-start; }
+  .sample-tested-title { font-size: 14px; }
+  .sample-tested-marquee { width: 100%; }
+  .sample-lab { font-size: 14px; }
+}
 .hero-v2-cb-pct {
   font-family: var(--font-primary);
   font-size: 28px;
@@ -4460,14 +4533,6 @@ main { padding: 0 16px; }
         <span>Click Here to Book Via Doctor Prescription</span>
         <i class="fas fa-arrow-right hero-v2-prescription-link-arrow" aria-hidden="true"></i>
       </a>
-
-
-      <div class="hero-v2-stats">
-        <div class="hero-v2-stat"><div class="hero-v2-stat-num">10L<span>+</span></div><div class="hero-v2-stat-label">Tests Booked</div></div>
-        <div class="hero-v2-stat"><div class="hero-v2-stat-num">160<span>+</span></div><div class="hero-v2-stat-label">Lab Partners</div></div>
-        <div class="hero-v2-stat"><div class="hero-v2-stat-num">4.6<span class="hero-v2-stat-star">★</span></div><div class="hero-v2-stat-label">App Rating</div></div>
-        <div class="hero-v2-stat"><div class="hero-v2-stat-num">50<span>+</span></div><div class="hero-v2-stat-label">Cities</div></div>
-      </div>
     </div>
 
     <div class="hero-v2-visual">
@@ -4503,6 +4568,45 @@ main { padding: 0 16px; }
             <div class="hero-v2-floater-sub">Reports verified by senior pathologists</div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SAMPLE TESTED BY (lab partner marquee) ===== -->
+<section class="sample-tested" aria-label="Sample tested by accredited labs">
+  <div class="sample-tested-inner">
+    <div class="sample-tested-label">
+      <div class="sample-tested-eyebrow">SAMPLE TESTED BY</div>
+      <div class="sample-tested-title">160+ NABL/CAP-accredited Labs</div>
+    </div>
+    <div class="sample-tested-marquee" aria-hidden="true">
+      <div class="sample-tested-track">
+        <span class="sample-lab"><span class="sample-lab-dot"></span>Apollo Health</span>
+        <span class="sample-lab"><span class="sample-lab-dot"></span>Healthians</span>
+        <span class="sample-lab"><span class="sample-lab-dot"></span>Max Lab</span>
+        <span class="sample-lab"><span class="sample-lab-dot"></span>Thyrocare</span>
+        <span class="sample-lab"><span class="sample-lab-dot"></span>Tata 1mg</span>
+        <span class="sample-lab"><span class="sample-lab-dot"></span>Pathkind</span>
+        <span class="sample-lab"><span class="sample-lab-dot"></span>Ampath</span>
+        <span class="sample-lab"><span class="sample-lab-dot"></span>Janss</span>
+        <span class="sample-lab"><span class="sample-lab-dot"></span>Dr Lal PathLabs</span>
+        <span class="sample-lab"><span class="sample-lab-dot"></span>SRL Diagnostics</span>
+        <span class="sample-lab"><span class="sample-lab-dot"></span>Metropolis</span>
+        <span class="sample-lab"><span class="sample-lab-dot"></span>Redcliffe Labs</span>
+        <!-- duplicate set for seamless loop -->
+        <span class="sample-lab" aria-hidden="true"><span class="sample-lab-dot"></span>Apollo Health</span>
+        <span class="sample-lab" aria-hidden="true"><span class="sample-lab-dot"></span>Healthians</span>
+        <span class="sample-lab" aria-hidden="true"><span class="sample-lab-dot"></span>Max Lab</span>
+        <span class="sample-lab" aria-hidden="true"><span class="sample-lab-dot"></span>Thyrocare</span>
+        <span class="sample-lab" aria-hidden="true"><span class="sample-lab-dot"></span>Tata 1mg</span>
+        <span class="sample-lab" aria-hidden="true"><span class="sample-lab-dot"></span>Pathkind</span>
+        <span class="sample-lab" aria-hidden="true"><span class="sample-lab-dot"></span>Ampath</span>
+        <span class="sample-lab" aria-hidden="true"><span class="sample-lab-dot"></span>Janss</span>
+        <span class="sample-lab" aria-hidden="true"><span class="sample-lab-dot"></span>Dr Lal PathLabs</span>
+        <span class="sample-lab" aria-hidden="true"><span class="sample-lab-dot"></span>SRL Diagnostics</span>
+        <span class="sample-lab" aria-hidden="true"><span class="sample-lab-dot"></span>Metropolis</span>
+        <span class="sample-lab" aria-hidden="true"><span class="sample-lab-dot"></span>Redcliffe Labs</span>
       </div>
     </div>
   </div>
