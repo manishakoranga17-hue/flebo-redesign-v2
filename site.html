@@ -2021,14 +2021,13 @@ main { padding: 0 16px; }
 .media-player-thumb {
   position: relative;
   width: 100%;
-  aspect-ratio: 16/9;
+  aspect-ratio: 18/10;
   overflow: hidden;
-  background: #000;
 }
 .media-player-thumb img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   display: block;
 }
 /* Progress bar */
@@ -2051,7 +2050,7 @@ main { padding: 0 16px; }
   align-items: center;
   justify-content: center;
   gap: 6px;
-  padding: 8px 16px;
+  padding: 12px 16px;
   background: #304C7C;
   backdrop-filter: blur(8px);
 }
@@ -3065,9 +3064,9 @@ main { padding: 0 16px; }
   .radio-img-wrap { height: 180px; }
   .radio-info h4 { font-size: 18px; }
 
-  /* Health concerns bento → 4 equal columns */
+  /* Health concerns bento → 3 equal columns */
   .concerns-bento {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     grid-template-rows: 1fr;
     gap: 18px;
   }
@@ -3204,22 +3203,20 @@ main { padding: 0 16px; }
 
 /* ---------- TOP BAR ---------- */
 .top-bar {
-  display: block;
   background: #0B1530;
   padding: 0;
   position: sticky;
   top: 0;
   z-index: 200;
 }
-:root { --site-inset: 32px; }
 .top-bar-inner {
   max-width: 1320px;
   margin: 0 auto;
-  padding: 10px var(--site-inset);
+  padding: 10px 32px;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  gap: 16px;
+  justify-content: space-between;
+  gap: 20px;
   color: #fff;
   font-size: 13px;
   font-weight: 500;
@@ -3235,7 +3232,6 @@ main { padding: 0 16px; }
 }
 .top-bar-trust li,
 .top-bar-utility li { display: flex; align-items: center; gap: 8px; }
-.top-bar-link,
 .top-bar-utility a {
   color: #fff;
   text-decoration: none;
@@ -3244,9 +3240,7 @@ main { padding: 0 16px; }
   gap: 8px;
   transition: opacity 0.2s;
 }
-.top-bar-link:hover,
 .top-bar-utility a:hover { opacity: 0.75; }
-.top-bar-login { margin-left: auto; }
 .tb-icon-green {
   color: #21C669;
   font-size: 14px;
@@ -3278,7 +3272,7 @@ main { padding: 0 16px; }
 .site-header-inner {
   max-width: 1320px;
   margin: 0 auto;
-  padding: 14px var(--site-inset);
+  padding: 14px 32px;
   display: flex;
   align-items: center;
   gap: 28px;
@@ -3503,11 +3497,10 @@ main { padding: 0 16px; }
   font-size: 12px;
 }
 
-/* Pipe separators between text nav items (2nd, 3rd, 4th, 5th BMI) */
+/* Pipe separators between text nav items (2nd, 3rd, 4th) */
 .main-nav-list > li:nth-child(2) > .main-nav-link::before,
 .main-nav-list > li:nth-child(3) > .main-nav-link::before,
-.main-nav-list > li:nth-child(4) > .main-nav-link::before,
-.main-nav-list > li:nth-child(5) > .main-nav-link::before {
+.main-nav-list > li:nth-child(4) > .main-nav-link::before {
   content: '|';
   color: #D5DAE5;
   font-weight: 400;
@@ -3564,7 +3557,7 @@ main { padding: 0 16px; }
 
 /* ---------- HERO V2 ---------- */
 .hero-v2 {
-  background: #1F2A5F url('b-hero3.jpeg') center / cover no-repeat;
+  background: linear-gradient(115deg, #142254 0%, #1F2A5F 38%, #4F3784 78%, #6B4F94 100%);
   color: #fff;
   position: relative;
   overflow: hidden;
@@ -3573,7 +3566,9 @@ main { padding: 0 16px; }
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(15, 22, 60, 0.20) 0%, rgba(15, 22, 60, 0.10) 60%, rgba(15, 22, 60, 0.25) 100%);
+  background:
+    radial-gradient(circle at 85% 25%, rgba(195, 156, 220, 0.18), transparent 45%),
+    radial-gradient(circle at 15% 90%, rgba(80, 70, 140, 0.25), transparent 55%);
   pointer-events: none;
 }
 .hero-v2-inner {
@@ -3633,285 +3628,14 @@ main { padding: 0 16px; }
   font-weight: 700;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
 }
-.hero-v2-eyebrow {
-  font-size: 14px;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.82);
-  letter-spacing: 0.02em;
-  margin-bottom: 10px;
-}
 .hero-v2-headline {
   font-family: 'Instrument Serif', serif;
-  font-size: clamp(40px, 4.6vw, 60px);
-  font-weight: 400;
-  line-height: 1.1;
-  letter-spacing: -0.005em;
-  color: #fff;
-  margin: 0 0 28px;
-}
-
-/* ---------- Hero panels (per-tab content) ---------- */
-.hero-panel { display: none; flex-direction: column; }
-.hero-panel.is-active { display: flex; }
-.hero-panel[hidden] { display: none; }
-.hero-panel.is-active { display: flex !important; }
-
-.hero-panel-eyebrow {
-  font-size: 20px;
-  font-weight: 700;
-  color: rgba(255, 255, 255, 0.92);
-  margin-bottom: 8px;
-  letter-spacing: 0.01em;
-}
-.hero-panel-title {
-  font-family: 'Instrument Serif', serif;
-  font-size: clamp(48px, 5.6vw, 76px);
+  font-size: clamp(48px, 6vw, 80px);
   font-weight: 400;
   line-height: 1.05;
   letter-spacing: -0.005em;
   color: #fff;
-  margin: 0 0 26px;
-}
-.hero-panel-title--md {
-  font-size: clamp(44px, 5vw, 68px);
-  margin-bottom: 24px;
-}
-
-/* Benefit pills (Tests) */
-.hero-benefits {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 22px;
-}
-.hero-benefit-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 16px;
-  background: rgba(255, 255, 255, 0.14);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 999px;
-  color: #fff;
-  font-size: 13px;
-  font-weight: 600;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-}
-.hero-benefit-icon {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-size: 11px;
-}
-.hero-benefit-icon--green { background: #22C55E; }
-.hero-benefit-icon--purple { background: #A855F7; }
-.hero-benefit-text { line-height: 1; }
-
-/* Shared search bar (Tests / Packages / Labs) */
-.hero-search-bar {
-  display: flex;
-  align-items: center;
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 999px;
-  height: 56px;
-  padding: 6px 6px 6px 22px;
-  max-width: 560px;
-  margin-bottom: 16px;
-  box-shadow: 0 12px 32px rgba(11, 21, 48, 0.22);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-}
-.hero-search-bar-icon { color: var(--primary); font-size: 16px; margin-right: 12px; }
-.hero-search-bar input {
-  flex: 1;
-  border: 0;
-  background: transparent;
-  outline: none;
-  font: inherit;
-  font-size: 15px;
-  color: var(--text-primary);
-}
-.hero-search-bar input::placeholder { color: #8E97B0; }
-.hero-search-mic {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: #EAF0F7;
-  color: var(--primary);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border: 0;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background 0.15s;
-}
-.hero-search-mic:hover { background: #DCE5F3; }
-
-/* Packages tile grid (2x2 glass-blue cards) */
-.pkg-tiles-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  max-width: 560px;
-}
-.pkg-tile {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 16px;
-  background: rgba(15, 30, 80, 0.55);
-  border: 1.5px solid rgba(120, 170, 255, 0.4);
-  border-radius: 12px;
-  color: #fff;
-  text-decoration: none;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  transition: transform 0.15s, border-color 0.15s, background 0.15s;
-}
-.pkg-tile:hover {
-  transform: translateY(-2px);
-  border-color: rgba(160, 200, 255, 0.7);
-  background: rgba(20, 40, 95, 0.65);
-}
-.pkg-tile-icon {
-  width: 36px;
-  height: 36px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-size: 20px;
-  flex-shrink: 0;
-}
-.pkg-tile-text {
-  font-size: 13px;
-  font-weight: 700;
-  line-height: 1.25;
-}
-
-/* Labs: red CTA pill */
-.view-all-labs-btn {
-  display: inline-flex;
-  align-items: center;
-  background: var(--accent);
-  color: #fff;
-  border-radius: 999px;
-  padding: 12px 28px;
-  font-size: 14px;
-  font-weight: 700;
-  text-decoration: none;
-  box-shadow: 0 6px 20px rgba(211, 53, 53, 0.35);
-  align-self: flex-start;
-  transition: background 0.15s, transform 0.15s;
-}
-.view-all-labs-btn:hover { background: #B82E2E; transform: translateY(-1px); }
-
-/* Doctors: speciality dropdown + submit + 3x3 grid */
-.speciality-row {
-  display: flex;
-  align-items: flex-end;
-  gap: 12px;
-  max-width: 560px;
-  margin-bottom: 22px;
-}
-.speciality-dropdown { flex: 1; display: flex; flex-direction: column; }
-.speciality-label {
-  font-size: 13px;
-  font-weight: 700;
-  color: #fff;
-  margin-bottom: 6px;
-}
-.speciality-asterisk { color: var(--accent); margin-left: 2px; }
-.speciality-select-wrap { position: relative; }
-.speciality-select {
-  width: 100%;
-  appearance: none;
-  -webkit-appearance: none;
-  border: 0;
-  background: rgba(255, 255, 255, 0.95);
-  color: var(--text-primary);
-  font: inherit;
-  font-size: 14.5px;
-  padding: 14px 40px 14px 18px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-.speciality-select-wrap::after {
-  content: '';
-  position: absolute;
-  right: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 10px;
-  height: 10px;
-  border-right: 2px solid var(--primary);
-  border-bottom: 2px solid var(--primary);
-  transform: translateY(-65%) rotate(45deg);
-  pointer-events: none;
-}
-.speciality-submit {
-  background: var(--accent);
-  color: #fff;
-  border: 0;
-  border-radius: 8px;
-  padding: 14px 28px;
-  font-size: 14.5px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: background 0.15s;
-}
-.speciality-submit:hover { background: #B82E2E; }
-
-.speciality-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
-  max-width: 560px;
-}
-.speciality-item {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  text-decoration: none;
-  color: #fff;
-}
-.speciality-img {
-  width: 92px;
-  height: 92px;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 3px solid var(--accent);
-  background: #fff;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.15s, box-shadow 0.15s;
-}
-.speciality-img img { width: 100%; height: 100%; object-fit: cover; }
-.speciality-item:hover .speciality-img {
-  transform: scale(1.04);
-  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.25);
-}
-.speciality-item--break { grid-column-start: 1; }
-.speciality-item span:last-child {
-  font-size: 12.5px;
-  font-weight: 700;
-  text-align: center;
-}
-
-@media (max-width: 540px) {
-  .hero-search-bar { height: 50px; padding: 5px 5px 5px 18px; }
-  .hero-search-mic { width: 36px; height: 36px; }
-  .pkg-tile-text { font-size: 12px; }
-  .speciality-grid { gap: 14px; }
-  .speciality-img { width: 78px; height: 78px; }
+  margin: 0 0 28px;
 }
 .hero-v2-headline em {
   font-style: italic;
@@ -3966,47 +3690,28 @@ main { padding: 0 16px; }
 .hero-v2-search-btn:active { transform: scale(0.97); }
 .hero-v2-search-btn i { font-size: 13px; }
 
-.prescription-link-row {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin-left: 0;
-  margin-top: -6px;
-  margin-bottom: 24px;
-  align-self: flex-start;
-}
 .hero-v2-prescription-link {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
+  margin-top: 0;
+  margin-left: 24px;
+  margin-bottom: 26px;
   color: #fff;
-  font-size: 14px;
-  font-weight: 700;
-  text-decoration: underline;
-  text-underline-offset: 4px;
-  text-decoration-thickness: 1.5px;
-  text-decoration-color: rgba(255, 255, 255, 0.85);
-  transition: opacity 0.2s;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.45);
+  padding-bottom: 2px;
+  transition: color 0.2s, border-color 0.2s, transform 0.2s;
 }
-.hero-v2-prescription-link:hover { opacity: 0.8; }
-.hero-v2-prescription-link i { font-size: 15px; color: #fff; }
-
-.prescription-info-btn {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.18);
-  color: #fff;
-  border: 0;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 10px;
-  font-weight: 800;
-  transition: background 0.2s;
+.hero-v2-prescription-link:hover {
+  color: #FFC857;
+  border-bottom-color: #FFC857;
 }
-.prescription-info-btn:hover { background: rgba(255, 255, 255, 0.32); }
+.hero-v2-prescription-link i { font-size: 14px; }
+.hero-v2-prescription-link-arrow { font-size: 11px; transition: transform 0.2s; }
+.hero-v2-prescription-link:hover .hero-v2-prescription-link-arrow { transform: translateX(3px); }
 
 .hero-v2-tags-row {
   display: flex;
@@ -4195,35 +3900,27 @@ main { padding: 0 16px; }
 }
 .sample-tested-marquee {
   flex: 1;
-  min-width: 0;
   overflow: hidden;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-          mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+          mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
 }
 .sample-tested-track {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 39px;
+  gap: 36px;
   width: max-content;
-  animation: sample-marquee 600s linear infinite;
+  animation: sample-marquee 36s linear infinite;
 }
 .sample-tested-marquee:hover .sample-tested-track { animation-play-state: paused; }
 .sample-lab {
   display: inline-flex;
   align-items: center;
-  height: 44px;
-  flex-shrink: 0;
+  gap: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--primary);
+  white-space: nowrap;
 }
-.sample-lab-img {
-  max-height: 44px;
-  width: auto;
-  max-width: 160px;
-  object-fit: contain;
-  filter: grayscale(0%);
-  opacity: 0.95;
-  transition: opacity 0.2s;
-}
-.sample-lab:hover .sample-lab-img { opacity: 1; }
 .sample-lab-dot {
   width: 6px;
   height: 6px;
@@ -4232,8 +3929,11 @@ main { padding: 0 16px; }
   flex-shrink: 0;
 }
 @keyframes sample-marquee {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sample-tested-track { animation: none; }
 }
 @media (max-width: 768px) {
   .sample-tested-inner { padding: 14px 16px; gap: 16px; flex-direction: column; align-items: flex-start; }
@@ -4301,23 +4001,14 @@ main { padding: 0 16px; }
 
 /* Tablet */
 @media (max-width: 1100px) {
-  :root { --site-inset: 20px; }
-  .top-bar-inner { padding-top: 9px; padding-bottom: 9px; gap: 12px; font-size: 12.5px; }
+  .top-bar-inner { padding: 9px 20px; gap: 12px; font-size: 12.5px; }
   .top-bar-trust, .top-bar-utility { gap: 16px; }
 
-  .site-header-inner { padding-top: 12px; padding-bottom: 12px; gap: 12px; }
+  .site-header-inner { padding: 12px 20px; gap: 16px; }
 
   /* Below desktop, fall back to hamburger menu */
   .main-nav { display: none; }
-  .hamburger-btn {
-    display: inline-flex !important;
-    margin: 0;
-    width: 40px; height: 40px;
-    background: #EAF0F7;
-    color: var(--primary);
-    border-radius: 10px;
-  }
-  .header-upload { margin-left: auto; }
+  .hamburger-btn { display: inline-flex !important; margin-left: auto; width: 40px; height: 40px; }
 
   .hero-v2-inner { padding: 44px 20px 60px; gap: 32px; }
   .hero-v2-stats { gap: 28px; }
@@ -4339,67 +4030,15 @@ main { padding: 0 16px; }
   .top-bar-utility { gap: 14px; }
   .top-bar-utility a span,
   .top-bar-location span:not(#topBarLocationDisplay) { font-size: 12px; }
-  :root { --site-inset: 16px; }
-  .top-bar { position: static; margin: 0; border: 0; }
-  .top-bar-inner { font-size: 11.5px; padding-top: 7px; padding-bottom: 7px; gap: 10px; margin: 0; }
-  .top-bar-link span { display: inline; font-size: 11.5px; }
+  .top-bar-inner { font-size: 12px; padding: 8px 16px; gap: 10px; }
+  .top-bar-utility a span { display: none; } /* icon-only on small screens */
 
-  .site-header { position: static; top: auto; margin: 0; border-top: 0; }
-  .site-header-inner { padding-top: 10px; padding-bottom: 10px; gap: 10px; margin: 0; }
-  .brand-logo { height: 32px; }
-  .brand-rating { padding: 2px 6px; font-size: 11px; }
-  .brand-rating-stars { font-size: 9px; }
-  .hamburger-btn { display: inline-flex !important; margin: 0; width: 38px; height: 38px; }
+  .site-header { top: 36px; }
+  .site-header-inner { padding: 10px 16px; gap: 10px; }
+  .brand-logo { height: 36px; }
+  .hamburger-btn { display: inline-flex !important; margin-left: auto; width: 38px; height: 38px; }
 
-  /* Mobile Upload pill: compact, sits at the right */
-  .header-upload {
-    margin-left: auto;
-    flex-shrink: 0;
-    align-items: center;
-    gap: 3px;
-  }
-  .header-upload .main-nav-pill {
-    padding: 5px 10px;
-    font-size: 10.5px;
-    gap: 5px;
-  }
-  .header-upload .main-nav-pill i { font-size: 11px; }
-  .main-nav-upload-sub { font-size: 10px; margin-top: 2px; white-space: nowrap; }
-  .main-nav-upload-sub-sep { margin: 0 4px; }
-  /* Compact brand so the upload block has room */
-  .brand-block { gap: 2px; }
-  .brand-logo { height: 28px; }
-  .brand-rating { padding: 2px 5px; font-size: 10.5px; gap: 4px; }
-  .brand-rating-stars { font-size: 8.5px; }
-  .brand-rating-count { font-size: 10px; }
-
-  /* Hide hero image column on mobile — show panels only */
-  .hero-v2-visual { display: none; }
-
-  .hero-v2-inner { padding: 24px 16px 32px; gap: 0; grid-template-columns: 1fr; min-height: 0; }
-
-  /* Compact hero panel sizing for mobile */
-  .hero-v2-tabs { padding: 4px; gap: 4px; margin-bottom: 18px; align-self: flex-start; }
-  .hero-v2-tab { padding: 7px 14px; font-size: 13px; }
-
-  .hero-panel-title,
-  .hero-panel-title--md { font-size: 22px; line-height: 1.25; margin-bottom: 16px; }
-
-  .hero-panel-eyebrow { font-size: 13px; margin-bottom: 4px; }
-
-  .hero-benefits { gap: 8px; margin-bottom: 16px; }
-  .hero-benefit-pill { font-size: 11px; padding: 6px 12px; gap: 8px; }
-  .hero-benefit-icon { width: 20px; height: 20px; font-size: 10px; }
-
-  .hero-search-bar { height: 50px; padding: 5px 5px 5px 18px; margin-bottom: 8px; }
-  .hero-search-bar input { font-size: 13px; }
-  .hero-search-bar-icon { font-size: 14px; margin-right: 10px; }
-  .hero-search-mic { width: 36px; height: 36px; font-size: 12px; }
-
-  .prescription-link-row { margin-top: -2px; margin-bottom: 8px; }
-  .hero-v2-prescription-link { font-size: 13px; }
-  .hero-v2-prescription-link i { font-size: 13px; }
-  .prescription-info-btn { width: 20px; height: 20px; font-size: 9px; }
+  .hero-v2-inner { padding: 32px 16px 48px; gap: 32px; }
   .hero-v2-pill { font-size: 12px; padding: 7px 14px; margin-bottom: 18px; }
   .hero-v2-headline { font-size: clamp(34px, 9vw, 48px); }
   .hero-v2-subtext { font-size: 14.5px; margin-bottom: 24px; }
@@ -4664,12 +4303,12 @@ main { padding: 0 16px; }
   height: auto;
   display: block;
   border-radius: 18px;
-  aspect-ratio: 1080 / 500;
+  aspect-ratio: 1080 / 360;
   object-fit: cover;
 }
 @media (max-width: 700px) {
   .banner-slide { flex: 0 0 100%; }
-  .banner-slide img { aspect-ratio: 1080 / 560; }
+  .banner-slide img { aspect-ratio: 1080 / 420; }
 }
 
 /* ---------- TESTS BY CATEGORY: single-row horizontal scroll, spread across section width ---------- */
@@ -4757,7 +4396,7 @@ main { padding: 0 16px; }
 
 /* ---------- PROMO CTA SECTION (cashback + app download) ---------- */
 .promo-cta-section {
-  margin: 64px 0 32px;
+  margin: 32px 0;
 }
 .promo-cta-grid {
   display: grid;
@@ -5038,12 +4677,10 @@ main { padding: 0 16px; }
         </button>
       </li>
     </ul>
-    <a href="tel:01244550000" class="top-bar-link top-bar-phone">
-      <i class="fas fa-phone"></i><span>0124-4550000</span>
-    </a>
-    <a href="#" class="top-bar-link top-bar-login">
-      <i class="fas fa-user"></i><span>Login / Signup</span>
-    </a>
+    <ul class="top-bar-utility" aria-label="Utility links">
+      <li><a href="tel:01244550000"><i class="fas fa-phone"></i><span>0124-4550000</span></a></li>
+      <li><a href="#" class="top-bar-login"><i class="fas fa-user"></i><span>Login / Signup</span></a></li>
+    </ul>
   </div>
 </div>
 
@@ -5068,10 +4705,6 @@ main { padding: 0 16px; }
 
 <header class="site-header" role="banner">
   <div class="site-header-inner">
-    <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
-      <i class="fas fa-bars"></i>
-    </button>
-
     <div class="brand-block">
       <a href="#" class="brand" aria-label="Flebo.in — Any Test, Any Lab">
         <img src="flebo-logo.svg" alt="Flebo.in" class="brand-logo">
@@ -5091,6 +4724,13 @@ main { padding: 0 16px; }
         <li><a href="#" class="main-nav-link"><i class="fas fa-box-open" aria-hidden="true"></i><span>Packages</span></a></li>
         <li><a href="#" class="main-nav-link"><i class="fas fa-folder-open" aria-hidden="true"></i><span>Reports</span></a></li>
         <li><a href="#" class="main-nav-link"><i class="fas fa-chart-line" aria-hidden="true"></i><span>Health Trend Graph</span></a></li>
+        <li class="main-nav-upload">
+          <a href="#" class="main-nav-pill">
+            <i class="fas fa-cloud-arrow-up"></i>
+            <span>Upload Report of Any Lab</span>
+          </a>
+          <span class="main-nav-upload-sub">Secure Data Vault <span class="main-nav-upload-sub-sep">|</span> Free AI Analysis</span>
+        </li>
         <li><a href="#" class="main-nav-link main-nav-bmi">
           <span class="bmi-gauge-icon" aria-hidden="true">
             <svg viewBox="0 0 24 14" width="22" height="13" xmlns="http://www.w3.org/2000/svg">
@@ -5112,13 +4752,9 @@ main { padding: 0 16px; }
       </ul>
     </nav>
 
-    <div class="header-upload main-nav-upload">
-      <a href="#" class="main-nav-pill">
-        <i class="fas fa-cloud-arrow-up"></i>
-        <span>Upload Report of Any Lab</span>
-      </a>
-      <span class="main-nav-upload-sub">Secure Data Vault <span class="main-nav-upload-sub-sep">|</span> Free AI Analysis</span>
-    </div>
+    <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+      <i class="fas fa-bars"></i>
+    </button>
   </div>
 </header>
 
@@ -5171,112 +4807,20 @@ main { padding: 0 16px; }
         <button class="hero-v2-tab" type="button" role="tab" aria-selected="false" data-tab="labs">Labs</button>
         <button class="hero-v2-tab" type="button" role="tab" aria-selected="false" data-tab="doctors">Doctors</button>
       </div>
+      <h1 class="hero-v2-headline" id="heroHeadline">Book lab tests<br>with <em>free home</em><br>sample collection.</h1>
+      <p class="hero-v2-subtext" id="heroSubtext">5,000+ tests and packages. NABL-accredited labs. Reports on WhatsApp in 24 hours. Trusted by 10 lakh+ Indians across 50 cities.</p>
 
-      <!-- TESTS PANEL -->
-      <div class="hero-panel is-active" data-panel="tests">
-        <h1 class="hero-panel-title">Book tests after comparing prices and ratings of various labs</h1>
-        <div class="hero-benefits">
-          <div class="hero-benefit-pill">
-            <span class="hero-benefit-icon hero-benefit-icon--green"><i class="fas fa-percent"></i></span>
-            <span class="hero-benefit-text">50% Cashback + 20% Discount</span>
-          </div>
-          <div class="hero-benefit-pill">
-            <span class="hero-benefit-icon hero-benefit-icon--purple"><i class="fas fa-brain"></i></span>
-            <span class="hero-benefit-text">AI-Powered Report Analysis</span>
-          </div>
-        </div>
-        <div class="hero-search-bar" role="search">
-          <i class="fas fa-magnifying-glass hero-search-bar-icon" aria-hidden="true"></i>
-          <input type="search" placeholder="Book a Pathology or Radiology Tests" aria-label="Search tests">
-          <button type="button" class="hero-search-mic" aria-label="Voice search"><i class="fas fa-microphone"></i></button>
-        </div>
-        <div class="prescription-link-row">
-          <a href="#" class="hero-v2-prescription-link">
-            <i class="fas fa-prescription" aria-hidden="true"></i>
-            <span>Click Here to Book Via Doctor Prescription</span>
-          </a>
-          <button type="button" class="prescription-info-btn" aria-label="More info about prescription booking">
-            <i class="fas fa-question"></i>
-          </button>
-        </div>
-      </div>
+      <form class="hero-v2-search" role="search" onsubmit="return false">
+        <i class="fas fa-magnifying-glass hero-v2-search-icon" aria-hidden="true"></i>
+        <input type="search" id="heroSearchInputV2" placeholder="Search for tests, packages, conditions..." aria-label="Search" autocomplete="off">
+        <button type="submit" class="hero-v2-search-btn" id="heroSearchBtn"><span id="heroSearchBtnLabel">Find tests</span> <i class="fas fa-arrow-right"></i></button>
+      </form>
 
-      <!-- PACKAGES PANEL -->
-      <div class="hero-panel" data-panel="packages" hidden>
-        <div class="hero-panel-eyebrow">Compare &amp; Choose the Best</div>
-        <h2 class="hero-panel-title hero-panel-title--md">Health Checkup Packages</h2>
-        <div class="hero-search-bar" role="search">
-          <i class="fas fa-magnifying-glass hero-search-bar-icon" aria-hidden="true"></i>
-          <input type="search" placeholder="Book a Package" aria-label="Search packages">
-          <button type="button" class="hero-search-mic" aria-label="Voice search"><i class="fas fa-microphone"></i></button>
-        </div>
-        <div class="pkg-tiles-grid">
-          <a href="#" class="pkg-tile">
-            <span class="pkg-tile-icon"><i class="fas fa-comments"></i></span>
-            <span class="pkg-tile-text">Based On Age, Gender, Habits &amp; BMI</span>
-          </a>
-          <a href="#" class="pkg-tile">
-            <span class="pkg-tile-icon"><i class="fas fa-microscope"></i></span>
-            <span class="pkg-tile-text">Based On Tests Required</span>
-          </a>
-          <a href="#" class="pkg-tile">
-            <span class="pkg-tile-icon"><i class="fas fa-flask-vial"></i></span>
-            <span class="pkg-tile-text">From A Particular Lab</span>
-          </a>
-          <a href="#" class="pkg-tile">
-            <span class="pkg-tile-icon"><i class="fas fa-clipboard-list"></i></span>
-            <span class="pkg-tile-text">Popular Packages</span>
-          </a>
-        </div>
-      </div>
-
-      <!-- LABS PANEL -->
-      <div class="hero-panel" data-panel="labs" hidden>
-        <h2 class="hero-panel-title hero-panel-title--md">Choose Your Lab</h2>
-        <div class="hero-search-bar" role="search">
-          <i class="fas fa-magnifying-glass hero-search-bar-icon" aria-hidden="true"></i>
-          <input type="search" placeholder="Search for a particular lab" aria-label="Search labs">
-          <button type="button" class="hero-search-mic" aria-label="Voice search"><i class="fas fa-microphone"></i></button>
-        </div>
-        <a href="#" class="view-all-labs-btn">View all Labs at Your Location</a>
-      </div>
-
-      <!-- DOCTORS PANEL -->
-      <div class="hero-panel" data-panel="doctors" hidden>
-        <div class="hero-panel-eyebrow">Consult Top Doctors</div>
-        <h2 class="hero-panel-title hero-panel-title--md">Book a Tele Consultation</h2>
-        <div class="speciality-row">
-          <div class="speciality-dropdown">
-            <label class="speciality-label">Speciality<span class="speciality-asterisk">*</span></label>
-            <div class="speciality-select-wrap">
-              <select class="speciality-select" aria-label="Choose a speciality">
-                <option value="">Search for a speciality</option>
-                <option value="gp">General Physician</option>
-                <option value="ayur">Ayurveda</option>
-                <option value="card">Cardiology</option>
-                <option value="dent">Dentistry</option>
-                <option value="derm">Dermatology</option>
-                <option value="diab">Diabetology</option>
-                <option value="endo">Endocrinology</option>
-                <option value="ent">ENT</option>
-                <option value="gast">Gastroenterology</option>
-              </select>
-            </div>
-          </div>
-          <button type="button" class="speciality-submit">Submit</button>
-        </div>
-        <div class="speciality-grid">
-          <a href="#" class="speciality-item"><span class="speciality-img"><img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=160&h=160&fit=crop&q=80" alt=""></span><span>General Physician</span></a>
-          <a href="#" class="speciality-item"><span class="speciality-img"><img src="https://images.unsplash.com/photo-1490818387583-1baba5e638af?w=160&h=160&fit=crop&q=80" alt=""></span><span>Ayurveda</span></a>
-          <a href="#" class="speciality-item"><span class="speciality-img"><img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=160&h=160&fit=crop&q=80" alt=""></span><span>Cardiology</span></a>
-          <a href="#" class="speciality-item"><span class="speciality-img"><img src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=160&h=160&fit=crop&q=80" alt=""></span><span>Dentistry</span></a>
-          <a href="#" class="speciality-item"><span class="speciality-img"><img src="https://images.unsplash.com/photo-1631815589968-fdb09a223b1e?w=160&h=160&fit=crop&q=80" alt=""></span><span>Dermatology</span></a>
-          <a href="#" class="speciality-item speciality-item--break"><span class="speciality-img"><img src="https://images.unsplash.com/photo-1559757175-5700dde675bc?w=160&h=160&fit=crop&q=80" alt=""></span><span>Diabetology</span></a>
-          <a href="#" class="speciality-item"><span class="speciality-img"><img src="https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?w=160&h=160&fit=crop&q=80" alt=""></span><span>Endocrinology</span></a>
-          <a href="#" class="speciality-item"><span class="speciality-img"><img src="https://images.unsplash.com/photo-1584555613497-9ecf9dd06f68?w=160&h=160&fit=crop&q=80" alt=""></span><span>ENT</span></a>
-          <a href="#" class="speciality-item"><span class="speciality-img"><img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=160&h=160&fit=crop&q=80" alt=""></span><span>Gastroenterology</span></a>
-        </div>
-      </div>
+      <a href="#" class="hero-v2-prescription-link">
+        <i class="fas fa-file-prescription" aria-hidden="true"></i>
+        <span>Click Here to Book Via Doctor Prescription</span>
+        <i class="fas fa-arrow-right hero-v2-prescription-link-arrow" aria-hidden="true"></i>
+      </a>
     </div>
 
     <div class="hero-v2-visual">
@@ -5326,27 +4870,31 @@ main { padding: 0 16px; }
     </div>
     <div class="sample-tested-marquee" aria-hidden="true">
       <div class="sample-tested-track">
-        <span class="sample-lab"><img src="lab-logos/pathkind.webp" alt="Pathkind Labs" class="sample-lab-img"></span>
-        <span class="sample-lab"><img src="lab-logos/tata-1mg.webp" alt="Tata 1mg" class="sample-lab-img"></span>
-        <span class="sample-lab"><img src="lab-logos/thyrocare.webp" alt="Thyrocare" class="sample-lab-img"></span>
-        <span class="sample-lab"><img src="lab-logos/agilus-diagnostics.webp" alt="Agilus Diagnostics" class="sample-lab-img"></span>
-        <span class="sample-lab"><img src="lab-logos/ampath.webp" alt="Ampath" class="sample-lab-img"></span>
-        <span class="sample-lab"><img src="lab-logos/apollo-health.webp" alt="Apollo Health and Lifestyle" class="sample-lab-img"></span>
-        <span class="sample-lab"><img src="lab-logos/augmentum-diagnostics.webp" alt="Augmentum Diagnostics" class="sample-lab-img"></span>
-        <span class="sample-lab"><img src="lab-logos/janta-xray.webp" alt="Janta X-Ray Clinic" class="sample-lab-img"></span>
-        <span class="sample-lab"><img src="lab-logos/max-lab.webp" alt="Max Healthcare" class="sample-lab-img"></span>
-        <span class="sample-lab"><img src="lab-logos/molecular-quest.webp" alt="MolQ" class="sample-lab-img"></span>
+        <span class="sample-lab"><span class="sample-lab-dot"></span>Apollo Health</span>
+        <span class="sample-lab"><span class="sample-lab-dot"></span>Healthians</span>
+        <span class="sample-lab"><span class="sample-lab-dot"></span>Max Lab</span>
+        <span class="sample-lab"><span class="sample-lab-dot"></span>Thyrocare</span>
+        <span class="sample-lab"><span class="sample-lab-dot"></span>Tata 1mg</span>
+        <span class="sample-lab"><span class="sample-lab-dot"></span>Pathkind</span>
+        <span class="sample-lab"><span class="sample-lab-dot"></span>Ampath</span>
+        <span class="sample-lab"><span class="sample-lab-dot"></span>Janss</span>
+        <span class="sample-lab"><span class="sample-lab-dot"></span>Dr Lal PathLabs</span>
+        <span class="sample-lab"><span class="sample-lab-dot"></span>SRL Diagnostics</span>
+        <span class="sample-lab"><span class="sample-lab-dot"></span>Metropolis</span>
+        <span class="sample-lab"><span class="sample-lab-dot"></span>Redcliffe Labs</span>
         <!-- duplicate set for seamless loop -->
-        <span class="sample-lab" aria-hidden="true"><img src="lab-logos/pathkind.webp" alt="" class="sample-lab-img"></span>
-        <span class="sample-lab" aria-hidden="true"><img src="lab-logos/tata-1mg.webp" alt="" class="sample-lab-img"></span>
-        <span class="sample-lab" aria-hidden="true"><img src="lab-logos/thyrocare.webp" alt="" class="sample-lab-img"></span>
-        <span class="sample-lab" aria-hidden="true"><img src="lab-logos/agilus-diagnostics.webp" alt="" class="sample-lab-img"></span>
-        <span class="sample-lab" aria-hidden="true"><img src="lab-logos/ampath.webp" alt="" class="sample-lab-img"></span>
-        <span class="sample-lab" aria-hidden="true"><img src="lab-logos/apollo-health.webp" alt="" class="sample-lab-img"></span>
-        <span class="sample-lab" aria-hidden="true"><img src="lab-logos/augmentum-diagnostics.webp" alt="" class="sample-lab-img"></span>
-        <span class="sample-lab" aria-hidden="true"><img src="lab-logos/janta-xray.webp" alt="" class="sample-lab-img"></span>
-        <span class="sample-lab" aria-hidden="true"><img src="lab-logos/max-lab.webp" alt="" class="sample-lab-img"></span>
-        <span class="sample-lab" aria-hidden="true"><img src="lab-logos/molecular-quest.webp" alt="" class="sample-lab-img"></span>
+        <span class="sample-lab" aria-hidden="true"><span class="sample-lab-dot"></span>Apollo Health</span>
+        <span class="sample-lab" aria-hidden="true"><span class="sample-lab-dot"></span>Healthians</span>
+        <span class="sample-lab" aria-hidden="true"><span class="sample-lab-dot"></span>Max Lab</span>
+        <span class="sample-lab" aria-hidden="true"><span class="sample-lab-dot"></span>Thyrocare</span>
+        <span class="sample-lab" aria-hidden="true"><span class="sample-lab-dot"></span>Tata 1mg</span>
+        <span class="sample-lab" aria-hidden="true"><span class="sample-lab-dot"></span>Pathkind</span>
+        <span class="sample-lab" aria-hidden="true"><span class="sample-lab-dot"></span>Ampath</span>
+        <span class="sample-lab" aria-hidden="true"><span class="sample-lab-dot"></span>Janss</span>
+        <span class="sample-lab" aria-hidden="true"><span class="sample-lab-dot"></span>Dr Lal PathLabs</span>
+        <span class="sample-lab" aria-hidden="true"><span class="sample-lab-dot"></span>SRL Diagnostics</span>
+        <span class="sample-lab" aria-hidden="true"><span class="sample-lab-dot"></span>Metropolis</span>
+        <span class="sample-lab" aria-hidden="true"><span class="sample-lab-dot"></span>Redcliffe Labs</span>
       </div>
     </div>
   </div>
@@ -5659,7 +5207,7 @@ main { padding: 0 16px; }
     <div class="trust-v2-inner">
       <div class="trust-v2-content">
         <div class="trust-v2-eyebrow">Why 10 Lakh+ Indians Choose Us</div>
-        <h2 class="trust-v2-title">Why trust flebo?</h2>
+        <h2 class="trust-v2-title">The trust comes from the numbers.</h2>
         <p class="trust-v2-text">We don't run labs — we partner with the very best, the ones already accredited by NABL and CAP. Our job is to bring them to your door, on time, every time.</p>
       </div>
       <div class="trust-v2-stats">
@@ -5692,7 +5240,6 @@ main { padding: 0 16px; }
       <i class="fas fa-chevron-right" aria-hidden="true"></i>
     </button>
     <div class="banner-track" id="bannerTrack">
-      <a href="#" class="banner-slide" aria-label="50% Cashback + 20% Off — use code FLEBO2050"><img src="banners/banner-special-offer.png" alt="Special Offer on Health Tests and Packages: 50% Cashback + 20% Off for first-time users — use coupon FLEBO2050" loading="eager"></a>
       <a href="#" class="banner-slide" aria-label="Offer 1"><img src="banners/banner-1.avif" alt="Special offer banner 1" loading="lazy"></a>
       <a href="#" class="banner-slide" aria-label="Offer 2"><img src="banners/banner-2.avif" alt="Special offer banner 2" loading="lazy"></a>
       <a href="#" class="banner-slide" aria-label="Offer 3"><img src="banners/banner-3.avif" alt="Special offer banner 3" loading="lazy"></a>
@@ -5701,7 +5248,6 @@ main { padding: 0 16px; }
       <button class="banner-dot active" data-index="0" aria-label="Show offer 1"></button>
       <button class="banner-dot" data-index="1" aria-label="Show offer 2"></button>
       <button class="banner-dot" data-index="2" aria-label="Show offer 3"></button>
-      <button class="banner-dot" data-index="3" aria-label="Show offer 4"></button>
     </div>
   </section>
 
@@ -5843,10 +5389,6 @@ main { padding: 0 16px; }
       <article class="concern-card" aria-label="Diabetes related tests">
         <div class="cc-bg" style="background-image:url('hc-diabetes.jpg')"></div>
         <span class="cc-pill">Diabetes</span>
-      </article>
-      <article class="concern-card" aria-label="Thyroid related tests">
-        <div class="cc-bg" style="background-image:url('hc-thyroid.webp')"></div>
-        <span class="cc-pill">Thyroid</span>
       </article>
     </div>
   </section>
@@ -6238,7 +5780,7 @@ document.querySelectorAll('.pkg-box').forEach(box => {
   });
 });
 
-// ===== SEARCH FUNCTIONALITY (legacy V1 — runs only if #mainSearch is still in the DOM) =====
+// ===== SEARCH FUNCTIONALITY =====
 const searchInput = document.getElementById('mainSearch');
 const searchSuggestions = document.getElementById('floatingSuggestions');
 const allSuggestions = [
@@ -6257,34 +5799,30 @@ const allSuggestions = [
 ];
 
 function positionSuggestions() {
-  if (!searchInput || !searchSuggestions) return;
   const bar = searchInput.closest('.hero-search-bar');
-  if (!bar) return;
   const rect = bar.getBoundingClientRect();
   searchSuggestions.style.top = (rect.bottom + 6) + 'px';
 }
 
-if (searchInput && searchSuggestions) {
-  searchInput.addEventListener('focus', () => {
-    if (searchInput.value.length === 0) renderSuggestions(allSuggestions.slice(0, 6));
-    positionSuggestions();
-    searchSuggestions.classList.add('active');
-  });
+searchInput.addEventListener('focus', () => {
+  if (searchInput.value.length === 0) renderSuggestions(allSuggestions.slice(0, 6));
+  positionSuggestions();
+  searchSuggestions.classList.add('active');
+});
 
-  searchInput.addEventListener('input', () => {
-    const q = searchInput.value.toLowerCase().trim();
-    if (q.length === 0) {
-      renderSuggestions(allSuggestions.slice(0, 6));
-    } else {
-      const filtered = allSuggestions.filter(s => s.name.toLowerCase().includes(q));
-      renderSuggestions(filtered);
-    }
-  });
+searchInput.addEventListener('input', () => {
+  const q = searchInput.value.toLowerCase().trim();
+  if (q.length === 0) {
+    renderSuggestions(allSuggestions.slice(0, 6));
+  } else {
+    const filtered = allSuggestions.filter(s => s.name.toLowerCase().includes(q));
+    renderSuggestions(filtered);
+  }
+});
 
-  document.addEventListener('click', (e) => {
-    if (!e.target.closest('.hero-search-bar') && !e.target.closest('#floatingSuggestions')) searchSuggestions.classList.remove('active');
-  });
-}
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.hero-search-bar') && !e.target.closest('#floatingSuggestions')) searchSuggestions.classList.remove('active');
+});
 
 function renderSuggestions(items) {
   searchSuggestions.innerHTML = items.map(s =>
@@ -6687,16 +6225,47 @@ document.querySelectorAll('.pkg-cat-tab').forEach(tab => {
 // ===== HERO CATEGORY TABS =====
 (function () {
   const tabs = document.querySelectorAll('.hero-v2-tab');
-  const panels = document.querySelectorAll('.hero-panel');
-  if (!tabs.length || !panels.length) return;
+  if (!tabs.length) return;
+
+  const heroContent = {
+    tests: {
+      headline: 'Book lab tests<br>with <em>free home</em><br>sample collection.',
+      subtext: '5,000+ tests and packages. NABL-accredited labs. Reports on WhatsApp in 24 hours. Trusted by 10 lakh+ Indians across 50 cities.',
+      placeholder: 'Search for tests, packages, conditions...',
+      btn: 'Find tests'
+    },
+    packages: {
+      headline: 'Health checkup packages<br>tailored to <em>you</em>.',
+      subtext: 'Full-body, women, men, elderly and more — curated bundles at up to 70% less than MRP.',
+      placeholder: 'Search health packages, checkups...',
+      btn: 'Find packages'
+    },
+    labs: {
+      headline: 'Pick from 160+<br><em>NABL-accredited</em> labs.',
+      subtext: 'Compare prices, turnaround time, and ratings across India’s top diagnostic chains.',
+      placeholder: 'Search for a particular lab...',
+      btn: 'Find labs'
+    },
+    doctors: {
+      headline: 'Consult top doctors<br>over <em>tele-consult</em>.',
+      subtext: 'Book a video or audio consult with verified specialists in minutes — 25+ specialties.',
+      placeholder: 'Search doctors, specialities...',
+      btn: 'Find doctors'
+    }
+  };
+
+  const headlineEl = document.getElementById('heroHeadline');
+  const subtextEl = document.getElementById('heroSubtext');
+  const searchInput = document.getElementById('heroSearchInputV2');
+  const btnLabel = document.getElementById('heroSearchBtnLabel');
 
   function applyTab(key) {
-    panels.forEach((p) => {
-      const isMatch = p.dataset.panel === key;
-      p.classList.toggle('is-active', isMatch);
-      if (isMatch) p.removeAttribute('hidden');
-      else p.setAttribute('hidden', '');
-    });
+    const c = heroContent[key];
+    if (!c) return;
+    if (headlineEl) headlineEl.innerHTML = c.headline;
+    if (subtextEl) subtextEl.textContent = c.subtext;
+    if (searchInput) searchInput.placeholder = c.placeholder;
+    if (btnLabel) btnLabel.textContent = c.btn;
   }
 
   tabs.forEach((tab) => {
