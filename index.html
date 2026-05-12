@@ -3215,12 +3215,24 @@ main { padding: 0 16px; }
   padding: 10px 32px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 20px;
   color: #fff;
   font-size: 13px;
   font-weight: 500;
 }
+/* Location anchored at the extreme left edge of the top-bar (full viewport) */
+.top-bar-trust {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  z-index: 1;
+}
+.top-bar { position: sticky; }  /* keep sticky; relative for child positioning is implicit on the offset parent */
 .top-bar-trust,
 .top-bar-utility {
   display: flex;
