@@ -4350,11 +4350,23 @@ main { padding: 0 16px; }
   .brand-rating-stars { font-size: 9px; }
   .hamburger-btn { display: inline-flex !important; margin: 0; width: 38px; height: 38px; }
 
-  /* Mobile Upload pill: compact, sits at the right */
-  .header-upload { margin-left: auto; gap: 2px; }
-  .header-upload .main-nav-pill { padding: 6px 12px; font-size: 12px; }
+  /* Mobile Upload pill: compact, sits at the right, never overflows */
+  .header-upload {
+    margin-left: auto;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 3px;
+  }
+  .header-upload .main-nav-pill {
+    padding: 6px 12px;
+    font-size: 11.5px;
+    gap: 6px;
+  }
   .header-upload .main-nav-pill i { font-size: 12px; }
-  .main-nav-upload-sub { font-size: 10px; margin-top: 2px; }
+  /* Drop the "of Any Lab" portion on mobile so the pill fits */
+  .main-nav-pill-extra { display: none; }
+  .main-nav-upload-sub { font-size: 10px; margin-top: 2px; white-space: nowrap; }
+  .main-nav-upload-sub-sep { margin: 0 4px; }
 
   /* Hide hero image column on mobile — show panels only */
   .hero-v2-visual { display: none; }
@@ -5098,7 +5110,7 @@ main { padding: 0 16px; }
     <div class="header-upload main-nav-upload">
       <a href="#" class="main-nav-pill">
         <i class="fas fa-cloud-arrow-up"></i>
-        <span>Upload Report of Any Lab</span>
+        <span>Upload Report<span class="main-nav-pill-extra"> of Any Lab</span></span>
       </a>
       <span class="main-nav-upload-sub">Secure Data Vault <span class="main-nav-upload-sub-sep">|</span> Free AI Analysis</span>
     </div>
