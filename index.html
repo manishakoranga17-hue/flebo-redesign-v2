@@ -2535,11 +2535,11 @@ main { padding: 0 16px; }
 /* ===== BOTTOM NAV ===== */
 .bottom-nav {
   position: fixed;
-  bottom: -4px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: calc(100% - 8px);
-  max-width: 385px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  max-width: none;
   height: var(--bottom-nav-height);
   background: #D33535;
   display: flex;
@@ -2547,7 +2547,7 @@ main { padding: 0 16px; }
   justify-content: space-around;
   z-index: 100;
   padding: 0 8px;
-  border-radius: 10px 10px 0 0;
+  border-radius: 0;
   box-shadow: 0 -4px 20px rgba(211,53,53,0.3);
 }
 .nav-item {
