@@ -3247,6 +3247,20 @@ main { padding: 0 16px; }
   font-size: 14px;
 }
 .top-bar-utility i { font-size: 13px; opacity: 0.85; }
+.top-bar-location {
+  background: transparent;
+  border: 0;
+  color: #fff;
+  font: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 0;
+  transition: opacity 0.2s;
+}
+.top-bar-location:hover { opacity: 0.85; }
+.top-bar-location-caret { font-size: 10px; opacity: 0.75; margin-left: 2px; }
 
 /* ---------- HEADER (V2) ---------- */
 .site-header {
@@ -3782,8 +3796,6 @@ main { padding: 0 16px; }
 
 /* Tablet */
 @media (max-width: 1100px) {
-  .top-bar-trust li:nth-child(3),
-  .top-bar-utility li:nth-child(1) { display: none; }
   .top-bar-inner { padding: 9px 20px; gap: 12px; font-size: 12.5px; }
   .top-bar-trust, .top-bar-utility { gap: 16px; }
 
@@ -3813,10 +3825,12 @@ main { padding: 0 16px; }
 @media (max-width: 768px) {
   body { max-width: none; padding-bottom: 0; }
 
-  .top-bar-trust { display: none; }
+  .top-bar-trust { gap: 10px; }
   .top-bar-utility { gap: 14px; }
-  .top-bar-utility li:nth-child(2) { display: none; }
-  .top-bar-utility a span { font-size: 12px; }
+  .top-bar-utility a span,
+  .top-bar-location span:not(#topBarLocationDisplay) { font-size: 12px; }
+  .top-bar-inner { font-size: 12px; padding: 8px 14px; gap: 10px; }
+  .top-bar-utility a span { display: none; } /* icon-only on small screens */
 
   .site-header { top: 36px; }
   .site-header-inner { padding: 10px 16px; gap: 10px; flex-wrap: nowrap; }
@@ -4207,15 +4221,18 @@ main { padding: 0 16px; }
 <!-- Top Bar -->
 <div class="top-bar">
   <div class="top-bar-inner">
-    <ul class="top-bar-trust" aria-label="Trust badges">
-      <li><i class="fas fa-shield-halved tb-icon-green"></i><span>NABL Accredited Partner Labs</span></li>
-      <li><i class="fas fa-house-chimney-medical tb-icon-green"></i><span>Free Home Sample Collection</span></li>
-      <li><i class="fas fa-truck-fast tb-icon-green"></i><span>Reports in 24 Hours</span></li>
+    <ul class="top-bar-trust" aria-label="Location">
+      <li>
+        <button class="top-bar-location" id="topBarLocationTrigger" aria-label="Change location">
+          <i class="fas fa-location-dot tb-icon-green"></i>
+          <span id="topBarLocationDisplay">Gurgaon - 122001</span>
+          <i class="fas fa-chevron-down top-bar-location-caret" aria-hidden="true"></i>
+        </button>
+      </li>
     </ul>
     <ul class="top-bar-utility" aria-label="Utility links">
-      <li><a href="#"><i class="fas fa-mobile-screen"></i><span>Get App</span></a></li>
-      <li><a href="#"><i class="fas fa-briefcase"></i><span>For Business</span></a></li>
       <li><a href="tel:01244550000"><i class="fas fa-phone"></i><span>0124-4550000</span></a></li>
+      <li><a href="#" class="top-bar-login"><i class="fas fa-user"></i><span>Login / Signup</span></a></li>
     </ul>
   </div>
 </div>
@@ -5765,14 +5782,21 @@ document.querySelectorAll('.pkg-cat-tab').forEach(tab => {
 
 // ===== PINCODE POPUP =====
 (function () {
-  const trigger   = document.getElementById('locationTrigger');
-  const popup     = document.getElementById('pincodePopup');
-  const overlay   = document.getElementById('pincodeOverlay');
-  const closeBtn  = document.getElementById('pincodeCloseBtn');
-  const gpsBtn    = document.getElementById('pincodeGpsBtn');
-  const applyBtn  = document.getElementById('pincodeApplyBtn');
-  const input     = document.getElementById('pincodeInput');
-  const display   = document.getElementById('locationDisplay');
+  const trigger      = document.getElementById('locationTrigger');
+  const topBarTrigger = document.getElementById('topBarLocationTrigger');
+  const popup        = document.getElementById('pincodePopup');
+  const overlay      = document.getElementById('pincodeOverlay');
+  const closeBtn     = document.getElementById('pincodeCloseBtn');
+  const gpsBtn       = document.getElementById('pincodeGpsBtn');
+  const applyBtn     = document.getElementById('pincodeApplyBtn');
+  const input        = document.getElementById('pincodeInput');
+  const display      = document.getElementById('locationDisplay');
+  const topBarDisplay = document.getElementById('topBarLocationDisplay');
+
+  function setLocation(city, pincode) {
+    if (display) display.textContent = city + ' ' + pincode;
+    if (topBarDisplay) topBarDisplay.textContent = city + ' - ' + pincode;
+  }
 
   function openPopup() {
     popup.classList.add('open');
@@ -5786,7 +5810,8 @@ document.querySelectorAll('.pkg-cat-tab').forEach(tab => {
     popup.setAttribute('aria-hidden', 'true');
   }
 
-  trigger.addEventListener('click', openPopup);
+  if (trigger) trigger.addEventListener('click', openPopup);
+  if (topBarTrigger) topBarTrigger.addEventListener('click', openPopup);
   closeBtn.addEventListener('click', closePopup);
   overlay.addEventListener('click', closePopup);
 
@@ -5800,7 +5825,7 @@ document.querySelectorAll('.pkg-cat-tab').forEach(tab => {
       (pos) => {
         gpsBtn.innerHTML = '<i class="fas fa-location-crosshairs"></i>';
         input.value = '122001';
-        display.textContent = 'Gurgaon, 122001';
+        setLocation('Gurgaon', '122001');
         showToast('<i class="fas fa-location-dot"></i> Location detected: Gurgaon, 122001');
       },
       () => {
@@ -5830,7 +5855,7 @@ document.querySelectorAll('.pkg-cat-tab').forEach(tab => {
       return;
     }
     const city = pincodeMap[pincode] || 'India';
-    display.textContent = city + ', ' + pincode;
+    setLocation(city, pincode);
     showToast('<i class="fas fa-location-dot"></i> Location updated to ' + city + ', ' + pincode);
     closePopup();
   });
