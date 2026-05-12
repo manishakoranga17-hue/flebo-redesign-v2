@@ -4384,10 +4384,7 @@ main { padding: 0 16px; }
     padding: 16px 16px 22px;
     gap: 0;
     grid-template-columns: 1fr;
-    /* Fit hero + sample-tested strip in the first viewport on mobile too.
-       Subtract sticky chrome (top-bar ~30 + site-header ~58) and column-layout strip (~100). */
-    min-height: calc(100vh - 188px);
-    min-height: calc(100dvh - 188px);
+    min-height: 0;
   }
 
   /* Tabs: full-width row, equal-sized pills */
