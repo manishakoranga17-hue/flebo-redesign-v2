@@ -4546,8 +4546,7 @@ main { padding: 0 16px; }
     display: block !important;
     flex-direction: unset !important;
     position: relative !important;
-    height: auto !important;
-    min-height: 0 !important;
+    height: 340px !important;
     overflow: visible !important;
     scroll-snap-type: none !important;
     padding: 0 !important;
@@ -4557,6 +4556,7 @@ main { padding: 0 16px; }
     gap: 0 !important;
   }
   .package-card,
+  .package-card.pkg-active,
   .package-card.pkg-next,
   .package-card.pkg-behind,
   .package-card.pkg-hidden {
@@ -4571,16 +4571,10 @@ main { padding: 0 16px; }
     scroll-snap-align: none !important;
     transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease !important;
   }
-  /* Active card stays in flow so the container sizes to its height (no empty space below) */
   .package-card.pkg-active {
-    position: relative !important;
-    top: auto !important;
-    left: auto !important;
-    width: calc(100% - 4px) !important;
     z-index: 3 !important;
     transform: translateX(0) scale(1) !important;
     opacity: 1 !important;
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease !important;
   }
   .package-card.pkg-next {
     z-index: 2 !important;
