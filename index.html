@@ -3628,11 +3628,18 @@ main { padding: 0 16px; }
   font-weight: 700;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
 }
+.hero-v2-eyebrow {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.82);
+  letter-spacing: 0.02em;
+  margin-bottom: 10px;
+}
 .hero-v2-headline {
   font-family: 'Instrument Serif', serif;
-  font-size: clamp(48px, 6vw, 80px);
+  font-size: clamp(40px, 4.6vw, 60px);
   font-weight: 400;
-  line-height: 1.05;
+  line-height: 1.1;
   letter-spacing: -0.005em;
   color: #fff;
   margin: 0 0 28px;
@@ -4807,8 +4814,8 @@ main { padding: 0 16px; }
         <button class="hero-v2-tab" type="button" role="tab" aria-selected="false" data-tab="labs">Labs</button>
         <button class="hero-v2-tab" type="button" role="tab" aria-selected="false" data-tab="doctors">Doctors</button>
       </div>
-      <h1 class="hero-v2-headline" id="heroHeadline">Book lab tests<br>with <em>free home</em><br>sample collection.</h1>
-      <p class="hero-v2-subtext" id="heroSubtext">5,000+ tests and packages. NABL-accredited labs. Reports on WhatsApp in 24 hours. Trusted by 10 lakh+ Indians across 50 cities.</p>
+      <div class="hero-v2-eyebrow" id="heroEyebrow" hidden></div>
+      <h1 class="hero-v2-headline" id="heroHeadline">Book tests after comparing prices and ratings of various labs</h1>
 
       <form class="hero-v2-search" role="search" onsubmit="return false">
         <i class="fas fa-magnifying-glass hero-v2-search-icon" aria-hidden="true"></i>
@@ -6231,43 +6238,52 @@ document.querySelectorAll('.pkg-cat-tab').forEach(tab => {
   const tabs = document.querySelectorAll('.hero-v2-tab');
   if (!tabs.length) return;
 
+  // Copy below mirrors dev1.flebo.in/public/flebo-redesign-v5/flebo-redesign.html
   const heroContent = {
     tests: {
-      headline: 'Book lab tests<br>with <em>free home</em><br>sample collection.',
-      subtext: '5,000+ tests and packages. NABL-accredited labs. Reports on WhatsApp in 24 hours. Trusted by 10 lakh+ Indians across 50 cities.',
-      placeholder: 'Search for tests, packages, conditions...',
+      eyebrow: '',
+      headline: 'Book tests after comparing prices and ratings of various labs',
+      placeholder: 'Book a Pathology or Radiology Tests',
       btn: 'Find tests'
     },
     packages: {
-      headline: 'Health checkup packages<br>tailored to <em>you</em>.',
-      subtext: 'Full-body, women, men, elderly and more — curated bundles at up to 70% less than MRP.',
-      placeholder: 'Search health packages, checkups...',
+      eyebrow: 'Compare & Choose the Best',
+      headline: 'Health Checkup Packages',
+      placeholder: 'Book a Package',
       btn: 'Find packages'
     },
     labs: {
-      headline: 'Pick from 160+<br><em>NABL-accredited</em> labs.',
-      subtext: 'Compare prices, turnaround time, and ratings across India’s top diagnostic chains.',
-      placeholder: 'Search for a particular lab...',
+      eyebrow: '',
+      headline: 'Choose Your Lab',
+      placeholder: 'Search for a particular lab',
       btn: 'Find labs'
     },
     doctors: {
-      headline: 'Consult top doctors<br>over <em>tele-consult</em>.',
-      subtext: 'Book a video or audio consult with verified specialists in minutes — 25+ specialties.',
-      placeholder: 'Search doctors, specialities...',
-      btn: 'Find doctors'
+      eyebrow: 'Consult Top Doctors',
+      headline: 'Book a Tele Consultation',
+      placeholder: 'Search for a speciality',
+      btn: 'Submit'
     }
   };
 
+  const eyebrowEl = document.getElementById('heroEyebrow');
   const headlineEl = document.getElementById('heroHeadline');
-  const subtextEl = document.getElementById('heroSubtext');
   const searchInput = document.getElementById('heroSearchInputV2');
   const btnLabel = document.getElementById('heroSearchBtnLabel');
 
   function applyTab(key) {
     const c = heroContent[key];
     if (!c) return;
-    if (headlineEl) headlineEl.innerHTML = c.headline;
-    if (subtextEl) subtextEl.textContent = c.subtext;
+    if (eyebrowEl) {
+      if (c.eyebrow) {
+        eyebrowEl.textContent = c.eyebrow;
+        eyebrowEl.hidden = false;
+      } else {
+        eyebrowEl.textContent = '';
+        eyebrowEl.hidden = true;
+      }
+    }
+    if (headlineEl) headlineEl.textContent = c.headline;
     if (searchInput) searchInput.placeholder = c.placeholder;
     if (btnLabel) btnLabel.textContent = c.btn;
   }
