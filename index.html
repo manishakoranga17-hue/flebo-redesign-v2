@@ -3195,6 +3195,8 @@ main { padding: 0 16px; }
     margin-left: -32px;
     margin-right: -32px;
   }
+  /* Cap media coverage card width on web — it's the focal element, not a hero */
+  .media-coverage-section .media-player-stack { width: 100%; max-width: 720px; }
 
   /* Packages 3 across stays nice */
   .packages-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
