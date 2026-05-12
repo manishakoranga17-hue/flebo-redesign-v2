@@ -3189,7 +3189,12 @@ main { padding: 0 16px; }
     margin-top: 4px;
   }
 
-  main { padding: 0 48px; }
+  main { padding: 0 32px; max-width: 1320px; margin: 0 auto; }
+  /* Media coverage breaks out of the main container's gutter */
+  main > .media-coverage-section {
+    margin-left: -32px;
+    margin-right: -32px;
+  }
 
   /* Packages 3 across stays nice */
   .packages-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -4629,9 +4634,9 @@ main { padding: 0 16px; }
 }
 .trust-v2-inner { position: relative; z-index: 1; }
 .trust-v2-inner {
-  max-width: 1280px;
+  max-width: 1320px;
   margin: 0 auto;
-  padding: 0 48px;
+  padding: 0 32px;
   display: grid;
   grid-template-columns: 1fr 1.15fr;
   gap: 64px;
