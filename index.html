@@ -3491,36 +3491,38 @@ main { padding: 0 16px; }
 .main-nav-pill {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   border: 1.5px solid var(--accent);
   background: #fff;
   color: var(--accent);
+  font-size: 14px;
   font-weight: 700;
-  padding: 6px 18px;
+  padding: 8px 18px;
   border-radius: 999px;
   text-decoration: none;
-  margin: 6px 14px 6px 14px;
   white-space: nowrap;
   transition: background 0.2s, color 0.2s;
-  align-self: center;
-  line-height: 1.15;
 }
 .main-nav-pill:hover { background: var(--accent); color: #fff; }
-.main-nav-pill i { color: var(--accent); font-size: 18px; transition: color 0.2s; }
+.main-nav-pill i { color: var(--accent); font-size: 14px; transition: color 0.2s; }
 .main-nav-pill:hover i { color: #fff; }
-.main-nav-pill-text {
+
+/* Upload Report list item: stack pill + sub-line below it */
+.main-nav-upload {
   display: inline-flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  margin: 0 14px;
+  align-self: center;
 }
-.main-nav-pill-title { font-size: 14px; font-weight: 700; }
-.main-nav-pill-sub {
+.main-nav-upload-sub {
+  margin-top: 4px;
   font-size: 10.5px;
-  font-weight: 500;
-  opacity: 0.85;
-  margin-top: 1px;
+  font-weight: 600;
+  color: var(--primary);
+  white-space: nowrap;
 }
-.main-nav-pill-sub-sep { margin: 0 4px; opacity: 0.7; }
+.main-nav-upload-sub-sep { margin: 0 6px; color: #C5CCDB; }
 
 /* BMI Calculator with colorful gauge */
 .main-nav-bmi { gap: 10px; }
@@ -4297,13 +4299,13 @@ main { padding: 0 16px; }
         <li><a href="#" class="main-nav-link"><i class="fas fa-box-open" aria-hidden="true"></i><span>Packages</span></a></li>
         <li><a href="#" class="main-nav-link"><i class="fas fa-folder-open" aria-hidden="true"></i><span>Reports</span></a></li>
         <li><a href="#" class="main-nav-link"><i class="fas fa-chart-line" aria-hidden="true"></i><span>Health Trend Graph</span></a></li>
-        <li><a href="#" class="main-nav-pill">
-          <i class="fas fa-cloud-arrow-up"></i>
-          <span class="main-nav-pill-text">
-            <span class="main-nav-pill-title">Upload Report of Any Lab</span>
-            <span class="main-nav-pill-sub">Secure Data Vault <span class="main-nav-pill-sub-sep">|</span> Free AI Analysis</span>
-          </span>
-        </a></li>
+        <li class="main-nav-upload">
+          <a href="#" class="main-nav-pill">
+            <i class="fas fa-cloud-arrow-up"></i>
+            <span>Upload Report of Any Lab</span>
+          </a>
+          <span class="main-nav-upload-sub">Secure Data Vault <span class="main-nav-upload-sub-sep">|</span> Free AI Analysis</span>
+        </li>
         <li><a href="#" class="main-nav-link main-nav-bmi">
           <span class="bmi-gauge-icon" aria-hidden="true">
             <svg viewBox="0 0 24 14" width="22" height="13" xmlns="http://www.w3.org/2000/svg">
