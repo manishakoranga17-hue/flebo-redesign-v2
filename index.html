@@ -3600,6 +3600,14 @@ main { padding: 0 16px; }
   align-items: center;
   position: relative;
   z-index: 1;
+  /* Stretch the hero so the section + sample-tested strip together fill the
+     first viewport on web. Subtract sticky chrome (top-bar ~38 + site-header
+     ~70) and sample strip (~70). */
+  min-height: calc(100vh - 178px);
+  min-height: calc(100dvh - 178px);
+}
+@media (max-width: 768px) {
+  .hero-v2-inner { min-height: 0; }
 }
 
 /* Hero content (left column) — pin to top so tab position doesn't shift between panels */
