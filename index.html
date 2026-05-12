@@ -3589,9 +3589,14 @@ main { padding: 0 16px; }
   /* Hero + sample-tested strip together fill the first viewport on desktop.
      Subtract sticky chrome (top-bar ~38 + site-header ~98) and sample strip (~70). */
   min-height: calc(100vh - 206px);
+  min-height: calc(100dvh - 206px);
 }
+/* Small tablet: chrome shrinks slightly, sample strip becomes 2-line column */
 @media (max-width: 900px) {
-  .hero-v2-inner { min-height: 0; }
+  .hero-v2-inner {
+    min-height: calc(100vh - 230px);
+    min-height: calc(100dvh - 230px);
+  }
 }
 
 /* Hero content (left column) */
@@ -4381,7 +4386,15 @@ main { padding: 0 16px; }
   /* Check Your Vitals: show only 3 cards on mobile (no Thyroid) */
   .concerns-bento .concern-card--thyroid { display: none; }
 
-  .hero-v2-inner { padding: 18px 16px 28px; gap: 0; grid-template-columns: 1fr; min-height: 0; }
+  .hero-v2-inner {
+    padding: 16px 16px 22px;
+    gap: 0;
+    grid-template-columns: 1fr;
+    /* Fit hero + sample-tested strip in the first viewport on mobile too.
+       Subtract sticky chrome (top-bar ~30 + site-header ~58) and column-layout strip (~100). */
+    min-height: calc(100vh - 188px);
+    min-height: calc(100dvh - 188px);
+  }
 
   /* Tabs: full-width row, equal-sized pills */
   .hero-v2-tabs {
