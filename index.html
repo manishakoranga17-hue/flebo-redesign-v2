@@ -3668,6 +3668,28 @@ main { padding: 0 16px; }
 .hero-v2-search-btn:active { transform: scale(0.97); }
 .hero-v2-search-btn i { font-size: 13px; }
 
+.hero-v2-prescription-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  margin-bottom: 24px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.45);
+  padding-bottom: 2px;
+  transition: color 0.2s, border-color 0.2s, transform 0.2s;
+}
+.hero-v2-prescription-link:hover {
+  color: #FFC857;
+  border-bottom-color: #FFC857;
+}
+.hero-v2-prescription-link i { font-size: 14px; }
+.hero-v2-prescription-link-arrow { font-size: 11px; transition: transform 0.2s; }
+.hero-v2-prescription-link:hover .hero-v2-prescription-link-arrow { transform: translateX(3px); }
+
 .hero-v2-tags-row {
   display: flex;
   align-items: center;
@@ -4431,6 +4453,12 @@ main { padding: 0 16px; }
         <input type="search" id="heroSearchInputV2" placeholder="Search for tests, packages, conditions..." aria-label="Search tests, packages, conditions" autocomplete="off">
         <button type="submit" class="hero-v2-search-btn">Find tests <i class="fas fa-arrow-right"></i></button>
       </form>
+
+      <a href="#" class="hero-v2-prescription-link">
+        <i class="fas fa-file-prescription" aria-hidden="true"></i>
+        <span>Click Here to Book Via Doctor Prescription</span>
+        <i class="fas fa-arrow-right hero-v2-prescription-link-arrow" aria-hidden="true"></i>
+      </a>
 
       <div class="hero-v2-tags-row">
         <span class="hero-v2-tags-label">Most searched:</span>
