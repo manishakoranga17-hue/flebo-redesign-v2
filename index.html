@@ -2898,8 +2898,7 @@ main { padding: 0 16px; }
     padding-bottom: 0;
   }
 
-  /* Top bar */
-  .top-bar { padding: 10px 32px; }
+  /* Top bar (padding handled by .top-bar-inner; old V1 rules removed) */
   .top-bar-left, .top-bar-center, .top-bar-right,
   .top-bar-left a, .top-bar-center a, .top-bar-right a {
     font-size: 13px;
@@ -3137,7 +3136,7 @@ main { padding: 0 16px; }
    ===== DESKTOP REFINEMENTS (>=1024px) =============================
    ================================================================= */
 @media (min-width: 1024px) {
-  .top-bar { padding: 12px 48px; font-size: 14px; }
+  .top-bar { font-size: 14px; }
   .header { padding: 18px 48px 6px; }
 
   .hero-section {
