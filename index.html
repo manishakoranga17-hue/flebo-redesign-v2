@@ -5780,7 +5780,7 @@ document.querySelectorAll('.pkg-box').forEach(box => {
   });
 });
 
-// ===== SEARCH FUNCTIONALITY =====
+// ===== SEARCH FUNCTIONALITY (legacy V1 — runs only if #mainSearch is still in the DOM) =====
 const searchInput = document.getElementById('mainSearch');
 const searchSuggestions = document.getElementById('floatingSuggestions');
 const allSuggestions = [
@@ -5799,30 +5799,34 @@ const allSuggestions = [
 ];
 
 function positionSuggestions() {
+  if (!searchInput || !searchSuggestions) return;
   const bar = searchInput.closest('.hero-search-bar');
+  if (!bar) return;
   const rect = bar.getBoundingClientRect();
   searchSuggestions.style.top = (rect.bottom + 6) + 'px';
 }
 
-searchInput.addEventListener('focus', () => {
-  if (searchInput.value.length === 0) renderSuggestions(allSuggestions.slice(0, 6));
-  positionSuggestions();
-  searchSuggestions.classList.add('active');
-});
+if (searchInput && searchSuggestions) {
+  searchInput.addEventListener('focus', () => {
+    if (searchInput.value.length === 0) renderSuggestions(allSuggestions.slice(0, 6));
+    positionSuggestions();
+    searchSuggestions.classList.add('active');
+  });
 
-searchInput.addEventListener('input', () => {
-  const q = searchInput.value.toLowerCase().trim();
-  if (q.length === 0) {
-    renderSuggestions(allSuggestions.slice(0, 6));
-  } else {
-    const filtered = allSuggestions.filter(s => s.name.toLowerCase().includes(q));
-    renderSuggestions(filtered);
-  }
-});
+  searchInput.addEventListener('input', () => {
+    const q = searchInput.value.toLowerCase().trim();
+    if (q.length === 0) {
+      renderSuggestions(allSuggestions.slice(0, 6));
+    } else {
+      const filtered = allSuggestions.filter(s => s.name.toLowerCase().includes(q));
+      renderSuggestions(filtered);
+    }
+  });
 
-document.addEventListener('click', (e) => {
-  if (!e.target.closest('.hero-search-bar') && !e.target.closest('#floatingSuggestions')) searchSuggestions.classList.remove('active');
-});
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.hero-search-bar') && !e.target.closest('#floatingSuggestions')) searchSuggestions.classList.remove('active');
+  });
+}
 
 function renderSuggestions(items) {
   searchSuggestions.innerHTML = items.map(s =>
