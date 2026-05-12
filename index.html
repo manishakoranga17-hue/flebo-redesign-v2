@@ -3394,21 +3394,16 @@ main { padding: 0 16px; }
 .header-login-btn:hover { background: var(--primary); color: #fff; }
 .header-login-btn i { font-size: 13px; }
 
-/* ---------- MAIN NAV (V2) ---------- */
+/* ---------- MAIN NAV (inline in site-header) ---------- */
 .main-nav {
-  background: #fff;
-  border-bottom: 1px solid #EEF1F7;
-  position: sticky;
-  top: 116px;
-  z-index: 180;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
 }
 .main-nav-inner {
-  max-width: 1320px;
-  margin: 0 auto;
-  padding: 0 32px;
+  /* legacy wrapper — only used if .main-nav-inner is in the DOM */
   display: flex;
-  align-items: stretch;
-  justify-content: space-between;
+  align-items: center;
 }
 .main-nav-list {
   display: flex;
@@ -3842,15 +3837,11 @@ main { padding: 0 16px; }
   .top-bar-inner { padding: 9px 20px; gap: 12px; font-size: 12.5px; }
   .top-bar-trust, .top-bar-utility { gap: 16px; }
 
-  .site-header-inner { padding: 12px 20px; gap: 16px; flex-wrap: wrap; }
-  .header-search { max-width: none; order: 3; flex-basis: 100%; }
-  .header-actions { margin-left: auto; }
-  .deliver-pill-text { display: none; }
-  .deliver-pill { padding: 10px; }
+  .site-header-inner { padding: 12px 20px; gap: 16px; }
 
-  .main-nav-inner { padding: 0 20px; overflow-x: auto; scrollbar-width: none; }
-  .main-nav-inner::-webkit-scrollbar { display: none; }
-  .main-nav-link { padding: 14px 12px; font-size: 13px; }
+  /* Below desktop, fall back to hamburger menu */
+  .main-nav { display: none; }
+  .hamburger-btn { display: inline-flex !important; margin-left: auto; width: 40px; height: 40px; }
 
   .hero-v2-inner { padding: 44px 20px 60px; gap: 32px; }
   .hero-v2-stats { gap: 28px; }
@@ -3876,27 +3867,9 @@ main { padding: 0 16px; }
   .top-bar-utility a span { display: none; } /* icon-only on small screens */
 
   .site-header { top: 36px; }
-  .site-header-inner { padding: 10px 16px; gap: 10px; flex-wrap: nowrap; }
+  .site-header-inner { padding: 10px 16px; gap: 10px; }
   .brand-logo { height: 36px; }
-  .header-search {
-    order: 0;
-    flex-basis: auto;
-    height: 42px;
-    padding: 4px 4px 4px 14px;
-    display: none; /* hide inline; user can use hero search */
-  }
-  .header-icon-btn { width: 38px; height: 38px; font-size: 15px; }
-  .header-login-btn span { display: none; }
-  .header-login-btn { padding: 8px 12px; }
-  .header-login-btn i { font-size: 14px; }
-  .deliver-pill { display: none; }
-  .hamburger-btn { display: inline-flex !important; width: 38px; height: 38px; }
-
-  .main-nav { top: auto; position: relative; }
-  .main-nav-inner { padding: 0 16px; }
-  .main-nav-link { padding: 12px 10px; font-size: 12.5px; }
-  .main-nav-link i { font-size: 12px; }
-  .main-nav-cta span { display: none; }
+  .hamburger-btn { display: inline-flex !important; margin-left: auto; width: 38px; height: 38px; }
 
   .hero-v2-inner { padding: 32px 16px 48px; gap: 32px; }
   .hero-v2-pill { font-size: 12px; padding: 7px 14px; margin-bottom: 18px; }
@@ -4305,44 +4278,39 @@ main { padding: 0 16px; }
       <img src="flebo-logo.svg" alt="Flebo.in" class="brand-logo">
     </a>
 
-    <div class="header-actions">
-      <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
-        <i class="fas fa-bars"></i>
-      </button>
-    </div>
+    <nav class="main-nav" role="navigation" aria-label="Primary">
+      <ul class="main-nav-list">
+        <li><a href="#" class="main-nav-link">Tests</a></li>
+        <li><a href="#" class="main-nav-link">Packages</a></li>
+        <li><a href="#" class="main-nav-link">Reports</a></li>
+        <li><a href="#" class="main-nav-link">Health Trend Graph</a></li>
+        <li><a href="#" class="main-nav-pill"><i class="fas fa-cloud-arrow-up"></i><span>Upload Report</span></a></li>
+        <li><a href="#" class="main-nav-link main-nav-bmi">
+          <span class="bmi-gauge-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 14" width="22" height="13" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="bmiGrad" x1="0" x2="1" y1="0" y2="0">
+                  <stop offset="0" stop-color="#E8453C"/>
+                  <stop offset="0.35" stop-color="#F4B940"/>
+                  <stop offset="0.65" stop-color="#C7D147"/>
+                  <stop offset="1" stop-color="#3FAE5A"/>
+                </linearGradient>
+              </defs>
+              <path d="M 2.5 12.5 A 9.5 9.5 0 0 1 21.5 12.5" stroke="url(#bmiGrad)" stroke-width="2.8" stroke-linecap="round" fill="none"/>
+              <line x1="12" y1="12.5" x2="8" y2="5" stroke="#2C3E50" stroke-width="1.6" stroke-linecap="round"/>
+              <circle cx="12" cy="12.5" r="1.4" fill="#2C3E50"/>
+            </svg>
+          </span>
+          <span>BMI Calculator</span>
+        </a></li>
+      </ul>
+    </nav>
+
+    <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+      <i class="fas fa-bars"></i>
+    </button>
   </div>
 </header>
-
-<!-- Primary Navigation -->
-<nav class="main-nav" role="navigation" aria-label="Primary">
-  <div class="main-nav-inner">
-    <ul class="main-nav-list">
-      <li><a href="#" class="main-nav-link">Tests</a></li>
-      <li><a href="#" class="main-nav-link">Packages</a></li>
-      <li><a href="#" class="main-nav-link">Reports</a></li>
-      <li><a href="#" class="main-nav-link">Health Trend Graph</a></li>
-      <li><a href="#" class="main-nav-pill"><i class="fas fa-cloud-arrow-up"></i><span>Upload Report</span></a></li>
-      <li><a href="#" class="main-nav-link main-nav-bmi">
-        <span class="bmi-gauge-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 14" width="22" height="13" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="bmiGrad" x1="0" x2="1" y1="0" y2="0">
-                <stop offset="0" stop-color="#E8453C"/>
-                <stop offset="0.35" stop-color="#F4B940"/>
-                <stop offset="0.65" stop-color="#C7D147"/>
-                <stop offset="1" stop-color="#3FAE5A"/>
-              </linearGradient>
-            </defs>
-            <path d="M 2.5 12.5 A 9.5 9.5 0 0 1 21.5 12.5" stroke="url(#bmiGrad)" stroke-width="2.8" stroke-linecap="round" fill="none"/>
-            <line x1="12" y1="12.5" x2="8" y2="5" stroke="#2C3E50" stroke-width="1.6" stroke-linecap="round"/>
-            <circle cx="12" cy="12.5" r="1.4" fill="#2C3E50"/>
-          </svg>
-        </span>
-        <span>BMI Calculator</span>
-      </a></li>
-    </ul>
-  </div>
-</nav>
 
 <!-- ===== SIDEBAR MENU ===== -->
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
