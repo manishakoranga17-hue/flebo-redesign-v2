@@ -3480,6 +3480,49 @@ main { padding: 0 16px; }
   font-size: 12px;
 }
 
+/* Pipe separators between text nav items (2nd, 3rd, 4th) */
+.main-nav-list > li:nth-child(2) > .main-nav-link::before,
+.main-nav-list > li:nth-child(3) > .main-nav-link::before,
+.main-nav-list > li:nth-child(4) > .main-nav-link::before {
+  content: '|';
+  color: #D5DAE5;
+  font-weight: 400;
+  margin-left: -10px;
+  margin-right: 20px;
+  font-size: 15px;
+}
+
+/* Upload Report pill */
+.main-nav-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1.5px solid var(--accent);
+  background: #fff;
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 700;
+  padding: 8px 18px;
+  border-radius: 999px;
+  text-decoration: none;
+  margin: 6px 14px 6px 14px;
+  white-space: nowrap;
+  transition: background 0.2s, color 0.2s;
+  align-self: center;
+}
+.main-nav-pill:hover { background: var(--accent); color: #fff; }
+.main-nav-pill i { color: var(--accent); font-size: 14px; transition: color 0.2s; }
+.main-nav-pill:hover i { color: #fff; }
+
+/* BMI Calculator with colorful gauge */
+.main-nav-bmi { gap: 10px; }
+.bmi-gauge-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+
 /* ---------- HERO V2 ---------- */
 .hero-v2 {
   background: linear-gradient(115deg, #142254 0%, #1F2A5F 38%, #4F3784 78%, #6B4F94 100%);
@@ -4297,17 +4340,30 @@ main { padding: 0 16px; }
 <nav class="main-nav" role="navigation" aria-label="Primary">
   <div class="main-nav-inner">
     <ul class="main-nav-list">
-      <li><a href="#" class="main-nav-link active"><i class="fas fa-house"></i><span>Home</span></a></li>
-      <li><a href="#" class="main-nav-link"><i class="fas fa-briefcase-medical"></i><span>Health Packages</span></a></li>
-      <li><a href="#" class="main-nav-link"><i class="fas fa-pen-to-square"></i><span>Lab Tests</span></a></li>
-      <li><a href="#" class="main-nav-link"><i class="fas fa-stethoscope"></i><span>Consult a Doctor</span></a></li>
-      <li><a href="#" class="main-nav-link"><i class="fas fa-x-ray"></i><span>Radiology &amp; Scans</span><span class="nav-badge-new">NEW</span></a></li>
-      <li><a href="#" class="main-nav-link"><i class="fas fa-briefcase"></i><span>Corporate Wellness</span></a></li>
-      <li><a href="#" class="main-nav-link"><i class="fas fa-folder-open"></i><span>My Reports</span></a></li>
+      <li><a href="#" class="main-nav-link">Tests</a></li>
+      <li><a href="#" class="main-nav-link">Packages</a></li>
+      <li><a href="#" class="main-nav-link">Reports</a></li>
+      <li><a href="#" class="main-nav-link">Health Trend Graph</a></li>
+      <li><a href="#" class="main-nav-pill"><i class="fas fa-cloud-arrow-up"></i><span>Upload Report</span></a></li>
+      <li><a href="#" class="main-nav-link main-nav-bmi">
+        <span class="bmi-gauge-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 14" width="22" height="13" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="bmiGrad" x1="0" x2="1" y1="0" y2="0">
+                <stop offset="0" stop-color="#E8453C"/>
+                <stop offset="0.35" stop-color="#F4B940"/>
+                <stop offset="0.65" stop-color="#C7D147"/>
+                <stop offset="1" stop-color="#3FAE5A"/>
+              </linearGradient>
+            </defs>
+            <path d="M 2.5 12.5 A 9.5 9.5 0 0 1 21.5 12.5" stroke="url(#bmiGrad)" stroke-width="2.8" stroke-linecap="round" fill="none"/>
+            <line x1="12" y1="12.5" x2="8" y2="5" stroke="#2C3E50" stroke-width="1.6" stroke-linecap="round"/>
+            <circle cx="12" cy="12.5" r="1.4" fill="#2C3E50"/>
+          </svg>
+        </span>
+        <span>BMI Calculator</span>
+      </a></li>
     </ul>
-    <a href="tel:01244550000" class="main-nav-cta">
-      <i class="fas fa-headset"></i><span>24×7 Care</span>
-    </a>
   </div>
 </nav>
 
