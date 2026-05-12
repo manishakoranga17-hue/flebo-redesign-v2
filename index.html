@@ -4194,17 +4194,17 @@ main { padding: 0 16px; }
 }
 .sample-tested-marquee {
   flex: 1;
+  min-width: 0;
   overflow: hidden;
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
-          mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
 }
 .sample-tested-track {
   display: flex;
   align-items: center;
   gap: 39px;
   width: max-content;
-  animation: sample-marquee 28s linear infinite;
-  will-change: transform;
+  animation: sample-marquee 30s linear infinite;
 }
 .sample-tested-marquee:hover .sample-tested-track { animation-play-state: paused; }
 .sample-lab {
@@ -4231,11 +4231,8 @@ main { padding: 0 16px; }
   flex-shrink: 0;
 }
 @keyframes sample-marquee {
-  from { transform: translate3d(0, 0, 0); }
-  to   { transform: translate3d(-50%, 0, 0); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .sample-tested-track { animation: none; }
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 @media (max-width: 768px) {
   .sample-tested-inner { padding: 14px 16px; gap: 16px; flex-direction: column; align-items: flex-start; }
