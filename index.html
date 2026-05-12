@@ -2021,13 +2021,14 @@ main { padding: 0 16px; }
 .media-player-thumb {
   position: relative;
   width: 100%;
-  aspect-ratio: 24/9;
+  aspect-ratio: 16/9;
   overflow: hidden;
+  background: #000;
 }
 .media-player-thumb img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
 }
 /* Progress bar */
