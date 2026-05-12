@@ -3591,26 +3591,42 @@ main { padding: 0 16px; }
 
 /* Hero content (left column) */
 .hero-v2-content { min-width: 0; }
-.hero-v2-pill {
+.hero-v2-pill { display: none; }
+.hero-v2-pill-dot { display: none; }
+
+/* Hero category tabs */
+.hero-v2-tabs {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
-  background: rgba(11, 21, 48, 0.55);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  gap: 6px;
+  padding: 6px;
+  background: rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 999px;
-  padding: 11px 22px;
-  font-size: 15px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.92);
-  margin-bottom: 32px;
-  letter-spacing: 0.01em;
+  margin-bottom: 28px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
-.hero-v2-pill-dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 0 4px rgba(211, 53, 53, 0.22);
+.hero-v2-tab {
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.78);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 9px 22px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  white-space: nowrap;
+}
+.hero-v2-tab:hover { color: #fff; }
+.hero-v2-tab.is-active {
+  background: #fff;
+  color: var(--primary);
+  font-weight: 700;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
 }
 .hero-v2-headline {
   font-family: 'Instrument Serif', serif;
@@ -4785,9 +4801,11 @@ main { padding: 0 16px; }
 <section class="hero-v2" aria-label="Book lab tests">
   <div class="hero-v2-inner">
     <div class="hero-v2-content">
-      <div class="hero-v2-pill">
-        <span class="hero-v2-pill-dot"></span>
-        Flat 50% Cashback · Use FLEBO2050
+      <div class="hero-v2-tabs" role="tablist" aria-label="What to book">
+        <button class="hero-v2-tab is-active" type="button" role="tab" aria-selected="true" data-tab="tests">Tests</button>
+        <button class="hero-v2-tab" type="button" role="tab" aria-selected="false" data-tab="packages">Packages</button>
+        <button class="hero-v2-tab" type="button" role="tab" aria-selected="false" data-tab="labs">Labs</button>
+        <button class="hero-v2-tab" type="button" role="tab" aria-selected="false" data-tab="doctors">Doctors</button>
       </div>
       <h1 class="hero-v2-headline">Book lab tests<br>with <em>free home</em><br>sample collection.</h1>
       <p class="hero-v2-subtext">5,000+ tests and packages. NABL-accredited labs. Reports on WhatsApp in 24 hours. Trusted by 10 lakh+ Indians across 50 cities.</p>
@@ -6202,6 +6220,22 @@ document.querySelectorAll('.pkg-cat-tab').forEach(tab => {
   }
 
   setInterval(() => showCard(current + 1), 3000);
+})();
+
+// ===== HERO CATEGORY TABS =====
+(function () {
+  const tabs = document.querySelectorAll('.hero-v2-tab');
+  if (!tabs.length) return;
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      tabs.forEach((t) => {
+        t.classList.remove('is-active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      tab.classList.add('is-active');
+      tab.setAttribute('aria-selected', 'true');
+    });
+  });
 })();
 
 // ===== PINCODE POPUP =====
