@@ -5570,19 +5570,25 @@ main { padding: 0 16px; }
           </div>
         </div>
 
-        <div class="hero-v2-floater hero-v2-collection">
+        <div class="hero-v2-floater hero-v2-collection" id="heroFloaterA"
+             data-tests-icon="fa-wand-magic-sparkles"
+             data-tests-title="AI-Powered Report Analysis"
+             data-tests-sub="Get a FREE health report analysis by our AI Doctor">
           <span class="hero-v2-floater-icon hero-v2-floater-icon--green"><i class="fas fa-wand-magic-sparkles"></i></span>
           <div class="hero-v2-floater-info">
             <div class="hero-v2-floater-title">AI-Powered Report Analysis</div>
-            <div class="hero-v2-floater-sub">Smart insights on every test report</div>
+            <div class="hero-v2-floater-sub">Get a FREE health report analysis by our AI Doctor</div>
           </div>
         </div>
 
-        <div class="hero-v2-floater hero-v2-nabl">
-          <span class="hero-v2-floater-icon hero-v2-floater-icon--navy"><i class="fas fa-shield-halved"></i></span>
+        <div class="hero-v2-floater hero-v2-nabl" id="heroFloaterB"
+             data-tests-icon="fa-cloud-arrow-up"
+             data-tests-title="Upload &amp; Secure Your Reports"
+             data-tests-sub="Store your reports safely in our 100% Free Online Health Vault">
+          <span class="hero-v2-floater-icon hero-v2-floater-icon--navy"><i class="fas fa-cloud-arrow-up"></i></span>
           <div class="hero-v2-floater-info">
-            <div class="hero-v2-floater-title">NABL-accredited labs</div>
-            <div class="hero-v2-floater-sub">Reports verified by senior pathologists</div>
+            <div class="hero-v2-floater-title">Upload &amp; Secure Your Reports</div>
+            <div class="hero-v2-floater-sub">Store your reports safely in our 100% Free Online Health Vault</div>
           </div>
         </div>
       </div>
@@ -7067,12 +7073,29 @@ document.querySelectorAll('.pkg-cat-tab').forEach(tab => {
   const panels = document.querySelectorAll('.hero-panel');
   if (!tabs.length || !panels.length) return;
 
+  const floaters = document.querySelectorAll('.hero-v2-floater[data-tests-title]');
+
   function applyTab(key) {
     panels.forEach((p) => {
       const isMatch = p.dataset.panel === key;
       p.classList.toggle('is-active', isMatch);
       if (isMatch) p.removeAttribute('hidden');
       else p.setAttribute('hidden', '');
+    });
+    floaters.forEach((f) => {
+      const title = f.dataset[`${key}Title`];
+      const sub   = f.dataset[`${key}Sub`];
+      const icon  = f.dataset[`${key}Icon`];
+      if (!title) return;
+      const titleEl = f.querySelector('.hero-v2-floater-title');
+      const subEl   = f.querySelector('.hero-v2-floater-sub');
+      const iconEl  = f.querySelector('.hero-v2-floater-icon i');
+      if (titleEl) titleEl.innerHTML = title;
+      if (subEl)   subEl.textContent = sub || '';
+      if (iconEl && icon) {
+        iconEl.className = '';
+        iconEl.classList.add('fas', icon);
+      }
     });
   }
 
