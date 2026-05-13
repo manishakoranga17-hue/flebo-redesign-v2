@@ -3236,11 +3236,12 @@ main { padding: 0 16px; }
   .footer-contacts { display: flex; flex-direction: column; gap: 18px; }
   .footer-contact-row { display: flex; margin: 0; }
   .footer-links-title { margin-top: 0; text-align: left; }
-  /* Quick Links: 2 columns × 5 rows, left-aligned in the middle column */
+  /* Quick Links: 2 columns × 5 rows spread to fill the middle column width */
   .footer-links-grid {
-    grid-template-columns: repeat(2, max-content);
-    gap: 16px 80px;
-    justify-content: start;
+    grid-template-columns: max-content max-content;
+    gap: 16px;
+    justify-content: space-between;
+    width: 100%;
   }
   .footer-link {
     font-size: 15px;
