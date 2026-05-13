@@ -4241,8 +4241,12 @@ main { padding: 0 16px; }
   border-radius: 28px;
   overflow: visible;
   width: 100%;
-  height: 420px;
+  height: 460px !important;
+  min-height: 460px;
   align-self: center;
+}
+@media (max-width: 900px) {
+  .hero-v2-frame { height: auto !important; min-height: 0; aspect-ratio: 4 / 3.2; }
 }
 .hero-v2-img {
   width: 100%;
