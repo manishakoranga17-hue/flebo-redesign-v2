@@ -3712,16 +3712,30 @@ main { padding: 0 16px; }
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 56px;
-  align-items: center;
+  align-items: stretch;
   position: relative;
   z-index: 1;
 }
-/* Desktop (≥1024px): hero + sample-tested strip always fill the first fold.
-   Chrome budget: top-bar (~42) + site-header (~80) + sample strip (~88) + safety ≈ 240px. */
+/* Desktop (≥1024px): wrap first-fold elements in a flex column locked to
+   100dvh. The hero takes whatever space remains after top-bar + site-header
+   + sample-tested strip, so the strip is GUARANTEED at the viewport bottom
+   regardless of any chrome height variance. */
 @media (min-width: 1024px) {
-  .hero-v2-inner {
-    min-height: calc(100vh - 240px);
-    min-height: calc(100dvh - 240px);
+  .first-fold {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+  }
+  .first-fold .hero-v2 {
+    flex: 1 1 0;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .first-fold .hero-v2-inner {
+    flex: 1;
+    min-height: 0;
   }
   /* Compact Doctors panel so 9 specialities always fit on short desktop heights */
   .hero-panel[data-panel="doctors"] .hero-panel-eyebrow { font-size: 16px; margin-bottom: 6px; }
@@ -4247,12 +4261,13 @@ main { padding: 0 16px; }
   border-radius: 28px;
   overflow: visible;
   width: 100%;
-  /* Scale with viewport height: leaves ~320px for chrome (top-bar + site-header
-     + sample-tested strip + hero padding + safety margin). Caps at 555px so
-     the image doesn't bloat on very tall screens. */
-  height: clamp(280px, calc(100dvh - 320px), 555px);
-  min-height: 0;
-  align-self: center;
+  /* Fills its grid cell. On desktop the cell stretches with the flex-allocated
+     hero, so the image is whatever height the viewport allows (capped at
+     555). On smaller breakpoints it falls back to the aspect-ratio rule. */
+  height: 100%;
+  max-height: 555px;
+  min-height: 280px;
+  align-self: stretch;
 }
 @media (max-width: 900px) {
   .hero-v2-frame { height: auto; min-height: 0; aspect-ratio: 4 / 3.2; }
@@ -5313,6 +5328,9 @@ main { padding: 0 16px; }
 <!-- Skip navigation for accessibility -->
 <a href="#main-content" class="skip-link">Skip to main content</a>
 
+<!-- ===== FIRST FOLD (top-bar + site-header + hero + sample-tested) ===== -->
+<div class="first-fold">
+
 <!-- ===== HEADER ===== -->
 <!-- Top Bar -->
 <div class="top-bar">
@@ -5657,6 +5675,8 @@ main { padding: 0 16px; }
     </div>
   </div>
 </section>
+
+</div><!-- /.first-fold -->
 
 <!-- Legacy hero panels (kept hidden; referenced by older JS handlers) -->
 <div class="legacy-hero-stub" hidden aria-hidden="true">
