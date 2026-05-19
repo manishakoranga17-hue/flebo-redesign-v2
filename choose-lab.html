@@ -117,51 +117,124 @@ button { font-family: inherit; }
   font-size: 12px;
   font-weight: 700;
   color: var(--primary);
+  line-height: 1;
 }
-.brand-rating-stars { color: #F6B100; font-size: 10px; }
+.brand-rating-score { font-weight: 800; }
+.brand-rating-stars { display: inline-flex; gap: 1px; color: #F6B100; font-size: 10px; }
 .brand-rating-count { font-weight: 600; opacity: 0.85; }
 
+/* Hamburger (visible only at narrow breakpoints — kept here for parity with home) */
+.hamburger-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-soft);
+  color: var(--text-muted);
+  border: 0;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  flex-shrink: 0;
+}
+.hamburger-btn:hover { background: #EFEFF6; color: var(--primary); }
+
+.top-bar-trust {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+.top-bar-trust li { display: inline-flex; align-items: center; }
+
+.main-nav { align-self: stretch; display: flex; align-items: center; }
 .main-nav-list {
   display: flex;
   list-style: none;
-  gap: 22px;
-  align-items: center;
+  margin: 0;
+  padding: 0;
+  gap: 0;
 }
+.main-nav-list li { list-style: none; }
 .main-nav-link {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: var(--primary);
-  font-weight: 600;
+  padding: 16px 18px;
+  color: var(--text-primary);
+  text-decoration: none;
   font-size: 14px;
-  padding: 6px 4px;
-  transition: opacity 0.15s;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: color 0.2s;
 }
-.main-nav-link:hover { opacity: 0.75; }
-.main-nav-link i { font-size: 14px; }
+.main-nav-link i { font-size: 14px; color: var(--text-muted); transition: color 0.2s; }
+.main-nav-link:hover { color: var(--accent); }
+.main-nav-link:hover i { color: var(--accent); }
 
-.header-upload {
-  margin-left: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 2px;
+/* Pipe separators between text nav items (2nd, 3rd, 4th, 5th BMI) */
+.main-nav-list > li:nth-child(2) > .main-nav-link::before,
+.main-nav-list > li:nth-child(3) > .main-nav-link::before,
+.main-nav-list > li:nth-child(4) > .main-nav-link::before,
+.main-nav-list > li:nth-child(5) > .main-nav-link::before {
+  content: '|';
+  color: #D5DAE5;
+  font-weight: 400;
+  margin-left: -10px;
+  margin-right: 20px;
+  font-size: 15px;
 }
+
+/* Upload Report pill — white pill with red border (home style) */
 .main-nav-pill {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 16px;
-  background: var(--accent);
-  color: #fff;
-  border-radius: 999px;
+  border: 1.5px solid var(--accent);
+  background: #fff;
+  color: var(--accent);
+  font-size: 14px;
   font-weight: 700;
-  font-size: 13px;
-  box-shadow: 0 6px 16px rgba(211, 53, 53, 0.28);
+  padding: 8px 18px;
+  border-radius: 999px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.2s, color 0.2s;
 }
-.main-nav-pill:hover { background: var(--accent-dark); }
-.main-nav-upload-sub { font-size: 11px; color: var(--text-muted); font-weight: 500; }
-.main-nav-upload-sub-sep { margin: 0 4px; opacity: 0.5; }
+.main-nav-pill:hover { background: var(--accent); color: #fff; }
+.main-nav-pill i { color: var(--accent); font-size: 14px; transition: color 0.2s; }
+.main-nav-pill:hover i { color: #fff; }
+
+.header-upload,
+.main-nav-upload {
+  margin-left: auto;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: center;
+}
+.main-nav-upload { margin: 0 0 0 auto; }
+.main-nav-upload-sub {
+  margin-top: 4px;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--primary);
+  white-space: nowrap;
+}
+.main-nav-upload-sub-sep { margin: 0 6px; color: #C5CCDB; }
+
+/* BMI Calculator with colorful gauge */
+.main-nav-bmi { gap: 10px; }
+.bmi-gauge-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
 
 /* ===== SEARCH STRIP (under nav) ===== */
 .search-strip {
@@ -1005,8 +1078,10 @@ button { font-family: inherit; }
 @media (max-width: 1100px) {
   :root { --site-inset: 20px; }
   .page-body { grid-template-columns: 240px 1fr; }
-  .main-nav-list { gap: 14px; }
-  .main-nav-link span { display: none; }
+  /* Below desktop, fall back to hamburger menu like the home page */
+  .main-nav { display: none; }
+  .hamburger-btn { display: inline-flex !important; }
+  .header-upload { margin-left: auto; }
 }
 @media (max-width: 900px) {
   .page-body { grid-template-columns: 1fr; }
@@ -1044,15 +1119,19 @@ button { font-family: inherit; }
 <!-- ===== TOP BAR ===== -->
 <div class="top-bar">
   <div class="top-bar-inner">
-    <button class="top-bar-location" aria-label="Change location">
-      <i class="fas fa-location-dot tb-icon-green"></i>
-      <span>Gurgaon - 122001</span>
-      <i class="fas fa-chevron-down top-bar-location-caret"></i>
-    </button>
+    <ul class="top-bar-trust" aria-label="Location">
+      <li>
+        <button class="top-bar-location" id="topBarLocationTrigger" aria-label="Change location">
+          <i class="fas fa-location-dot tb-icon-green"></i>
+          <span id="topBarLocationDisplay">Gurgaon - 122001</span>
+          <i class="fas fa-chevron-down top-bar-location-caret" aria-hidden="true"></i>
+        </button>
+      </li>
+    </ul>
     <a href="tel:01244550000" class="top-bar-link top-bar-phone">
       <i class="fas fa-phone"></i><span>0124-4550000</span>
     </a>
-    <a href="#" class="top-bar-link">
+    <a href="#" class="top-bar-link top-bar-login">
       <i class="fas fa-user"></i><span>Login / Signup</span>
     </a>
   </div>
@@ -1061,26 +1140,56 @@ button { font-family: inherit; }
 <!-- ===== SITE HEADER ===== -->
 <header class="site-header" role="banner">
   <div class="site-header-inner">
+    <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+      <i class="fas fa-bars"></i>
+    </button>
+
     <div class="brand-block">
-      <a href="index.html" class="brand"><img src="flebo-logo.svg" alt="Flebo.in" class="brand-logo"></a>
-      <div class="brand-rating">
-        <span>4.9</span>
-        <span class="brand-rating-stars">★★★★★</span>
+      <a href="index.html" class="brand" aria-label="Flebo.in — Any Test, Any Lab">
+        <img src="flebo-logo.svg" alt="Flebo.in" class="brand-logo">
+      </a>
+      <div class="brand-rating" aria-label="Rated 4.9 out of 5 by 33,434 users">
+        <span class="brand-rating-score">4.9</span>
+        <span class="brand-rating-stars" aria-hidden="true">
+          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+        </span>
         <span class="brand-rating-count">33,434</span>
       </div>
     </div>
-    <nav class="main-nav">
+
+    <nav class="main-nav" role="navigation" aria-label="Primary">
       <ul class="main-nav-list">
-        <li><a href="index.html" class="main-nav-link"><i class="fas fa-flask-vial"></i><span>Tests</span></a></li>
-        <li><a href="index.html" class="main-nav-link"><i class="fas fa-box-open"></i><span>Packages</span></a></li>
-        <li><a href="index.html" class="main-nav-link"><i class="fas fa-folder-open"></i><span>Reports</span></a></li>
-        <li><a href="index.html" class="main-nav-link"><i class="fas fa-chart-line"></i><span>Health Trend</span></a></li>
-        <li><a href="index.html" class="main-nav-link"><i class="fas fa-calculator"></i><span>BMI</span></a></li>
+        <li><a href="index.html" class="main-nav-link"><i class="fas fa-flask-vial" aria-hidden="true"></i><span>Tests</span></a></li>
+        <li><a href="index.html" class="main-nav-link"><i class="fas fa-box-open" aria-hidden="true"></i><span>Packages</span></a></li>
+        <li><a href="index.html" class="main-nav-link"><i class="fas fa-folder-open" aria-hidden="true"></i><span>Reports</span></a></li>
+        <li><a href="index.html" class="main-nav-link"><i class="fas fa-chart-line" aria-hidden="true"></i><span>Health Trend Graph</span></a></li>
+        <li><a href="index.html" class="main-nav-link main-nav-bmi">
+          <span class="bmi-gauge-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 14" width="22" height="13" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="bmiGrad" x1="0" x2="1" y1="0" y2="0">
+                  <stop offset="0" stop-color="#E8453C"/>
+                  <stop offset="0.35" stop-color="#F4B940"/>
+                  <stop offset="0.65" stop-color="#C7D147"/>
+                  <stop offset="1" stop-color="#3FAE5A"/>
+                </linearGradient>
+              </defs>
+              <path d="M 2.5 12.5 A 9.5 9.5 0 0 1 21.5 12.5" stroke="url(#bmiGrad)" stroke-width="2.8" stroke-linecap="round" fill="none"/>
+              <line x1="12" y1="12.5" x2="8" y2="5" stroke="#2C3E50" stroke-width="1.6" stroke-linecap="round"/>
+              <circle cx="12" cy="12.5" r="1.4" fill="#2C3E50"/>
+            </svg>
+          </span>
+          <span>BMI Calculator</span>
+        </a></li>
       </ul>
     </nav>
-    <div class="header-upload">
-      <a href="#" class="main-nav-pill"><i class="fas fa-cloud-arrow-up"></i><span>Upload Report of Any Lab</span></a>
-      <span class="main-nav-upload-sub">Secure Data Vault<span class="main-nav-upload-sub-sep">|</span>Free AI Analysis</span>
+
+    <div class="header-upload main-nav-upload">
+      <a href="#" class="main-nav-pill">
+        <i class="fas fa-cloud-arrow-up"></i>
+        <span>Upload Report of Any Lab</span>
+      </a>
+      <span class="main-nav-upload-sub">Secure Data Vault <span class="main-nav-upload-sub-sep">|</span> Free AI Analysis</span>
     </div>
   </div>
 </header>
