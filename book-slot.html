@@ -642,48 +642,255 @@ button { font-family: inherit; }
   color: var(--primary);
 }
 
-.promo-row {
+/* Coupon trigger (replaces inline input) */
+.coupon-trigger {
+  width: 100%;
   display: flex;
-  gap: 8px;
-  margin-bottom: 10px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 14px;
+  background: var(--bg-soft);
+  border: 1.5px dashed var(--accent);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+  transition: background 0.15s, border-color 0.15s;
 }
-.promo-input {
+.coupon-trigger:hover { background: #fff; border-color: var(--accent); }
+.coupon-trigger-left { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.coupon-trigger-ico {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  flex-shrink: 0;
+}
+.coupon-trigger-text { display: flex; flex-direction: column; min-width: 0; }
+.coupon-trigger-title { font-size: 15px; font-weight: 700; color: var(--text-primary); }
+.coupon-trigger-sub { font-size: 12.5px; color: var(--text-muted); margin-top: 2px; }
+.coupon-trigger-cta {
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 700;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Applied state */
+.coupon-applied {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 14px;
+  background: var(--green-soft);
+  border: 1.5px solid var(--green);
+  border-radius: var(--radius-md);
+}
+.coupon-applied-left { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.coupon-applied-ico {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--green);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.coupon-applied-text { display: flex; flex-direction: column; min-width: 0; }
+.coupon-applied-code { font-size: 15px; font-weight: 800; color: var(--green); letter-spacing: 0.04em; }
+.coupon-applied-sub { font-size: 12.5px; color: var(--text-muted); margin-top: 2px; }
+.coupon-remove {
+  background: transparent;
+  border: 0;
+  color: var(--text-muted);
+  font-size: 18px;
+  cursor: pointer;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.coupon-remove:hover { background: rgba(0,0,0,0.06); color: var(--text-primary); }
+
+/* ===== Coupons modal ===== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(11, 21, 48, 0.55);
+  z-index: 1000;
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 60px 20px 20px;
+  overflow-y: auto;
+}
+.modal-overlay.is-open { display: flex; }
+.modal-box {
+  background: #fff;
+  width: 100%;
+  max-width: 560px;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 80px);
+}
+.modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border-soft);
+  flex-shrink: 0;
+}
+.modal-title {
+  font-family: 'Instrument Serif', serif;
+  font-weight: 400;
+  font-size: 26px;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+.modal-close {
+  background: transparent;
+  border: 0;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  font-size: 20px;
+  color: var(--text-primary);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-close:hover { background: rgba(0,0,0,0.06); }
+.modal-body {
+  padding: 20px 24px;
+  overflow-y: auto;
   flex: 1;
-  height: 40px;
-  border: 1.5px dashed var(--border-mid);
+}
+.coupon-input-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.coupon-input {
+  flex: 1;
+  height: 48px;
+  border: 1.5px solid var(--border-mid);
   border-radius: var(--radius-sm);
-  padding: 0 12px;
+  padding: 0 14px;
   font-size: 15px;
   font-family: inherit;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   outline: none;
-  background: var(--bg-soft);
+  color: var(--text-primary);
 }
-.promo-input:focus { border-color: var(--accent); background: #fff; }
-.promo-apply {
-  height: 40px;
-  padding: 0 18px;
-  background: transparent;
-  border: 1.5px solid var(--accent);
+.coupon-input::placeholder { color: var(--text-muted); text-transform: none; letter-spacing: 0; }
+.coupon-input:focus { border-color: var(--accent); }
+.coupon-input-apply {
+  height: 48px;
+  min-width: 130px;
+  background: #d9d9d9;
+  border: 0;
   border-radius: var(--radius-sm);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: not-allowed;
+  transition: background 0.15s;
+}
+.coupon-input-apply.is-ready {
+  background: var(--accent);
+  cursor: pointer;
+}
+.coupon-input-apply.is-ready:hover { filter: brightness(0.95); }
+.available-label {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 14px;
+}
+.coupon-list { display: flex; flex-direction: column; }
+.coupon-card {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border-soft);
+}
+.coupon-card:last-child { border-bottom: 0; }
+.coupon-card-left { flex: 1; min-width: 0; }
+.coupon-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+.coupon-brand-name {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: 0.04em;
+}
+.coupon-brand-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 6px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 3px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+.coupon-code {
+  font-size: 16px;
+  font-weight: 800;
+  color: #0E8C7A;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.coupon-desc {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.35;
+  margin-bottom: 8px;
+}
+.coupon-terms {
+  font-size: 13px;
+  color: var(--text-muted);
+  text-decoration: underline;
+  cursor: pointer;
+}
+.coupon-apply-btn {
+  background: transparent;
+  border: 0;
   color: var(--accent);
   font-size: 15px;
   font-weight: 700;
   cursor: pointer;
+  padding: 4px 8px;
+  flex-shrink: 0;
 }
-.promo-apply:hover { background: var(--accent); color: #fff; }
-.promo-applied {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--green-soft);
-  color: var(--green);
-  padding: 8px 12px;
-  border-radius: var(--radius-sm);
-  font-size: 14.5px;
-  font-weight: 700;
-}
+.coupon-apply-btn:hover { text-decoration: underline; }
 
 .proceed-btn {
   width: 100%;
@@ -1012,11 +1219,18 @@ button { font-family: inherit; }
 
     <div class="summary-section">
       <div class="summary-label">Coupon</div>
-      <div class="promo-row">
-        <input class="promo-input" id="promoInput" type="text" placeholder="FLEBO2050">
-        <button class="promo-apply" id="promoApply">Apply</button>
+      <div id="couponSlot">
+        <button type="button" class="coupon-trigger" id="couponTrigger">
+          <span class="coupon-trigger-left">
+            <span class="coupon-trigger-ico"><i class="fas fa-tag"></i></span>
+            <span class="coupon-trigger-text">
+              <span class="coupon-trigger-title">Apply coupon</span>
+              <span class="coupon-trigger-sub">Save more on your booking</span>
+            </span>
+          </span>
+          <span class="coupon-trigger-cta">View offers <i class="fas fa-chevron-right" style="font-size:11px;"></i></span>
+        </button>
       </div>
-      <div id="promoStatus" hidden></div>
     </div>
 
     <div class="summary-section">
@@ -1039,6 +1253,24 @@ button { font-family: inherit; }
 </div>
 
 <div class="toast" id="toast"></div>
+
+<!-- ===== COUPONS MODAL ===== -->
+<div class="modal-overlay" id="couponModal" role="dialog" aria-modal="true" aria-labelledby="couponModalTitle">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div class="modal-title" id="couponModalTitle">Coupons &amp; offers</div>
+      <button type="button" class="modal-close" id="couponModalClose" aria-label="Close"><i class="fas fa-xmark"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="coupon-input-row">
+        <input type="text" class="coupon-input" id="couponCodeInput" placeholder="Enter Coupon Code">
+        <button type="button" class="coupon-input-apply" id="couponCodeApply" disabled>Apply</button>
+      </div>
+      <div class="available-label">Available coupons</div>
+      <div class="coupon-list" id="couponList"></div>
+    </div>
+  </div>
+</div>
 
 <script>
 (function () {
@@ -1201,39 +1433,158 @@ button { font-family: inherit; }
     pill.classList.add('is-active');
   });
 
-  // Price breakdown
-  let promoDiscount = 0;
+  // ===== Coupons =====
+  const coupons = [
+    { code: 'FLEBO2050', desc: 'Get 20% off on your lab tests', terms: 'Max discount ₹500. Cannot be combined with other offers.', type: 'percent', value: 20, maxOff: 500, minOrder: 0 },
+    { code: 'NEWUSER15', desc: 'Get 15% off on your first booking', terms: 'New users only. Max discount ₹300.', type: 'percent', value: 15, maxOff: 300, minOrder: 0 },
+    { code: 'HEALTH500', desc: 'Flat ₹500 off on orders above ₹2,000', terms: 'Min order value ₹2,000.', type: 'flat', value: 500, minOrder: 2000 },
+    { code: 'LABEXTRA10', desc: 'Get 10% off on radiology tests', terms: 'Applicable on MRI, CT, X-Ray, Ultrasound. Max ₹400 off.', type: 'percent', value: 10, maxOff: 400, minOrder: 0 },
+    { code: 'WELCOME100', desc: 'Flat ₹100 off on all lab tests', terms: 'No minimum order. One-time use.', type: 'flat', value: 100, minOrder: 0 },
+  ];
+
+  function discountFor(coupon) {
+    if (!coupon) return 0;
+    if (price < (coupon.minOrder || 0)) return 0;
+    if (coupon.type === 'flat') return Math.min(coupon.value, price);
+    const raw = Math.round(price * (coupon.value / 100));
+    return Math.min(raw, coupon.maxOff || raw, price);
+  }
+
+  let appliedCoupon = null;
+
   function renderPriceRows() {
     const save = mrp - price;
-    const homeCollection = 0;
     const cashback = Math.round(price * 0.50);
-    const finalTotal = Math.max(price - promoDiscount, 0);
-    const finalAfterCashback = finalTotal;
+    const couponDiscount = discountFor(appliedCoupon);
+    const finalTotal = Math.max(price - couponDiscount, 0);
     document.getElementById('priceRows').innerHTML = `
       <div class="price-row"><span class="price-row-key">MRP (lab list price)</span><span class="price-row-val">₹${mrp.toLocaleString()}</span></div>
       <div class="price-row is-discount"><span class="price-row-key">Lab discount</span><span class="price-row-val">− ₹${save.toLocaleString()}</span></div>
       <div class="price-row"><span class="price-row-key">Home collection</span><span class="price-row-val" style="color:var(--green);">FREE</span></div>
-      ${promoDiscount > 0 ? `<div class="price-row is-discount"><span class="price-row-key">Coupon (FLEBO2050)</span><span class="price-row-val">− ₹${promoDiscount.toLocaleString()}</span></div>` : ''}
-      <div class="price-row is-total"><span class="price-row-key">Amount to pay</span><span class="price-row-val">₹${finalAfterCashback.toLocaleString()}</span></div>
+      ${couponDiscount > 0 ? `<div class="price-row is-discount"><span class="price-row-key">Coupon (${appliedCoupon.code})</span><span class="price-row-val">− ₹${couponDiscount.toLocaleString()}</span></div>` : ''}
+      <div class="price-row is-total"><span class="price-row-key">Amount to pay</span><span class="price-row-val">₹${finalTotal.toLocaleString()}</span></div>
       <div class="price-row" style="margin-top:4px;"><span class="price-row-key" style="color:var(--green);font-weight:700;">💚 Cashback after report</span><span class="price-row-val" style="color:var(--green);">+ ₹${cashback.toLocaleString()}</span></div>
     `;
   }
   renderPriceRows();
 
-  // Promo
-  document.getElementById('promoApply').addEventListener('click', () => {
-    const code = document.getElementById('promoInput').value.trim().toUpperCase();
-    const status = document.getElementById('promoStatus');
-    if (code === 'FLEBO2050') {
-      promoDiscount = Math.round(price * 0.20);
-      status.innerHTML = `<div class="promo-applied"><i class="fas fa-circle-check"></i> Saved ₹${promoDiscount} with FLEBO2050</div>`;
-      status.hidden = false;
-      renderPriceRows();
-      showToast(`✓ FLEBO2050 applied — you saved ₹${promoDiscount}`);
-    } else if (code) {
-      status.innerHTML = `<div class="promo-applied" style="background:var(--accent-soft);color:var(--accent);"><i class="fas fa-circle-xmark"></i> Invalid code</div>`;
-      status.hidden = false;
+  function renderCouponSlot() {
+    const slot = document.getElementById('couponSlot');
+    if (appliedCoupon) {
+      const saved = discountFor(appliedCoupon);
+      slot.innerHTML = `
+        <div class="coupon-applied">
+          <div class="coupon-applied-left">
+            <span class="coupon-applied-ico"><i class="fas fa-circle-check"></i></span>
+            <span class="coupon-applied-text">
+              <span class="coupon-applied-code">${appliedCoupon.code}</span>
+              <span class="coupon-applied-sub">You saved ₹${saved.toLocaleString()} on this order</span>
+            </span>
+          </div>
+          <button type="button" class="coupon-remove" id="couponRemove" aria-label="Remove coupon"><i class="fas fa-xmark"></i></button>
+        </div>
+      `;
+      document.getElementById('couponRemove').addEventListener('click', () => {
+        appliedCoupon = null;
+        renderCouponSlot();
+        renderPriceRows();
+        showToast('Coupon removed');
+      });
+    } else {
+      slot.innerHTML = `
+        <button type="button" class="coupon-trigger" id="couponTrigger">
+          <span class="coupon-trigger-left">
+            <span class="coupon-trigger-ico"><i class="fas fa-tag"></i></span>
+            <span class="coupon-trigger-text">
+              <span class="coupon-trigger-title">Apply coupon</span>
+              <span class="coupon-trigger-sub">Save more on your booking</span>
+            </span>
+          </span>
+          <span class="coupon-trigger-cta">View offers <i class="fas fa-chevron-right" style="font-size:11px;"></i></span>
+        </button>
+      `;
+      document.getElementById('couponTrigger').addEventListener('click', openCouponModal);
     }
+  }
+
+  function applyCoupon(coupon, source) {
+    const disc = discountFor(coupon);
+    if (disc <= 0) {
+      const need = (coupon.minOrder || 0) - price;
+      showToast(`Add ₹${need.toLocaleString()} more to unlock ${coupon.code}`);
+      return false;
+    }
+    appliedCoupon = coupon;
+    renderCouponSlot();
+    renderPriceRows();
+    closeCouponModal();
+    showToast(`✓ ${coupon.code} applied — you saved ₹${disc.toLocaleString()}`);
+    return true;
+  }
+
+  // Modal
+  const modal = document.getElementById('couponModal');
+  const modalCodeInput = document.getElementById('couponCodeInput');
+  const modalCodeApply = document.getElementById('couponCodeApply');
+
+  function renderCouponList() {
+    document.getElementById('couponList').innerHTML = coupons.map(c => `
+      <div class="coupon-card" data-code="${c.code}">
+        <div class="coupon-card-left">
+          <div class="coupon-brand">
+            <span class="coupon-brand-name">FLEBO</span>
+            <span class="coupon-brand-pill">.in</span>
+          </div>
+          <div class="coupon-code">${c.code}</div>
+          <div class="coupon-desc">${c.desc}</div>
+          <span class="coupon-terms" data-terms="${c.terms.replace(/"/g, '&quot;')}">Terms &amp; conditions</span>
+        </div>
+        <button type="button" class="coupon-apply-btn" data-action="apply" data-code="${c.code}">Apply</button>
+      </div>
+    `).join('');
+  }
+  renderCouponList();
+
+  function openCouponModal() {
+    modal.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    modalCodeInput.value = '';
+    syncCodeApplyState();
+    setTimeout(() => modalCodeInput.focus(), 50);
+  }
+  function closeCouponModal() {
+    modal.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+  function syncCodeApplyState() {
+    const has = modalCodeInput.value.trim().length > 0;
+    modalCodeApply.classList.toggle('is-ready', has);
+    modalCodeApply.disabled = !has;
+  }
+
+  document.getElementById('couponTrigger').addEventListener('click', openCouponModal);
+  document.getElementById('couponModalClose').addEventListener('click', closeCouponModal);
+  modal.addEventListener('click', (e) => { if (e.target === modal) closeCouponModal(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('is-open')) closeCouponModal(); });
+
+  modalCodeInput.addEventListener('input', syncCodeApplyState);
+  modalCodeApply.addEventListener('click', () => {
+    const code = modalCodeInput.value.trim().toUpperCase();
+    if (!code) return;
+    const match = coupons.find(c => c.code === code);
+    if (match) applyCoupon(match, 'typed');
+    else showToast('Invalid coupon code');
+  });
+
+  document.getElementById('couponList').addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-action="apply"]');
+    if (btn) {
+      const c = coupons.find(x => x.code === btn.dataset.code);
+      if (c) applyCoupon(c, 'list');
+      return;
+    }
+    const terms = e.target.closest('.coupon-terms');
+    if (terms) showToast(terms.dataset.terms || 'Terms apply');
   });
 
   // Proceed
