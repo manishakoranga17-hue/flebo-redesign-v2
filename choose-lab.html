@@ -1524,7 +1524,21 @@ button { font-family: inherit; }
   cardsEl.addEventListener('click', (e) => {
     const btn = e.target.closest('button[data-action="select"]');
     if (!btn) return;
-    showToast(`✓ ${btn.dataset.name} selected — proceeding to slot booking…`);
+    const card = btn.closest('.lab-card');
+    const lab = labs.find(l => l.id === card.dataset.id);
+    if (!lab) return;
+    if (mode === 'visit') {
+      const slot = card.querySelector('.slot-btn.is-selected');
+      showToast(`✓ ${lab.name} · slot ${slot ? slot.textContent : 'TBD'} — proceeding to checkout…`);
+      return;
+    }
+    const url = new URL('book-slot.html', location.href);
+    url.searchParams.set('tests', selectedTests.join('|'));
+    url.searchParams.set('lab', lab.name);
+    url.searchParams.set('labId', lab.id);
+    url.searchParams.set('price', lab.price);
+    url.searchParams.set('mrp', lab.mrp);
+    location.href = url.toString();
   });
 
   // ===== Rating slider =====

@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Confirm Booking — Flebo.in</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --primary: #1B2A5B;
+  --accent: #D33535;
+  --accent-dark: #B82E2E;
+  --accent-soft: #FDECEC;
+  --accent-mid: #F8CACA;
+  --green: #1B8A5A;
+  --green-soft: #E1F5EA;
+  --amber: #B45309;
+  --amber-soft: #FEF3C7;
+  --blue: #1D4ED8;
+  --blue-soft: #EFF6FF;
+  --text-primary: #0B1530;
+  --text-muted: #6B7592;
+  --border-soft: #E5E9F3;
+  --border-mid: #C5CCDB;
+  --bg-soft: #F7F8FB;
+  --bg-page: #F4F6FA;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --site-inset: 32px;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: var(--text-primary);
+  background: var(--bg-page);
+  font-size: 14px;
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; }
+
+/* TOP BAR + HEADER (cloned style, kept compact) */
+.top-bar { background: #0B1530; position: sticky; top: 0; z-index: 200; }
+.top-bar-inner {
+  max-width: 1320px; margin: 0 auto;
+  padding: 10px var(--site-inset);
+  display: flex; align-items: center; gap: 16px;
+  color: #fff; font-size: 13px; font-weight: 500;
+}
+.top-bar-location {
+  background: transparent; border: 0; color: #fff; font: inherit;
+  display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+}
+.tb-icon-green { color: #21C669; font-size: 14px; }
+.top-bar-link { color: #fff; display: inline-flex; align-items: center; gap: 8px; }
+.top-bar-phone { margin-left: auto; }
+
+.site-header {
+  background: #fff; border-bottom: 1px solid var(--border-soft);
+  position: sticky; top: 38px; z-index: 190;
+}
+.site-header-inner {
+  max-width: 1320px; margin: 0 auto;
+  padding: 14px var(--site-inset);
+  display: flex; align-items: center; gap: 28px;
+}
+.brand-block { display: inline-flex; flex-direction: column; gap: 4px; flex-shrink: 0; }
+.brand-logo { height: 46px; width: auto; }
+.brand-rating {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: #EAF2FC; border-radius: 6px; padding: 3px 8px;
+  font-size: 12px; font-weight: 700; color: var(--primary);
+}
+.brand-rating-stars { color: #F6B100; font-size: 10px; }
+.brand-rating-count { font-weight: 600; opacity: 0.85; }
+.main-nav-list { display: flex; list-style: none; gap: 22px; align-items: center; }
+.main-nav-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  color: var(--primary); font-weight: 600; font-size: 14px;
+}
+.main-nav-link:hover { opacity: 0.75; }
+.header-upload { margin-left: auto; display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+.main-nav-pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 16px; background: var(--accent); color: #fff;
+  border-radius: 999px; font-weight: 700; font-size: 13px;
+  box-shadow: 0 6px 16px rgba(211, 53, 53, 0.28);
+}
+.main-nav-upload-sub { font-size: 11px; color: var(--text-muted); font-weight: 500; }
+.main-nav-upload-sub-sep { margin: 0 4px; opacity: 0.5; }
+
+/* BACK NAV + STEP HEADER */
+.page-head {
+  background: #fff;
+  border-bottom: 1px solid var(--border-soft);
+}
+.page-head-inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 20px var(--site-inset) 18px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.back-btn {
+  background: transparent; border: 0; color: var(--text-muted);
+  font-size: 13px; font-weight: 600; cursor: pointer;
+  padding: 6px 0;
+}
+.back-btn:hover { color: var(--primary); }
+.page-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: 30px;
+  color: var(--primary);
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  margin-left: 12px;
+}
+.page-stepper {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-muted);
+  font-size: 12.5px;
+  font-weight: 600;
+}
+.stepper-dot {
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--border-soft); color: var(--text-muted);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700;
+}
+.stepper-dot.is-done { background: var(--green); color: #fff; }
+.stepper-dot.is-active { background: var(--accent); color: #fff; }
+.stepper-line { width: 22px; height: 2px; background: var(--border-soft); }
+
+/* PAGE BODY */
+.page-body {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 24px var(--site-inset) 60px;
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 24px;
+  align-items: start;
+}
+
+/* LEFT — STEP CARDS */
+.step-card {
+  background: #fff;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin-bottom: 16px;
+  animation: cardIn 0.4s ease both;
+}
+@keyframes cardIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+.step-card:nth-child(1) { animation-delay: 0.05s; }
+.step-card:nth-child(2) { animation-delay: 0.1s; }
+.step-card:nth-child(3) { animation-delay: 0.15s; }
+.step-card:nth-child(4) { animation-delay: 0.2s; }
+.step-card-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.step-num {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 800;
+}
+.step-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: 22px;
+  color: var(--primary);
+  letter-spacing: -0.01em;
+}
+.step-sub {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-left: auto;
+}
+
+/* Date chips */
+.date-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+.date-chip {
+  background: #fff;
+  border: 1.5px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  padding: 12px 18px;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: center;
+  min-width: 100px;
+  transition: border-color 0.15s, background 0.15s;
+}
+.date-chip:hover { border-color: var(--primary); }
+.date-chip.is-active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+.date-chip-label { font-size: 11px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; opacity: 0.75; display: block; margin-bottom: 2px; }
+.date-chip-date { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 16px; font-weight: 700; }
+
+/* Time period tabs */
+.period-tabs {
+  display: inline-flex;
+  background: var(--bg-soft);
+  border-radius: var(--radius-md);
+  padding: 4px;
+  margin-bottom: 14px;
+  gap: 2px;
+}
+.period-tab {
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 0;
+  background: transparent;
+  color: var(--text-muted);
+  transition: background 0.15s, color 0.15s;
+}
+.period-tab.is-active {
+  background: var(--primary);
+  color: #fff;
+}
+
+/* Time slot grid */
+.time-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+.time-slot {
+  background: #fff;
+  border: 1.5px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  padding: 10px 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--primary);
+  cursor: pointer;
+  font-family: inherit;
+  text-align: center;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+}
+.time-slot:hover { border-color: var(--primary); }
+.time-slot.is-active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+.time-slot:disabled {
+  color: var(--text-muted);
+  background: var(--bg-soft);
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
+
+/* Address cards */
+.addr-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; }
+.addr-card {
+  border: 1.5px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  transition: border-color 0.15s, background 0.15s;
+}
+.addr-card:hover { border-color: var(--border-mid); }
+.addr-card.is-active {
+  border-color: var(--primary);
+  background: #F3F6FB;
+}
+.addr-radio {
+  width: 18px; height: 18px;
+  border: 2px solid var(--border-mid);
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.addr-card.is-active .addr-radio {
+  border-color: var(--primary);
+}
+.addr-card.is-active .addr-radio::after {
+  content: '';
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--primary);
+}
+.addr-info { flex: 1; }
+.addr-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--green-soft);
+  color: var(--green);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 5px;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.addr-name { font-size: 14px; font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
+.addr-line { font-size: 13px; color: var(--text-muted); line-height: 1.4; }
+
+.add-addr-btn {
+  background: transparent;
+  border: 1.5px dashed var(--border-mid);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--primary);
+  cursor: pointer;
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: border-color 0.15s, color 0.15s;
+}
+.add-addr-btn:hover { border-color: var(--primary); }
+
+/* Patient form */
+.who-toggle {
+  display: inline-flex;
+  background: var(--bg-soft);
+  border-radius: var(--radius-md);
+  padding: 4px;
+  margin-bottom: 16px;
+  gap: 2px;
+}
+.who-tab {
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 0;
+  background: transparent;
+  color: var(--text-muted);
+  transition: background 0.15s, color 0.15s;
+}
+.who-tab.is-active {
+  background: var(--primary);
+  color: #fff;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field-label { font-size: 12px; font-weight: 700; color: var(--text-primary); letter-spacing: 0.02em; }
+.field-input,
+.field-select {
+  height: 44px;
+  border: 1.5px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  padding: 0 14px;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--text-primary);
+  background: #fff;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.field-input:focus, .field-select:focus { border-color: var(--primary); }
+.field-input::placeholder { color: var(--text-muted); }
+.field--full { grid-column: 1 / -1; }
+.gender-pills {
+  display: flex;
+  gap: 8px;
+}
+.gender-pill {
+  flex: 1;
+  height: 44px;
+  background: #fff;
+  border: 1.5px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--primary);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: border-color 0.15s, background 0.15s;
+}
+.gender-pill:hover { border-color: var(--primary); }
+.gender-pill.is-active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+
+/* Instructions checklist */
+.instr-list { display: flex; flex-direction: column; gap: 10px; }
+.instr-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 14px;
+  background: var(--bg-soft);
+  border-radius: var(--radius-md);
+}
+.instr-icon {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+.instr-text { flex: 1; }
+.instr-title { font-size: 13.5px; font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
+.instr-sub { font-size: 12.5px; color: var(--text-muted); }
+
+/* RIGHT — SUMMARY */
+.summary-card {
+  background: #fff;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: sticky;
+  top: 116px;
+}
+.summary-head {
+  padding: 18px 20px;
+  border-bottom: 1px solid #F1F3F8;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.summary-lab-logo {
+  width: 44px; height: 44px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-soft);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #fff;
+}
+.summary-lab-logo img { width: 100%; height: 100%; object-fit: contain; padding: 4px; }
+.summary-lab-info { min-width: 0; flex: 1; }
+.summary-lab-name { font-size: 14px; font-weight: 700; color: var(--primary); line-height: 1.2; }
+.summary-lab-meta { font-size: 11.5px; color: var(--text-muted); margin-top: 3px; }
+
+.summary-section {
+  padding: 16px 20px;
+  border-bottom: 1px solid #F1F3F8;
+}
+.summary-label {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+.summary-tests {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.summary-test {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-primary);
+}
+.summary-test::before {
+  content: '✓';
+  width: 18px; height: 18px;
+  background: var(--green-soft);
+  color: var(--green);
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.price-rows { display: flex; flex-direction: column; gap: 8px; }
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+}
+.price-row-key { color: var(--text-muted); }
+.price-row-val { color: var(--text-primary); font-weight: 600; }
+.price-row.is-discount .price-row-val { color: var(--green); }
+.price-row.is-total {
+  padding-top: 10px;
+  border-top: 1px dashed var(--border-soft);
+  margin-top: 4px;
+}
+.price-row.is-total .price-row-key { color: var(--text-primary); font-weight: 700; }
+.price-row.is-total .price-row-val {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.promo-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.promo-input {
+  flex: 1;
+  height: 40px;
+  border: 1.5px dashed var(--border-mid);
+  border-radius: var(--radius-sm);
+  padding: 0 12px;
+  font-size: 13px;
+  font-family: inherit;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  outline: none;
+  background: var(--bg-soft);
+}
+.promo-input:focus { border-color: var(--accent); background: #fff; }
+.promo-apply {
+  height: 40px;
+  padding: 0 18px;
+  background: transparent;
+  border: 1.5px solid var(--accent);
+  border-radius: var(--radius-sm);
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.promo-apply:hover { background: var(--accent); color: #fff; }
+.promo-applied {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--green-soft);
+  color: var(--green);
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+.proceed-btn {
+  width: 100%;
+  background: var(--accent);
+  color: #fff;
+  border: 0;
+  border-radius: 999px;
+  padding: 14px 18px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 12px 24px rgba(211, 53, 53, 0.32);
+  transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+}
+.proceed-btn:hover {
+  background: var(--accent-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 16px 28px rgba(211, 53, 53, 0.4);
+}
+.proceed-btn .proceed-arrow {
+  width: 22px; height: 22px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 11px;
+  transition: transform 0.15s, background 0.15s;
+}
+.proceed-btn:hover .proceed-arrow { background: rgba(255, 255, 255, 0.3); transform: translateX(3px); }
+
+.summary-safe {
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11.5px;
+  color: var(--text-muted);
+  background: var(--bg-soft);
+}
+.summary-safe i { color: var(--green); }
+
+/* Toast */
+.toast {
+  position: fixed; bottom: 30px; right: 30px;
+  background: var(--primary); color: #fff;
+  padding: 14px 22px; border-radius: var(--radius-md);
+  font-size: 13px; font-weight: 600;
+  box-shadow: 0 20px 40px rgba(11, 21, 48, 0.3);
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 0.2s, transform 0.2s;
+  pointer-events: none; z-index: 300;
+}
+.toast.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+
+@media (max-width: 1100px) {
+  :root { --site-inset: 20px; }
+  .page-body { grid-template-columns: 1fr; }
+  .summary-card { position: static; }
+  .main-nav-link span { display: none; }
+}
+@media (max-width: 768px) {
+  :root { --site-inset: 16px; }
+  .top-bar-inner { font-size: 11.5px; padding-top: 6px; padding-bottom: 6px; gap: 10px; line-height: 1.3; }
+  .site-header { top: 26px; }
+  .site-header-inner { padding-top: 10px; padding-bottom: 10px; gap: 10px; }
+  .brand-logo { height: 28px; }
+  .brand-rating { padding: 2px 5px; font-size: 10.5px; gap: 4px; }
+  .main-nav { display: none; }
+  .header-upload .main-nav-pill { padding: 5px 10px; font-size: 10.5px; gap: 5px; }
+  .main-nav-upload-sub { font-size: 10px; white-space: nowrap; }
+  .page-head-inner { flex-wrap: wrap; gap: 10px; padding: 16px var(--site-inset); }
+  .page-title { font-size: 22px; margin-left: 0; }
+  .page-stepper { margin-left: 0; }
+  .form-grid, .time-grid { grid-template-columns: repeat(2, 1fr); }
+  .step-card { padding: 18px; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="top-bar-inner">
+    <button class="top-bar-location">
+      <i class="fas fa-location-dot tb-icon-green"></i>
+      <span>Gurgaon - 122001</span>
+      <i class="fas fa-chevron-down"></i>
+    </button>
+    <a href="tel:01244550000" class="top-bar-link top-bar-phone"><i class="fas fa-phone"></i><span>0124-4550000</span></a>
+    <a href="#" class="top-bar-link"><i class="fas fa-user"></i><span>Login / Signup</span></a>
+  </div>
+</div>
+
+<!-- SITE HEADER -->
+<header class="site-header" role="banner">
+  <div class="site-header-inner">
+    <div class="brand-block">
+      <a href="index.html" class="brand"><img src="flebo-logo.svg" alt="Flebo.in" class="brand-logo"></a>
+      <div class="brand-rating">
+        <span>4.9</span>
+        <span class="brand-rating-stars">★★★★★</span>
+        <span class="brand-rating-count">33,434</span>
+      </div>
+    </div>
+    <nav class="main-nav">
+      <ul class="main-nav-list">
+        <li><a href="index.html" class="main-nav-link"><i class="fas fa-flask-vial"></i><span>Tests</span></a></li>
+        <li><a href="index.html" class="main-nav-link"><i class="fas fa-box-open"></i><span>Packages</span></a></li>
+        <li><a href="index.html" class="main-nav-link"><i class="fas fa-folder-open"></i><span>Reports</span></a></li>
+        <li><a href="index.html" class="main-nav-link"><i class="fas fa-chart-line"></i><span>Health Trend</span></a></li>
+        <li><a href="index.html" class="main-nav-link"><i class="fas fa-calculator"></i><span>BMI</span></a></li>
+      </ul>
+    </nav>
+    <div class="header-upload">
+      <a href="#" class="main-nav-pill"><i class="fas fa-cloud-arrow-up"></i><span>Upload Report of Any Lab</span></a>
+      <span class="main-nav-upload-sub">Secure Data Vault<span class="main-nav-upload-sub-sep">|</span>Free AI Analysis</span>
+    </div>
+  </div>
+</header>
+
+<!-- PAGE HEAD -->
+<div class="page-head">
+  <div class="page-head-inner">
+    <button class="back-btn" onclick="history.back()">← Back to labs</button>
+    <h1 class="page-title">Confirm your home collection</h1>
+    <div class="page-stepper">
+      <span class="stepper-dot is-done">✓</span>
+      <span class="stepper-line"></span>
+      <span class="stepper-dot is-done">✓</span>
+      <span class="stepper-line"></span>
+      <span class="stepper-dot is-active">3</span>
+      <span style="margin-left:4px;">Slot &amp; details</span>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE BODY -->
+<div class="page-body">
+
+  <!-- LEFT: STEP CARDS -->
+  <div>
+
+    <!-- STEP 1: DATE -->
+    <section class="step-card">
+      <div class="step-card-head">
+        <span class="step-num">1</span>
+        <h2 class="step-title">Pick a collection date</h2>
+        <span class="step-sub">Phlebotomist arrives within your slot window</span>
+      </div>
+      <div class="date-row" id="dateRow"></div>
+    </section>
+
+    <!-- STEP 2: TIME -->
+    <section class="step-card">
+      <div class="step-card-head">
+        <span class="step-num">2</span>
+        <h2 class="step-title">Choose a time slot</h2>
+        <span class="step-sub">Early morning slots have highest availability</span>
+      </div>
+      <div class="period-tabs" id="periodTabs">
+        <button class="period-tab is-active" data-period="early">🌅 Early AM</button>
+        <button class="period-tab" data-period="morning">☀️ Morning</button>
+        <button class="period-tab" data-period="afternoon">🌤 Afternoon</button>
+        <button class="period-tab" data-period="evening">🌆 Evening</button>
+      </div>
+      <div class="time-grid" id="timeGrid"></div>
+    </section>
+
+    <!-- STEP 3: ADDRESS -->
+    <section class="step-card">
+      <div class="step-card-head">
+        <span class="step-num">3</span>
+        <h2 class="step-title">Where should we collect?</h2>
+      </div>
+      <div class="addr-list">
+        <div class="addr-card is-active" data-addr="home">
+          <span class="addr-radio"></span>
+          <div class="addr-info">
+            <span class="addr-tag"><i class="fas fa-house"></i> Home</span>
+            <div class="addr-name">Nilesh Sharma</div>
+            <div class="addr-line">A-204, Iris Apartments, DLF Phase 5, Sector 26<br>Gurgaon, Haryana 122001 · +91 98765 43210</div>
+          </div>
+        </div>
+        <div class="addr-card" data-addr="office">
+          <span class="addr-radio"></span>
+          <div class="addr-info">
+            <span class="addr-tag" style="background:var(--blue-soft);color:var(--blue);"><i class="fas fa-briefcase"></i> Office</span>
+            <div class="addr-name">Nilesh Sharma</div>
+            <div class="addr-line">Cyber City, Tower B, 7th Floor, DLF Phase 3<br>Gurgaon, Haryana 122002 · +91 98765 43210</div>
+          </div>
+        </div>
+      </div>
+      <button class="add-addr-btn"><i class="fas fa-plus"></i> Add a new address</button>
+    </section>
+
+    <!-- STEP 4: WHO IS THE TEST FOR -->
+    <section class="step-card">
+      <div class="step-card-head">
+        <span class="step-num">4</span>
+        <h2 class="step-title">Who is the test for?</h2>
+      </div>
+      <div class="who-toggle" id="whoToggle">
+        <button class="who-tab is-active" data-who="self">Myself</button>
+        <button class="who-tab" data-who="other">Someone else</button>
+      </div>
+      <div class="form-grid">
+        <div class="field">
+          <label class="field-label">Full name</label>
+          <input class="field-input" type="text" value="Nilesh Sharma">
+        </div>
+        <div class="field">
+          <label class="field-label">Phone number</label>
+          <input class="field-input" type="tel" value="+91 98765 43210">
+        </div>
+        <div class="field">
+          <label class="field-label">Age</label>
+          <input class="field-input" type="number" value="32" min="1" max="120">
+        </div>
+        <div class="field">
+          <label class="field-label">Gender</label>
+          <div class="gender-pills" id="genderPills">
+            <button class="gender-pill is-active" data-gender="m" type="button">Male</button>
+            <button class="gender-pill" data-gender="f" type="button">Female</button>
+            <button class="gender-pill" data-gender="o" type="button">Other</button>
+          </div>
+        </div>
+        <div class="field field--full">
+          <label class="field-label">Email (for digital report)</label>
+          <input class="field-input" type="email" value="nilesh@example.com">
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 5: INSTRUCTIONS -->
+    <section class="step-card">
+      <div class="step-card-head">
+        <span class="step-num">5</span>
+        <h2 class="step-title">Pre-test instructions</h2>
+        <span class="step-sub">Please follow these for accurate results</span>
+      </div>
+      <div class="instr-list">
+        <div class="instr-item">
+          <span class="instr-icon"><i class="fas fa-utensils-slash"></i></span>
+          <div class="instr-text">
+            <div class="instr-title">10–12 hour fasting required</div>
+            <div class="instr-sub">No food or drinks (except water) before the collection. Sip water freely.</div>
+          </div>
+        </div>
+        <div class="instr-item">
+          <span class="instr-icon"><i class="fas fa-droplet"></i></span>
+          <div class="instr-text">
+            <div class="instr-title">Stay hydrated</div>
+            <div class="instr-sub">Drink 2–3 glasses of water 30 minutes before collection.</div>
+          </div>
+        </div>
+        <div class="instr-item">
+          <span class="instr-icon"><i class="fas fa-prescription-bottle-medical"></i></span>
+          <div class="instr-text">
+            <div class="instr-title">Keep prescriptions handy</div>
+            <div class="instr-sub">If applicable — for any ongoing medications you'd like to share with the lab.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- RIGHT: SUMMARY -->
+  <aside class="summary-card">
+    <div class="summary-head">
+      <div class="summary-lab-logo"><img id="sumLabLogo" src="lab-logos/thyrocare.webp" alt=""></div>
+      <div class="summary-lab-info">
+        <div class="summary-lab-name" id="sumLabName">Thyrocare Technologies</div>
+        <div class="summary-lab-meta">NABL · ISO · National Lab · 4.7 ★</div>
+      </div>
+    </div>
+
+    <div class="summary-section">
+      <div class="summary-label">Your tests</div>
+      <div class="summary-tests" id="sumTests"></div>
+    </div>
+
+    <div class="summary-section">
+      <div class="summary-label">Coupon</div>
+      <div class="promo-row">
+        <input class="promo-input" id="promoInput" type="text" placeholder="FLEBO2050">
+        <button class="promo-apply" id="promoApply">Apply</button>
+      </div>
+      <div id="promoStatus" hidden></div>
+    </div>
+
+    <div class="summary-section">
+      <div class="summary-label">Price breakdown</div>
+      <div class="price-rows" id="priceRows"></div>
+    </div>
+
+    <div style="padding:18px 20px;">
+      <button class="proceed-btn" id="proceedBtn">
+        Proceed to Pay
+        <span class="proceed-arrow"><i class="fas fa-arrow-right"></i></span>
+      </button>
+    </div>
+
+    <div class="summary-safe">
+      <i class="fas fa-shield-halved"></i>
+      <span>Payment is 100% secure · 24×7 support · Free re-test on collection error</span>
+    </div>
+  </aside>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function () {
+  const params = new URLSearchParams(location.search);
+  const testsParam = params.get('tests') || 'CBC (Complete Blood Count)|Thyroid Profile (T3, T4, TSH)';
+  const labName = params.get('lab') || 'Thyrocare Technologies';
+  const labId = params.get('labId') || 'thyrocare';
+  const price = parseInt(params.get('price'), 10) || 641;
+  const mrp = parseInt(params.get('mrp'), 10) || 1582;
+
+  const tests = testsParam.split('|').filter(Boolean);
+
+  // Lab logo map
+  const logoMap = {
+    thyrocare: 'lab-logos/thyrocare.webp',
+    pathkind: 'lab-logos/pathkind.webp',
+    agilus: 'lab-logos/agilus-diagnostics.webp',
+    apollo: 'lab-logos/apollo-health.webp',
+  };
+  document.getElementById('sumLabName').textContent = labName;
+  document.getElementById('sumLabLogo').src = logoMap[labId] || logoMap.thyrocare;
+
+  // Tests list
+  document.getElementById('sumTests').innerHTML = tests.map(t => `<div class="summary-test">${t}</div>`).join('');
+
+  // Date chips — today + next 4 days
+  const dateRow = document.getElementById('dateRow');
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const today = new Date();
+  const dateChips = [];
+  for (let i = 0; i < 5; i++) {
+    const d = new Date(today);
+    d.setDate(today.getDate() + i);
+    let label = days[d.getDay()];
+    if (i === 0) label = 'TODAY';
+    else if (i === 1) label = 'TOMORROW';
+    dateChips.push({ label, date: `${d.getDate()} ${months[d.getMonth()]}`, raw: d });
+  }
+  dateRow.innerHTML = dateChips.map((c, i) => `
+    <button class="date-chip ${i === 1 ? 'is-active' : ''}" data-i="${i}" type="button">
+      <span class="date-chip-label">${c.label}</span>
+      <span class="date-chip-date">${c.date}</span>
+    </button>
+  `).join('');
+  dateRow.addEventListener('click', (e) => {
+    const chip = e.target.closest('.date-chip');
+    if (!chip) return;
+    dateRow.querySelectorAll('.date-chip').forEach(c => c.classList.remove('is-active'));
+    chip.classList.add('is-active');
+  });
+
+  // Period tabs + time slots
+  const slotsByPeriod = {
+    early: ['6:00 AM', '6:30 AM', '7:00 AM*', '7:30 AM', '8:00 AM', '8:30 AM', '9:00 AM-', '9:30 AM'],
+    morning: ['10:00 AM', '10:30 AM-', '11:00 AM', '11:30 AM', '12:00 PM'],
+    afternoon: ['1:00 PM', '1:30 PM', '2:00 PM', '2:30 PM', '3:00 PM-', '3:30 PM'],
+    evening: ['4:00 PM', '4:30 PM', '5:00 PM', '5:30 PM', '6:00 PM', '6:30 PM-'],
+  };
+  const timeGrid = document.getElementById('timeGrid');
+  function renderSlots(period) {
+    timeGrid.innerHTML = (slotsByPeriod[period] || []).map(s => {
+      const disabled = s.endsWith('-');
+      const selected = s.endsWith('*');
+      const label = s.replace(/[*-]$/, '');
+      return `<button class="time-slot ${selected ? 'is-active' : ''}" ${disabled ? 'disabled' : ''} type="button">${label}</button>`;
+    }).join('');
+  }
+  renderSlots('early');
+  document.getElementById('periodTabs').addEventListener('click', (e) => {
+    const tab = e.target.closest('.period-tab');
+    if (!tab) return;
+    document.querySelectorAll('.period-tab').forEach(t => t.classList.remove('is-active'));
+    tab.classList.add('is-active');
+    renderSlots(tab.dataset.period);
+  });
+  timeGrid.addEventListener('click', (e) => {
+    const slot = e.target.closest('.time-slot:not(:disabled)');
+    if (!slot) return;
+    timeGrid.querySelectorAll('.time-slot.is-active').forEach(s => s.classList.remove('is-active'));
+    slot.classList.add('is-active');
+  });
+
+  // Address selection
+  document.querySelector('.addr-list').addEventListener('click', (e) => {
+    const card = e.target.closest('.addr-card');
+    if (!card) return;
+    document.querySelectorAll('.addr-card').forEach(c => c.classList.remove('is-active'));
+    card.classList.add('is-active');
+  });
+
+  // Who toggle + gender
+  document.getElementById('whoToggle').addEventListener('click', (e) => {
+    const tab = e.target.closest('.who-tab');
+    if (!tab) return;
+    document.querySelectorAll('.who-tab').forEach(t => t.classList.remove('is-active'));
+    tab.classList.add('is-active');
+    // Clear fields when switching to "Someone else"
+    if (tab.dataset.who === 'other') {
+      document.querySelector('.field-input[type="text"]').value = '';
+      document.querySelector('.field-input[type="number"]').value = '';
+    }
+  });
+  document.getElementById('genderPills').addEventListener('click', (e) => {
+    const pill = e.target.closest('.gender-pill');
+    if (!pill) return;
+    document.querySelectorAll('.gender-pill').forEach(p => p.classList.remove('is-active'));
+    pill.classList.add('is-active');
+  });
+
+  // Price breakdown
+  let promoDiscount = 0;
+  function renderPriceRows() {
+    const save = mrp - price;
+    const homeCollection = 0;
+    const cashback = Math.round(price * 0.50);
+    const finalTotal = Math.max(price - promoDiscount, 0);
+    const finalAfterCashback = finalTotal;
+    document.getElementById('priceRows').innerHTML = `
+      <div class="price-row"><span class="price-row-key">MRP (lab list price)</span><span class="price-row-val">₹${mrp.toLocaleString()}</span></div>
+      <div class="price-row is-discount"><span class="price-row-key">Lab discount</span><span class="price-row-val">− ₹${save.toLocaleString()}</span></div>
+      <div class="price-row"><span class="price-row-key">Home collection</span><span class="price-row-val" style="color:var(--green);">FREE</span></div>
+      ${promoDiscount > 0 ? `<div class="price-row is-discount"><span class="price-row-key">Coupon (FLEBO2050)</span><span class="price-row-val">− ₹${promoDiscount.toLocaleString()}</span></div>` : ''}
+      <div class="price-row is-total"><span class="price-row-key">Amount to pay</span><span class="price-row-val">₹${finalAfterCashback.toLocaleString()}</span></div>
+      <div class="price-row" style="margin-top:4px;"><span class="price-row-key" style="color:var(--green);font-weight:700;">💚 Cashback after report</span><span class="price-row-val" style="color:var(--green);">+ ₹${cashback.toLocaleString()}</span></div>
+    `;
+  }
+  renderPriceRows();
+
+  // Promo
+  document.getElementById('promoApply').addEventListener('click', () => {
+    const code = document.getElementById('promoInput').value.trim().toUpperCase();
+    const status = document.getElementById('promoStatus');
+    if (code === 'FLEBO2050') {
+      promoDiscount = Math.round(price * 0.20);
+      status.innerHTML = `<div class="promo-applied"><i class="fas fa-circle-check"></i> Saved ₹${promoDiscount} with FLEBO2050</div>`;
+      status.hidden = false;
+      renderPriceRows();
+      showToast(`✓ FLEBO2050 applied — you saved ₹${promoDiscount}`);
+    } else if (code) {
+      status.innerHTML = `<div class="promo-applied" style="background:var(--accent-soft);color:var(--accent);"><i class="fas fa-circle-xmark"></i> Invalid code</div>`;
+      status.hidden = false;
+    }
+  });
+
+  // Proceed
+  document.getElementById('proceedBtn').addEventListener('click', () => {
+    showToast('✓ Proceeding to payment…');
+  });
+
+  // Toast
+  const toastEl = document.getElementById('toast');
+  let toastTimer;
+  function showToast(html) {
+    toastEl.innerHTML = html;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2600);
+  }
+})();
+</script>
+</body>
+</html>
