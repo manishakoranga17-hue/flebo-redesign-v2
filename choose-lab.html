@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Choose a Lab — Flebo.in</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --primary: #1B2A5B;
+  --primary-soft: #2C3E66;
+  --accent: #D33535;
+  --accent-dark: #B82E2E;
+  --accent-soft: #FDECEC;
+  --accent-mid: #F8CACA;
+  --green: #1B8A5A;
+  --green-soft: #E1F5EA;
+  --amber: #B45309;
+  --amber-soft: #FEF3C7;
+  --blue: #1D4ED8;
+  --blue-soft: #EFF6FF;
+  --text-primary: #0B1530;
+  --text-muted: #6B7592;
+  --border-soft: #E5E9F3;
+  --border-mid: #C5CCDB;
+  --bg-soft: #F7F8FB;
+  --bg-page: #F4F6FA;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --site-inset: 32px;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: var(--text-primary);
+  background: var(--bg-page);
+  font-size: 14px;
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; }
+
+/* ===== TOP BAR ===== */
+.top-bar {
+  background: #0B1530;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+}
+.top-bar-inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 10px var(--site-inset);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+}
+.top-bar-location {
+  background: transparent;
+  border: 0;
+  color: #fff;
+  font: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+.tb-icon-green { color: #21C669; font-size: 14px; }
+.top-bar-location-caret { font-size: 10px; opacity: 0.75; margin-left: 2px; }
+.top-bar-link {
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.top-bar-link:hover { opacity: 0.85; }
+.top-bar-phone { margin-left: auto; }
+
+/* ===== SITE HEADER ===== */
+.site-header {
+  background: #fff;
+  border-bottom: 1px solid var(--border-soft);
+  position: sticky;
+  top: 38px;
+  z-index: 190;
+}
+.site-header-inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 14px var(--site-inset);
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+.brand-block { display: inline-flex; flex-direction: column; gap: 4px; flex-shrink: 0; }
+.brand { display: inline-flex; align-items: center; }
+.brand-logo { height: 46px; width: auto; }
+.brand-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #EAF2FC;
+  border-radius: 6px;
+  padding: 3px 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--primary);
+}
+.brand-rating-stars { color: #F6B100; font-size: 10px; }
+.brand-rating-count { font-weight: 600; opacity: 0.85; }
+
+.main-nav-list {
+  display: flex;
+  list-style: none;
+  gap: 22px;
+  align-items: center;
+}
+.main-nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 14px;
+  padding: 6px 4px;
+  transition: opacity 0.15s;
+}
+.main-nav-link:hover { opacity: 0.75; }
+.main-nav-link i { font-size: 14px; }
+
+.header-upload {
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+.main-nav-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 13px;
+  box-shadow: 0 6px 16px rgba(211, 53, 53, 0.28);
+}
+.main-nav-pill:hover { background: var(--accent-dark); }
+.main-nav-upload-sub { font-size: 11px; color: var(--text-muted); font-weight: 500; }
+.main-nav-upload-sub-sep { margin: 0 4px; opacity: 0.5; }
+
+/* ===== CONTEXT BANNER ===== */
+.ctx-banner {
+  background: linear-gradient(135deg, #FFF8F0 0%, #FFF0F2 100%);
+  border-bottom: 1px solid var(--accent-mid);
+}
+.ctx-inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 14px var(--site-inset);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.ctx-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+.ctx-tests {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.ctx-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border: 1px solid var(--accent-mid);
+  border-radius: 999px;
+  padding: 6px 8px 6px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent-dark);
+}
+.ctx-chip-icon { color: var(--accent); font-size: 12px; }
+.ctx-chip-x {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 9px;
+  transition: background 0.15s, color 0.15s;
+}
+.ctx-chip-x:hover { background: var(--accent); color: #fff; }
+.ctx-slot {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.ctx-edit {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--primary);
+}
+.ctx-edit:hover { text-decoration: underline; }
+
+/* ===== BACK NAV ===== */
+.back-nav {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 20px var(--site-inset) 0;
+}
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 0;
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 6px 0;
+}
+.back-btn:hover { color: var(--primary); }
+
+/* ===== PAGE BODY ===== */
+.page-body {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 16px var(--site-inset) 60px;
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+/* ===== SIDEBAR (FILTERS) ===== */
+.filters {
+  background: #fff;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: sticky;
+  top: 116px;
+}
+.filters-head {
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid #F1F3F8;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.filters-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: 22px;
+  color: var(--primary);
+}
+.filters-clear {
+  background: transparent;
+  border: 0;
+  color: var(--accent);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.filters-clear:hover { text-decoration: underline; }
+
+.fb-section {
+  padding: 16px 20px;
+  border-bottom: 1px solid #F1F3F8;
+}
+.fb-section:last-of-type { border-bottom: 0; }
+.fb-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.fb-search {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-family: inherit;
+  color: var(--text-primary);
+  background: var(--bg-soft);
+  outline: none;
+}
+.fb-search:focus { border-color: var(--primary); background: #fff; }
+
+.cb-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+  cursor: pointer;
+}
+.cb-row input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+.cb-label {
+  font-size: 13.5px;
+  color: var(--text-primary);
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.cb-info {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #E5E9F3;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  color: var(--text-muted);
+  font-style: normal;
+  font-weight: 700;
+}
+
+.fb-range {
+  width: 100%;
+  accent-color: var(--accent);
+}
+.fb-range-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11.5px;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+.fb-range-val { font-weight: 700; color: var(--primary); }
+
+.suggest-card {
+  margin: 14px 18px 18px;
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-mid);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  text-align: center;
+}
+.suggest-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+.suggest-title {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+.suggest-sub {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+.suggest-btn {
+  width: 100%;
+  padding: 10px;
+  background: var(--accent);
+  color: #fff;
+  border: 0;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.suggest-btn:hover { background: var(--accent-dark); }
+
+/* ===== MAIN CONTENT ===== */
+.main { display: flex; flex-direction: column; gap: 18px; }
+.main-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+.main-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: 30px;
+  color: var(--primary);
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+}
+.main-subtitle {
+  font-size: 13.5px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.tabs {
+  display: inline-flex;
+  background: #fff;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  padding: 4px;
+  gap: 2px;
+}
+.tab {
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 0;
+  background: transparent;
+  color: var(--text-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.18s, color 0.18s;
+}
+.tab i { font-size: 12px; }
+.tab.is-active {
+  background: var(--primary);
+  color: #fff;
+}
+
+.sort-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  background: #fff;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  padding: 10px 16px;
+}
+.sort-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+.sort-chip {
+  padding: 7px 14px;
+  border: 1px solid var(--border-soft);
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-primary);
+  cursor: pointer;
+  background: #fff;
+  transition: all 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.sort-chip:hover { border-color: var(--primary); color: var(--primary); }
+.sort-chip.is-active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+.sort-chip i { font-size: 11px; }
+.result-count {
+  margin-left: auto;
+  font-size: 12.5px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* ===== LAB CARDS ===== */
+.lab-cards { display: flex; flex-direction: column; gap: 14px; }
+
+.lab-card {
+  background: #fff;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  gap: 20px;
+  align-items: start;
+  transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
+  position: relative;
+  overflow: hidden;
+  animation: cardIn 0.4s ease both;
+}
+@keyframes cardIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+.lab-card:nth-child(1) { animation-delay: 0.05s; }
+.lab-card:nth-child(2) { animation-delay: 0.1s; }
+.lab-card:nth-child(3) { animation-delay: 0.15s; }
+.lab-card:nth-child(4) { animation-delay: 0.2s; }
+.lab-card:hover {
+  box-shadow: 0 10px 30px rgba(11, 21, 48, 0.08);
+  border-color: var(--border-mid);
+  transform: translateY(-1px);
+}
+.lab-card.is-featured { border: 1.5px solid var(--accent); padding-top: 32px; }
+.lab-card.is-featured::before {
+  content: 'BEST MATCH';
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: var(--accent);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 5px 14px;
+  border-radius: 0 0 var(--radius-sm) 0;
+}
+
+.lab-logo {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-soft);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 800;
+  flex-shrink: 0;
+  background: #fff;
+  overflow: hidden;
+}
+.lab-logo img { width: 100%; height: 100%; object-fit: contain; padding: 6px; }
+
+.lab-info { min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+.lab-name-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.lab-name {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: -0.01em;
+}
+.lab-ext {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+.lab-ext:hover { color: var(--primary); }
+
+.badge-row { display: flex; gap: 6px; flex-wrap: wrap; }
+.badge {
+  font-size: 10px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.badge-green { background: var(--green-soft); color: var(--green); }
+.badge-blue  { background: var(--blue-soft);  color: var(--blue); }
+.badge-amber { background: var(--amber-soft); color: var(--amber); }
+.badge-navy  { background: #E6ECFA;           color: var(--primary); }
+
+.lab-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-size: 12.5px;
+  color: var(--text-muted);
+}
+.lab-meta-item { display: inline-flex; align-items: center; gap: 6px; }
+.lab-meta i { color: var(--primary); font-size: 12px; opacity: 0.8; }
+
+.rating-wrap { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; }
+.rating-stars { color: #F6A621; font-size: 12px; }
+.rating-num { font-weight: 700; color: var(--text-primary); }
+.rating-count { color: var(--text-muted); font-size: 11.5px; }
+.rating-new {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.tag-row { display: flex; gap: 6px; flex-wrap: wrap; }
+.tag {
+  background: var(--bg-soft);
+  color: var(--text-muted);
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+/* price column */
+.price-col {
+  text-align: right;
+  min-width: 130px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+.price-mrp {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-decoration: line-through;
+}
+.price-main {
+  font-family: 'Instrument Serif', serif;
+  font-size: 30px;
+  font-weight: 400;
+  color: var(--primary);
+  line-height: 1;
+}
+.price-main .rupee { font-size: 18px; vertical-align: top; padding-right: 2px; }
+.price-save {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--green-soft);
+  color: var(--green);
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 700;
+}
+.price-note { font-size: 11px; color: var(--text-muted); }
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 130px;
+}
+.btn-select {
+  background: var(--accent);
+  color: #fff;
+  border: 0;
+  border-radius: 999px;
+  padding: 11px 18px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 8px 18px rgba(211, 53, 53, 0.28);
+  transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+}
+.btn-select:hover {
+  background: var(--accent-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 12px 22px rgba(211, 53, 53, 0.35);
+}
+.btn-compare {
+  background: #fff;
+  color: var(--primary);
+  border: 1.5px solid var(--border-mid);
+  border-radius: 999px;
+  padding: 9px 18px;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+.btn-compare:hover { border-color: var(--primary); }
+.btn-compare.is-active {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+.section-divider {
+  text-align: center;
+  font-size: 12.5px;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin: 10px 0 4px;
+  position: relative;
+}
+.section-divider::before,
+.section-divider::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 80px;
+  height: 1px;
+  background: var(--border-soft);
+}
+.section-divider::before { left: calc(50% - 200px); }
+.section-divider::after  { left: calc(50% + 120px); }
+
+.empty-banner {
+  background: #fff;
+  border: 1px dashed var(--border-mid);
+  border-radius: var(--radius-lg);
+  padding: 28px 22px;
+  text-align: center;
+}
+.empty-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  margin-bottom: 14px;
+}
+.empty-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: 22px;
+  color: var(--primary);
+  margin-bottom: 4px;
+}
+.empty-sub {
+  font-size: 13.5px;
+  color: var(--text-muted);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* ===== TRUST STRIP ===== */
+.trust-strip {
+  background: #fff;
+  border-top: 1px solid var(--border-soft);
+  border-bottom: 1px solid var(--border-soft);
+}
+.trust-inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 18px var(--site-inset);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.trust-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--primary);
+  font-weight: 600;
+}
+.trust-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--green-soft);
+  color: var(--green);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+}
+
+/* ===== COMPARE BAR ===== */
+.compare-bar {
+  position: fixed;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%) translateY(140%);
+  background: var(--primary);
+  color: #fff;
+  border-radius: var(--radius-xl);
+  padding: 14px 22px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  box-shadow: 0 20px 48px rgba(11, 21, 48, 0.35);
+  z-index: 200;
+  transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.compare-bar.is-visible { transform: translateX(-50%) translateY(0); }
+.compare-slots { display: flex; gap: 8px; }
+.compare-slot {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1.5px dashed rgba(255, 255, 255, 0.35);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 700;
+}
+.compare-slot.is-filled {
+  background: #fff;
+  color: var(--primary);
+  border-style: solid;
+  border-color: #fff;
+}
+.compare-text { display: flex; flex-direction: column; line-height: 1.2; }
+.compare-title { font-size: 13.5px; font-weight: 700; }
+.compare-sub { font-size: 11.5px; opacity: 0.75; }
+.compare-btn {
+  background: var(--accent);
+  color: #fff;
+  border: 0;
+  border-radius: 999px;
+  padding: 10px 20px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 6px 16px rgba(211, 53, 53, 0.4);
+}
+.compare-btn:hover { background: var(--accent-dark); }
+
+/* ===== TOAST ===== */
+.toast {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: var(--primary);
+  color: #fff;
+  padding: 14px 22px;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: 0 20px 40px rgba(11, 21, 48, 0.3);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.2s, transform 0.2s;
+  pointer-events: none;
+  z-index: 300;
+}
+.toast.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1100px) {
+  :root { --site-inset: 20px; }
+  .page-body { grid-template-columns: 240px 1fr; }
+  .main-nav-list { gap: 14px; }
+  .main-nav-link span { display: none; }
+}
+@media (max-width: 900px) {
+  .page-body { grid-template-columns: 1fr; }
+  .filters { position: static; }
+  .main-title { font-size: 26px; }
+  .lab-card {
+    grid-template-columns: auto 1fr;
+    grid-template-areas: "logo info" "price price" "actions actions";
+    gap: 16px;
+  }
+  .lab-logo { grid-area: logo; }
+  .lab-info { grid-area: info; }
+  .price-col { grid-area: price; text-align: left; align-items: flex-start; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+  .actions { grid-area: actions; flex-direction: row; min-width: 0; }
+  .btn-select, .btn-compare { flex: 1; }
+}
+@media (max-width: 768px) {
+  :root { --site-inset: 16px; }
+  .top-bar-inner { font-size: 11.5px; padding-top: 6px; padding-bottom: 6px; gap: 10px; line-height: 1.3; }
+  .site-header { top: 26px; }
+  .site-header-inner { padding-top: 10px; padding-bottom: 10px; gap: 10px; }
+  .brand-logo { height: 28px; }
+  .brand-rating { padding: 2px 5px; font-size: 10.5px; gap: 4px; }
+  .main-nav { display: none; }
+  .header-upload .main-nav-pill { padding: 5px 10px; font-size: 10.5px; gap: 5px; }
+  .main-nav-upload-sub { font-size: 10px; white-space: nowrap; }
+  .filters { padding: 0; }
+  .compare-bar { left: 16px; right: 16px; transform: translateY(140%); width: auto; }
+  .compare-bar.is-visible { transform: translateY(0); }
+  .section-divider::before, .section-divider::after { display: none; }
+  .main-title { font-size: 22px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== TOP BAR ===== -->
+<div class="top-bar">
+  <div class="top-bar-inner">
+    <button class="top-bar-location" aria-label="Change location">
+      <i class="fas fa-location-dot tb-icon-green"></i>
+      <span>Gurgaon - 122001</span>
+      <i class="fas fa-chevron-down top-bar-location-caret"></i>
+    </button>
+    <a href="tel:01244550000" class="top-bar-link top-bar-phone">
+      <i class="fas fa-phone"></i><span>0124-4550000</span>
+    </a>
+    <a href="#" class="top-bar-link">
+      <i class="fas fa-user"></i><span>Login / Signup</span>
+    </a>
+  </div>
+</div>
+
+<!-- ===== SITE HEADER ===== -->
+<header class="site-header" role="banner">
+  <div class="site-header-inner">
+    <div class="brand-block">
+      <a href="index.html" class="brand"><img src="flebo-logo.svg" alt="Flebo.in" class="brand-logo"></a>
+      <div class="brand-rating">
+        <span>4.9</span>
+        <span class="brand-rating-stars">★★★★★</span>
+        <span class="brand-rating-count">33,434</span>
+      </div>
+    </div>
+    <nav class="main-nav">
+      <ul class="main-nav-list">
+        <li><a href="index.html" class="main-nav-link"><i class="fas fa-flask-vial"></i><span>Tests</span></a></li>
+        <li><a href="index.html" class="main-nav-link"><i class="fas fa-box-open"></i><span>Packages</span></a></li>
+        <li><a href="index.html" class="main-nav-link"><i class="fas fa-folder-open"></i><span>Reports</span></a></li>
+        <li><a href="index.html" class="main-nav-link"><i class="fas fa-chart-line"></i><span>Health Trend</span></a></li>
+        <li><a href="index.html" class="main-nav-link"><i class="fas fa-calculator"></i><span>BMI</span></a></li>
+      </ul>
+    </nav>
+    <div class="header-upload">
+      <a href="#" class="main-nav-pill"><i class="fas fa-cloud-arrow-up"></i><span>Upload Report of Any Lab</span></a>
+      <span class="main-nav-upload-sub">Secure Data Vault<span class="main-nav-upload-sub-sep">|</span>Free AI Analysis</span>
+    </div>
+  </div>
+</header>
+
+<!-- ===== CONTEXT BANNER ===== -->
+<div class="ctx-banner">
+  <div class="ctx-inner">
+    <span class="ctx-label">Comparing labs for</span>
+    <div class="ctx-tests" id="ctxTests"></div>
+    <span class="ctx-slot"><i class="fas fa-house-medical"></i> Home collection · 122001 · All Days 24×7</span>
+    <a href="#" class="ctx-edit"><i class="fas fa-pen-to-square"></i> Edit slot</a>
+  </div>
+</div>
+
+<!-- ===== BACK NAV ===== -->
+<div class="back-nav">
+  <button class="back-btn" onclick="history.back()"><i class="fas fa-arrow-left"></i> Back to search</button>
+</div>
+
+<!-- ===== PAGE BODY ===== -->
+<div class="page-body">
+
+  <!-- SIDEBAR -->
+  <aside class="filters">
+    <div class="filters-head">
+      <span class="filters-title">Filters</span>
+      <button class="filters-clear" id="clearFiltersBtn">Clear all</button>
+    </div>
+
+    <div class="fb-section">
+      <div class="fb-label">Search lab</div>
+      <input class="fb-search" type="text" placeholder="Type lab name…">
+    </div>
+
+    <div class="fb-section">
+      <div class="fb-label">Certification</div>
+      <label class="cb-row"><input type="checkbox"><span class="cb-label">CAP <i class="cb-info">i</i></span></label>
+      <label class="cb-row"><input type="checkbox"><span class="cb-label">ICMR <i class="cb-info">i</i></span></label>
+      <label class="cb-row"><input type="checkbox" checked><span class="cb-label">ISO <i class="cb-info">i</i></span></label>
+      <label class="cb-row"><input type="checkbox"><span class="cb-label">NABL / NABH <i class="cb-info">i</i></span></label>
+    </div>
+
+    <div class="fb-section">
+      <div class="fb-label">Lab type</div>
+      <label class="cb-row"><input type="checkbox"><span class="cb-label">National labs only</span></label>
+      <label class="cb-row"><input type="checkbox"><span class="cb-label">Local / regional labs</span></label>
+    </div>
+
+    <div class="fb-section">
+      <div class="fb-label">Report turnaround</div>
+      <label class="cb-row"><input type="checkbox"><span class="cb-label">Under 6 hours</span></label>
+      <label class="cb-row"><input type="checkbox"><span class="cb-label">Under 12 hours</span></label>
+      <label class="cb-row"><input type="checkbox" checked><span class="cb-label">Same day</span></label>
+      <label class="cb-row"><input type="checkbox"><span class="cb-label">Next morning</span></label>
+    </div>
+
+    <div class="fb-section">
+      <div class="fb-label">Minimum lab rating</div>
+      <input type="range" class="fb-range" min="0" max="5" step="0.5" value="0" id="ratingSlider">
+      <div class="fb-range-meta">
+        <span>0 ★</span>
+        <span class="fb-range-val" id="ratingVal">Any</span>
+        <span>5 ★</span>
+      </div>
+    </div>
+
+    <div class="suggest-card">
+      <div class="suggest-icon"><i class="fas fa-microscope"></i></div>
+      <div class="suggest-title">Can't find your lab?</div>
+      <div class="suggest-sub">We'll add your preferred lab to our platform</div>
+      <button class="suggest-btn">Specify your preferred lab</button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <div class="main-header">
+      <div>
+        <div class="main-title">Labs offering all selected tests</div>
+        <div class="main-subtitle" id="resultsSubtitle">Comparing labs near Gurgaon - 122001</div>
+      </div>
+      <div class="tabs">
+        <button class="tab is-active" data-mode="home"><i class="fas fa-house-medical"></i> Home Collection</button>
+        <button class="tab" data-mode="visit"><i class="fas fa-hospital"></i> Lab Visit</button>
+      </div>
+    </div>
+
+    <div class="sort-bar">
+      <span class="sort-label">Sort by</span>
+      <button class="sort-chip is-active" data-sort="best"><i class="fas fa-star"></i> Best match</button>
+      <button class="sort-chip" data-sort="price"><i class="fas fa-indian-rupee-sign"></i> Lowest price</button>
+      <button class="sort-chip" data-sort="speed"><i class="fas fa-bolt"></i> Fastest report</button>
+      <button class="sort-chip" data-sort="rating"><i class="fas fa-trophy"></i> Highest rated</button>
+      <span class="result-count" id="resultCount">4 labs available near you</span>
+    </div>
+
+    <!-- LAB CARDS -->
+    <div class="lab-cards" id="labCards"></div>
+
+    <div class="empty-banner" id="emptyBanner" hidden>
+      <div class="empty-icon"><i class="fas fa-microscope"></i></div>
+      <div class="empty-title">No labs match all your filters</div>
+      <div class="empty-sub">Try removing a certification or expanding the report turnaround. You can also suggest a preferred lab and we'll reach out.</div>
+    </div>
+  </main>
+</div>
+
+<!-- ===== TRUST STRIP ===== -->
+<div class="trust-strip">
+  <div class="trust-inner">
+    <div class="trust-item"><span class="trust-icon"><i class="fas fa-check"></i></span> 160+ verified lab partners</div>
+    <div class="trust-item"><span class="trust-icon"><i class="fas fa-clock"></i></span> On-time collection guaranteed</div>
+    <div class="trust-item"><span class="trust-icon"><i class="fas fa-file-lines"></i></span> Digital reports always available</div>
+    <div class="trust-item"><span class="trust-icon"><i class="fas fa-rotate"></i></span> Free re-test on collection error</div>
+    <div class="trust-item"><span class="trust-icon"><i class="fas fa-headset"></i></span> 24×7 customer support</div>
+  </div>
+</div>
+
+<!-- ===== COMPARE BAR ===== -->
+<div class="compare-bar" id="compareBar">
+  <div class="compare-slots">
+    <div class="compare-slot" id="compareSlot0">+</div>
+    <div class="compare-slot" id="compareSlot1">+</div>
+    <div class="compare-slot" id="compareSlot2">+</div>
+  </div>
+  <div class="compare-text">
+    <span class="compare-title" id="compareCount">0 labs selected</span>
+    <span class="compare-sub">Select up to 3 labs to compare</span>
+  </div>
+  <button class="compare-btn" id="compareBtn">Compare <i class="fas fa-arrow-right"></i></button>
+</div>
+
+<!-- ===== TOAST ===== -->
+<div class="toast" id="toast"></div>
+
+<script>
+(function () {
+  // Selected tests come via URL: ?tests=CBC,Thyroid+Profile
+  const params = new URLSearchParams(location.search);
+  const testsParam = params.get('tests') || '';
+  let selectedTests = testsParam ? testsParam.split(',').map(decodeURIComponent).filter(Boolean) : ['CBC (Complete Blood Count)', 'Thyroid Profile (T3, T4, TSH)'];
+
+  // ===== Lab catalog =====
+  const labs = [
+    {
+      id: 'thyrocare',
+      name: 'Thyrocare Technologies',
+      logo: 'lab-logos/thyrocare.webp',
+      badges: [['CAP', 'green'], ['ISO', 'blue'], ['National Lab', 'amber']],
+      location: 'Pan India · Mumbai HQ',
+      tat: 'Reports in 18 hours',
+      hours: 'All Days 24×7',
+      ratingType: 'new',
+      ratingExt: 'Google: 4.1 ★ (2,300+ reviews)',
+      tags: ['Home collection', 'Digital reports', 'WhatsApp delivery', 'Pan India chain'],
+      mrp: 1582,
+      price: 641,
+      featured: true,
+    },
+    {
+      id: 'pathkind',
+      name: 'Pathkind Diagnostics',
+      logo: 'lab-logos/pathkind.webp',
+      badges: [['NABL', 'green'], ['ICMR', 'blue'], ['National Lab', 'amber']],
+      location: 'Gurgaon, Sector 14',
+      tat: 'Reports in 12 hours',
+      hours: 'Mon–Sun · 6 AM – 10 PM',
+      ratingType: 'on-platform',
+      rating: 4.7,
+      reviews: 1840,
+      tags: ['Home collection', 'Digital reports', 'Same-day', 'Senior pathologists'],
+      mrp: 1620,
+      price: 720,
+    },
+    {
+      id: 'agilus',
+      name: 'Agilus Diagnostics',
+      logo: 'lab-logos/agilus-diagnostics.webp',
+      badges: [['NABL', 'green'], ['CAP', 'blue'], ['National Lab', 'amber']],
+      location: 'DLF Cyber Hub, Gurgaon',
+      tat: 'Reports next morning',
+      hours: 'All Days 24×7',
+      ratingType: 'on-platform',
+      rating: 4.6,
+      reviews: 2150,
+      tags: ['Home collection', 'Digital reports', '160+ test panels'],
+      mrp: 1745,
+      price: 799,
+    },
+    {
+      id: 'apollo',
+      name: 'Apollo Diagnostics',
+      logo: 'lab-logos/apollo-health.webp',
+      badges: [['NABL', 'green'], ['ISO', 'blue'], ['National Lab', 'amber'], ['Trusted', 'navy']],
+      location: 'Sector 26, Gurgaon',
+      tat: 'Reports in 24 hours',
+      hours: 'Mon–Sat · 7 AM – 9 PM',
+      ratingType: 'on-platform',
+      rating: 4.8,
+      reviews: 4120,
+      tags: ['Home collection', 'Digital reports', 'Apollo network'],
+      mrp: 1840,
+      price: 945,
+    },
+  ];
+
+  // ===== Render context test chips =====
+  const ctxTests = document.getElementById('ctxTests');
+  function renderCtx() {
+    ctxTests.innerHTML = selectedTests.map((t, i) => `
+      <span class="ctx-chip">
+        <span class="ctx-chip-icon"><i class="fas fa-vial"></i></span>
+        ${t}
+        <button class="ctx-chip-x" data-i="${i}" aria-label="Remove ${t}"><i class="fas fa-xmark"></i></button>
+      </span>
+    `).join('');
+    document.getElementById('resultsSubtitle').textContent = selectedTests.length
+      ? `Comparing labs for ${selectedTests.join(' + ')} near Gurgaon - 122001`
+      : 'Comparing labs near Gurgaon - 122001';
+  }
+  ctxTests.addEventListener('click', (e) => {
+    const x = e.target.closest('.ctx-chip-x');
+    if (!x) return;
+    selectedTests.splice(parseInt(x.dataset.i, 10), 1);
+    renderCtx();
+  });
+  renderCtx();
+
+  // ===== Render lab cards =====
+  const cardsEl = document.getElementById('labCards');
+  function star(n) { return '★'.repeat(Math.round(n)) + '☆'.repeat(5 - Math.round(n)); }
+  function badgeClass(c) { return 'badge-' + c; }
+  function renderCards(list) {
+    if (!list.length) {
+      cardsEl.innerHTML = '';
+      document.getElementById('emptyBanner').hidden = false;
+      return;
+    }
+    document.getElementById('emptyBanner').hidden = true;
+    cardsEl.innerHTML = list.map(l => {
+      const save = l.mrp - l.price;
+      const pct = Math.round((save / l.mrp) * 100);
+      const ratingHtml = l.ratingType === 'new'
+        ? `<span class="rating-new">New on Flebo · ${l.ratingExt}</span>`
+        : `<span class="rating-wrap">
+             <span class="rating-stars">${star(l.rating)}</span>
+             <span class="rating-num">${l.rating.toFixed(1)}</span>
+             <span class="rating-count">(${l.reviews.toLocaleString()} reviews)</span>
+           </span>`;
+      return `
+        <article class="lab-card ${l.featured ? 'is-featured' : ''}" data-id="${l.id}">
+          <div class="lab-logo"><img src="${l.logo}" alt="${l.name} logo"></div>
+          <div class="lab-info">
+            <div class="lab-name-row">
+              <span class="lab-name">${l.name}</span>
+              <a href="#" class="lab-ext" aria-label="Open lab profile"><i class="fas fa-arrow-up-right-from-square"></i></a>
+            </div>
+            <div class="badge-row">${l.badges.map(b => `<span class="badge ${badgeClass(b[1])}">${b[0]}</span>`).join('')}</div>
+            <div class="lab-meta">
+              <span class="lab-meta-item"><i class="fas fa-location-dot"></i> ${l.location}</span>
+              <span class="lab-meta-item"><i class="fas fa-clock"></i> ${l.tat}</span>
+              <span class="lab-meta-item"><i class="fas fa-business-time"></i> ${l.hours}</span>
+            </div>
+            <div>${ratingHtml}</div>
+            <div class="tag-row">${l.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+          </div>
+          <div class="price-col">
+            <span class="price-mrp">MRP ₹${l.mrp.toLocaleString()}</span>
+            <span class="price-main"><span class="rupee">₹</span>${l.price.toLocaleString()}</span>
+            <span class="price-save">💚 Save ₹${save.toLocaleString()} · ${pct}% off</span>
+            <span class="price-note">incl. cashback &amp; discount</span>
+          </div>
+          <div class="actions">
+            <button class="btn-select" data-action="select" data-name="${l.name}">Select Lab <i class="fas fa-arrow-right"></i></button>
+            <button class="btn-compare" data-action="compare" data-id="${l.id}" data-name="${l.name}">+ Compare</button>
+          </div>
+        </article>
+      `;
+    }).join('');
+    document.getElementById('resultCount').textContent = `${list.length} lab${list.length === 1 ? '' : 's'} available near you`;
+  }
+  renderCards(labs);
+
+  // ===== Sorting =====
+  document.querySelector('.sort-bar').addEventListener('click', (e) => {
+    const chip = e.target.closest('.sort-chip');
+    if (!chip) return;
+    document.querySelectorAll('.sort-chip').forEach(c => c.classList.remove('is-active'));
+    chip.classList.add('is-active');
+    const sort = chip.dataset.sort;
+    const sorted = labs.slice();
+    if (sort === 'price') sorted.sort((a, b) => a.price - b.price);
+    if (sort === 'rating') sorted.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+    if (sort === 'speed') sorted.sort((a, b) => {
+      const order = ['Reports in 6 hours', 'Reports in 12 hours', 'Reports in 18 hours', 'Reports in 24 hours', 'Reports next morning'];
+      return order.indexOf(a.tat) - order.indexOf(b.tat);
+    });
+    if (sort === 'best') sorted.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+    renderCards(sorted);
+  });
+
+  // ===== Mode tabs =====
+  document.querySelector('.tabs').addEventListener('click', (e) => {
+    const tab = e.target.closest('.tab');
+    if (!tab) return;
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('is-active'));
+    tab.classList.add('is-active');
+    showToast(`<i class="fas fa-check-circle"></i> Mode: ${tab.textContent.trim()}`);
+  });
+
+  // ===== Compare =====
+  const compareIds = new Set();
+  const compareBar = document.getElementById('compareBar');
+  function renderCompare() {
+    [0, 1, 2].forEach(i => {
+      const slot = document.getElementById('compareSlot' + i);
+      const id = Array.from(compareIds)[i];
+      if (id) {
+        const lab = labs.find(l => l.id === id);
+        slot.classList.add('is-filled');
+        slot.innerHTML = lab.name.split(' ').map(w => w[0]).slice(0, 2).join('');
+      } else {
+        slot.classList.remove('is-filled');
+        slot.innerHTML = '+';
+      }
+    });
+    document.getElementById('compareCount').textContent = `${compareIds.size} lab${compareIds.size === 1 ? '' : 's'} selected`;
+    compareBar.classList.toggle('is-visible', compareIds.size > 0);
+  }
+
+  cardsEl.addEventListener('click', (e) => {
+    const btn = e.target.closest('button[data-action]');
+    if (!btn) return;
+    if (btn.dataset.action === 'select') {
+      showToast(`<i class="fas fa-check-circle"></i> ${btn.dataset.name} selected — proceeding to slot booking…`);
+    }
+    if (btn.dataset.action === 'compare') {
+      const id = btn.dataset.id;
+      if (compareIds.has(id)) {
+        compareIds.delete(id);
+        btn.classList.remove('is-active');
+        btn.textContent = '+ Compare';
+      } else if (compareIds.size < 3) {
+        compareIds.add(id);
+        btn.classList.add('is-active');
+        btn.textContent = '✓ Comparing';
+      } else {
+        showToast('<i class="fas fa-info-circle"></i> You can compare up to 3 labs at a time');
+        return;
+      }
+      renderCompare();
+    }
+  });
+  document.getElementById('compareBtn').addEventListener('click', () => {
+    showToast(`<i class="fas fa-balance-scale"></i> Comparing ${compareIds.size} labs side by side…`);
+  });
+
+  // ===== Rating slider =====
+  const slider = document.getElementById('ratingSlider');
+  slider.addEventListener('input', (e) => {
+    const v = parseFloat(e.target.value);
+    document.getElementById('ratingVal').textContent = v === 0 ? 'Any' : `${v.toFixed(1)} ★ +`;
+  });
+
+  // ===== Clear filters =====
+  document.getElementById('clearFiltersBtn').addEventListener('click', () => {
+    document.querySelectorAll('.fb-section input[type="checkbox"]').forEach(cb => { cb.checked = false; });
+    document.querySelectorAll('.fb-section input[type="text"]').forEach(i => { i.value = ''; });
+    slider.value = 0;
+    document.getElementById('ratingVal').textContent = 'Any';
+    showToast('<i class="fas fa-rotate-left"></i> All filters cleared');
+  });
+
+  // ===== Toast =====
+  const toastEl = document.getElementById('toast');
+  let toastTimer;
+  function showToast(html) {
+    toastEl.innerHTML = html;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2600);
+  }
+})();
+</script>
+</body>
+</html>

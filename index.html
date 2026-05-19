@@ -7355,8 +7355,9 @@ document.querySelectorAll('.pkg-cat-tab').forEach(tab => {
   });
 
   bookBtn.addEventListener('click', () => {
-    const names = Array.from(selected).join(', ');
-    showToast(`<i class="fas fa-check-circle"></i> Booked: ${names}`);
+    if (selected.size === 0) return;
+    const param = Array.from(selected).map(encodeURIComponent).join(',');
+    window.location.href = 'choose-lab.html?tests=' + param;
   });
 })();
 
