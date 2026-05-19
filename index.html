@@ -4017,22 +4017,27 @@ main { padding: 0 16px; }
 .hero-book-now-btn {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   margin-top: 16px;
-  padding: 12px 26px;
+  padding: 9px 18px;
   background: var(--accent);
   color: #fff;
   border: 0;
   border-radius: 999px;
   font-family: inherit;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 10px 24px rgba(211, 53, 53, 0.35);
+  width: auto;
+  align-self: flex-start;
+  box-shadow: 0 8px 20px rgba(211, 53, 53, 0.32);
   transition: transform 0.15s, box-shadow 0.15s;
 }
-.hero-book-now-btn:hover { transform: translateY(-1px); box-shadow: 0 14px 30px rgba(211, 53, 53, 0.42); }
-.hero-book-now-btn i { font-size: 11px; }
+.hero-book-now-btn:hover { transform: translateY(-1px); box-shadow: 0 12px 26px rgba(211, 53, 53, 0.4); }
+.hero-book-now-btn i { font-size: 10px; }
+
+/* When tests are selected, hide the prescription link inside the Tests panel */
+.hero-panel[data-panel="tests"].has-selection .prescription-link-row { display: none; }
 
 /* Packages tile grid (2x2 glass-blue cards) */
 .pkg-tiles-grid {
@@ -7280,6 +7285,8 @@ document.querySelectorAll('.pkg-cat-tab').forEach(tab => {
     dropdown.hidden = false;
   }
 
+  const testsPanel = document.querySelector('.hero-panel[data-panel="tests"]');
+
   function renderChips() {
     chipsWrap.innerHTML = Array.from(selected).map(name => `
       <span class="hero-test-chip">
@@ -7290,6 +7297,7 @@ document.querySelectorAll('.pkg-cat-tab').forEach(tab => {
       </span>
     `).join('');
     bookBtn.hidden = selected.size === 0;
+    if (testsPanel) testsPanel.classList.toggle('has-selection', selected.size > 0);
   }
 
   function addTest(name) {
