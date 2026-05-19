@@ -449,6 +449,29 @@ button { font-family: inherit; }
   width: 100%;
   accent-color: var(--accent);
 }
+.day-pills, .time-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.day-pill, .time-pill {
+  background: var(--bg-soft);
+  color: var(--text-muted);
+  border: 1px solid var(--border-soft);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.day-pill:hover, .time-pill:hover { border-color: var(--primary); color: var(--primary); }
+.day-pill.is-active, .time-pill.is-active {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
 .fb-range-meta {
   display: flex;
   justify-content: space-between;
@@ -595,15 +618,20 @@ button { font-family: inherit; }
   background: #fff;
   border: 1px solid var(--border-soft);
   border-radius: var(--radius-lg);
+  transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
+  position: relative;
+  overflow: hidden;
+  animation: cardIn 0.4s ease both;
+}
+.lab-card-body {
   padding: 22px;
   display: grid;
   grid-template-columns: auto 1fr auto auto;
   gap: 20px;
   align-items: start;
-  transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
-  position: relative;
-  overflow: hidden;
-  animation: cardIn 0.4s ease both;
+}
+.lab-card.is-visit .lab-card-body {
+  grid-template-columns: auto 1fr auto auto auto;
 }
 @keyframes cardIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
 .lab-card:nth-child(1) { animation-delay: 0.05s; }
@@ -615,7 +643,8 @@ button { font-family: inherit; }
   border-color: var(--border-mid);
   transform: translateY(-1px);
 }
-.lab-card.is-featured { border: 1.5px solid var(--accent); padding-top: 32px; }
+.lab-card.is-featured { border: 1.5px solid var(--accent); }
+.lab-card.is-featured .lab-card-body { padding-top: 32px; }
 .lab-card.is-featured::before {
   content: 'BEST MATCH';
   position: absolute;
@@ -628,7 +657,114 @@ button { font-family: inherit; }
   letter-spacing: 0.08em;
   padding: 5px 14px;
   border-radius: 0 0 var(--radius-sm) 0;
+  z-index: 1;
 }
+
+/* Hours strip (visit mode) */
+.hours-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.hour-pill {
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.hour-open { background: var(--green-soft); color: var(--green); }
+.hour-closed { background: var(--accent-soft); color: var(--accent-dark); }
+.hour-day { background: var(--bg-soft); color: var(--text-muted); }
+
+/* Distance column (visit mode) */
+.dist-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 0 6px;
+  min-width: 90px;
+  text-align: center;
+}
+.dist-km {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1;
+}
+.dist-unit { font-size: 11px; color: var(--text-muted); font-weight: 600; }
+.dist-eta { font-size: 12px; color: var(--text-primary); margin-top: 4px; }
+.get-dir-btn {
+  margin-top: 8px;
+  background: transparent;
+  border: 1px solid var(--border-mid);
+  color: var(--primary);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+.get-dir-btn:hover { border-color: var(--primary); background: var(--bg-soft); }
+
+/* Slots strip (visit mode) */
+.slots-strip {
+  border-top: 1px dashed var(--border-soft);
+  padding: 14px 22px 18px;
+  background: var(--bg-soft);
+}
+.slots-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+  letter-spacing: 0.04em;
+}
+.slots-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.slot-btn {
+  background: #fff;
+  border: 1px solid var(--border-mid);
+  color: var(--primary);
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+}
+.slot-btn:hover { border-color: var(--primary); }
+.slot-btn.is-selected {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+.slot-btn:disabled {
+  background: var(--bg-soft);
+  border-color: var(--border-soft);
+  color: var(--text-muted);
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
+.slot-more {
+  background: transparent;
+  border: 1px dashed var(--border-mid);
+  color: var(--accent);
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.slot-more:hover { border-color: var(--accent); }
 
 .lab-logo {
   width: 56px;
@@ -976,8 +1112,8 @@ button { font-family: inherit; }
   <div class="ctx-inner">
     <span class="ctx-label">Comparing labs for</span>
     <div class="ctx-tests" id="ctxTests"></div>
-    <span class="ctx-slot">· Home collection · 122001 · All Days 24×7</span>
-    <a href="#" class="ctx-edit">✏️ Edit slot</a>
+    <span class="ctx-slot" id="ctxSlotMeta">· Home collection · 122001 · All Days 24×7</span>
+    <a href="#" class="ctx-edit" id="ctxEditLink">✏️ Edit slot</a>
   </div>
 </div>
 
@@ -1023,6 +1159,40 @@ button { font-family: inherit; }
       <label class="cb-row"><input type="checkbox"><span class="cb-label">Next morning</span></label>
     </div>
 
+    <!-- Visit-only filters -->
+    <div class="fb-section fb-visit-only" style="display:none;">
+      <div class="fb-label">Max distance</div>
+      <input type="range" class="fb-range" min="1" max="25" step="1" value="10" id="distSlider">
+      <div class="fb-range-meta">
+        <span>1 km</span>
+        <span class="fb-range-val" id="distVal">Within 10 km</span>
+        <span>25 km</span>
+      </div>
+    </div>
+
+    <div class="fb-section fb-visit-only" style="display:none;">
+      <div class="fb-label">Open on</div>
+      <div class="day-pills">
+        <button class="day-pill" type="button">Mon</button>
+        <button class="day-pill" type="button">Tue</button>
+        <button class="day-pill" type="button">Wed</button>
+        <button class="day-pill is-active" type="button">Thu</button>
+        <button class="day-pill" type="button">Fri</button>
+        <button class="day-pill" type="button">Sat</button>
+        <button class="day-pill" type="button">Sun</button>
+      </div>
+    </div>
+
+    <div class="fb-section fb-visit-only" style="display:none;">
+      <div class="fb-label">Preferred visit time</div>
+      <div class="time-pills">
+        <button class="time-pill" type="button">Early AM</button>
+        <button class="time-pill is-active" type="button">Morning</button>
+        <button class="time-pill" type="button">Afternoon</button>
+        <button class="time-pill" type="button">Evening</button>
+      </div>
+    </div>
+
     <div class="fb-section">
       <div class="fb-label">Minimum lab rating</div>
       <input type="range" class="fb-range" min="0" max="5" step="0.5" value="0" id="ratingSlider">
@@ -1059,6 +1229,7 @@ button { font-family: inherit; }
       <span class="sort-label">Sort by</span>
       <button class="sort-chip is-active" data-sort="best"><span aria-hidden="true">⭐</span> Best match</button>
       <button class="sort-chip" data-sort="price"><span aria-hidden="true">💰</span> Lowest price</button>
+      <button class="sort-chip" data-sort="distance" style="display:none;"><span aria-hidden="true">📍</span> Nearest first</button>
       <button class="sort-chip" data-sort="speed"><span aria-hidden="true">⚡</span> Fastest report</button>
       <button class="sort-chip" data-sort="rating"><span aria-hidden="true">🏆</span> Highest rated</button>
       <span class="result-count" id="resultCount">4 labs available near you</span>
@@ -1112,6 +1283,13 @@ button { font-family: inherit; }
       mrp: 1582,
       price: 641,
       featured: true,
+      // Lab-visit fields
+      distanceKm: 2.3,
+      etaMin: 8,
+      openNow: true,
+      days: 'Mon–Sun',
+      visitHours: '6 AM – 9 PM',
+      slots: ['7:00 AM', '8:00 AM', '9:00 AM*', '10:00 AM', '11:00 AM-', '12:00 PM', '2:00 PM'],
     },
     {
       id: 'pathkind',
@@ -1127,6 +1305,12 @@ button { font-family: inherit; }
       tags: ['Home collection', 'Digital reports', 'Same-day', 'Senior pathologists'],
       mrp: 1620,
       price: 720,
+      distanceKm: 4.1,
+      etaMin: 12,
+      openNow: true,
+      days: 'Mon–Sat',
+      visitHours: '7 AM – 10 PM',
+      slots: ['7:30 AM', '8:30 AM', '9:30 AM', '10:30 AM', '11:30 AM', '1:00 PM-', '3:00 PM'],
     },
     {
       id: 'agilus',
@@ -1142,6 +1326,12 @@ button { font-family: inherit; }
       tags: ['Home collection', 'Digital reports', '160+ test panels'],
       mrp: 1745,
       price: 799,
+      distanceKm: 6.8,
+      etaMin: 18,
+      openNow: false,
+      days: 'All Days',
+      visitHours: '24×7',
+      slots: ['6:00 AM', '7:00 AM', '8:00 AM', '9:00 AM', '10:00 AM', '11:00 AM', '12:00 PM'],
     },
     {
       id: 'apollo',
@@ -1157,8 +1347,17 @@ button { font-family: inherit; }
       tags: ['Home collection', 'Digital reports', 'Apollo network'],
       mrp: 1840,
       price: 945,
+      distanceKm: 8.5,
+      etaMin: 22,
+      openNow: true,
+      days: 'Mon–Sat',
+      visitHours: '7 AM – 9 PM',
+      slots: ['7:30 AM', '8:30 AM', '9:00 AM*', '10:00 AM', '11:30 AM', '2:00 PM', '4:00 PM'],
     },
   ];
+
+  // Mode state — 'home' (collection) or 'visit' (lab walk-in)
+  let mode = 'home';
 
   // ===== Render context test chips =====
   const ctxTests = document.getElementById('ctxTests');
@@ -1203,32 +1402,68 @@ button { font-family: inherit; }
              <span class="rating-num">${l.rating.toFixed(1)}</span>
              <span class="rating-count">(${l.reviews.toLocaleString()} reviews)</span>
            </span>`;
+      const isVisit = mode === 'visit';
+      const hoursStrip = isVisit ? `
+        <div class="hours-strip">
+          <span class="hour-pill ${l.openNow ? 'hour-open' : 'hour-closed'}">● ${l.openNow ? 'Open now' : 'Closed now'}</span>
+          <span class="hour-pill hour-day">${l.days}</span>
+          <span class="hour-pill hour-day">${l.visitHours}</span>
+        </div>` : '';
+      const metaTatHours = isVisit
+        ? `<span class="lab-meta-item"><span class="lab-meta-icon" aria-hidden="true">⏱</span> ${l.tat}</span>`
+        : `<span class="lab-meta-item"><span class="lab-meta-icon" aria-hidden="true">⏱</span> ${l.tat}</span>
+           <span class="lab-meta-item"><span class="lab-meta-icon" aria-hidden="true">🕐</span> ${l.hours}</span>`;
+      const distCol = isVisit ? `
+        <div class="dist-col">
+          <div class="dist-km">${l.distanceKm.toFixed(1)}</div>
+          <div class="dist-unit">km away</div>
+          <div class="dist-eta">🚗 ~${l.etaMin} min</div>
+          <button class="get-dir-btn" type="button">🗺 Directions</button>
+        </div>` : '';
+      const slotsStrip = isVisit && l.slots ? `
+        <div class="slots-strip">
+          <div class="slots-label">📅 Available slots — Thu</div>
+          <div class="slots-row">
+            ${l.slots.map(s => {
+              const disabled = s.endsWith('-');
+              const selected = s.endsWith('*');
+              const label = s.replace(/[*-]$/, '');
+              return `<button class="slot-btn ${selected ? 'is-selected' : ''}" ${disabled ? 'disabled' : ''} type="button">${label}</button>`;
+            }).join('')}
+            <button class="slot-more" type="button">+ More →</button>
+          </div>
+        </div>` : '';
+      const ctaLabel = isVisit ? 'Book slot →' : 'Select Lab →';
       return `
-        <article class="lab-card ${l.featured ? 'is-featured' : ''}" data-id="${l.id}">
-          <div class="lab-logo"><img src="${l.logo}" alt="${l.name} logo"></div>
-          <div class="lab-info">
-            <div class="lab-name-row">
-              <span class="lab-name">${l.name}</span>
-              <a href="#" class="lab-ext" aria-label="Open lab profile">↗</a>
+        <article class="lab-card ${l.featured ? 'is-featured' : ''} ${isVisit ? 'is-visit' : ''}" data-id="${l.id}">
+          <div class="lab-card-body">
+            <div class="lab-logo"><img src="${l.logo}" alt="${l.name} logo"></div>
+            <div class="lab-info">
+              <div class="lab-name-row">
+                <span class="lab-name">${l.name}</span>
+                <a href="#" class="lab-ext" aria-label="Open lab profile">↗</a>
+              </div>
+              <div class="badge-row">${l.badges.map(b => `<span class="badge ${badgeClass(b[1])}">${b[0]}</span>`).join('')}</div>
+              <div class="lab-meta">
+                <span class="lab-meta-item"><span class="lab-meta-icon" aria-hidden="true">📍</span> ${l.location}</span>
+                ${metaTatHours}
+              </div>
+              ${hoursStrip}
+              <div>${ratingHtml}</div>
+              <div class="tag-row">${l.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
             </div>
-            <div class="badge-row">${l.badges.map(b => `<span class="badge ${badgeClass(b[1])}">${b[0]}</span>`).join('')}</div>
-            <div class="lab-meta">
-              <span class="lab-meta-item"><span class="lab-meta-icon" aria-hidden="true">📍</span> ${l.location}</span>
-              <span class="lab-meta-item"><span class="lab-meta-icon" aria-hidden="true">⏱</span> ${l.tat}</span>
-              <span class="lab-meta-item"><span class="lab-meta-icon" aria-hidden="true">🕐</span> ${l.hours}</span>
+            ${distCol}
+            <div class="price-col">
+              <span class="price-mrp">MRP ₹${l.mrp.toLocaleString()}</span>
+              <span class="price-main"><span class="rupee">₹</span>${l.price.toLocaleString()}</span>
+              <span class="price-save">💚 Save ₹${save.toLocaleString()} · ${pct}% off</span>
+              <span class="price-note">incl. cashback &amp; discount</span>
             </div>
-            <div>${ratingHtml}</div>
-            <div class="tag-row">${l.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+            <div class="actions">
+              <button class="btn-select" data-action="select" data-name="${l.name}">${ctaLabel}</button>
+            </div>
           </div>
-          <div class="price-col">
-            <span class="price-mrp">MRP ₹${l.mrp.toLocaleString()}</span>
-            <span class="price-main"><span class="rupee">₹</span>${l.price.toLocaleString()}</span>
-            <span class="price-save">💚 Save ₹${save.toLocaleString()} · ${pct}% off</span>
-            <span class="price-note">incl. cashback &amp; discount</span>
-          </div>
-          <div class="actions">
-            <button class="btn-select" data-action="select" data-name="${l.name}">Select Lab →</button>
-          </div>
+          ${slotsStrip}
         </article>
       `;
     }).join('');
@@ -1237,21 +1472,23 @@ button { font-family: inherit; }
   renderCards(labs);
 
   // ===== Sorting =====
+  function applySort(key) {
+    const sorted = labs.slice();
+    if (key === 'price') sorted.sort((a, b) => a.price - b.price);
+    else if (key === 'rating') sorted.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+    else if (key === 'speed') {
+      const order = ['Reports in 6 hours', 'Reports in 12 hours', 'Reports in 18 hours', 'Reports in 24 hours', 'Reports next morning'];
+      sorted.sort((a, b) => order.indexOf(a.tat) - order.indexOf(b.tat));
+    } else if (key === 'distance') sorted.sort((a, b) => a.distanceKm - b.distanceKm);
+    else sorted.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+    renderCards(sorted);
+  }
   document.querySelector('.sort-bar').addEventListener('click', (e) => {
     const chip = e.target.closest('.sort-chip');
     if (!chip) return;
     document.querySelectorAll('.sort-chip').forEach(c => c.classList.remove('is-active'));
     chip.classList.add('is-active');
-    const sort = chip.dataset.sort;
-    const sorted = labs.slice();
-    if (sort === 'price') sorted.sort((a, b) => a.price - b.price);
-    if (sort === 'rating') sorted.sort((a, b) => (b.rating || 0) - (a.rating || 0));
-    if (sort === 'speed') sorted.sort((a, b) => {
-      const order = ['Reports in 6 hours', 'Reports in 12 hours', 'Reports in 18 hours', 'Reports in 24 hours', 'Reports next morning'];
-      return order.indexOf(a.tat) - order.indexOf(b.tat);
-    });
-    if (sort === 'best') sorted.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
-    renderCards(sorted);
+    applySort(chip.dataset.sort);
   });
 
   // ===== Mode tabs =====
@@ -1260,7 +1497,27 @@ button { font-family: inherit; }
     if (!tab) return;
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('is-active'));
     tab.classList.add('is-active');
-    showToast(`✓ Mode: ${tab.textContent.trim()}`);
+    mode = tab.dataset.mode;
+    document.body.dataset.mode = mode;
+    // Update CTX banner meta + edit-slot link text
+    const ctxMeta = document.getElementById('ctxSlotMeta');
+    const ctxEdit = document.getElementById('ctxEditLink');
+    if (mode === 'visit') {
+      ctxMeta.textContent = '· 🏥 Lab visit · 122001';
+      ctxEdit.textContent = '✏️ Switch to home collection';
+    } else {
+      ctxMeta.textContent = '· Home collection · 122001 · All Days 24×7';
+      ctxEdit.textContent = '✏️ Edit slot';
+    }
+    // Toggle visit-only filter sections
+    document.querySelectorAll('.fb-visit-only').forEach(el => {
+      el.style.display = mode === 'visit' ? '' : 'none';
+    });
+    // Toggle "Nearest first" sort chip
+    const nearChip = document.querySelector('.sort-chip[data-sort="distance"]');
+    if (nearChip) nearChip.style.display = mode === 'visit' ? '' : 'none';
+    const activeSort = document.querySelector('.sort-chip.is-active');
+    applySort(activeSort ? activeSort.dataset.sort : 'best');
   });
 
   // ===== Select lab =====
@@ -1275,6 +1532,33 @@ button { font-family: inherit; }
   slider.addEventListener('input', (e) => {
     const v = parseFloat(e.target.value);
     document.getElementById('ratingVal').textContent = v === 0 ? 'Any' : `${v.toFixed(1)} ★ +`;
+  });
+
+  // ===== Distance slider (visit mode) =====
+  const distSlider = document.getElementById('distSlider');
+  if (distSlider) {
+    distSlider.addEventListener('input', (e) => {
+      document.getElementById('distVal').textContent = `Within ${e.target.value} km`;
+    });
+  }
+
+  // ===== Day / time pills =====
+  document.querySelectorAll('.day-pills, .time-pills').forEach(group => {
+    group.addEventListener('click', (e) => {
+      const pill = e.target.closest('.day-pill, .time-pill');
+      if (!pill) return;
+      pill.classList.toggle('is-active');
+    });
+  });
+
+  // ===== Slot picker (visit mode) =====
+  cardsEl.addEventListener('click', (e) => {
+    const slot = e.target.closest('.slot-btn:not(:disabled)');
+    if (!slot) return;
+    // Toggle selection within the same card
+    const card = slot.closest('.lab-card');
+    card.querySelectorAll('.slot-btn.is-selected').forEach(s => s.classList.remove('is-selected'));
+    slot.classList.add('is-selected');
   });
 
   // ===== Clear filters =====
