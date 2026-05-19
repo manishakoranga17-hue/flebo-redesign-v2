@@ -773,23 +773,6 @@ button { font-family: inherit; }
   transform: translateY(-1px);
   box-shadow: 0 12px 22px rgba(211, 53, 53, 0.35);
 }
-.btn-compare {
-  background: #fff;
-  color: var(--primary);
-  border: 1.5px solid var(--border-mid);
-  border-radius: 999px;
-  padding: 9px 18px;
-  font-size: 12.5px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: border-color 0.15s, color 0.15s;
-}
-.btn-compare:hover { border-color: var(--primary); }
-.btn-compare.is-active {
-  background: var(--primary);
-  color: #fff;
-  border-color: var(--primary);
-}
 
 .section-divider {
   text-align: center;
@@ -862,63 +845,6 @@ button { font-family: inherit; }
 }
 .trust-icon { font-size: 15px; line-height: 1; }
 
-/* ===== COMPARE BAR ===== */
-.compare-bar {
-  position: fixed;
-  bottom: 18px;
-  left: 50%;
-  transform: translateX(-50%) translateY(140%);
-  background: var(--primary);
-  color: #fff;
-  border-radius: var(--radius-xl);
-  padding: 14px 22px;
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  box-shadow: 0 20px 48px rgba(11, 21, 48, 0.35);
-  z-index: 200;
-  transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.compare-bar.is-visible { transform: translateX(-50%) translateY(0); }
-.compare-slots { display: flex; gap: 8px; }
-.compare-slot {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.12);
-  border: 1.5px dashed rgba(255, 255, 255, 0.35);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.7);
-  font-weight: 700;
-}
-.compare-slot.is-filled {
-  background: #fff;
-  color: var(--primary);
-  border-style: solid;
-  border-color: #fff;
-}
-.compare-text { display: flex; flex-direction: column; line-height: 1.2; }
-.compare-title { font-size: 13.5px; font-weight: 700; }
-.compare-sub { font-size: 11.5px; opacity: 0.75; }
-.compare-btn {
-  background: var(--accent);
-  color: #fff;
-  border: 0;
-  border-radius: 999px;
-  padding: 10px 20px;
-  font-size: 13px;
-  font-weight: 700;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  box-shadow: 0 6px 16px rgba(211, 53, 53, 0.4);
-}
-.compare-btn:hover { background: var(--accent-dark); }
-
 /* ===== TOAST ===== */
 .toast {
   position: fixed;
@@ -959,7 +885,7 @@ button { font-family: inherit; }
   .lab-info { grid-area: info; }
   .price-col { grid-area: price; text-align: left; align-items: flex-start; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
   .actions { grid-area: actions; flex-direction: row; min-width: 0; }
-  .btn-select, .btn-compare { flex: 1; }
+  .btn-select { flex: 1; }
 }
 @media (max-width: 768px) {
   :root { --site-inset: 16px; }
@@ -972,8 +898,6 @@ button { font-family: inherit; }
   .header-upload .main-nav-pill { padding: 5px 10px; font-size: 10.5px; gap: 5px; }
   .main-nav-upload-sub { font-size: 10px; white-space: nowrap; }
   .filters { padding: 0; }
-  .compare-bar { left: 16px; right: 16px; transform: translateY(140%); width: auto; }
-  .compare-bar.is-visible { transform: translateY(0); }
   .section-divider::before, .section-divider::after { display: none; }
   .main-title { font-size: 22px; }
 }
@@ -1162,20 +1086,6 @@ button { font-family: inherit; }
   </div>
 </div>
 
-<!-- ===== COMPARE BAR ===== -->
-<div class="compare-bar" id="compareBar">
-  <div class="compare-slots">
-    <div class="compare-slot" id="compareSlot0">+</div>
-    <div class="compare-slot" id="compareSlot1">+</div>
-    <div class="compare-slot" id="compareSlot2">+</div>
-  </div>
-  <div class="compare-text">
-    <span class="compare-title" id="compareCount">0 labs selected</span>
-    <span class="compare-sub">Select up to 3 labs to compare</span>
-  </div>
-  <button class="compare-btn" id="compareBtn">Compare →</button>
-</div>
-
 <!-- ===== TOAST ===== -->
 <div class="toast" id="toast"></div>
 
@@ -1318,7 +1228,6 @@ button { font-family: inherit; }
           </div>
           <div class="actions">
             <button class="btn-select" data-action="select" data-name="${l.name}">Select Lab →</button>
-            <button class="btn-compare" data-action="compare" data-id="${l.id}" data-name="${l.name}">+ Compare</button>
           </div>
         </article>
       `;
@@ -1354,51 +1263,11 @@ button { font-family: inherit; }
     showToast(`✓ Mode: ${tab.textContent.trim()}`);
   });
 
-  // ===== Compare =====
-  const compareIds = new Set();
-  const compareBar = document.getElementById('compareBar');
-  function renderCompare() {
-    [0, 1, 2].forEach(i => {
-      const slot = document.getElementById('compareSlot' + i);
-      const id = Array.from(compareIds)[i];
-      if (id) {
-        const lab = labs.find(l => l.id === id);
-        slot.classList.add('is-filled');
-        slot.innerHTML = lab.name.split(' ').map(w => w[0]).slice(0, 2).join('');
-      } else {
-        slot.classList.remove('is-filled');
-        slot.innerHTML = '+';
-      }
-    });
-    document.getElementById('compareCount').textContent = `${compareIds.size} lab${compareIds.size === 1 ? '' : 's'} selected`;
-    compareBar.classList.toggle('is-visible', compareIds.size > 0);
-  }
-
+  // ===== Select lab =====
   cardsEl.addEventListener('click', (e) => {
-    const btn = e.target.closest('button[data-action]');
+    const btn = e.target.closest('button[data-action="select"]');
     if (!btn) return;
-    if (btn.dataset.action === 'select') {
-      showToast(`✓ ${btn.dataset.name} selected — proceeding to slot booking…`);
-    }
-    if (btn.dataset.action === 'compare') {
-      const id = btn.dataset.id;
-      if (compareIds.has(id)) {
-        compareIds.delete(id);
-        btn.classList.remove('is-active');
-        btn.textContent = '+ Compare';
-      } else if (compareIds.size < 3) {
-        compareIds.add(id);
-        btn.classList.add('is-active');
-        btn.textContent = '✓ Comparing';
-      } else {
-        showToast('ℹ️ You can compare up to 3 labs at a time');
-        return;
-      }
-      renderCompare();
-    }
-  });
-  document.getElementById('compareBtn').addEventListener('click', () => {
-    showToast(`⚖️ Comparing ${compareIds.size} labs side by side…`);
+    showToast(`✓ ${btn.dataset.name} selected — proceeding to slot booking…`);
   });
 
   // ===== Rating slider =====
