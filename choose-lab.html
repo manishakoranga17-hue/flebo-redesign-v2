@@ -238,9 +238,18 @@ button { font-family: inherit; }
 
 /* ===== SEARCH STRIP (under nav) ===== */
 .search-strip {
-  background: #fff;
-  border-bottom: 1px solid var(--border-soft);
+  background: #1F2A5F url('b-hero3.jpeg') center / cover no-repeat;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
 }
+.search-strip::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(15, 22, 60, 0.20) 0%, rgba(15, 22, 60, 0.10) 60%, rgba(15, 22, 60, 0.25) 100%);
+  pointer-events: none;
+}
+.search-strip-inner { position: relative; z-index: 1; }
 .search-strip-inner {
   max-width: 1320px;
   margin: 0 auto;
@@ -320,9 +329,18 @@ button { font-family: inherit; }
 
 /* ===== CONTEXT BANNER ===== */
 .ctx-banner {
-  background: linear-gradient(135deg, #FFF8F0 0%, #FFF0F2 100%);
-  border-bottom: 1px solid var(--accent-mid);
+  background: #1F2A5F url('b-hero3.jpeg') center / cover no-repeat;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
 }
+.ctx-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(15, 22, 60, 0.25) 0%, rgba(15, 22, 60, 0.15) 60%, rgba(15, 22, 60, 0.30) 100%);
+  pointer-events: none;
+}
+.ctx-inner { position: relative; z-index: 1; }
 .ctx-inner {
   max-width: 1320px;
   margin: 0 auto;
@@ -337,7 +355,7 @@ button { font-family: inherit; }
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.78);
 }
 .ctx-tests {
   display: flex;
@@ -378,7 +396,7 @@ button { font-family: inherit; }
 .ctx-chip-x:hover { background: var(--accent); color: #fff; }
 .ctx-slot {
   font-size: 14.5px;
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.82);
   display: inline-flex;
   align-items: center;
   gap: 6px;
