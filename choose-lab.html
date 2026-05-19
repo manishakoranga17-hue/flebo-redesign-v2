@@ -1222,7 +1222,6 @@ button { font-family: inherit; }
     <span class="ctx-label">Comparing labs for</span>
     <div class="ctx-tests" id="ctxTests"></div>
     <span class="ctx-slot" id="ctxSlotMeta">· Home collection · 122001 · All Days 24×7</span>
-    <a href="#" class="ctx-edit" id="ctxEditLink">✏️ Edit slot</a>
   </div>
 </div>
 
@@ -1608,16 +1607,11 @@ button { font-family: inherit; }
     tab.classList.add('is-active');
     mode = tab.dataset.mode;
     document.body.dataset.mode = mode;
-    // Update CTX banner meta + edit-slot link text
+    // Update CTX banner meta text
     const ctxMeta = document.getElementById('ctxSlotMeta');
-    const ctxEdit = document.getElementById('ctxEditLink');
-    if (mode === 'visit') {
-      ctxMeta.textContent = '· 🏥 Lab visit · 122001';
-      ctxEdit.textContent = '✏️ Switch to home collection';
-    } else {
-      ctxMeta.textContent = '· Home collection · 122001 · All Days 24×7';
-      ctxEdit.textContent = '✏️ Edit slot';
-    }
+    ctxMeta.textContent = mode === 'visit'
+      ? '· 🏥 Lab visit · 122001'
+      : '· Home collection · 122001 · All Days 24×7';
     // Toggle visit-only filter sections
     document.querySelectorAll('.fb-visit-only').forEach(el => {
       el.style.display = mode === 'visit' ? '' : 'none';
