@@ -197,14 +197,15 @@ button { font-family: inherit; }
   min-width: 170px;
 }
 .loc-box:hover { border-color: var(--primary); }
-.loc-icon { color: var(--accent); font-size: 14px; }
+.loc-icon { font-size: 15px; line-height: 1; }
 .loc-pin { font-weight: 700; color: var(--primary); }
-.loc-verified { color: var(--green); font-size: 12px; }
+.loc-verified { color: var(--green); font-size: 13px; font-weight: 700; }
 .loc-gps {
   margin-left: auto;
   color: var(--accent);
-  font-size: 13px;
+  font-size: 16px;
   cursor: pointer;
+  line-height: 1;
 }
 .loc-gps:hover { color: var(--accent-dark); }
 
@@ -217,7 +218,7 @@ button { font-family: inherit; }
   min-width: 0;
 }
 .search-box:focus-within { border-color: var(--primary); }
-.search-box i { color: var(--accent); font-size: 14px; }
+.search-icon { font-size: 15px; line-height: 1; }
 .search-box input {
   flex: 1;
   border: 0;
@@ -1048,13 +1049,13 @@ button { font-family: inherit; }
 <div class="search-strip">
   <div class="search-strip-inner">
     <div class="loc-box" role="button" tabindex="0" aria-label="Change pincode">
-      <i class="fas fa-location-dot loc-icon"></i>
+      <span class="loc-icon" aria-hidden="true">📍</span>
       <span class="loc-pin">122001</span>
-      <i class="fas fa-check loc-verified" aria-hidden="true"></i>
-      <i class="fas fa-crosshairs loc-gps" aria-label="Detect my location"></i>
+      <span class="loc-verified" aria-hidden="true">✓</span>
+      <span class="loc-gps" aria-label="Detect my location">⊕</span>
     </div>
     <label class="search-box">
-      <i class="fas fa-magnifying-glass"></i>
+      <span class="search-icon" aria-hidden="true">🔍</span>
       <input type="search" placeholder="Add another test or health package" aria-label="Search tests or packages">
     </label>
     <select class="cat-select" aria-label="Category">
