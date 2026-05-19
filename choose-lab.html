@@ -462,16 +462,10 @@ button { font-family: inherit; }
   padding: 16px;
   text-align: center;
 }
-.suggest-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: #fff;
-  color: var(--accent);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
+.suggest-emoji {
+  font-size: 30px;
+  line-height: 1;
+  display: inline-block;
   margin-bottom: 8px;
 }
 .suggest-title {
@@ -543,7 +537,6 @@ button { font-family: inherit; }
   gap: 8px;
   transition: background 0.18s, color 0.18s;
 }
-.tab i { font-size: 12px; }
 .tab.is-active {
   background: var(--primary);
   color: #fff;
@@ -584,7 +577,6 @@ button { font-family: inherit; }
   border-color: var(--primary);
   color: #fff;
 }
-.sort-chip i { font-size: 11px; }
 .result-count {
   margin-left: auto;
   font-size: 12.5px;
@@ -692,7 +684,7 @@ button { font-family: inherit; }
   color: var(--text-muted);
 }
 .lab-meta-item { display: inline-flex; align-items: center; gap: 6px; }
-.lab-meta i { color: var(--primary); font-size: 12px; opacity: 0.8; }
+.lab-meta-icon { font-size: 13px; line-height: 1; }
 
 .rating-wrap { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; }
 .rating-stars { color: #F6A621; font-size: 12px; }
@@ -821,17 +813,10 @@ button { font-family: inherit; }
   padding: 28px 22px;
   text-align: center;
 }
-.empty-icon {
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: var(--accent-soft);
-  color: var(--accent);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 22px;
-  margin-bottom: 14px;
+.empty-emoji {
+  font-size: 36px;
+  line-height: 1;
+  margin-bottom: 12px;
 }
 .empty-title {
   font-family: 'Instrument Serif', serif;
@@ -870,17 +855,7 @@ button { font-family: inherit; }
   color: var(--primary);
   font-weight: 600;
 }
-.trust-icon {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: var(--green-soft);
-  color: var(--green);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 11px;
-}
+.trust-icon { font-size: 15px; line-height: 1; }
 
 /* ===== COMPARE BAR ===== */
 .compare-bar {
@@ -1072,14 +1047,14 @@ button { font-family: inherit; }
   <div class="ctx-inner">
     <span class="ctx-label">Comparing labs for</span>
     <div class="ctx-tests" id="ctxTests"></div>
-    <span class="ctx-slot"><i class="fas fa-house-medical"></i> Home collection · 122001 · All Days 24×7</span>
-    <a href="#" class="ctx-edit"><i class="fas fa-pen-to-square"></i> Edit slot</a>
+    <span class="ctx-slot">· Home collection · 122001 · All Days 24×7</span>
+    <a href="#" class="ctx-edit">✏️ Edit slot</a>
   </div>
 </div>
 
 <!-- ===== BACK NAV ===== -->
 <div class="back-nav">
-  <button class="back-btn" onclick="history.back()"><i class="fas fa-arrow-left"></i> Back to search</button>
+  <button class="back-btn" onclick="history.back()">← Back to search</button>
 </div>
 
 <!-- ===== PAGE BODY ===== -->
@@ -1130,7 +1105,7 @@ button { font-family: inherit; }
     </div>
 
     <div class="suggest-card">
-      <div class="suggest-icon"><i class="fas fa-microscope"></i></div>
+      <span class="suggest-emoji" aria-hidden="true">🔬</span>
       <div class="suggest-title">Can't find your lab?</div>
       <div class="suggest-sub">We'll add your preferred lab to our platform</div>
       <button class="suggest-btn">Specify your preferred lab</button>
@@ -1146,17 +1121,17 @@ button { font-family: inherit; }
         <div class="main-subtitle" id="resultsSubtitle">Comparing labs near Gurgaon - 122001</div>
       </div>
       <div class="tabs">
-        <button class="tab is-active" data-mode="home"><i class="fas fa-house-medical"></i> Home Collection</button>
-        <button class="tab" data-mode="visit"><i class="fas fa-hospital"></i> Lab Visit</button>
+        <button class="tab is-active" data-mode="home"><span aria-hidden="true">🏠</span> Home Collection</button>
+        <button class="tab" data-mode="visit"><span aria-hidden="true">🏥</span> Lab Visit</button>
       </div>
     </div>
 
     <div class="sort-bar">
       <span class="sort-label">Sort by</span>
-      <button class="sort-chip is-active" data-sort="best"><i class="fas fa-star"></i> Best match</button>
-      <button class="sort-chip" data-sort="price"><i class="fas fa-indian-rupee-sign"></i> Lowest price</button>
-      <button class="sort-chip" data-sort="speed"><i class="fas fa-bolt"></i> Fastest report</button>
-      <button class="sort-chip" data-sort="rating"><i class="fas fa-trophy"></i> Highest rated</button>
+      <button class="sort-chip is-active" data-sort="best"><span aria-hidden="true">⭐</span> Best match</button>
+      <button class="sort-chip" data-sort="price"><span aria-hidden="true">💰</span> Lowest price</button>
+      <button class="sort-chip" data-sort="speed"><span aria-hidden="true">⚡</span> Fastest report</button>
+      <button class="sort-chip" data-sort="rating"><span aria-hidden="true">🏆</span> Highest rated</button>
       <span class="result-count" id="resultCount">4 labs available near you</span>
     </div>
 
@@ -1164,7 +1139,7 @@ button { font-family: inherit; }
     <div class="lab-cards" id="labCards"></div>
 
     <div class="empty-banner" id="emptyBanner" hidden>
-      <div class="empty-icon"><i class="fas fa-microscope"></i></div>
+      <div class="empty-emoji" aria-hidden="true">🔬</div>
       <div class="empty-title">No labs match all your filters</div>
       <div class="empty-sub">Try removing a certification or expanding the report turnaround. You can also suggest a preferred lab and we'll reach out.</div>
     </div>
@@ -1174,11 +1149,11 @@ button { font-family: inherit; }
 <!-- ===== TRUST STRIP ===== -->
 <div class="trust-strip">
   <div class="trust-inner">
-    <div class="trust-item"><span class="trust-icon"><i class="fas fa-check"></i></span> 160+ verified lab partners</div>
-    <div class="trust-item"><span class="trust-icon"><i class="fas fa-clock"></i></span> On-time collection guaranteed</div>
-    <div class="trust-item"><span class="trust-icon"><i class="fas fa-file-lines"></i></span> Digital reports always available</div>
-    <div class="trust-item"><span class="trust-icon"><i class="fas fa-rotate"></i></span> Free re-test on collection error</div>
-    <div class="trust-item"><span class="trust-icon"><i class="fas fa-headset"></i></span> 24×7 customer support</div>
+    <div class="trust-item"><span class="trust-icon" aria-hidden="true">✅</span> 160+ verified lab partners</div>
+    <div class="trust-item"><span class="trust-icon" aria-hidden="true">⏰</span> On-time collection guaranteed</div>
+    <div class="trust-item"><span class="trust-icon" aria-hidden="true">📄</span> Digital reports always available</div>
+    <div class="trust-item"><span class="trust-icon" aria-hidden="true">🔁</span> Free re-test on collection error</div>
+    <div class="trust-item"><span class="trust-icon" aria-hidden="true">🎧</span> 24×7 customer support</div>
   </div>
 </div>
 
@@ -1193,7 +1168,7 @@ button { font-family: inherit; }
     <span class="compare-title" id="compareCount">0 labs selected</span>
     <span class="compare-sub">Select up to 3 labs to compare</span>
   </div>
-  <button class="compare-btn" id="compareBtn">Compare <i class="fas fa-arrow-right"></i></button>
+  <button class="compare-btn" id="compareBtn">Compare →</button>
 </div>
 
 <!-- ===== TOAST ===== -->
@@ -1275,9 +1250,9 @@ button { font-family: inherit; }
   function renderCtx() {
     ctxTests.innerHTML = selectedTests.map((t, i) => `
       <span class="ctx-chip">
-        <span class="ctx-chip-icon"><i class="fas fa-vial"></i></span>
+        <span class="ctx-chip-icon" aria-hidden="true">🧪</span>
         ${t}
-        <button class="ctx-chip-x" data-i="${i}" aria-label="Remove ${t}"><i class="fas fa-xmark"></i></button>
+        <button class="ctx-chip-x" data-i="${i}" aria-label="Remove ${t}">×</button>
       </span>
     `).join('');
     document.getElementById('resultsSubtitle').textContent = selectedTests.length
@@ -1319,13 +1294,13 @@ button { font-family: inherit; }
           <div class="lab-info">
             <div class="lab-name-row">
               <span class="lab-name">${l.name}</span>
-              <a href="#" class="lab-ext" aria-label="Open lab profile"><i class="fas fa-arrow-up-right-from-square"></i></a>
+              <a href="#" class="lab-ext" aria-label="Open lab profile">↗</a>
             </div>
             <div class="badge-row">${l.badges.map(b => `<span class="badge ${badgeClass(b[1])}">${b[0]}</span>`).join('')}</div>
             <div class="lab-meta">
-              <span class="lab-meta-item"><i class="fas fa-location-dot"></i> ${l.location}</span>
-              <span class="lab-meta-item"><i class="fas fa-clock"></i> ${l.tat}</span>
-              <span class="lab-meta-item"><i class="fas fa-business-time"></i> ${l.hours}</span>
+              <span class="lab-meta-item"><span class="lab-meta-icon" aria-hidden="true">📍</span> ${l.location}</span>
+              <span class="lab-meta-item"><span class="lab-meta-icon" aria-hidden="true">⏱</span> ${l.tat}</span>
+              <span class="lab-meta-item"><span class="lab-meta-icon" aria-hidden="true">🕐</span> ${l.hours}</span>
             </div>
             <div>${ratingHtml}</div>
             <div class="tag-row">${l.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
@@ -1337,7 +1312,7 @@ button { font-family: inherit; }
             <span class="price-note">incl. cashback &amp; discount</span>
           </div>
           <div class="actions">
-            <button class="btn-select" data-action="select" data-name="${l.name}">Select Lab <i class="fas fa-arrow-right"></i></button>
+            <button class="btn-select" data-action="select" data-name="${l.name}">Select Lab →</button>
             <button class="btn-compare" data-action="compare" data-id="${l.id}" data-name="${l.name}">+ Compare</button>
           </div>
         </article>
@@ -1371,7 +1346,7 @@ button { font-family: inherit; }
     if (!tab) return;
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('is-active'));
     tab.classList.add('is-active');
-    showToast(`<i class="fas fa-check-circle"></i> Mode: ${tab.textContent.trim()}`);
+    showToast(`✓ Mode: ${tab.textContent.trim()}`);
   });
 
   // ===== Compare =====
@@ -1398,7 +1373,7 @@ button { font-family: inherit; }
     const btn = e.target.closest('button[data-action]');
     if (!btn) return;
     if (btn.dataset.action === 'select') {
-      showToast(`<i class="fas fa-check-circle"></i> ${btn.dataset.name} selected — proceeding to slot booking…`);
+      showToast(`✓ ${btn.dataset.name} selected — proceeding to slot booking…`);
     }
     if (btn.dataset.action === 'compare') {
       const id = btn.dataset.id;
@@ -1411,14 +1386,14 @@ button { font-family: inherit; }
         btn.classList.add('is-active');
         btn.textContent = '✓ Comparing';
       } else {
-        showToast('<i class="fas fa-info-circle"></i> You can compare up to 3 labs at a time');
+        showToast('ℹ️ You can compare up to 3 labs at a time');
         return;
       }
       renderCompare();
     }
   });
   document.getElementById('compareBtn').addEventListener('click', () => {
-    showToast(`<i class="fas fa-balance-scale"></i> Comparing ${compareIds.size} labs side by side…`);
+    showToast(`⚖️ Comparing ${compareIds.size} labs side by side…`);
   });
 
   // ===== Rating slider =====
@@ -1434,7 +1409,7 @@ button { font-family: inherit; }
     document.querySelectorAll('.fb-section input[type="text"]').forEach(i => { i.value = ''; });
     slider.value = 0;
     document.getElementById('ratingVal').textContent = 'Any';
-    showToast('<i class="fas fa-rotate-left"></i> All filters cleared');
+    showToast('↺ All filters cleared');
   });
 
   // ===== Toast =====
