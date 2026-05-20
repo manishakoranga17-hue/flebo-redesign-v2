@@ -930,23 +930,25 @@ button { font-family: inherit; }
   max-width: 220px;
 }
 .tbl-lab-loc i { font-size: 11px; color: var(--text-muted); flex-shrink: 0; }
-/* Timing cell — opening hours */
-.tbl-timing {
+/* Timing cell — day on top, time below */
+.tbl-timing-day {
+  display: block;
+  color: var(--text-primary);
+  font-weight: 700;
+  font-size: 14px;
+  white-space: nowrap;
+  margin-bottom: 3px;
+}
+.tbl-timing-time {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  color: var(--text-primary);
-  font-weight: 600;
+  gap: 5px;
+  font-size: 12.5px;
+  color: var(--text-muted);
+  font-weight: 500;
   white-space: nowrap;
 }
-.tbl-timing-icon { color: var(--text-muted); font-size: 12px; }
-.tbl-timing-sub {
-  display: block;
-  font-size: 12px;
-  color: var(--text-muted);
-  margin-top: 2px;
-  font-weight: 500;
-}
+.tbl-timing-icon { color: var(--text-muted); font-size: 11px; }
 .tbl-dist {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-weight: 700;
@@ -1991,10 +1993,27 @@ button { font-family: inherit; }
       const tatCell = `<span class="tbl-tat"><i class="fas fa-bolt tbl-tat-icon"></i>${tatShort}</span>`;
       // Distance cell — visible in both modes
       const distCell = `<td><span class="tbl-dist">${l.distanceKm.toFixed(1)} km</span><span class="tbl-dist-eta">🚗 ~${l.etaMin} min</span></td>`;
-      // Timing cell — opening hours
-      const timingValue = isVisit ? (l.visitHours || l.hours) : l.hours;
-      const timingSub = isVisit ? l.days : '';
-      const timingCell = `<td><span class="tbl-timing"><i class="fas fa-clock tbl-timing-icon"></i>${timingValue}</span>${timingSub ? `<span class="tbl-timing-sub">${timingSub}</span>` : ''}</td>`;
+      // Timing cell — day on top, time below
+      let dayPart, timePart;
+      if (isVisit) {
+        dayPart = l.days || '';
+        timePart = l.visitHours || '';
+      } else {
+        const s = l.hours || '';
+        if (s.includes('·')) {
+          const parts = s.split('·').map(p => p.trim());
+          dayPart = parts[0];
+          timePart = parts.slice(1).join(' · ');
+        } else {
+          const m = s.match(/^(.+?)\s+(\d.*|24[×x]7.*)$/);
+          if (m) { dayPart = m[1].trim(); timePart = m[2].trim(); }
+          else { dayPart = s; timePart = ''; }
+        }
+      }
+      const timingCell = `<td>
+        <span class="tbl-timing-day">${dayPart}</span>
+        ${timePart ? `<span class="tbl-timing-time"><i class="fas fa-clock tbl-timing-icon"></i>${timePart}</span>` : ''}
+      </td>`;
       // Badges (max 3 to keep row tidy)
       const badgeHtml = l.badges.slice(0, 3).map(b => `<span class="badge ${badgeClass(b[1])}">${b[0]}</span>`).join('');
       const ctaLabel = isVisit ? 'Book slot' : 'Select';
