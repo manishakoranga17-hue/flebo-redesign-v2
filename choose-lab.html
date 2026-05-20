@@ -1627,8 +1627,8 @@ button { font-family: inherit; }
     <div class="sort-bar">
       <div class="sort-chips">
         <span class="sort-label">Compare by</span>
-        <button class="sort-chip" data-sort="distance"><span aria-hidden="true">📍</span> Nearest first</button>
-        <button class="sort-chip is-active" data-sort="price"><span aria-hidden="true">💰</span> Lowest price</button>
+        <button class="sort-chip is-active" data-sort="distance"><span aria-hidden="true">📍</span> Nearest first</button>
+        <button class="sort-chip" data-sort="price"><span aria-hidden="true">💰</span> Lowest price</button>
         <button class="sort-chip" data-sort="rating"><span aria-hidden="true">🏆</span> Highest rated</button>
         <button class="sort-chip" data-sort="speed"><span aria-hidden="true">⏱</span> Proc. time</button>
       </div>
@@ -1900,7 +1900,7 @@ button { font-family: inherit; }
   let view = (function () {
     try { return localStorage.getItem('flebo:choose-lab:view') || 'card'; } catch (e) { return 'card'; }
   })();
-  let currentSort = { key: 'price', dir: 'asc' };
+  let currentSort = { key: 'distance', dir: 'asc' };
   const defaultDir = { best: 'desc', price: 'asc', mrp: 'asc', distance: 'asc', speed: 'asc', rating: 'desc', name: 'asc', location: 'asc', timing: 'asc' };
 
   function sortLabs(key, dir) {
