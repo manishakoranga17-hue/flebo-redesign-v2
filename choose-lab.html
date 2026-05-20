@@ -1981,7 +1981,7 @@ button { font-family: inherit; }
       // Rating cell
       let ratingCell;
       if (l.ratingType === 'new') {
-        ratingCell = `<span class="tbl-rating"><span class="reviews">Not enough ratings</span></span>`;
+        ratingCell = `<span class="tbl-rating"><span class="reviews">—</span></span>`;
       } else {
         ratingCell = `<span class="tbl-rating"><span class="num">${l.rating.toFixed(1)}</span><span class="stars">★</span></span>`;
       }
