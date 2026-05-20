@@ -1587,9 +1587,57 @@ button { font-family: inherit; }
     if (terms) showToast(terms.dataset.terms || 'Terms apply');
   });
 
-  // Proceed
+  // Proceed → payment.html with full booking state
   document.getElementById('proceedBtn').addEventListener('click', () => {
+    // Date chip
+    const activeDateChip = document.querySelector('.date-chip.is-active');
+    const dateLabel = activeDateChip
+      ? `${activeDateChip.querySelector('.date-chip-label').textContent} · ${activeDateChip.querySelector('.date-chip-date').textContent}`
+      : 'Tomorrow';
+    // Slot
+    const activeSlot = document.querySelector('.time-slot.is-active');
+    const slotLabel = activeSlot ? activeSlot.textContent.replace(/[-*]$/, '').trim() : '7:00 AM';
+    // Address
+    const activeAddr = document.querySelector('.addr-card.is-active');
+    let addressLabel = 'Home · DLF Phase 4, Gurgaon';
+    if (activeAddr) {
+      const tag = activeAddr.querySelector('.addr-tag')?.textContent.trim() || '';
+      const name = activeAddr.querySelector('.addr-name')?.textContent.trim() || '';
+      const line = activeAddr.querySelector('.addr-line')?.textContent.trim() || '';
+      addressLabel = [tag, name].filter(Boolean).join(' · ') + (line ? ' — ' + line : '');
+    }
+    // Patient — read from the patient step-card (contains .who-toggle)
+    const who = document.querySelector('.who-tab.is-active')?.dataset.who || 'self';
+    const gender = document.querySelector('.gender-pill.is-active')?.dataset.gender || 'm';
+    const patientCard = document.querySelector('.who-toggle')?.closest('.step-card');
+    const patInputs = patientCard ? patientCard.querySelectorAll('.field-input') : [];
+    const patName = patInputs[0]?.value?.trim() || '';
+    const patAge = patInputs[2]?.value?.trim() || '';
+    let patientLabel = who === 'self' ? (patName || 'Self') : (patName || 'Family member');
+    const bits = [];
+    if (patAge) bits.push(`${patAge} yrs`);
+    bits.push(gender === 'f' ? 'Female' : gender === 'o' ? 'Other' : 'Male');
+    patientLabel += ' · ' + bits.join(' · ');
+
     showToast('✓ Proceeding to payment…');
+
+    setTimeout(() => {
+      const url = new URL('payment.html', location.href);
+      url.searchParams.set('tests', tests.join('|'));
+      url.searchParams.set('prices', testPrices.join('|'));
+      url.searchParams.set('lab', labName);
+      url.searchParams.set('labId', labId);
+      url.searchParams.set('price', String(price));
+      url.searchParams.set('mrp', String(mrp));
+      if (appliedCoupon) {
+        url.searchParams.set('coupon', appliedCoupon.code);
+        url.searchParams.set('couponDiscount', String(discountFor(appliedCoupon)));
+      }
+      url.searchParams.set('date', `${dateLabel} · ${slotLabel}`);
+      url.searchParams.set('address', addressLabel);
+      url.searchParams.set('patient', patientLabel);
+      location.href = url.toString();
+    }, 350);
   });
 
   // Toast

@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment — Flebo.in</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --primary: #1B2A5B;
+  --accent: #D33535;
+  --accent-dark: #B82E2E;
+  --accent-soft: #FDECEC;
+  --accent-mid: #F8CACA;
+  --green: #1B8A5A;
+  --green-soft: #E1F5EA;
+  --amber: #B45309;
+  --amber-soft: #FEF3C7;
+  --blue: #1D4ED8;
+  --blue-soft: #EFF6FF;
+  --text-primary: #0B1530;
+  --text-muted: #6B7592;
+  --border-soft: #E5E9F3;
+  --border-mid: #C5CCDB;
+  --bg-soft: #F7F8FB;
+  --bg-page: #F4F6FA;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --site-inset: 32px;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: var(--text-primary);
+  background: var(--bg-page);
+  font-size: 16px;
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; }
+
+/* TOP BAR + HEADER */
+.top-bar { background: #0B1530; position: sticky; top: 0; z-index: 200; }
+.top-bar-inner {
+  max-width: 1320px; margin: 0 auto;
+  padding: 10px var(--site-inset);
+  display: flex; align-items: center; gap: 16px;
+  color: #fff; font-size: 15px; font-weight: 500;
+}
+.top-bar-location {
+  background: transparent; border: 0; color: #fff; font: inherit;
+  display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+}
+.tb-icon-green { color: #21C669; font-size: 16px; }
+.top-bar-link { color: #fff; display: inline-flex; align-items: center; gap: 8px; }
+.top-bar-phone { margin-left: auto; }
+
+.site-header {
+  background: #fff; border-bottom: 1px solid var(--border-soft);
+  position: sticky; top: 38px; z-index: 190;
+}
+.site-header-inner {
+  max-width: 1320px; margin: 0 auto;
+  padding: 14px var(--site-inset);
+  display: flex; align-items: center; gap: 28px;
+}
+.brand-block { display: inline-flex; flex-direction: column; gap: 4px; flex-shrink: 0; }
+.brand { display: inline-flex; align-items: center; }
+.brand-logo { height: 46px; width: auto; }
+.brand-rating {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: #EAF2FC; border-radius: 6px; padding: 3px 8px;
+  font-size: 14px; font-weight: 700; color: var(--primary);
+  line-height: 1;
+}
+.brand-rating-score { font-weight: 800; }
+.brand-rating-stars { display: inline-flex; gap: 1px; color: #F6B100; font-size: 12px; }
+.brand-rating-count { font-weight: 600; opacity: 0.85; }
+
+.hamburger-btn {
+  width: 40px; height: 40px;
+  border-radius: 12px;
+  display: none;
+  align-items: center; justify-content: center;
+  background: var(--bg-soft); color: var(--text-muted);
+  border: 0; font-size: 20px; cursor: pointer;
+  flex-shrink: 0;
+}
+.top-bar-trust { display: flex; list-style: none; margin: 0; padding: 0; align-items: center; }
+.top-bar-trust li { display: inline-flex; align-items: center; }
+
+.main-nav { align-self: stretch; display: flex; align-items: center; }
+.main-nav-list { display: flex; list-style: none; margin: 0; padding: 0; gap: 0; }
+.main-nav-list li { list-style: none; }
+.main-nav-link {
+  position: relative;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 16px 18px;
+  color: var(--text-primary);
+  text-decoration: none;
+  font-size: 16px; font-weight: 600;
+  white-space: nowrap;
+  transition: color 0.2s;
+}
+.main-nav-link i { font-size: 16px; color: var(--text-muted); transition: color 0.2s; }
+.main-nav-link:hover { color: var(--accent); }
+.main-nav-link:hover i { color: var(--accent); }
+.main-nav-list > li:nth-child(2) > .main-nav-link::before,
+.main-nav-list > li:nth-child(3) > .main-nav-link::before,
+.main-nav-list > li:nth-child(4) > .main-nav-link::before,
+.main-nav-list > li:nth-child(5) > .main-nav-link::before {
+  content: '|';
+  color: #D5DAE5;
+  font-weight: 400;
+  margin-left: -10px;
+  margin-right: 20px;
+  font-size: 17px;
+}
+.main-nav-pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  border: 1.5px solid var(--accent);
+  background: #fff; color: var(--accent);
+  font-size: 16px; font-weight: 700;
+  padding: 8px 18px; border-radius: 999px;
+  text-decoration: none; white-space: nowrap;
+  transition: background 0.2s, color 0.2s;
+}
+.main-nav-pill:hover { background: var(--accent); color: #fff; }
+.main-nav-pill i { color: var(--accent); font-size: 16px; transition: color 0.2s; }
+.main-nav-pill:hover i { color: #fff; }
+.header-upload, .main-nav-upload {
+  margin-left: auto; display: inline-flex; flex-direction: column;
+  align-items: center; align-self: center;
+}
+.main-nav-upload-sub {
+  margin-top: 4px; font-size: 12.5px; font-weight: 600;
+  color: var(--primary); white-space: nowrap;
+}
+.main-nav-upload-sub-sep { margin: 0 6px; color: #C5CCDB; }
+.main-nav-bmi { gap: 10px; }
+.bmi-gauge-icon { display: inline-flex; align-items: center; justify-content: center; line-height: 0; }
+
+/* PAGE HEAD (hero gradient) */
+.page-head {
+  background: #1F2A5F url('b-hero3.jpeg') center / cover no-repeat;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
+}
+.page-head::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(15, 22, 60, 0.25) 0%, rgba(15, 22, 60, 0.10) 60%, rgba(15, 22, 60, 0.30) 100%);
+  pointer-events: none;
+}
+.page-head-inner {
+  position: relative; z-index: 1;
+  max-width: 1320px; margin: 0 auto;
+  padding: 20px var(--site-inset) 18px;
+  display: flex; align-items: center; gap: 18px;
+}
+.back-btn {
+  background: transparent; border: 0;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 15px; font-weight: 600; cursor: pointer;
+  padding: 6px 0;
+}
+.back-btn:hover { color: #fff; }
+.page-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: 34px; font-weight: 400; color: #fff;
+  letter-spacing: -0.01em; line-height: 1.1;
+  margin-left: 12px;
+}
+.page-stepper {
+  margin-left: auto;
+  display: inline-flex; align-items: center; gap: 12px;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 14.5px; font-weight: 600;
+}
+.stepper-dot {
+  width: 20px; height: 20px; border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.85);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700;
+}
+.stepper-dot.is-done { background: var(--green); color: #fff; }
+.stepper-dot.is-active { background: var(--accent); color: #fff; }
+.stepper-line { width: 22px; height: 2px; background: rgba(255, 255, 255, 0.28); }
+
+/* PAGE BODY */
+.page-body {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 24px var(--site-inset) 60px;
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 24px;
+  align-items: start;
+}
+
+/* STEP CARD */
+.step-card {
+  background: #fff;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin-bottom: 16px;
+  animation: cardIn 0.4s ease both;
+}
+@keyframes cardIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+.step-card:nth-child(1) { animation-delay: 0.05s; }
+.step-card:nth-child(2) { animation-delay: 0.1s; }
+.step-card-head {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 18px;
+}
+.step-num {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--accent); color: #fff;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 15px; font-weight: 800;
+}
+.step-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: 26px; font-weight: 400;
+  color: var(--primary);
+  letter-spacing: -0.01em; line-height: 1.15;
+}
+.step-sub { font-size: 15px; color: var(--text-muted); margin-left: auto; }
+
+/* ===== PAYMENT METHOD UI ===== */
+.pay-layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 0;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--bg-soft);
+}
+.pay-rail { background: var(--bg-soft); border-right: 1px solid var(--border-soft); }
+.pay-rail-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 16px 18px;
+  border: 0;
+  background: transparent;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  color: var(--text-primary);
+  border-left: 3px solid transparent;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.pay-rail-item:hover { background: #EFF1F7; }
+.pay-rail-item.is-active {
+  background: #fff;
+  border-left-color: var(--accent);
+  font-weight: 700;
+}
+.pay-rail-item .pay-rail-ico {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  background: #fff;
+  border: 1px solid var(--border-soft);
+  color: var(--accent);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 15px; flex-shrink: 0;
+}
+.pay-rail-item-text { display: flex; flex-direction: column; min-width: 0; }
+.pay-rail-item-label { font-size: 15px; font-weight: 600; color: var(--text-primary); }
+.pay-rail-item-sub { font-size: 12.5px; color: var(--text-muted); margin-top: 2px; }
+.pay-rail-item.is-active .pay-rail-item-label { font-weight: 700; }
+
+.pay-pane { background: #fff; padding: 24px; min-height: 360px; }
+.pay-pane[hidden] { display: none; }
+.pay-pane-title {
+  font-size: 17px; font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+.pay-pane-sub {
+  font-size: 14px; color: var(--text-muted);
+  margin-bottom: 18px;
+}
+
+/* Generic fields */
+.pay-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+.pay-field-label { font-size: 13px; font-weight: 700; color: var(--text-primary); letter-spacing: 0.02em; }
+.pay-field-input,
+.pay-field-select {
+  height: 44px;
+  border: 1.5px solid var(--border-mid);
+  border-radius: var(--radius-sm);
+  padding: 0 14px;
+  font: inherit;
+  font-size: 15px;
+  outline: none;
+  background: #fff;
+  color: var(--text-primary);
+}
+.pay-field-input:focus, .pay-field-select:focus { border-color: var(--primary); }
+.pay-field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+/* UPI app tiles */
+.upi-or {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 13px; font-weight: 600; color: var(--text-muted);
+  margin: 18px 0 12px;
+  text-transform: uppercase; letter-spacing: 0.04em;
+}
+.upi-or::before, .upi-or::after {
+  content: ''; flex: 1; height: 1px; background: var(--border-soft);
+}
+.upi-apps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.upi-app {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  padding: 14px 8px;
+  border: 1.5px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  background: #fff;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  font: inherit;
+}
+.upi-app:hover { border-color: var(--primary); background: var(--bg-soft); }
+.upi-app.is-active { border-color: var(--primary); background: #F3F6FB; }
+.upi-app-logo {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  color: #fff;
+  font-size: 14px; font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.upi-app[data-app="gpay"] .upi-app-logo { background: linear-gradient(135deg, #4285F4, #34A853 60%, #FBBC04); }
+.upi-app[data-app="phonepe"] .upi-app-logo { background: #6739B7; }
+.upi-app[data-app="paytm"] .upi-app-logo { background: #00BAF2; }
+.upi-app[data-app="bhim"] .upi-app-logo { background: #1A237E; }
+.upi-app-name { font-size: 13px; font-weight: 700; color: var(--text-primary); }
+
+/* Card form */
+.card-icons { display: inline-flex; gap: 6px; margin-left: auto; }
+.card-icon {
+  font-size: 18px; color: var(--text-muted);
+}
+
+/* Net banking */
+.bank-pop { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 16px; }
+.bank-tile {
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  padding: 14px 6px;
+  border: 1.5px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  background: #fff;
+  cursor: pointer;
+  font: inherit;
+  transition: border-color 0.15s, background 0.15s;
+}
+.bank-tile:hover { border-color: var(--primary); background: var(--bg-soft); }
+.bank-tile.is-active { border-color: var(--primary); background: #F3F6FB; }
+.bank-tile-logo {
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  display: inline-flex; align-items: center; justify-content: center;
+  color: #fff;
+  font-size: 13px; font-weight: 800;
+}
+.bank-tile[data-bank="hdfc"] .bank-tile-logo { background: #004C8F; }
+.bank-tile[data-bank="icici"] .bank-tile-logo { background: #B12028; }
+.bank-tile[data-bank="sbi"] .bank-tile-logo { background: #2A4FA8; }
+.bank-tile[data-bank="axis"] .bank-tile-logo { background: #97144D; }
+.bank-tile-name { font-size: 12.5px; font-weight: 700; color: var(--text-primary); }
+
+/* Wallets */
+.wallets-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.wallet-card {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px;
+  border: 1.5px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  background: #fff;
+  cursor: pointer;
+  font: inherit;
+  transition: border-color 0.15s, background 0.15s;
+}
+.wallet-card:hover { border-color: var(--primary); background: var(--bg-soft); }
+.wallet-card.is-active { border-color: var(--primary); background: #F3F6FB; }
+.wallet-logo {
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  display: inline-flex; align-items: center; justify-content: center;
+  color: #fff;
+  font-size: 13px; font-weight: 800;
+  flex-shrink: 0;
+}
+.wallet-card[data-wallet="paytm"] .wallet-logo { background: #00BAF2; }
+.wallet-card[data-wallet="phonepe"] .wallet-logo { background: #6739B7; }
+.wallet-card[data-wallet="amazonpay"] .wallet-logo { background: #FF9900; }
+.wallet-name { font-size: 14px; font-weight: 700; }
+
+/* Pay-later tiles */
+.later-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.later-card {
+  display: flex; align-items: center; gap: 12px;
+  padding: 16px;
+  border: 1.5px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  background: #fff;
+  cursor: pointer;
+  font: inherit;
+  transition: border-color 0.15s, background 0.15s;
+}
+.later-card:hover { border-color: var(--primary); background: var(--bg-soft); }
+.later-card.is-active { border-color: var(--primary); background: #F3F6FB; }
+.later-logo {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 14px; font-weight: 800;
+  flex-shrink: 0;
+}
+.later-card[data-prov="simpl"] .later-logo { background: #FF7058; }
+.later-card[data-prov="lazypay"] .later-logo { background: #00B086; }
+.later-card-text { display: flex; flex-direction: column; min-width: 0; }
+.later-name { font-size: 15px; font-weight: 700; color: var(--text-primary); }
+.later-sub { font-size: 12.5px; color: var(--text-muted); margin-top: 2px; }
+
+/* PAY CTA */
+.pay-cta-wrap {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px;
+  padding: 18px 22px;
+  background: #fff;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  margin-top: 12px;
+}
+.pay-cta-amount { display: flex; flex-direction: column; }
+.pay-cta-amount-key { font-size: 13px; color: var(--text-muted); }
+.pay-cta-amount-val {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 26px; font-weight: 800;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+  margin-top: 2px;
+}
+.pay-cta-amount-strike { font-size: 13px; color: var(--text-muted); text-decoration: line-through; margin-left: 8px; }
+.pay-cta-btn {
+  height: 54px;
+  min-width: 240px;
+  background: var(--accent);
+  color: #fff;
+  border: 0;
+  border-radius: 999px;
+  font-size: 17px;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  transition: background 0.2s, transform 0.15s;
+  box-shadow: 0 6px 20px rgba(211, 53, 53, 0.3);
+}
+.pay-cta-btn:hover { background: var(--accent-dark); transform: translateY(-1px); }
+
+/* Trust strip */
+.trust-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 16px;
+}
+.trust-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 14px;
+  background: var(--bg-soft);
+  border-radius: var(--radius-md);
+  font-size: 13.5px;
+  color: var(--text-primary);
+}
+.trust-item i {
+  font-size: 18px;
+  color: var(--green);
+  flex-shrink: 0;
+}
+
+/* ===== SUMMARY CARD (right column) ===== */
+.summary-card {
+  background: #fff;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: sticky;
+  top: 110px;
+  animation: cardIn 0.4s ease both;
+  animation-delay: 0.15s;
+}
+.summary-head {
+  display: flex; align-items: center; gap: 12px;
+  padding: 18px 20px;
+  background: linear-gradient(180deg, #F7F8FB 0%, #fff 100%);
+  border-bottom: 1px solid var(--border-soft);
+}
+.summary-lab-logo {
+  width: 44px; height: 44px;
+  border-radius: 10px;
+  background: #fff;
+  border: 1px solid var(--border-soft);
+  display: inline-flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.summary-lab-logo img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.summary-lab-info { display: flex; flex-direction: column; min-width: 0; }
+.summary-lab-name { font-size: 16px; font-weight: 700; color: var(--text-primary); }
+.summary-lab-meta { font-size: 12.5px; color: var(--text-muted); margin-top: 2px; }
+
+.summary-section { padding: 16px 20px; border-bottom: 1px solid var(--border-soft); }
+.summary-label {
+  font-size: 12px; font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+.summary-tests { display: flex; flex-direction: column; gap: 8px; }
+.summary-test {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 15px;
+  color: var(--text-primary);
+}
+.summary-test::before {
+  content: '✓';
+  width: 18px; height: 18px;
+  background: var(--green-soft); color: var(--green);
+  border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 800;
+  flex-shrink: 0;
+}
+.summary-test-name { flex: 1; min-width: 0; }
+.summary-test-price {
+  font-family: 'Plus Jakarta Sans', Inter, sans-serif;
+  font-weight: 700;
+  color: var(--text-primary);
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.summary-meta-row {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 14px;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+}
+.summary-meta-row i {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-top: 3px;
+  width: 16px;
+  flex-shrink: 0;
+}
+.summary-meta-row:last-child { margin-bottom: 0; }
+.summary-meta-row b { font-weight: 700; color: var(--text-primary); }
+
+.price-rows { display: flex; flex-direction: column; gap: 8px; }
+.price-row {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 14.5px;
+}
+.price-row-key { color: var(--text-muted); }
+.price-row-val {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+.price-row.is-discount .price-row-val { color: var(--green); }
+.price-row.is-total {
+  padding-top: 10px;
+  margin-top: 4px;
+  border-top: 1.5px dashed var(--border-soft);
+}
+.price-row.is-total .price-row-key {
+  color: var(--text-primary);
+  font-weight: 700;
+  font-size: 15.5px;
+}
+.price-row.is-total .price-row-val {
+  font-size: 19px;
+  color: var(--text-primary);
+}
+
+/* Applied coupon strip inside summary */
+.summary-coupon {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 10px 12px;
+  background: var(--green-soft);
+  border-radius: var(--radius-sm);
+  font-size: 13.5px;
+  color: var(--green);
+  font-weight: 700;
+}
+.summary-coupon-code { letter-spacing: 0.04em; }
+
+.summary-safe {
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px 20px 18px;
+  font-size: 12.5px;
+  color: var(--text-muted);
+}
+.summary-safe i { color: var(--green); }
+
+/* Toast */
+.toast {
+  position: fixed; bottom: 24px; left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: #fff;
+  border: 1px solid var(--border-soft);
+  box-shadow: 0 10px 28px rgba(11, 21, 48, 0.15);
+  border-radius: var(--radius-md);
+  padding: 12px 18px;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--text-primary);
+  opacity: 0;
+  transition: transform 0.25s, opacity 0.25s;
+  z-index: 1500;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+.toast i { color: var(--green); }
+
+@media (max-width: 1080px) {
+  .page-body { grid-template-columns: 1fr; }
+  .summary-card { position: static; }
+}
+@media (max-width: 720px) {
+  .pay-layout { grid-template-columns: 1fr; }
+  .pay-rail { display: flex; overflow-x: auto; border-right: 0; border-bottom: 1px solid var(--border-soft); }
+  .pay-rail-item { flex-shrink: 0; }
+  .upi-apps, .bank-pop { grid-template-columns: repeat(2, 1fr); }
+  .wallets-grid, .later-grid { grid-template-columns: 1fr; }
+  .pay-cta-wrap { flex-direction: column; align-items: stretch; }
+  .pay-cta-btn { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== TOP BAR ===== -->
+<div class="top-bar">
+  <div class="top-bar-inner">
+    <ul class="top-bar-trust" aria-label="Location">
+      <li>
+        <button class="top-bar-location" aria-label="Change location">
+          <i class="fas fa-location-dot tb-icon-green"></i>
+          <span>Gurgaon - 122001</span>
+          <i class="fas fa-chevron-down" aria-hidden="true"></i>
+        </button>
+      </li>
+    </ul>
+    <a href="tel:01244550000" class="top-bar-link top-bar-phone">
+      <i class="fas fa-phone"></i><span>0124-4550000</span>
+    </a>
+    <a href="#" class="top-bar-link">
+      <i class="fas fa-user"></i><span>Login / Signup</span>
+    </a>
+  </div>
+</div>
+
+<!-- ===== SITE HEADER ===== -->
+<header class="site-header" role="banner">
+  <div class="site-header-inner">
+    <button class="hamburger-btn" aria-label="Open menu"><i class="fas fa-bars"></i></button>
+    <div class="brand-block">
+      <a href="index.html" class="brand" aria-label="Flebo.in"><img src="flebo-logo.svg" alt="Flebo.in" class="brand-logo"></a>
+      <div class="brand-rating">
+        <span class="brand-rating-score">4.9</span>
+        <span class="brand-rating-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+        <span class="brand-rating-count">33,434</span>
+      </div>
+    </div>
+    <nav class="main-nav" role="navigation" aria-label="Primary">
+      <ul class="main-nav-list">
+        <li><a href="index.html" class="main-nav-link"><i class="fas fa-flask-vial"></i><span>Tests</span></a></li>
+        <li><a href="index.html" class="main-nav-link"><i class="fas fa-box-open"></i><span>Packages</span></a></li>
+        <li><a href="index.html" class="main-nav-link"><i class="fas fa-folder-open"></i><span>Reports</span></a></li>
+        <li><a href="index.html" class="main-nav-link"><i class="fas fa-chart-line"></i><span>Health Trend Graph</span></a></li>
+        <li><a href="index.html" class="main-nav-link main-nav-bmi">
+          <span class="bmi-gauge-icon">
+            <svg viewBox="0 0 24 14" width="22" height="13" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="bmiGrad" x1="0" x2="1" y1="0" y2="0">
+                  <stop offset="0" stop-color="#E8453C"/><stop offset="0.35" stop-color="#F4B940"/>
+                  <stop offset="0.65" stop-color="#C7D147"/><stop offset="1" stop-color="#3FAE5A"/>
+                </linearGradient>
+              </defs>
+              <path d="M 2.5 12.5 A 9.5 9.5 0 0 1 21.5 12.5" stroke="url(#bmiGrad)" stroke-width="2.8" stroke-linecap="round" fill="none"/>
+              <line x1="12" y1="12.5" x2="8" y2="5" stroke="#2C3E50" stroke-width="1.6" stroke-linecap="round"/>
+              <circle cx="12" cy="12.5" r="1.4" fill="#2C3E50"/>
+            </svg>
+          </span>
+          <span>BMI Calculator</span>
+        </a></li>
+      </ul>
+    </nav>
+    <div class="header-upload main-nav-upload">
+      <a href="#" class="main-nav-pill"><i class="fas fa-cloud-arrow-up"></i><span>Upload Report of Any Lab</span></a>
+      <span class="main-nav-upload-sub">Secure Data Vault <span class="main-nav-upload-sub-sep">|</span> Free AI Analysis</span>
+    </div>
+  </div>
+</header>
+
+<!-- PAGE HEAD -->
+<div class="page-head">
+  <div class="page-head-inner">
+    <button class="back-btn" onclick="history.back()">← Back to slot</button>
+    <h1 class="page-title">Payment</h1>
+    <div class="page-stepper">
+      <span class="stepper-dot is-done">✓</span>
+      <span class="stepper-line"></span>
+      <span class="stepper-dot is-done">✓</span>
+      <span class="stepper-line"></span>
+      <span class="stepper-dot is-done">✓</span>
+      <span class="stepper-line"></span>
+      <span class="stepper-dot is-active">4</span>
+      <span style="margin-left:4px;">Payment</span>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE BODY -->
+<div class="page-body">
+
+  <!-- LEFT -->
+  <div>
+    <!-- Step: Choose payment method -->
+    <section class="step-card">
+      <div class="step-card-head">
+        <span class="step-num">1</span>
+        <h2 class="step-title">Choose payment method</h2>
+        <span class="step-sub">All transactions are secured with 256-bit SSL</span>
+      </div>
+
+      <div class="pay-layout">
+        <div class="pay-rail" id="payRail">
+          <button type="button" class="pay-rail-item is-active" data-method="upi">
+            <span class="pay-rail-ico"><i class="fas fa-mobile-screen-button"></i></span>
+            <span class="pay-rail-item-text">
+              <span class="pay-rail-item-label">UPI</span>
+              <span class="pay-rail-item-sub">GPay, PhonePe…</span>
+            </span>
+          </button>
+          <button type="button" class="pay-rail-item" data-method="card">
+            <span class="pay-rail-ico"><i class="fas fa-credit-card"></i></span>
+            <span class="pay-rail-item-text">
+              <span class="pay-rail-item-label">Cards</span>
+              <span class="pay-rail-item-sub">Credit / Debit</span>
+            </span>
+          </button>
+          <button type="button" class="pay-rail-item" data-method="netbanking">
+            <span class="pay-rail-ico"><i class="fas fa-building-columns"></i></span>
+            <span class="pay-rail-item-text">
+              <span class="pay-rail-item-label">Net banking</span>
+              <span class="pay-rail-item-sub">All major banks</span>
+            </span>
+          </button>
+          <button type="button" class="pay-rail-item" data-method="wallet">
+            <span class="pay-rail-ico"><i class="fas fa-wallet"></i></span>
+            <span class="pay-rail-item-text">
+              <span class="pay-rail-item-label">Wallets</span>
+              <span class="pay-rail-item-sub">Paytm, PhonePe…</span>
+            </span>
+          </button>
+          <button type="button" class="pay-rail-item" data-method="later">
+            <span class="pay-rail-ico"><i class="fas fa-clock"></i></span>
+            <span class="pay-rail-item-text">
+              <span class="pay-rail-item-label">Pay later</span>
+              <span class="pay-rail-item-sub">Simpl, LazyPay</span>
+            </span>
+          </button>
+        </div>
+
+        <!-- UPI -->
+        <div class="pay-pane" data-pane="upi">
+          <div class="pay-pane-title">Pay with UPI</div>
+          <div class="pay-pane-sub">Enter your UPI ID or pick an app — you'll get a payment request in seconds.</div>
+          <div class="pay-field">
+            <label class="pay-field-label" for="upiId">UPI ID</label>
+            <input id="upiId" type="text" class="pay-field-input" placeholder="yourname@bank">
+          </div>
+          <div class="upi-or">Or pay with</div>
+          <div class="upi-apps" id="upiApps">
+            <button type="button" class="upi-app is-active" data-app="gpay">
+              <span class="upi-app-logo">G</span>
+              <span class="upi-app-name">Google Pay</span>
+            </button>
+            <button type="button" class="upi-app" data-app="phonepe">
+              <span class="upi-app-logo">Pe</span>
+              <span class="upi-app-name">PhonePe</span>
+            </button>
+            <button type="button" class="upi-app" data-app="paytm">
+              <span class="upi-app-logo">P</span>
+              <span class="upi-app-name">Paytm</span>
+            </button>
+            <button type="button" class="upi-app" data-app="bhim">
+              <span class="upi-app-logo">B</span>
+              <span class="upi-app-name">BHIM</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- CARDS -->
+        <div class="pay-pane" data-pane="card" hidden>
+          <div class="pay-pane-title" style="display:flex;align-items:center;">
+            <span>Pay with Card</span>
+            <span class="card-icons">
+              <i class="fab fa-cc-visa card-icon" style="color:#1A1F71;"></i>
+              <i class="fab fa-cc-mastercard card-icon" style="color:#EB001B;"></i>
+              <i class="fab fa-cc-amex card-icon" style="color:#2E77BC;"></i>
+              <i class="fas fa-credit-card card-icon"></i>
+            </span>
+          </div>
+          <div class="pay-pane-sub">Credit, debit, prepaid &amp; RuPay cards accepted.</div>
+          <div class="pay-field">
+            <label class="pay-field-label" for="cardNum">Card number</label>
+            <input id="cardNum" type="text" class="pay-field-input" placeholder="1234 5678 9012 3456" maxlength="19" inputmode="numeric">
+          </div>
+          <div class="pay-field">
+            <label class="pay-field-label" for="cardName">Name on card</label>
+            <input id="cardName" type="text" class="pay-field-input" placeholder="Cardholder name">
+          </div>
+          <div class="pay-field-grid">
+            <div class="pay-field">
+              <label class="pay-field-label" for="cardExp">Expiry</label>
+              <input id="cardExp" type="text" class="pay-field-input" placeholder="MM / YY" maxlength="7">
+            </div>
+            <div class="pay-field">
+              <label class="pay-field-label" for="cardCvv">CVV</label>
+              <input id="cardCvv" type="password" class="pay-field-input" placeholder="•••" maxlength="4" inputmode="numeric">
+            </div>
+          </div>
+        </div>
+
+        <!-- NET BANKING -->
+        <div class="pay-pane" data-pane="netbanking" hidden>
+          <div class="pay-pane-title">Net Banking</div>
+          <div class="pay-pane-sub">Choose a popular bank or search for yours below.</div>
+          <div class="bank-pop" id="bankPop">
+            <button type="button" class="bank-tile is-active" data-bank="hdfc">
+              <span class="bank-tile-logo">HDFC</span>
+              <span class="bank-tile-name">HDFC Bank</span>
+            </button>
+            <button type="button" class="bank-tile" data-bank="icici">
+              <span class="bank-tile-logo">ICICI</span>
+              <span class="bank-tile-name">ICICI Bank</span>
+            </button>
+            <button type="button" class="bank-tile" data-bank="sbi">
+              <span class="bank-tile-logo">SBI</span>
+              <span class="bank-tile-name">State Bank</span>
+            </button>
+            <button type="button" class="bank-tile" data-bank="axis">
+              <span class="bank-tile-logo">AXIS</span>
+              <span class="bank-tile-name">Axis Bank</span>
+            </button>
+          </div>
+          <div class="pay-field">
+            <label class="pay-field-label" for="bankPick">Other banks</label>
+            <select id="bankPick" class="pay-field-select">
+              <option value="">Select your bank</option>
+              <option>Kotak Mahindra Bank</option>
+              <option>Yes Bank</option>
+              <option>IndusInd Bank</option>
+              <option>Punjab National Bank</option>
+              <option>Bank of Baroda</option>
+              <option>Canara Bank</option>
+              <option>Union Bank of India</option>
+              <option>Federal Bank</option>
+              <option>IDFC First Bank</option>
+              <option>RBL Bank</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- WALLETS -->
+        <div class="pay-pane" data-pane="wallet" hidden>
+          <div class="pay-pane-title">Wallets</div>
+          <div class="pay-pane-sub">Pay instantly from your prepaid wallet balance.</div>
+          <div class="wallets-grid" id="walletGrid">
+            <button type="button" class="wallet-card is-active" data-wallet="paytm">
+              <span class="wallet-logo">P</span>
+              <span class="wallet-name">Paytm</span>
+            </button>
+            <button type="button" class="wallet-card" data-wallet="phonepe">
+              <span class="wallet-logo">Pe</span>
+              <span class="wallet-name">PhonePe</span>
+            </button>
+            <button type="button" class="wallet-card" data-wallet="amazonpay">
+              <span class="wallet-logo">A</span>
+              <span class="wallet-name">Amazon Pay</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- PAY LATER -->
+        <div class="pay-pane" data-pane="later" hidden>
+          <div class="pay-pane-title">Pay later</div>
+          <div class="pay-pane-sub">Book now, pay after the report. Zero interest on first booking.</div>
+          <div class="later-grid" id="laterGrid">
+            <button type="button" class="later-card is-active" data-prov="simpl">
+              <span class="later-logo">S</span>
+              <span class="later-card-text">
+                <span class="later-name">Simpl</span>
+                <span class="later-sub">15-day interest-free</span>
+              </span>
+            </button>
+            <button type="button" class="later-card" data-prov="lazypay">
+              <span class="later-logo">L</span>
+              <span class="later-card-text">
+                <span class="later-name">LazyPay</span>
+                <span class="later-sub">Pay back in 15 days</span>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="trust-strip">
+        <div class="trust-item"><i class="fas fa-shield-halved"></i><span>256-bit SSL secured</span></div>
+        <div class="trust-item"><i class="fas fa-lock"></i><span>PCI-DSS compliant</span></div>
+        <div class="trust-item"><i class="fas fa-rotate-left"></i><span>Free re-test on errors</span></div>
+      </div>
+    </section>
+
+    <!-- PAY CTA -->
+    <div class="pay-cta-wrap">
+      <div class="pay-cta-amount">
+        <span class="pay-cta-amount-key">Amount payable</span>
+        <span>
+          <span class="pay-cta-amount-val" id="ctaAmount">₹641</span>
+          <span class="pay-cta-amount-strike" id="ctaMrp">₹1,582</span>
+        </span>
+      </div>
+      <button class="pay-cta-btn" id="payBtn">
+        <span id="payBtnLabel">Pay ₹641 securely</span>
+        <i class="fas fa-arrow-right"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- RIGHT: SUMMARY -->
+  <aside class="summary-card">
+    <div class="summary-head">
+      <div class="summary-lab-logo"><img id="sumLabLogo" src="lab-logos/thyrocare.webp" alt=""></div>
+      <div class="summary-lab-info">
+        <div class="summary-lab-name" id="sumLabName">Thyrocare Technologies</div>
+        <div class="summary-lab-meta">NABL · ISO · National Lab · 4.7 ★</div>
+      </div>
+    </div>
+
+    <div class="summary-section">
+      <div class="summary-label">Booking</div>
+      <div class="summary-meta-row"><i class="fas fa-calendar"></i><span id="sumDate">Tomorrow · 7:00 AM</span></div>
+      <div class="summary-meta-row"><i class="fas fa-location-dot"></i><span id="sumAddress">Home · DLF Phase 4, Gurgaon</span></div>
+      <div class="summary-meta-row"><i class="fas fa-user"></i><span id="sumPatient">Self · Adult</span></div>
+    </div>
+
+    <div class="summary-section">
+      <div class="summary-label">Your tests</div>
+      <div class="summary-tests" id="sumTests"></div>
+    </div>
+
+    <div class="summary-section">
+      <div class="summary-label">Price breakdown</div>
+      <div class="price-rows" id="priceRows"></div>
+      <div id="couponSlot" style="margin-top:12px;"></div>
+    </div>
+
+    <div class="summary-safe">
+      <i class="fas fa-shield-halved"></i>
+      <span>Payment is 100% secure · 24×7 support · Free re-test on collection error</span>
+    </div>
+  </aside>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function () {
+  // ===== URL params =====
+  const params = new URLSearchParams(location.search);
+  const testsParam = params.get('tests') || 'CBC (Complete Blood Count)|Thyroid Profile (T3, T4, TSH)';
+  const pricesParam = params.get('prices') || '299|549';
+  const labName = params.get('lab') || 'Thyrocare Technologies';
+  const labId = params.get('labId') || 'thyrocare';
+  const price = parseInt(params.get('price'), 10) || 641;
+  const mrp = parseInt(params.get('mrp'), 10) || 1582;
+  const couponCode = params.get('coupon') || '';
+  const couponDiscount = parseInt(params.get('couponDiscount'), 10) || 0;
+  const dateLabel = params.get('date') || 'Tomorrow · 7:00 AM';
+  const addressLabel = params.get('address') || 'Home · DLF Phase 4, Gurgaon';
+  const patientLabel = params.get('patient') || 'Self · Adult';
+
+  // Split tests with paren-aware fallback
+  function splitTests(str) {
+    if (str.includes('|')) return str.split('|').map(s => s.trim()).filter(Boolean);
+    const out = []; let depth = 0, start = 0;
+    for (let i = 0; i < str.length; i++) {
+      const c = str[i];
+      if (c === '(') depth++;
+      else if (c === ')') depth--;
+      else if (c === ',' && depth === 0) { out.push(str.slice(start, i)); start = i + 1; }
+    }
+    out.push(str.slice(start));
+    return out.map(s => s.trim()).filter(Boolean);
+  }
+  const tests = splitTests(testsParam);
+
+  // Price catalog fallback
+  const priceCatalog = {
+    'CBC (Complete Blood Count)': 299, 'Thyroid Profile (T3, T4, TSH)': 549,
+    'Lipid Profile': 499, 'HbA1c (Diabetes)': 399, 'Blood Sugar Fasting': 149,
+    'Blood Sugar Random (BSR)': 149, 'Vitamin D 25-Hydroxy': 799, 'Vitamin B12': 599,
+    'Iron Studies': 699, 'Liver Function Test (LFT)': 549, 'Kidney Function Test (KFT)': 599,
+    'Urine Routine (RU)': 199, 'Dengue NS1 Antigen': 449, 'Malaria Panel': 299,
+    'Typhoid (Widal Test)': 249, 'COVID RT-PCR': 499, 'CRP (C-Reactive Protein)': 449,
+    'Electrolytes': 349, 'Calcium Serum': 249, 'X-Ray Chest PA View': 399,
+    'MRI Brain': 4499, 'CT Scan Abdomen': 3499, 'Ultrasound Whole Abdomen': 1299,
+    'ECG': 249, '2D Echo': 1499,
+  };
+  const urlPrices = params.get('prices') ? pricesParam.split('|').map(p => parseInt(p, 10) || 0) : [];
+  const testPrices = tests.map((t, i) => urlPrices[i] || priceCatalog[t] || 0);
+
+  // Lab logo
+  const logoMap = {
+    thyrocare: 'lab-logos/thyrocare.webp',
+    pathkind: 'lab-logos/pathkind.webp',
+    agilus: 'lab-logos/agilus-diagnostics.webp',
+    apollo: 'lab-logos/apollo-health.webp',
+  };
+  document.getElementById('sumLabName').textContent = labName;
+  document.getElementById('sumLabLogo').src = logoMap[labId] || logoMap.thyrocare;
+
+  // Summary meta
+  document.getElementById('sumDate').textContent = dateLabel;
+  document.getElementById('sumAddress').textContent = addressLabel;
+  document.getElementById('sumPatient').textContent = patientLabel;
+
+  // Tests list with per-test prices
+  document.getElementById('sumTests').innerHTML = tests.map((t, i) => {
+    const p = testPrices[i];
+    const label = p > 0 ? `₹${p.toLocaleString()}` : '—';
+    return `<div class="summary-test"><span class="summary-test-name">${t}</span><span class="summary-test-price">${label}</span></div>`;
+  }).join('');
+
+  // Price breakdown
+  const labSave = mrp - price;
+  const finalTotal = Math.max(price - couponDiscount, 0);
+  const cashback = Math.round(price * 0.50);
+  document.getElementById('priceRows').innerHTML = `
+    <div class="price-row"><span class="price-row-key">MRP (lab list price)</span><span class="price-row-val">₹${mrp.toLocaleString()}</span></div>
+    <div class="price-row is-discount"><span class="price-row-key">Lab discount</span><span class="price-row-val">− ₹${labSave.toLocaleString()}</span></div>
+    <div class="price-row"><span class="price-row-key">Home collection</span><span class="price-row-val" style="color:var(--green);">FREE</span></div>
+    ${couponDiscount > 0 ? `<div class="price-row is-discount"><span class="price-row-key">Coupon (${couponCode})</span><span class="price-row-val">− ₹${couponDiscount.toLocaleString()}</span></div>` : ''}
+    <div class="price-row is-total"><span class="price-row-key">Amount to pay</span><span class="price-row-val">₹${finalTotal.toLocaleString()}</span></div>
+    <div class="price-row" style="margin-top:4px;"><span class="price-row-key" style="color:var(--green);font-weight:700;">💚 Cashback after report</span><span class="price-row-val" style="color:var(--green);">+ ₹${cashback.toLocaleString()}</span></div>
+  `;
+
+  // Coupon strip in summary
+  if (couponCode && couponDiscount > 0) {
+    document.getElementById('couponSlot').innerHTML = `
+      <div class="summary-coupon">
+        <span><i class="fas fa-circle-check" style="margin-right:6px;"></i><b class="summary-coupon-code">${couponCode}</b> applied</span>
+        <span>You saved ₹${couponDiscount.toLocaleString()}</span>
+      </div>
+    `;
+  }
+
+  // CTA amount
+  document.getElementById('ctaAmount').textContent = `₹${finalTotal.toLocaleString()}`;
+  document.getElementById('ctaMrp').textContent = `₹${mrp.toLocaleString()}`;
+  document.getElementById('payBtnLabel').textContent = `Pay ₹${finalTotal.toLocaleString()} securely`;
+
+  // ===== Method tabs =====
+  let currentMethod = 'upi';
+  let currentUpiApp = 'gpay';
+  let currentBank = 'hdfc';
+  let currentWallet = 'paytm';
+  let currentLater = 'simpl';
+
+  const rail = document.getElementById('payRail');
+  rail.addEventListener('click', (e) => {
+    const item = e.target.closest('.pay-rail-item');
+    if (!item) return;
+    rail.querySelectorAll('.pay-rail-item').forEach(b => b.classList.remove('is-active'));
+    item.classList.add('is-active');
+    currentMethod = item.dataset.method;
+    document.querySelectorAll('.pay-pane').forEach(p => p.hidden = p.dataset.pane !== currentMethod);
+  });
+
+  function singleSelect(containerId, dataAttr, onPick) {
+    const c = document.getElementById(containerId);
+    if (!c) return;
+    c.addEventListener('click', (e) => {
+      const btn = e.target.closest('button[' + dataAttr + ']');
+      if (!btn) return;
+      c.querySelectorAll('button').forEach(b => b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      onPick(btn.getAttribute(dataAttr).replace(/^data-/, ''));
+    });
+  }
+  singleSelect('upiApps', 'data-app', v => currentUpiApp = v);
+  singleSelect('bankPop', 'data-bank', v => currentBank = v);
+  singleSelect('walletGrid', 'data-wallet', v => currentWallet = v);
+  singleSelect('laterGrid', 'data-prov', v => currentLater = v);
+
+  // ===== Pay button =====
+  document.getElementById('payBtn').addEventListener('click', () => {
+    let methodLabel = 'UPI';
+    let methodSub = currentUpiApp.toUpperCase();
+    if (currentMethod === 'card') { methodLabel = 'Card'; methodSub = 'XXXX XXXX XXXX ' + (document.getElementById('cardNum').value.slice(-4) || '4242'); }
+    else if (currentMethod === 'netbanking') { methodLabel = 'Net Banking'; methodSub = currentBank.toUpperCase(); }
+    else if (currentMethod === 'wallet') { methodLabel = 'Wallet'; methodSub = currentWallet.toUpperCase(); }
+    else if (currentMethod === 'later') { methodLabel = 'Pay later'; methodSub = currentLater.toUpperCase(); }
+    else if (currentMethod === 'upi') { methodSub = (document.getElementById('upiId').value || currentUpiApp).toUpperCase(); }
+
+    showToast('<i class="fas fa-spinner fa-spin"></i> Processing payment…');
+    document.getElementById('payBtn').disabled = true;
+    document.getElementById('payBtn').style.opacity = '0.7';
+
+    setTimeout(() => {
+      const bookingId = 'FB' + Date.now().toString().slice(-8);
+      const url = new URL('booking-confirmed.html', location.href);
+      url.searchParams.set('tests', tests.join('|'));
+      url.searchParams.set('prices', testPrices.join('|'));
+      url.searchParams.set('lab', labName);
+      url.searchParams.set('labId', labId);
+      url.searchParams.set('price', String(finalTotal));
+      url.searchParams.set('mrp', String(mrp));
+      if (couponCode) {
+        url.searchParams.set('coupon', couponCode);
+        url.searchParams.set('couponDiscount', String(couponDiscount));
+      }
+      url.searchParams.set('date', dateLabel);
+      url.searchParams.set('address', addressLabel);
+      url.searchParams.set('patient', patientLabel);
+      url.searchParams.set('bookingId', bookingId);
+      url.searchParams.set('paymentMethod', methodLabel);
+      url.searchParams.set('paymentSub', methodSub);
+      location.href = url.toString();
+    }, 1200);
+  });
+
+  // Toast
+  const toastEl = document.getElementById('toast');
+  let toastTimer;
+  function showToast(html) {
+    toastEl.innerHTML = html;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2400);
+  }
+
+  // Format card number with spaces while typing
+  const cardNumInput = document.getElementById('cardNum');
+  if (cardNumInput) {
+    cardNumInput.addEventListener('input', (e) => {
+      const v = e.target.value.replace(/\D/g, '').slice(0, 16);
+      e.target.value = v.replace(/(.{4})/g, '$1 ').trim();
+    });
+  }
+  const cardExpInput = document.getElementById('cardExp');
+  if (cardExpInput) {
+    cardExpInput.addEventListener('input', (e) => {
+      const v = e.target.value.replace(/\D/g, '').slice(0, 4);
+      e.target.value = v.length > 2 ? v.slice(0, 2) + ' / ' + v.slice(2) : v;
+    });
+  }
+})();
+</script>
+
+</body>
+</html>
