@@ -702,6 +702,213 @@ button { font-family: inherit; }
   font-weight: 500;
 }
 
+/* ===== VIEW TOGGLE (Card / Table) ===== */
+.view-toggle {
+  display: inline-flex;
+  background: var(--bg-soft);
+  border: 1px solid var(--border-soft);
+  border-radius: 999px;
+  padding: 4px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+.view-toggle-btn {
+  background: transparent;
+  border: 0;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.15s, color 0.15s;
+}
+.view-toggle-btn:hover { color: var(--text-primary); }
+.view-toggle-btn.is-active {
+  background: #fff;
+  color: var(--text-primary);
+  box-shadow: 0 1px 4px rgba(11, 21, 48, 0.08);
+}
+.view-toggle-btn i { font-size: 13px; }
+
+/* ===== LAB TABLE ===== */
+.lab-table-wrap {
+  background: #fff;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  overflow-x: auto;
+  animation: cardIn 0.3s ease both;
+}
+.lab-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 14px;
+}
+.lab-table thead th {
+  background: var(--bg-soft);
+  color: var(--text-muted);
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-soft);
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.15s, background 0.15s;
+}
+.lab-table thead th.is-not-sortable { cursor: default; }
+.lab-table thead th:not(.is-not-sortable):hover { color: var(--text-primary); background: #EFF1F7; }
+.lab-table thead th .sort-arrow {
+  display: inline-block;
+  margin-left: 4px;
+  opacity: 0.3;
+  font-size: 10px;
+  transition: opacity 0.15s, color 0.15s, transform 0.15s;
+}
+.lab-table thead th.is-sorted { color: var(--text-primary); }
+.lab-table thead th.is-sorted .sort-arrow { opacity: 1; color: var(--accent); }
+.lab-table thead th.is-sorted.is-desc .sort-arrow { transform: rotate(180deg); }
+.lab-table tbody tr { transition: background 0.15s; }
+.lab-table tbody tr:hover { background: var(--bg-soft); }
+.lab-table tbody td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border-soft);
+  vertical-align: middle;
+}
+.lab-table tbody tr:last-child td { border-bottom: 0; }
+
+.tbl-lab-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 240px;
+}
+.tbl-lab-logo {
+  width: 38px; height: 38px;
+  border-radius: 8px;
+  background: #fff;
+  border: 1px solid var(--border-soft);
+  display: inline-flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.tbl-lab-logo img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.tbl-lab-text { min-width: 0; }
+.tbl-lab-name {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 220px;
+}
+.tbl-lab-badges {
+  display: inline-flex; gap: 5px; flex-wrap: wrap;
+}
+.tbl-lab-badges .badge {
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 700;
+}
+.tbl-rating {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  font-weight: 700;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+.tbl-rating .num {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+}
+.tbl-rating .stars { color: #F6B100; font-size: 11px; }
+.tbl-rating .reviews { color: var(--text-muted); font-weight: 500; font-size: 12.5px; }
+.tbl-rating .new-tag { color: var(--blue); font-size: 12.5px; font-weight: 700; }
+.tbl-tat { color: var(--text-primary); white-space: nowrap; font-weight: 600; }
+.tbl-tat-icon { color: var(--text-muted); margin-right: 4px; }
+.tbl-mrp {
+  color: var(--text-muted);
+  text-decoration: line-through;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.tbl-price-wrap { white-space: nowrap; }
+.tbl-price {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+.tbl-save {
+  display: block;
+  color: var(--green);
+  font-size: 11.5px;
+  font-weight: 700;
+  margin-top: 2px;
+}
+.tbl-dist {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+.tbl-dist-eta {
+  display: block;
+  color: var(--text-muted);
+  font-size: 11.5px;
+  margin-top: 2px;
+  font-weight: 500;
+}
+.tbl-slot {
+  display: inline-block;
+  background: var(--blue-soft);
+  color: var(--blue);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.tbl-slot.is-closed { background: var(--accent-soft); color: var(--accent); }
+.tbl-select {
+  background: var(--accent);
+  color: #fff;
+  border: 0;
+  border-radius: 999px;
+  padding: 8px 18px;
+  font: inherit;
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+.tbl-select:hover { background: var(--accent-dark); }
+
+@media (max-width: 720px) {
+  .lab-table { font-size: 13.5px; }
+  .lab-table thead th, .lab-table tbody td { padding: 10px 12px; }
+  .view-toggle-btn span { display: none; }
+  .view-toggle-btn i { font-size: 14px; }
+}
+
 /* ===== LAB CARDS ===== */
 .lab-cards { display: flex; flex-direction: column; gap: 14px; }
 
@@ -1352,10 +1559,24 @@ button { font-family: inherit; }
       <button class="sort-chip" data-sort="speed"><span aria-hidden="true">⚡</span> Fastest report</button>
       <button class="sort-chip" data-sort="rating"><span aria-hidden="true">🏆</span> Highest rated</button>
       <span class="result-count" id="resultCount">4 labs available near you</span>
+      <div class="view-toggle" role="tablist" aria-label="Switch view">
+        <button class="view-toggle-btn is-active" data-view="card" role="tab" aria-selected="true"><i class="fas fa-grip-vertical"></i><span>Cards</span></button>
+        <button class="view-toggle-btn" data-view="table" role="tab" aria-selected="false"><i class="fas fa-table-list"></i><span>Table</span></button>
+      </div>
     </div>
 
     <!-- LAB CARDS -->
     <div class="lab-cards" id="labCards"></div>
+
+    <!-- LAB TABLE -->
+    <div class="lab-table-wrap" id="labTableWrap" hidden>
+      <table class="lab-table">
+        <thead>
+          <tr id="labTableHead"></tr>
+        </thead>
+        <tbody id="labTableBody"></tbody>
+      </table>
+    </div>
 
     <div class="empty-banner" id="emptyBanner" hidden>
       <div class="empty-emoji" aria-hidden="true">🔬</div>
@@ -1602,26 +1823,172 @@ button { font-family: inherit; }
     }).join('');
     document.getElementById('resultCount').textContent = `${list.length} lab${list.length === 1 ? '' : 's'} available near you`;
   }
-  renderCards(labs);
+  // ===== View toggle (Card / Table) + sorting state =====
+  let view = (function () {
+    try { return localStorage.getItem('flebo:choose-lab:view') || 'card'; } catch (e) { return 'card'; }
+  })();
+  let currentSort = { key: 'best', dir: 'desc' };
+  const defaultDir = { best: 'desc', price: 'asc', mrp: 'asc', distance: 'asc', speed: 'asc', rating: 'desc', name: 'asc' };
+
+  function sortLabs(key, dir) {
+    const mul = dir === 'asc' ? 1 : -1;
+    const sorted = labs.slice();
+    const tatOrder = ['Reports in 6 hours', 'Reports in 12 hours', 'Reports in 18 hours', 'Reports in 24 hours', 'Reports next morning'];
+    if (key === 'name') sorted.sort((a, b) => a.name.localeCompare(b.name) * mul);
+    else if (key === 'price') sorted.sort((a, b) => (a.price - b.price) * mul);
+    else if (key === 'mrp') sorted.sort((a, b) => (a.mrp - b.mrp) * mul);
+    else if (key === 'rating') sorted.sort((a, b) => ((a.rating || 0) - (b.rating || 0)) * mul);
+    else if (key === 'speed') sorted.sort((a, b) => (tatOrder.indexOf(a.tat) - tatOrder.indexOf(b.tat)) * mul);
+    else if (key === 'distance') sorted.sort((a, b) => (a.distanceKm - b.distanceKm) * mul);
+    else { // 'best' — featured first when desc, last when asc
+      sorted.sort((a, b) => ((a.featured ? 1 : 0) - (b.featured ? 1 : 0)) * (dir === 'desc' ? -1 : 1));
+    }
+    return sorted;
+  }
+
+  function renderResults(list) {
+    if (view === 'card') {
+      cardsEl.hidden = false;
+      document.getElementById('labTableWrap').hidden = true;
+      renderCards(list);
+    } else {
+      cardsEl.hidden = true;
+      document.getElementById('labTableWrap').hidden = !list.length;
+      renderTable(list);
+    }
+    if (!list.length) {
+      document.getElementById('emptyBanner').hidden = false;
+    } else {
+      document.getElementById('emptyBanner').hidden = true;
+    }
+    document.getElementById('resultCount').textContent = `${list.length} lab${list.length === 1 ? '' : 's'} available near you`;
+  }
+
+  // ===== Table renderer =====
+  function renderTable(list) {
+    const isVisit = mode === 'visit';
+    // Build header columns based on mode
+    const cols = [
+      { key: 'name', label: 'Lab' },
+      { key: 'rating', label: 'Rating' },
+      { key: 'speed', label: 'Reports in' },
+    ];
+    if (isVisit) {
+      cols.push({ key: 'distance', label: 'Distance' });
+      cols.push({ key: 'slot', label: 'Earliest slot', sortable: false });
+    }
+    cols.push({ key: 'mrp', label: 'MRP' });
+    cols.push({ key: 'price', label: 'Price' });
+    cols.push({ key: 'action', label: '', sortable: false });
+
+    document.getElementById('labTableHead').innerHTML = cols.map(c => {
+      const sortable = c.sortable !== false;
+      const isSorted = sortable && c.key === currentSort.key;
+      const dirClass = isSorted && currentSort.dir === 'desc' ? 'is-desc' : '';
+      return `<th data-col="${c.key}" class="${sortable ? '' : 'is-not-sortable'} ${isSorted ? 'is-sorted ' + dirClass : ''}">${c.label}${sortable ? '<span class="sort-arrow">▲</span>' : ''}</th>`;
+    }).join('');
+
+    document.getElementById('labTableBody').innerHTML = list.map(l => {
+      const save = l.mrp - l.price;
+      const pct = Math.round((save / l.mrp) * 100);
+      // Rating cell
+      let ratingCell;
+      if (l.ratingType === 'new') {
+        ratingCell = `<span class="tbl-rating"><span class="new-tag">New</span><span class="reviews">${l.ratingExt}</span></span>`;
+      } else {
+        ratingCell = `<span class="tbl-rating"><span class="num">${l.rating.toFixed(1)}</span><span class="stars">★</span><span class="reviews">(${(l.reviews || 0).toLocaleString()})</span></span>`;
+      }
+      // TAT — strip "Reports in " prefix for compactness
+      const tatShort = (l.tat || '').replace(/^Reports in\s*/, '').replace(/^Reports\s*/, '');
+      const tatCell = `<span class="tbl-tat"><i class="fas fa-bolt tbl-tat-icon"></i>${tatShort}</span>`;
+      // Visit-only cells
+      let distCell = '';
+      let slotCell = '';
+      if (isVisit) {
+        distCell = `<td><span class="tbl-dist">${l.distanceKm.toFixed(1)} km</span><span class="tbl-dist-eta">🚗 ~${l.etaMin} min</span></td>`;
+        if (l.slots) {
+          const earliest = l.slots.find(s => !s.endsWith('-')) || l.slots[0];
+          const label = earliest.replace(/[*-]$/, '');
+          const closed = !l.openNow;
+          slotCell = `<td><span class="tbl-slot ${closed ? 'is-closed' : ''}">${closed ? 'Closed' : label}</span></td>`;
+        } else {
+          slotCell = '<td><span class="tbl-dist-eta">—</span></td>';
+        }
+      }
+      // Badges (max 3 to keep row tidy)
+      const badgeHtml = l.badges.slice(0, 3).map(b => `<span class="badge ${badgeClass(b[1])}">${b[0]}</span>`).join('');
+      const ctaLabel = isVisit ? 'Book slot' : 'Select';
+      return `
+        <tr data-id="${l.id}">
+          <td>
+            <div class="tbl-lab-cell">
+              <div class="tbl-lab-logo"><img src="${l.logo}" alt=""></div>
+              <div class="tbl-lab-text">
+                <div class="tbl-lab-name">${l.name}</div>
+                <div class="tbl-lab-badges">${badgeHtml}</div>
+              </div>
+            </div>
+          </td>
+          <td>${ratingCell}</td>
+          <td>${tatCell}</td>
+          ${distCell}
+          ${slotCell}
+          <td><span class="tbl-mrp">₹${l.mrp.toLocaleString()}</span></td>
+          <td>
+            <div class="tbl-price-wrap">
+              <span class="tbl-price">₹${l.price.toLocaleString()}</span>
+              <span class="tbl-save">Save ${pct}%</span>
+            </div>
+          </td>
+          <td><button class="tbl-select" data-action="select" data-name="${l.name}">${ctaLabel}</button></td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  renderResults(sortLabs(currentSort.key, currentSort.dir));
 
   // ===== Sorting =====
-  function applySort(key) {
-    const sorted = labs.slice();
-    if (key === 'price') sorted.sort((a, b) => a.price - b.price);
-    else if (key === 'rating') sorted.sort((a, b) => (b.rating || 0) - (a.rating || 0));
-    else if (key === 'speed') {
-      const order = ['Reports in 6 hours', 'Reports in 12 hours', 'Reports in 18 hours', 'Reports in 24 hours', 'Reports next morning'];
-      sorted.sort((a, b) => order.indexOf(a.tat) - order.indexOf(b.tat));
-    } else if (key === 'distance') sorted.sort((a, b) => a.distanceKm - b.distanceKm);
-    else sorted.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
-    renderCards(sorted);
+  function applySort(key, dir) {
+    if (!dir) {
+      if (currentSort.key === key) dir = currentSort.dir === 'asc' ? 'desc' : 'asc';
+      else dir = defaultDir[key] || 'desc';
+    }
+    currentSort = { key, dir };
+    // Sync chip active state — only highlight chips that map to a chip-key
+    const chipKeys = ['best', 'price', 'distance', 'speed', 'rating'];
+    document.querySelectorAll('.sort-chip').forEach(c => c.classList.toggle('is-active', c.dataset.sort === key));
+    renderResults(sortLabs(key, dir));
   }
   document.querySelector('.sort-bar').addEventListener('click', (e) => {
     const chip = e.target.closest('.sort-chip');
     if (!chip) return;
-    document.querySelectorAll('.sort-chip').forEach(c => c.classList.remove('is-active'));
-    chip.classList.add('is-active');
     applySort(chip.dataset.sort);
+  });
+
+  // ===== View toggle =====
+  document.querySelector('.view-toggle').addEventListener('click', (e) => {
+    const btn = e.target.closest('.view-toggle-btn');
+    if (!btn) return;
+    view = btn.dataset.view;
+    try { localStorage.setItem('flebo:choose-lab:view', view); } catch (err) {}
+    document.querySelectorAll('.view-toggle-btn').forEach(b => {
+      b.classList.toggle('is-active', b.dataset.view === view);
+      b.setAttribute('aria-selected', b.dataset.view === view ? 'true' : 'false');
+    });
+    renderResults(sortLabs(currentSort.key, currentSort.dir));
+  });
+  // Reflect initial view-toggle state (loaded from localStorage)
+  document.querySelectorAll('.view-toggle-btn').forEach(b => {
+    b.classList.toggle('is-active', b.dataset.view === view);
+    b.setAttribute('aria-selected', b.dataset.view === view ? 'true' : 'false');
+  });
+
+  // ===== Column-header sort (table view) =====
+  document.getElementById('labTableHead').addEventListener('click', (e) => {
+    const th = e.target.closest('th[data-col]');
+    if (!th || th.classList.contains('is-not-sortable')) return;
+    applySort(th.dataset.col);
   });
 
   // ===== Mode tabs =====
@@ -1639,19 +2006,24 @@ button { font-family: inherit; }
     // Toggle "Nearest first" sort chip
     const nearChip = document.querySelector('.sort-chip[data-sort="distance"]');
     if (nearChip) nearChip.style.display = mode === 'visit' ? '' : 'none';
-    const activeSort = document.querySelector('.sort-chip.is-active');
-    applySort(activeSort ? activeSort.dataset.sort : 'best');
+    // If we're sorted by distance and switched to Home mode, fall back to best
+    if (mode !== 'visit' && currentSort.key === 'distance') {
+      applySort('best');
+    } else {
+      renderResults(sortLabs(currentSort.key, currentSort.dir));
+    }
   });
 
-  // ===== Select lab =====
-  cardsEl.addEventListener('click', (e) => {
+  // ===== Select lab — shared for card view and table view =====
+  function handleSelectClick(e) {
     const btn = e.target.closest('button[data-action="select"]');
     if (!btn) return;
-    const card = btn.closest('.lab-card');
-    const lab = labs.find(l => l.id === card.dataset.id);
+    const row = btn.closest('[data-id]');
+    if (!row) return;
+    const lab = labs.find(l => l.id === row.dataset.id);
     if (!lab) return;
     if (mode === 'visit') {
-      const slot = card.querySelector('.slot-btn.is-selected');
+      const slot = row.querySelector?.('.slot-btn.is-selected');
       showToast(`✓ ${lab.name} · slot ${slot ? slot.textContent : 'TBD'} — proceeding to checkout…`);
       return;
     }
@@ -1663,7 +2035,9 @@ button { font-family: inherit; }
     url.searchParams.set('price', lab.price);
     url.searchParams.set('mrp', lab.mrp);
     location.href = url.toString();
-  });
+  }
+  cardsEl.addEventListener('click', handleSelectClick);
+  document.getElementById('labTableBody').addEventListener('click', handleSelectClick);
 
   // ===== Rating slider =====
   const slider = document.getElementById('ratingSlider');
