@@ -1910,9 +1910,6 @@ button { font-family: inherit; }
       { key: 'rating', label: 'Rating' },
       { key: 'speed', label: 'Reports in' },
     ];
-    if (isVisit) {
-      cols.push({ key: 'slot', label: 'Earliest slot', sortable: false });
-    }
     cols.push({ key: 'mrp', label: 'MRP' });
     cols.push({ key: 'price', label: 'Price' });
     cols.push({ key: 'action', label: '', sortable: false });
@@ -1941,18 +1938,6 @@ button { font-family: inherit; }
       const locCell = `<td><span class="tbl-loc"><i class="fas fa-location-dot tbl-loc-icon"></i>${l.location}</span></td>`;
       // Distance cell — visible in both modes
       const distCell = `<td><span class="tbl-dist">${l.distanceKm.toFixed(1)} km</span><span class="tbl-dist-eta">🚗 ~${l.etaMin} min</span></td>`;
-      // Slot — visit only
-      let slotCell = '';
-      if (isVisit) {
-        if (l.slots) {
-          const earliest = l.slots.find(s => !s.endsWith('-')) || l.slots[0];
-          const label = earliest.replace(/[*-]$/, '');
-          const closed = !l.openNow;
-          slotCell = `<td><span class="tbl-slot ${closed ? 'is-closed' : ''}">${closed ? 'Closed' : label}</span></td>`;
-        } else {
-          slotCell = '<td><span class="tbl-dist-eta">—</span></td>';
-        }
-      }
       // Badges (max 3 to keep row tidy)
       const badgeHtml = l.badges.slice(0, 3).map(b => `<span class="badge ${badgeClass(b[1])}">${b[0]}</span>`).join('');
       const ctaLabel = isVisit ? 'Book slot' : 'Select';
@@ -1971,7 +1956,6 @@ button { font-family: inherit; }
           ${distCell}
           <td>${ratingCell}</td>
           <td>${tatCell}</td>
-          ${slotCell}
           <td><span class="tbl-mrp">₹${l.mrp.toLocaleString()}</span></td>
           <td>
             <div class="tbl-price-wrap">
