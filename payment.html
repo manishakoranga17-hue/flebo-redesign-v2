@@ -435,6 +435,46 @@ button { font-family: inherit; }
 .later-name { font-size: 15px; font-weight: 700; color: var(--text-primary); }
 .later-sub { font-size: 12.5px; color: var(--text-muted); margin-top: 2px; }
 
+/* Pay-on-collection pane */
+.collection-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.collection-step {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 14px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
+}
+.collection-step-ico {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid var(--border-soft);
+  color: var(--primary);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.collection-step-text { min-width: 0; }
+.collection-step-title { font-size: 15px; font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
+.collection-step-sub { font-size: 13.5px; color: var(--text-muted); line-height: 1.4; }
+.collection-note {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 12px 14px;
+  background: var(--amber-soft);
+  border: 1px solid #FBD38D;
+  border-radius: var(--radius-md);
+  font-size: 13.5px;
+  color: var(--amber);
+  line-height: 1.45;
+}
+.collection-note i { font-size: 16px; margin-top: 2px; flex-shrink: 0; }
+.collection-note b { font-weight: 800; }
+
 /* PAY CTA */
 .pay-cta-wrap {
   display: flex; align-items: center; justify-content: space-between;
@@ -790,6 +830,13 @@ button { font-family: inherit; }
               <span class="pay-rail-item-sub">Simpl, LazyPay</span>
             </span>
           </button>
+          <button type="button" class="pay-rail-item" data-method="collection">
+            <span class="pay-rail-ico"><i class="fas fa-hand-holding-dollar"></i></span>
+            <span class="pay-rail-item-text">
+              <span class="pay-rail-item-label">Pay on collection</span>
+              <span class="pay-rail-item-sub">Cash / UPI on visit</span>
+            </span>
+          </button>
         </div>
 
         <!-- UPI -->
@@ -932,6 +979,39 @@ button { font-family: inherit; }
                 <span class="later-sub">Pay back in 15 days</span>
               </span>
             </button>
+          </div>
+        </div>
+
+        <!-- PAY ON COLLECTION -->
+        <div class="pay-pane" data-pane="collection" hidden>
+          <div class="pay-pane-title">Pay on collection</div>
+          <div class="pay-pane-sub">Reserve your slot now — pay the technician in cash or UPI when they arrive to collect the sample.</div>
+          <div class="collection-grid">
+            <div class="collection-step">
+              <span class="collection-step-ico"><i class="fas fa-calendar-check"></i></span>
+              <div class="collection-step-text">
+                <div class="collection-step-title">Slot is locked instantly</div>
+                <div class="collection-step-sub">No money is charged now. You'll receive a confirmation SMS and call.</div>
+              </div>
+            </div>
+            <div class="collection-step">
+              <span class="collection-step-ico"><i class="fas fa-user-nurse"></i></span>
+              <div class="collection-step-text">
+                <div class="collection-step-title">Technician arrives at your slot</div>
+                <div class="collection-step-sub">Verifies your details and shows you the bill on a handheld POS.</div>
+              </div>
+            </div>
+            <div class="collection-step">
+              <span class="collection-step-ico"><i class="fas fa-money-bill-wave"></i></span>
+              <div class="collection-step-text">
+                <div class="collection-step-title">Pay by cash or UPI on the spot</div>
+                <div class="collection-step-sub">GPay, PhonePe, Paytm, BHIM, or exact cash — instant receipt over SMS.</div>
+              </div>
+            </div>
+          </div>
+          <div class="collection-note">
+            <i class="fas fa-circle-info"></i>
+            <div><b>Heads up</b> — cashback &amp; coupon savings still apply. Please keep the exact amount handy to help our technician.</div>
           </div>
         </div>
       </div>
@@ -1100,6 +1180,14 @@ button { font-family: inherit; }
   let currentLater = 'simpl';
 
   const rail = document.getElementById('payRail');
+  const payBtnLabelEl = document.getElementById('payBtnLabel');
+  function updateCtaLabel() {
+    if (currentMethod === 'collection') {
+      payBtnLabelEl.textContent = `Confirm booking · Pay ₹${finalTotal.toLocaleString()} on visit`;
+    } else {
+      payBtnLabelEl.textContent = `Pay ₹${finalTotal.toLocaleString()} securely`;
+    }
+  }
   rail.addEventListener('click', (e) => {
     const item = e.target.closest('.pay-rail-item');
     if (!item) return;
@@ -1107,6 +1195,7 @@ button { font-family: inherit; }
     item.classList.add('is-active');
     currentMethod = item.dataset.method;
     document.querySelectorAll('.pay-pane').forEach(p => p.hidden = p.dataset.pane !== currentMethod);
+    updateCtaLabel();
   });
 
   function singleSelect(containerId, dataAttr, onPick) {
@@ -1129,13 +1218,18 @@ button { font-family: inherit; }
   document.getElementById('payBtn').addEventListener('click', () => {
     let methodLabel = 'UPI';
     let methodSub = currentUpiApp.toUpperCase();
+    let payOnVisit = false;
     if (currentMethod === 'card') { methodLabel = 'Card'; methodSub = 'XXXX XXXX XXXX ' + (document.getElementById('cardNum').value.slice(-4) || '4242'); }
     else if (currentMethod === 'netbanking') { methodLabel = 'Net Banking'; methodSub = currentBank.toUpperCase(); }
     else if (currentMethod === 'wallet') { methodLabel = 'Wallet'; methodSub = currentWallet.toUpperCase(); }
     else if (currentMethod === 'later') { methodLabel = 'Pay later'; methodSub = currentLater.toUpperCase(); }
+    else if (currentMethod === 'collection') { methodLabel = 'Pay on collection'; methodSub = 'CASH / UPI ON VISIT'; payOnVisit = true; }
     else if (currentMethod === 'upi') { methodSub = (document.getElementById('upiId').value || currentUpiApp).toUpperCase(); }
 
-    showToast('<i class="fas fa-spinner fa-spin"></i> Processing payment…');
+    const loadingMsg = payOnVisit
+      ? '<i class="fas fa-spinner fa-spin"></i> Confirming your booking…'
+      : '<i class="fas fa-spinner fa-spin"></i> Processing payment…';
+    showToast(loadingMsg);
     document.getElementById('payBtn').disabled = true;
     document.getElementById('payBtn').style.opacity = '0.7';
 
@@ -1158,6 +1252,7 @@ button { font-family: inherit; }
       url.searchParams.set('bookingId', bookingId);
       url.searchParams.set('paymentMethod', methodLabel);
       url.searchParams.set('paymentSub', methodSub);
+      if (payOnVisit) url.searchParams.set('payOnVisit', '1');
       location.href = url.toString();
     }, 1200);
   });

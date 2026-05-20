@@ -241,6 +241,29 @@ button { font-family: inherit; }
   margin-bottom: 16px;
   animation: cardIn 0.4s ease both;
 }
+
+/* Pay-on-visit banner (only shown when paying on collection) */
+.pay-on-visit-banner {
+  display: flex; align-items: center; gap: 16px;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, #FEF3C7 0%, #FDE8B0 100%);
+  border: 1px solid #F4B940;
+  border-radius: var(--radius-lg);
+  margin-bottom: 16px;
+  animation: cardIn 0.4s ease both;
+}
+.pov-ico {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: var(--amber);
+  color: #fff;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.pov-text { min-width: 0; }
+.pov-title { font-size: 16px; font-weight: 800; color: #6B3F00; margin-bottom: 4px; }
+.pov-sub { font-size: 13.5px; color: #8B5A1A; line-height: 1.4; }
 @keyframes cardIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
 .card:nth-child(1) { animation-delay: 0.05s; }
 .card:nth-child(2) { animation-delay: 0.1s; }
@@ -828,6 +851,7 @@ button { font-family: inherit; }
   const bookingId = params.get('bookingId') || ('FB' + Date.now().toString().slice(-8));
   const paymentMethod = params.get('paymentMethod') || 'UPI';
   const paymentSub = params.get('paymentSub') || 'GPAY';
+  const payOnVisit = params.get('payOnVisit') === '1';
 
   // Splits
   function splitTests(str) {
@@ -859,7 +883,24 @@ button { font-family: inherit; }
 
   // Hero
   document.getElementById('confirmBookingId').textContent = bookingId;
-  document.getElementById('confirmSub').textContent = `A technician will visit you on ${dateLabel}. We've sent the details to your phone and email.`;
+  if (payOnVisit) {
+    document.querySelector('.confirm-eyebrow').textContent = 'Booking reserved';
+    document.getElementById('confirmSub').innerHTML = `A technician will visit you on ${dateLabel}. <b>Please keep ₹${price.toLocaleString()} ready</b> (cash or UPI) to pay on collection.`;
+    // Add a banner above the booking-details card
+    const banner = document.createElement('div');
+    banner.className = 'pay-on-visit-banner';
+    banner.innerHTML = `
+      <span class="pov-ico"><i class="fas fa-hand-holding-dollar"></i></span>
+      <div class="pov-text">
+        <div class="pov-title">Pay ₹${price.toLocaleString()} to the technician on visit</div>
+        <div class="pov-sub">Cash or UPI (GPay · PhonePe · Paytm · BHIM) accepted on the spot. Coupon &amp; cashback already applied.</div>
+      </div>
+    `;
+    const firstCard = document.querySelector('.page-body > div > .card');
+    if (firstCard) firstCard.parentNode.insertBefore(banner, firstCard);
+  } else {
+    document.getElementById('confirmSub').textContent = `A technician will visit you on ${dateLabel}. We've sent the details to your phone and email.`;
+  }
 
   // Details
   document.getElementById('detailDate').textContent = dateLabel;
@@ -888,7 +929,21 @@ button { font-family: inherit; }
   }
   document.getElementById('receiptMethod').textContent = paymentMethod;
   document.getElementById('receiptMethodSub').textContent = paymentSub;
-  document.getElementById('receiptTxn').textContent = 'FBTXN' + bookingId.replace(/^FB/, '');
+  document.getElementById('receiptTxn').textContent = payOnVisit ? 'Payable to technician' : ('FBTXN' + bookingId.replace(/^FB/, ''));
+
+  // Pay-on-visit flips the receipt header from "Amount paid" → "Amount due on visit"
+  if (payOnVisit) {
+    document.querySelector('.receipt-head-title').textContent = 'Amount due on visit';
+    document.querySelector('.receipt-head').style.background = 'linear-gradient(180deg, var(--amber-soft) 0%, #fff 100%)';
+    document.querySelector('.receipt-head-ico').style.background = 'var(--amber)';
+    document.querySelector('.receipt-head-ico').innerHTML = '<i class="fas fa-hand-holding-dollar"></i>';
+    const totalRow = document.querySelector('.receipt-section .receipt-row.is-total .receipt-row-key');
+    if (totalRow) totalRow.textContent = 'Payable on visit';
+    const downloadBtn = document.getElementById('downloadReceipt');
+    if (downloadBtn) downloadBtn.innerHTML = '<i class="fas fa-file-arrow-down"></i> Download booking summary';
+    // Hide the digital "Transaction ID" / "Paid on" semantics — show payable instruction instead
+    document.getElementById('receiptDate').textContent = 'On collection';
+  }
 
   const now = new Date();
   const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
