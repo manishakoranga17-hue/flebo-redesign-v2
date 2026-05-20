@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login or Sign up — Flebo.in</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --primary: #1B2A5B;
+  --accent: #D33535;
+  --accent-dark: #B82E2E;
+  --accent-soft: #FDECEC;
+  --green: #1B8A5A;
+  --green-soft: #E1F5EA;
+  --amber: #B45309;
+  --amber-soft: #FEF3C7;
+  --blue: #1D4ED8;
+  --blue-soft: #EFF6FF;
+  --text-primary: #0B1530;
+  --text-muted: #6B7592;
+  --border-soft: #E5E9F3;
+  --border-mid: #C5CCDB;
+  --bg-soft: #F7F8FB;
+  --bg-page: #F4F6FA;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+}
+
+html, body { height: 100%; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: var(--text-primary);
+  background: var(--bg-page);
+  font-size: 16px;
+  line-height: 1.5;
+}
+button { font-family: inherit; }
+a { color: inherit; text-decoration: none; }
+
+.login-shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+}
+
+/* ====================== LEFT — CAROUSEL ====================== */
+.login-left {
+  position: relative;
+  background: #1F2A5F url('b-hero3.jpeg') center / cover no-repeat;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 36px 56px 36px;
+  overflow: hidden;
+}
+.login-left::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 80% 110%, rgba(211, 53, 53, 0.35) 0%, transparent 55%),
+    linear-gradient(180deg, rgba(11, 21, 48, 0.65) 0%, rgba(15, 22, 60, 0.78) 100%);
+  pointer-events: none;
+}
+.login-left-inner {
+  position: relative; z-index: 1;
+  display: flex; flex-direction: column;
+  height: 100%;
+}
+
+.left-brand {
+  display: inline-flex; align-items: center; gap: 14px;
+  margin-bottom: auto;
+}
+.left-brand img { height: 46px; width: auto; filter: brightness(0) invert(1); }
+.left-brand-rating {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-size: 13px;
+  font-weight: 700;
+}
+.left-brand-rating i { color: #F6B100; font-size: 11px; }
+
+/* Carousel */
+.carousel {
+  position: relative;
+  margin: 60px 0 48px;
+  min-height: 280px;
+}
+.slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  pointer-events: none;
+}
+.slide.is-active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  position: relative;
+}
+.slide-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 13px; font-weight: 800;
+  color: rgba(255, 255, 255, 0.78);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.slide-eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: #21C669; }
+.slide-icon {
+  width: 56px; height: 56px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 24px;
+  margin-bottom: 22px;
+}
+.slide-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: 46px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.05;
+  margin-bottom: 14px;
+  max-width: 480px;
+}
+.slide-sub {
+  font-size: 17px;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.5;
+  max-width: 460px;
+  margin-bottom: 26px;
+}
+.slide-stats {
+  display: flex; gap: 28px; flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+.slide-stat-num {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+.slide-stat-key {
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 6px;
+}
+
+/* Carousel controls */
+.carousel-controls {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.dot-row {
+  display: inline-flex; gap: 8px;
+}
+.carousel-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.2s, width 0.25s;
+}
+.carousel-dot.is-active {
+  background: #fff;
+  width: 24px;
+  border-radius: 999px;
+}
+.carousel-arrow {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #fff;
+  display: inline-flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+.carousel-arrow:hover { background: rgba(255, 255, 255, 0.22); }
+.carousel-arrow.is-prev { margin-left: auto; }
+
+/* ====================== RIGHT — LOGIN FORM ====================== */
+.login-right {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 36px 56px 36px;
+  position: relative;
+}
+.right-top {
+  display: flex; align-items: center;
+  margin-bottom: auto;
+}
+.right-back {
+  background: transparent; border: 0;
+  color: var(--text-muted);
+  font: inherit;
+  font-size: 14.5px; font-weight: 600;
+  cursor: pointer;
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 0;
+}
+.right-back:hover { color: var(--text-primary); }
+.right-help {
+  margin-left: auto;
+  font-size: 14px; color: var(--text-muted);
+}
+.right-help a { color: var(--accent); font-weight: 700; }
+.right-help a:hover { text-decoration: underline; }
+
+.login-form-wrap {
+  max-width: 420px;
+  width: 100%;
+  margin: 0 auto;
+}
+.login-eyebrow {
+  font-size: 13px; font-weight: 800;
+  color: var(--accent);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.login-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: 38px;
+  font-weight: 400;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+.login-sub {
+  font-size: 15.5px;
+  color: var(--text-muted);
+  margin-bottom: 30px;
+}
+
+/* Phone step */
+.phone-row {
+  display: flex;
+  border: 1.5px solid var(--border-mid);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.phone-row:focus-within {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(27, 42, 91, 0.08);
+}
+.phone-country {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 0 14px;
+  border-right: 1.5px solid var(--border-soft);
+  background: var(--bg-soft);
+  font-size: 15.5px; font-weight: 700;
+  color: var(--text-primary);
+}
+.phone-country .flag {
+  width: 22px; height: 16px;
+  border-radius: 3px;
+  overflow: hidden;
+  display: inline-block;
+  flex-shrink: 0;
+  background: linear-gradient(180deg, #FF9933 33%, #FFFFFF 33%, #FFFFFF 66%, #138808 66%);
+  position: relative;
+}
+.phone-country .flag::after {
+  content: '';
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 4px; height: 4px;
+  margin: -2px 0 0 -2px;
+  border-radius: 50%;
+  background: #000080;
+}
+.phone-input {
+  flex: 1;
+  height: 56px;
+  padding: 0 16px;
+  border: 0;
+  outline: 0;
+  font: inherit;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: 0.04em;
+  background: #fff;
+}
+.phone-input::placeholder { color: var(--text-muted); font-weight: 500; letter-spacing: 0.02em; }
+
+.form-error {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13.5px;
+  color: var(--accent);
+  margin-top: 8px;
+}
+.form-error i { font-size: 13px; }
+
+.primary-cta {
+  width: 100%;
+  height: 56px;
+  background: var(--accent);
+  color: #fff;
+  border: 0;
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  margin-top: 22px;
+  transition: background 0.2s, transform 0.15s;
+  box-shadow: 0 6px 20px rgba(211, 53, 53, 0.25);
+}
+.primary-cta:hover:not(:disabled) { background: var(--accent-dark); transform: translateY(-1px); }
+.primary-cta:disabled { background: #E5A7A7; cursor: not-allowed; box-shadow: none; }
+
+/* Divider */
+.divider {
+  display: flex; align-items: center; gap: 14px;
+  font-size: 12.5px; font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin: 26px 0 18px;
+}
+.divider::before, .divider::after {
+  content: ''; flex: 1; height: 1px; background: var(--border-soft);
+}
+
+/* Social options */
+.social-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.social-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  height: 48px;
+  border: 1.5px solid var(--border-mid);
+  border-radius: var(--radius-md);
+  background: #fff;
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+.social-btn:hover { border-color: var(--primary); background: var(--bg-soft); }
+.social-btn i { font-size: 17px; }
+.social-btn[data-prov="google"] i { color: #4285F4; }
+.social-btn[data-prov="apple"] i { color: #000; }
+
+/* Terms */
+.terms {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 22px;
+  line-height: 1.5;
+}
+.terms a { color: var(--primary); font-weight: 700; }
+.terms a:hover { text-decoration: underline; }
+
+/* OTP step */
+.otp-step { display: none; }
+.otp-step.is-active { display: block; }
+.phone-step { display: block; }
+.phone-step.is-hidden { display: none; }
+
+.otp-phone-display {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  font-size: 14.5px;
+  color: var(--text-primary);
+  margin-bottom: 22px;
+}
+.otp-phone-display b { font-weight: 700; font-family: 'Plus Jakarta Sans', sans-serif; letter-spacing: 0.04em; }
+.otp-phone-edit {
+  margin-left: auto;
+  background: transparent; border: 0;
+  color: var(--accent);
+  font: inherit; font-size: 13.5px; font-weight: 700;
+  cursor: pointer;
+}
+.otp-phone-edit:hover { text-decoration: underline; }
+
+.otp-boxes {
+  display: flex; gap: 10px;
+  margin-bottom: 18px;
+}
+.otp-box {
+  flex: 1;
+  height: 60px;
+  border: 1.5px solid var(--border-mid);
+  border-radius: var(--radius-md);
+  background: #fff;
+  font: inherit;
+  font-size: 24px;
+  font-weight: 800;
+  text-align: center;
+  color: var(--text-primary);
+  outline: 0;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.otp-box:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(27, 42, 91, 0.08);
+}
+.otp-box.is-filled { border-color: var(--green); }
+.otp-box.is-error { border-color: var(--accent); animation: shake 0.4s; }
+@keyframes shake {
+  10%, 90% { transform: translateX(-2px); }
+  20%, 80% { transform: translateX(3px); }
+  30%, 50%, 70% { transform: translateX(-5px); }
+  40%, 60% { transform: translateX(5px); }
+}
+
+.otp-resend {
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 14px;
+  margin-top: -4px;
+}
+.otp-resend-key { color: var(--text-muted); }
+.otp-resend-cta {
+  background: transparent; border: 0;
+  color: var(--accent);
+  font: inherit; font-size: 14px; font-weight: 700;
+  cursor: pointer;
+}
+.otp-resend-cta:disabled {
+  color: var(--text-muted); cursor: not-allowed;
+}
+.otp-resend-cta:hover:not(:disabled) { text-decoration: underline; }
+.otp-resend-timer {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+/* Toast */
+.toast {
+  position: fixed; bottom: 24px; left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: #fff;
+  border: 1px solid var(--border-soft);
+  box-shadow: 0 10px 28px rgba(11, 21, 48, 0.15);
+  border-radius: var(--radius-md);
+  padding: 12px 18px;
+  font-size: 14.5px; font-weight: 600;
+  color: var(--text-primary);
+  opacity: 0;
+  transition: transform 0.25s, opacity 0.25s;
+  z-index: 1500;
+  display: inline-flex; align-items: center; gap: 10px;
+}
+.toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+.toast i { color: var(--green); }
+
+/* Bottom trust strip (right side) */
+.right-trust {
+  margin-top: auto;
+  padding-top: 32px;
+  display: flex;
+  gap: 18px;
+  font-size: 12.5px;
+  color: var(--text-muted);
+  flex-wrap: wrap;
+}
+.right-trust span { display: inline-flex; align-items: center; gap: 6px; }
+.right-trust i { color: var(--green); }
+
+/* Responsive */
+@media (max-width: 1080px) {
+  .login-shell { grid-template-columns: 1fr; }
+  .login-left { padding: 40px 32px; min-height: 380px; }
+  .login-right { padding: 36px 32px; }
+  .slide-title { font-size: 36px; }
+  .carousel { margin: 40px 0 28px; }
+}
+@media (max-width: 540px) {
+  .login-left { padding: 28px 22px; }
+  .login-right { padding: 28px 22px; }
+  .slide-title { font-size: 30px; }
+  .slide-sub { font-size: 15px; }
+  .login-title { font-size: 32px; }
+  .social-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="login-shell">
+
+  <!-- ============ LEFT: CAROUSEL ============ -->
+  <div class="login-left">
+    <div class="login-left-inner">
+      <div class="left-brand">
+        <img src="flebo-logo.svg" alt="Flebo.in">
+        <span class="left-brand-rating">
+          <i class="fas fa-star"></i>
+          <span>4.9 · 33,434 reviews</span>
+        </span>
+      </div>
+
+      <div class="carousel" id="carousel" aria-roledescription="carousel">
+        <!-- Slide 1 -->
+        <div class="slide is-active" data-i="0">
+          <span class="slide-eyebrow"><span class="dot"></span><span>Any test, any lab</span></span>
+          <span class="slide-icon"><i class="fas fa-flask-vial"></i></span>
+          <h2 class="slide-title">Find any test across 200+ trusted labs.</h2>
+          <p class="slide-sub">Compare prices, ratings and distance side by side. Pick what's best for you — pathology, radiology, packages, the works.</p>
+          <div class="slide-stats">
+            <div><div class="slide-stat-num">200+</div><div class="slide-stat-key">Partner labs</div></div>
+            <div><div class="slide-stat-num">5,000+</div><div class="slide-stat-key">Tests &amp; packages</div></div>
+            <div><div class="slide-stat-num">42</div><div class="slide-stat-key">Cities</div></div>
+          </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="slide" data-i="1">
+          <span class="slide-eyebrow"><span class="dot"></span><span>Home collection</span></span>
+          <span class="slide-icon"><i class="fas fa-house-medical"></i></span>
+          <h2 class="slide-title">A certified phlebotomist at your doorstep.</h2>
+          <p class="slide-sub">Pick a slot from 6 AM to 9 PM — free home collection, sealed tamper-proof boxes, and real-time technician tracking.</p>
+          <div class="slide-stats">
+            <div><div class="slide-stat-num">FREE</div><div class="slide-stat-key">Home collection</div></div>
+            <div><div class="slide-stat-num">6 AM</div><div class="slide-stat-key">Earliest slot</div></div>
+            <div><div class="slide-stat-num">5 min</div><div class="slide-stat-key">Avg. collection</div></div>
+          </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="slide" data-i="2">
+          <span class="slide-eyebrow"><span class="dot"></span><span>Fast reports</span></span>
+          <span class="slide-icon"><i class="fas fa-folder-open"></i></span>
+          <h2 class="slide-title">Reports in your dashboard within 18 hours.</h2>
+          <p class="slide-sub">Get digital reports on email, WhatsApp, and the app. Share with family, track trends over time, and unlock AI-powered insights.</p>
+          <div class="slide-stats">
+            <div><div class="slide-stat-num">18 hrs</div><div class="slide-stat-key">Avg. turnaround</div></div>
+            <div><div class="slide-stat-num">∞</div><div class="slide-stat-key">Storage</div></div>
+            <div><div class="slide-stat-num">AI</div><div class="slide-stat-key">Free analysis</div></div>
+          </div>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="slide" data-i="3">
+          <span class="slide-eyebrow"><span class="dot"></span><span>Real savings</span></span>
+          <span class="slide-icon"><i class="fas fa-piggy-bank"></i></span>
+          <h2 class="slide-title">50% cashback on every booking, every time.</h2>
+          <p class="slide-sub">Cashback credits to your Flebo wallet after every report. Stack with coupons up to 20% off and free home collection — savings designed to compound.</p>
+          <div class="slide-stats">
+            <div><div class="slide-stat-num">50%</div><div class="slide-stat-key">Cashback</div></div>
+            <div><div class="slide-stat-num">₹500</div><div class="slide-stat-key">Avg. saving</div></div>
+            <div><div class="slide-stat-num">4.9 ★</div><div class="slide-stat-key">User rating</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="carousel-controls">
+        <button class="carousel-arrow is-prev" id="carouselPrev" aria-label="Previous slide"><i class="fas fa-arrow-left"></i></button>
+        <div class="dot-row" id="dotRow"></div>
+        <button class="carousel-arrow" id="carouselNext" aria-label="Next slide"><i class="fas fa-arrow-right"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ RIGHT: LOGIN FORM ============ -->
+  <div class="login-right">
+    <div class="right-top">
+      <button class="right-back" onclick="history.length > 1 ? history.back() : location.href='index.html'">
+        <i class="fas fa-arrow-left"></i> Back to home
+      </button>
+      <span class="right-help">Need help? <a href="tel:01244550000">0124-4550000</a></span>
+    </div>
+
+    <div class="login-form-wrap">
+      <!-- ===== STEP 1: Phone ===== -->
+      <section class="phone-step" id="phoneStep">
+        <div class="login-eyebrow">Login or Sign up</div>
+        <h1 class="login-title">Welcome back to Flebo.</h1>
+        <p class="login-sub">Enter your mobile number — we'll send a 6-digit OTP to verify.</p>
+
+        <label for="phoneInput" class="visually-hidden">Mobile number</label>
+        <div class="phone-row" id="phoneRow">
+          <span class="phone-country" aria-label="Country code India">
+            <span class="flag" aria-hidden="true"></span>
+            <span>+91</span>
+          </span>
+          <input id="phoneInput" class="phone-input" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="98765 43210" maxlength="11">
+        </div>
+        <div class="form-error" id="phoneError" hidden><i class="fas fa-circle-exclamation"></i><span>Please enter a valid 10-digit mobile number.</span></div>
+
+        <button class="primary-cta" id="sendOtpBtn" disabled>
+          <span>Send OTP</span>
+          <i class="fas fa-arrow-right"></i>
+        </button>
+
+        <div class="divider">or continue with</div>
+        <div class="social-row">
+          <button class="social-btn" data-prov="google" id="socialGoogle"><i class="fab fa-google"></i> Google</button>
+          <button class="social-btn" data-prov="apple" id="socialApple"><i class="fab fa-apple"></i> Apple</button>
+        </div>
+
+        <p class="terms">By continuing, you agree to Flebo's <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</p>
+      </section>
+
+      <!-- ===== STEP 2: OTP ===== -->
+      <section class="otp-step" id="otpStep">
+        <div class="login-eyebrow">OTP verification</div>
+        <h1 class="login-title">Enter the 6-digit code.</h1>
+        <p class="login-sub">We've sent a one-time code to your number. It's valid for 10 minutes.</p>
+
+        <div class="otp-phone-display">
+          <i class="fas fa-mobile-screen" style="color:var(--text-muted);"></i>
+          <span>OTP sent to <b id="otpPhoneShow">+91 98765 43210</b></span>
+          <button class="otp-phone-edit" id="otpEditPhone">Change</button>
+        </div>
+
+        <div class="otp-boxes" id="otpBoxes">
+          <input class="otp-box" type="tel" inputmode="numeric" maxlength="1" aria-label="OTP digit 1">
+          <input class="otp-box" type="tel" inputmode="numeric" maxlength="1" aria-label="OTP digit 2">
+          <input class="otp-box" type="tel" inputmode="numeric" maxlength="1" aria-label="OTP digit 3">
+          <input class="otp-box" type="tel" inputmode="numeric" maxlength="1" aria-label="OTP digit 4">
+          <input class="otp-box" type="tel" inputmode="numeric" maxlength="1" aria-label="OTP digit 5">
+          <input class="otp-box" type="tel" inputmode="numeric" maxlength="1" aria-label="OTP digit 6">
+        </div>
+        <div class="form-error" id="otpError" hidden><i class="fas fa-circle-exclamation"></i><span>Incorrect code. Please try again.</span></div>
+
+        <div class="otp-resend">
+          <span class="otp-resend-key">Didn't receive the code?</span>
+          <button class="otp-resend-cta" id="otpResend" disabled>
+            <span id="otpResendLabel">Resend in <span class="otp-resend-timer" id="otpTimer">0:30</span></span>
+          </button>
+        </div>
+
+        <button class="primary-cta" id="verifyOtpBtn" disabled>
+          <span>Verify &amp; continue</span>
+          <i class="fas fa-arrow-right"></i>
+        </button>
+
+        <p class="terms" style="margin-top:18px;">For your security, this code is single-use. Never share it with anyone, including Flebo support.</p>
+      </section>
+    </div>
+
+    <div class="right-trust">
+      <span><i class="fas fa-shield-halved"></i> 256-bit SSL</span>
+      <span><i class="fas fa-lock"></i> Your data, never sold</span>
+      <span><i class="fas fa-rotate-left"></i> Free re-test on errors</span>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function () {
+  // ===== Carousel =====
+  const slides = document.querySelectorAll('.slide');
+  const dotRow = document.getElementById('dotRow');
+  const prevBtn = document.getElementById('carouselPrev');
+  const nextBtn = document.getElementById('carouselNext');
+  let idx = 0;
+  let autoTimer;
+
+  slides.forEach((_, i) => {
+    const d = document.createElement('button');
+    d.className = 'carousel-dot' + (i === 0 ? ' is-active' : '');
+    d.setAttribute('aria-label', `Go to slide ${i + 1}`);
+    d.addEventListener('click', () => go(i, true));
+    dotRow.appendChild(d);
+  });
+
+  function go(n, userInitiated) {
+    idx = (n + slides.length) % slides.length;
+    slides.forEach((s, i) => s.classList.toggle('is-active', i === idx));
+    dotRow.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('is-active', i === idx));
+    if (userInitiated) restartAuto();
+  }
+  function next() { go(idx + 1); }
+  function prev() { go(idx - 1); }
+  function startAuto() { autoTimer = setInterval(next, 5000); }
+  function restartAuto() { clearInterval(autoTimer); startAuto(); }
+  prevBtn.addEventListener('click', () => { prev(); restartAuto(); });
+  nextBtn.addEventListener('click', () => { next(); restartAuto(); });
+  startAuto();
+
+  // Pause when tab hidden
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) clearInterval(autoTimer);
+    else startAuto();
+  });
+
+  // ===== Phone step =====
+  const phoneStep = document.getElementById('phoneStep');
+  const otpStep = document.getElementById('otpStep');
+  const phoneInput = document.getElementById('phoneInput');
+  const sendOtpBtn = document.getElementById('sendOtpBtn');
+  const phoneError = document.getElementById('phoneError');
+  const params = new URLSearchParams(location.search);
+  const nextUrl = params.get('next') || 'index.html';
+
+  // Format as "98765 43210" while typing
+  phoneInput.addEventListener('input', (e) => {
+    let v = e.target.value.replace(/\D/g, '').slice(0, 10);
+    e.target.value = v.length > 5 ? v.slice(0, 5) + ' ' + v.slice(5) : v;
+    const digits = e.target.value.replace(/\D/g, '');
+    sendOtpBtn.disabled = digits.length !== 10;
+    phoneError.hidden = true;
+  });
+  phoneInput.focus();
+
+  function getPhoneDigits() { return phoneInput.value.replace(/\D/g, ''); }
+  function fullPhoneDisplay() {
+    const d = getPhoneDigits();
+    return '+91 ' + (d.length > 5 ? d.slice(0, 5) + ' ' + d.slice(5) : d);
+  }
+
+  sendOtpBtn.addEventListener('click', sendOtp);
+  phoneInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !sendOtpBtn.disabled) sendOtp();
+  });
+
+  function sendOtp() {
+    const digits = getPhoneDigits();
+    if (digits.length !== 10) {
+      phoneError.hidden = false;
+      return;
+    }
+    sendOtpBtn.disabled = true;
+    sendOtpBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending OTP…';
+    setTimeout(() => {
+      document.getElementById('otpPhoneShow').textContent = fullPhoneDisplay();
+      phoneStep.classList.add('is-hidden');
+      otpStep.classList.add('is-active');
+      sendOtpBtn.innerHTML = '<span>Send OTP</span><i class="fas fa-arrow-right"></i>';
+      startResendTimer();
+      otpBoxes[0].focus();
+      showToast('<i class="fas fa-circle-check"></i> OTP sent to ' + fullPhoneDisplay());
+    }, 700);
+  }
+
+  // ===== OTP step =====
+  const otpBoxes = document.querySelectorAll('.otp-box');
+  const verifyBtn = document.getElementById('verifyOtpBtn');
+  const otpError = document.getElementById('otpError');
+  const resendBtn = document.getElementById('otpResend');
+  const resendLabel = document.getElementById('otpResendLabel');
+  const timerEl = document.getElementById('otpTimer');
+  let resendInterval;
+
+  otpBoxes.forEach((box, i) => {
+    box.addEventListener('input', (e) => {
+      const v = e.target.value.replace(/\D/g, '').slice(0, 1);
+      e.target.value = v;
+      box.classList.toggle('is-filled', !!v);
+      box.classList.remove('is-error');
+      otpError.hidden = true;
+      if (v && i < otpBoxes.length - 1) otpBoxes[i + 1].focus();
+      syncVerifyState();
+    });
+    box.addEventListener('keydown', (e) => {
+      if (e.key === 'Backspace' && !box.value && i > 0) {
+        otpBoxes[i - 1].focus();
+        otpBoxes[i - 1].value = '';
+        otpBoxes[i - 1].classList.remove('is-filled');
+      } else if (e.key === 'ArrowLeft' && i > 0) otpBoxes[i - 1].focus();
+      else if (e.key === 'ArrowRight' && i < otpBoxes.length - 1) otpBoxes[i + 1].focus();
+      else if (e.key === 'Enter' && !verifyBtn.disabled) verifyOtp();
+    });
+    box.addEventListener('paste', (e) => {
+      const text = (e.clipboardData || window.clipboardData).getData('text');
+      const digits = text.replace(/\D/g, '').slice(0, otpBoxes.length);
+      if (!digits) return;
+      e.preventDefault();
+      digits.split('').forEach((d, di) => {
+        if (otpBoxes[di]) {
+          otpBoxes[di].value = d;
+          otpBoxes[di].classList.add('is-filled');
+        }
+      });
+      otpBoxes[Math.min(digits.length, otpBoxes.length) - 1].focus();
+      syncVerifyState();
+    });
+  });
+
+  function syncVerifyState() {
+    const full = Array.from(otpBoxes).every(b => b.value.length === 1);
+    verifyBtn.disabled = !full;
+  }
+
+  verifyBtn.addEventListener('click', verifyOtp);
+
+  function verifyOtp() {
+    const code = Array.from(otpBoxes).map(b => b.value).join('');
+    // Demo rule: accept any code where the digits sum > 0 EXCEPT '000000', which fails
+    if (code === '000000') {
+      otpBoxes.forEach(b => b.classList.add('is-error'));
+      otpError.hidden = false;
+      return;
+    }
+    verifyBtn.disabled = true;
+    verifyBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying…';
+    setTimeout(() => {
+      verifyBtn.innerHTML = '<i class="fas fa-circle-check"></i> Logged in';
+      verifyBtn.style.background = 'var(--green)';
+      verifyBtn.style.boxShadow = '0 6px 20px rgba(27, 138, 90, 0.3)';
+      showToast('<i class="fas fa-circle-check"></i> Welcome to Flebo · redirecting…');
+      try { localStorage.setItem('flebo:loggedIn', '1'); localStorage.setItem('flebo:phone', getPhoneDigits()); } catch (e) {}
+      setTimeout(() => { location.href = nextUrl; }, 700);
+    }, 800);
+  }
+
+  document.getElementById('otpEditPhone').addEventListener('click', () => {
+    otpStep.classList.remove('is-active');
+    phoneStep.classList.remove('is-hidden');
+    clearInterval(resendInterval);
+    otpBoxes.forEach(b => { b.value = ''; b.classList.remove('is-filled', 'is-error'); });
+    otpError.hidden = true;
+    syncVerifyState();
+    phoneInput.focus();
+  });
+
+  // Resend timer
+  function startResendTimer() {
+    let seconds = 30;
+    resendBtn.disabled = true;
+    timerEl.textContent = '0:' + String(seconds).padStart(2, '0');
+    resendLabel.innerHTML = 'Resend in <span class="otp-resend-timer" id="otpTimer">0:' + String(seconds).padStart(2, '0') + '</span>';
+    clearInterval(resendInterval);
+    resendInterval = setInterval(() => {
+      seconds--;
+      if (seconds <= 0) {
+        clearInterval(resendInterval);
+        resendBtn.disabled = false;
+        resendLabel.textContent = 'Resend code';
+      } else {
+        resendLabel.innerHTML = 'Resend in <span class="otp-resend-timer" id="otpTimer">0:' + String(seconds).padStart(2, '0') + '</span>';
+      }
+    }, 1000);
+  }
+
+  resendBtn.addEventListener('click', () => {
+    if (resendBtn.disabled) return;
+    showToast('<i class="fas fa-circle-check"></i> A fresh OTP has been sent');
+    startResendTimer();
+  });
+
+  // Social — placeholder
+  document.getElementById('socialGoogle').addEventListener('click', () => showToast('<i class="fas fa-google" style="color:#4285F4;"></i> Google sign-in — coming soon'));
+  document.getElementById('socialApple').addEventListener('click', () => showToast('<i class="fab fa-apple"></i> Apple sign-in — coming soon'));
+
+  // Toast
+  const toastEl = document.getElementById('toast');
+  let toastTimer;
+  function showToast(html) {
+    toastEl.innerHTML = html;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2400);
+  }
+})();
+</script>
+
+</body>
+</html>
