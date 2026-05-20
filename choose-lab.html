@@ -1718,28 +1718,8 @@ button { font-family: inherit; }
       </div>
     </div>
 
-    <div class="sort-bar">
-      <div class="sort-chips">
-        <span class="sort-label">Compare by</span>
-        <button class="sort-chip is-active" data-sort="distance"><span aria-hidden="true">📍</span> Nearest first</button>
-        <button class="sort-chip" data-sort="price"><span aria-hidden="true">💰</span> Lowest price</button>
-        <button class="sort-chip" data-sort="rating"><span aria-hidden="true">🏆</span> Highest rated</button>
-        <button class="sort-chip" data-sort="speed"><span aria-hidden="true">⏱</span> Proc. time</button>
-      </div>
-      <div class="sort-bar-right">
-        <span class="result-count" id="resultCount">4 labs available near you</span>
-        <div class="view-toggle" role="tablist" aria-label="Switch view">
-          <button class="view-toggle-btn is-active" data-view="card" role="tab" aria-selected="true"><i class="fas fa-grip-vertical"></i><span>Cards</span></button>
-          <button class="view-toggle-btn" data-view="table" role="tab" aria-selected="false"><i class="fas fa-table-list"></i><span>Table</span></button>
-        </div>
-      </div>
-    </div>
-
-    <!-- LAB CARDS -->
-    <div class="lab-cards" id="labCards"></div>
-
     <!-- LAB TABLE -->
-    <div class="lab-table-wrap" id="labTableWrap" hidden>
+    <div class="lab-table-wrap" id="labTableWrap">
       <table class="lab-table">
         <thead>
           <tr id="labTableHead"></tr>
@@ -1906,97 +1886,8 @@ button { font-family: inherit; }
   });
   renderCtx();
 
-  // ===== Render lab cards =====
-  const cardsEl = document.getElementById('labCards');
-  function star(n) { return '★'.repeat(Math.round(n)) + '☆'.repeat(5 - Math.round(n)); }
+  // ===== Helpers + sort state =====
   function badgeClass(c) { return 'badge-' + c; }
-  function renderCards(list) {
-    if (!list.length) {
-      cardsEl.innerHTML = '';
-      document.getElementById('emptyBanner').hidden = false;
-      return;
-    }
-    document.getElementById('emptyBanner').hidden = true;
-    cardsEl.innerHTML = list.map(l => {
-      const save = l.mrp - l.price;
-      const pct = Math.round((save / l.mrp) * 100);
-      const ratingHtml = l.ratingType === 'new'
-        ? `<span class="rating-new">New on Flebo · ${l.ratingExt}</span>`
-        : `<span class="rating-wrap">
-             <span class="rating-stars">${star(l.rating)}</span>
-             <span class="rating-num">${l.rating.toFixed(1)}</span>
-             <span class="rating-count">(${l.reviews.toLocaleString()} reviews)</span>
-           </span>`;
-      const isVisit = mode === 'visit';
-      const hoursStrip = isVisit ? `
-        <div class="hours-strip">
-          <span class="hour-pill ${l.openNow ? 'hour-open' : 'hour-closed'}">● ${l.openNow ? 'Open now' : 'Closed now'}</span>
-          <span class="hour-pill hour-day">${l.days}</span>
-          <span class="hour-pill hour-day">${l.visitHours}</span>
-        </div>` : '';
-      const metaTatHours = isVisit
-        ? `<span class="lab-meta-item"><span class="lab-meta-icon" aria-hidden="true">⏱</span> ${l.tat}</span>`
-        : `<span class="lab-meta-item"><span class="lab-meta-icon" aria-hidden="true">⏱</span> ${l.tat}</span>
-           <span class="lab-meta-item"><span class="lab-meta-icon" aria-hidden="true">🕐</span> ${l.hours}</span>`;
-      const distCol = isVisit ? `
-        <div class="dist-col">
-          <div class="dist-km">${l.distanceKm.toFixed(1)}</div>
-          <div class="dist-unit">km away</div>
-          <div class="dist-eta">🚗 ~${l.etaMin} min</div>
-          <button class="get-dir-btn" type="button">🗺 Directions</button>
-        </div>` : '';
-      const slotsStrip = isVisit && l.slots ? `
-        <div class="slots-strip">
-          <div class="slots-label">📅 Available slots — Thu</div>
-          <div class="slots-row">
-            ${l.slots.map(s => {
-              const disabled = s.endsWith('-');
-              const selected = s.endsWith('*');
-              const label = s.replace(/[*-]$/, '');
-              return `<button class="slot-btn ${selected ? 'is-selected' : ''}" ${disabled ? 'disabled' : ''} type="button">${label}</button>`;
-            }).join('')}
-            <button class="slot-more" type="button">+ More →</button>
-          </div>
-        </div>` : '';
-      const ctaLabel = isVisit ? 'Book slot' : 'Select Lab';
-      return `
-        <article class="lab-card ${l.featured ? 'is-featured' : ''} ${isVisit ? 'is-visit' : ''}" data-id="${l.id}">
-          <div class="lab-card-body">
-            <div class="lab-logo"><img src="${l.logo}" alt="${l.name} logo"></div>
-            <div class="lab-info">
-              <div class="lab-name-row">
-                <span class="lab-name">${l.name}</span>
-                <a href="#" class="lab-ext" aria-label="Open lab profile">↗</a>
-              </div>
-              <div class="badge-row">${l.badges.map(b => `<span class="badge ${badgeClass(b[1])}">${b[0]}</span>`).join('')}</div>
-              <div class="lab-meta">
-                <span class="lab-meta-item"><span class="lab-meta-icon" aria-hidden="true">📍</span> ${l.location}</span>
-                ${metaTatHours}
-              </div>
-              ${hoursStrip}
-              <div>${ratingHtml}</div>
-            </div>
-            ${distCol}
-            <div class="price-col">
-              <span class="price-mrp">MRP ₹${l.mrp.toLocaleString()}</span>
-              <span class="price-main"><span class="rupee">₹</span>${l.price.toLocaleString()}</span>
-              <span class="price-save">💚 Save ₹${save.toLocaleString()} · ${pct}% off</span>
-              <span class="price-note">incl. cashback &amp; discount</span>
-            </div>
-            <div class="actions">
-              <button class="btn-select" data-action="select" data-name="${l.name}">${ctaLabel}</button>
-            </div>
-          </div>
-          ${slotsStrip}
-        </article>
-      `;
-    }).join('');
-    document.getElementById('resultCount').textContent = `${list.length} lab${list.length === 1 ? '' : 's'} available near you`;
-  }
-  // ===== View toggle (Card / Table) + sorting state =====
-  let view = (function () {
-    try { return localStorage.getItem('flebo:choose-lab:view') || 'card'; } catch (e) { return 'card'; }
-  })();
   let currentSort = { key: 'distance', dir: 'asc' };
   const defaultDir = { best: 'desc', price: 'asc', mrp: 'asc', distance: 'asc', speed: 'asc', rating: 'desc', name: 'asc', location: 'asc', timing: 'asc' };
 
@@ -2019,21 +1910,9 @@ button { font-family: inherit; }
   }
 
   function renderResults(list) {
-    if (view === 'card') {
-      cardsEl.hidden = false;
-      document.getElementById('labTableWrap').hidden = true;
-      renderCards(list);
-    } else {
-      cardsEl.hidden = true;
-      document.getElementById('labTableWrap').hidden = !list.length;
-      renderTable(list);
-    }
-    if (!list.length) {
-      document.getElementById('emptyBanner').hidden = false;
-    } else {
-      document.getElementById('emptyBanner').hidden = true;
-    }
-    document.getElementById('resultCount').textContent = `${list.length} lab${list.length === 1 ? '' : 's'} available near you`;
+    document.getElementById('labTableWrap').hidden = !list.length;
+    document.getElementById('emptyBanner').hidden = !!list.length;
+    if (list.length) renderTable(list);
   }
 
   // ===== Table renderer =====
@@ -2142,36 +2021,10 @@ button { font-family: inherit; }
       else dir = defaultDir[key] || 'desc';
     }
     currentSort = { key, dir };
-    // Sync chip active state — only highlight chips that map to a chip-key
-    const chipKeys = ['best', 'price', 'distance', 'speed', 'rating'];
-    document.querySelectorAll('.sort-chip').forEach(c => c.classList.toggle('is-active', c.dataset.sort === key));
     renderResults(sortLabs(key, dir));
   }
-  document.querySelector('.sort-bar').addEventListener('click', (e) => {
-    const chip = e.target.closest('.sort-chip');
-    if (!chip) return;
-    applySort(chip.dataset.sort);
-  });
 
-  // ===== View toggle =====
-  document.querySelector('.view-toggle').addEventListener('click', (e) => {
-    const btn = e.target.closest('.view-toggle-btn');
-    if (!btn) return;
-    view = btn.dataset.view;
-    try { localStorage.setItem('flebo:choose-lab:view', view); } catch (err) {}
-    document.querySelectorAll('.view-toggle-btn').forEach(b => {
-      b.classList.toggle('is-active', b.dataset.view === view);
-      b.setAttribute('aria-selected', b.dataset.view === view ? 'true' : 'false');
-    });
-    renderResults(sortLabs(currentSort.key, currentSort.dir));
-  });
-  // Reflect initial view-toggle state (loaded from localStorage)
-  document.querySelectorAll('.view-toggle-btn').forEach(b => {
-    b.classList.toggle('is-active', b.dataset.view === view);
-    b.setAttribute('aria-selected', b.dataset.view === view ? 'true' : 'false');
-  });
-
-  // ===== Column-header sort (table view) =====
+  // ===== Column-header sort (table) =====
   document.getElementById('labTableHead').addEventListener('click', (e) => {
     const th = e.target.closest('th[data-col]');
     if (!th || th.classList.contains('is-not-sortable')) return;
@@ -2193,8 +2046,8 @@ button { font-family: inherit; }
     renderResults(sortLabs(currentSort.key, currentSort.dir));
   });
 
-  // ===== Select lab — shared for card view and table view =====
-  function handleSelectClick(e) {
+  // ===== Select lab =====
+  document.getElementById('labTableBody').addEventListener('click', (e) => {
     const btn = e.target.closest('button[data-action="select"]');
     if (!btn) return;
     const row = btn.closest('[data-id]');
@@ -2202,8 +2055,7 @@ button { font-family: inherit; }
     const lab = labs.find(l => l.id === row.dataset.id);
     if (!lab) return;
     if (mode === 'visit') {
-      const slot = row.querySelector?.('.slot-btn.is-selected');
-      showToast(`✓ ${lab.name} · slot ${slot ? slot.textContent : 'TBD'} — proceeding to checkout…`);
+      showToast(`✓ ${lab.name} — proceeding to checkout…`);
       return;
     }
     const url = new URL('book-slot.html', location.href);
@@ -2214,9 +2066,7 @@ button { font-family: inherit; }
     url.searchParams.set('price', lab.price);
     url.searchParams.set('mrp', lab.mrp);
     location.href = url.toString();
-  }
-  cardsEl.addEventListener('click', handleSelectClick);
-  document.getElementById('labTableBody').addEventListener('click', handleSelectClick);
+  });
 
   // ===== Rating slider =====
   const slider = document.getElementById('ratingSlider');
@@ -2240,16 +2090,6 @@ button { font-family: inherit; }
       if (!pill) return;
       pill.classList.toggle('is-active');
     });
-  });
-
-  // ===== Slot picker (visit mode) =====
-  cardsEl.addEventListener('click', (e) => {
-    const slot = e.target.closest('.slot-btn:not(:disabled)');
-    if (!slot) return;
-    // Toggle selection within the same card
-    const card = slot.closest('.lab-card');
-    card.querySelectorAll('.slot-btn.is-selected').forEach(s => s.classList.remove('is-selected'));
-    slot.classList.add('is-selected');
   });
 
   // ===== Clear filters =====
