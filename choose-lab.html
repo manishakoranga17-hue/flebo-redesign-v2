@@ -1534,10 +1534,6 @@ button { font-family: inherit; }
   </div>
 </div>
 
-<!-- ===== BACK NAV ===== -->
-<div class="back-nav">
-  <button class="back-btn" onclick="history.back()">← Back to search</button>
-</div>
 
 <!-- ===== PAGE BODY ===== -->
 <div class="page-body">
@@ -1634,7 +1630,6 @@ button { font-family: inherit; }
     <div class="main-header">
       <div class="main-header-text">
         <div class="main-title">Labs offering all selected tests</div>
-        <div class="main-subtitle" id="resultsSubtitle">Comparing labs near Gurgaon - 122001</div>
       </div>
       <div class="tabs">
         <button class="tab is-active" data-mode="home"><span aria-hidden="true">🏠</span> Home Collection</button>
@@ -1818,9 +1813,6 @@ button { font-family: inherit; }
         <button class="ctx-chip-x" data-i="${i}" aria-label="Remove ${t}">×</button>
       </span>
     `).join('');
-    document.getElementById('resultsSubtitle').textContent = selectedTests.length
-      ? `Comparing labs for ${selectedTests.join(' + ')} near Gurgaon - 122001`
-      : 'Comparing labs near Gurgaon - 122001';
   }
   ctxTests.addEventListener('click', (e) => {
     const x = e.target.closest('.ctx-chip-x');
@@ -1987,7 +1979,7 @@ button { font-family: inherit; }
       // Rating cell
       let ratingCell;
       if (l.ratingType === 'new') {
-        ratingCell = `<span class="tbl-rating"><span class="reviews">—</span></span>`;
+        ratingCell = `<span class="tbl-rating"><span class="reviews">No rating</span></span>`;
       } else {
         ratingCell = `<span class="tbl-rating"><span class="num">${l.rating.toFixed(1)}</span><span class="stars">★</span></span>`;
       }
