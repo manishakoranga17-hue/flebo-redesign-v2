@@ -1215,12 +1215,6 @@ button { font-family: inherit; }
 <!-- ===== SEARCH STRIP ===== -->
 <div class="search-strip">
   <div class="search-strip-inner">
-    <div class="loc-box" role="button" tabindex="0" aria-label="Change pincode">
-      <span class="loc-icon" aria-hidden="true">📍</span>
-      <span class="loc-pin">122001</span>
-      <span class="loc-verified" aria-hidden="true">✓</span>
-      <span class="loc-gps" aria-label="Detect my location">⊕</span>
-    </div>
     <label class="search-box">
       <i class="fas fa-magnifying-glass search-icon" aria-hidden="true"></i>
       <input type="search" placeholder="Add another test or health package" aria-label="Search tests or packages">
@@ -1239,7 +1233,6 @@ button { font-family: inherit; }
   <div class="ctx-inner">
     <span class="ctx-label">Comparing labs for</span>
     <div class="ctx-tests" id="ctxTests"></div>
-    <span class="ctx-slot" id="ctxSlotMeta">· Home collection · 122001 · All Days 24×7</span>
   </div>
 </div>
 
@@ -1639,11 +1632,6 @@ button { font-family: inherit; }
     tab.classList.add('is-active');
     mode = tab.dataset.mode;
     document.body.dataset.mode = mode;
-    // Update CTX banner meta text
-    const ctxMeta = document.getElementById('ctxSlotMeta');
-    ctxMeta.textContent = mode === 'visit'
-      ? '· 🏥 Lab visit · 122001'
-      : '· Home collection · 122001 · All Days 24×7';
     // Toggle visit-only filter sections
     document.querySelectorAll('.fb-visit-only').forEach(el => {
       el.style.display = mode === 'visit' ? '' : 'none';
