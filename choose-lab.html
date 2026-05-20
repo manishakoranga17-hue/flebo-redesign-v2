@@ -862,20 +862,46 @@ button { font-family: inherit; }
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
-.tbl-price-wrap { white-space: nowrap; }
+.tbl-price-wrap {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  white-space: nowrap;
+}
+.tbl-price-mrp {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-decoration: line-through;
+  font-variant-numeric: tabular-nums;
+}
 .tbl-price {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 17px;
   font-weight: 800;
   color: var(--text-primary);
   font-variant-numeric: tabular-nums;
+  line-height: 1;
 }
 .tbl-save {
-  display: block;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--green-soft);
   color: var(--green);
+  padding: 3px 8px;
+  border-radius: 6px;
   font-size: 11.5px;
   font-weight: 700;
-  margin-top: 2px;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.tbl-price-note {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 500;
 }
 .tbl-loc {
   display: inline-flex;
@@ -1989,8 +2015,10 @@ button { font-family: inherit; }
           ${timingCell}
           <td>
             <div class="tbl-price-wrap">
+              <span class="tbl-price-mrp">MRP ₹${l.mrp.toLocaleString()}</span>
               <span class="tbl-price">₹${l.price.toLocaleString()}</span>
-              <span class="tbl-save">Save ${pct}%</span>
+              <span class="tbl-save">💚 Save ₹${save.toLocaleString()} · ${pct}% off</span>
+              <span class="tbl-price-note">incl. cashback &amp; discount</span>
             </div>
           </td>
           <td><button class="tbl-select" data-action="select" data-name="${l.name}">${ctaLabel}</button></td>
