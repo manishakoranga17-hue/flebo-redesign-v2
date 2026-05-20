@@ -497,17 +497,19 @@ button { font-family: inherit; }
 .pay-cta-amount-strike { font-size: 13px; color: var(--text-muted); text-decoration: line-through; margin-left: 8px; }
 .pay-cta-btn {
   height: 54px;
-  min-width: 240px;
+  min-width: 260px;
+  padding: 0 32px;
   background: var(--accent);
   color: #fff;
   border: 0;
   border-radius: 999px;
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 800;
   cursor: pointer;
-  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 12px;
   transition: background 0.2s, transform 0.15s;
   box-shadow: 0 6px 20px rgba(211, 53, 53, 0.3);
+  white-space: nowrap;
 }
 .pay-cta-btn:hover { background: var(--accent-dark); transform: translateY(-1px); }
 
