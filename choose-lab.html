@@ -615,11 +615,15 @@ button { font-family: inherit; }
 .main { display: flex; flex-direction: column; gap: 18px; }
 .main-header {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: 18px;
-  flex-wrap: wrap;
 }
+.main-header > .main-header-text {
+  flex: 1;
+  min-width: 0;
+}
+.main-header .tabs { flex-shrink: 0; }
 .main-title {
   font-family: 'Instrument Serif', serif;
   font-size: 32px;
@@ -1553,7 +1557,7 @@ button { font-family: inherit; }
   <main class="main">
 
     <div class="main-header">
-      <div>
+      <div class="main-header-text">
         <div class="main-title">Labs offering all selected tests</div>
         <div class="main-subtitle" id="resultsSubtitle">Comparing labs near Gurgaon - 122001</div>
       </div>
