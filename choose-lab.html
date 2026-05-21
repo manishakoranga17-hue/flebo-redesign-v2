@@ -2707,11 +2707,18 @@ button { font-family: inherit; }
     if (filtersMoved) return;
     if (window.innerWidth <= 768 && filtersEl && filtersBody) {
       filtersBody.appendChild(filtersEl);
-      filtersEl.style.display = 'block';
-      filtersEl.style.position = 'static';
+      // CSS uses `.filters { display: none !important }` on mobile to clear the empty sidebar
+      // slot — beat it with setProperty(... 'important') now that the element lives in the sheet.
+      filtersEl.style.setProperty('display', 'block', 'important');
+      filtersEl.style.setProperty('position', 'static', 'important');
+      filtersEl.style.setProperty('top', 'auto', 'important');
       filtersEl.style.background = 'transparent';
       filtersEl.style.border = '0';
       filtersEl.style.borderRadius = '0';
+      filtersEl.style.overflow = 'visible';
+      // Hide the duplicate "Filters" header inside .filters since the sheet has its own
+      const dupHead = filtersEl.querySelector('.filters-head');
+      if (dupHead) dupHead.style.display = 'none';
       filtersMoved = true;
     }
   }
