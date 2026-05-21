@@ -4687,10 +4687,11 @@ main { padding: 0 16px; }
   }
   .hamburger-btn { display: inline-flex !important; margin: 0; width: 38px; height: 38px; flex-shrink: 0; }
 
-  /* Mobile brand: keep logo only, hide rating to save width */
-  .brand-block { gap: 0; }
+  /* Mobile brand: logo + compact rating pill next to it (desktop parity) */
+  .brand-block { gap: 8px; }
   .brand-logo { height: 28px; }
-  .brand-rating { display: none; }
+  .brand-rating { display: inline-flex; padding: 2px 6px; font-size: 10.5px; gap: 4px; }
+  .brand-rating-stars { font-size: 8.5px; }
 
   /* Mobile Upload pill: icon-only, sits at the right edge */
   .header-upload {
