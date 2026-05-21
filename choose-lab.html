@@ -1581,19 +1581,305 @@ button { font-family: inherit; }
   .actions { grid-area: actions; flex-direction: row; min-width: 0; }
   .btn-select { flex: 1; }
 }
+/* ===== MOBILE CONTROL BAR (Filters + Sort pills) ===== */
+.mobile-controls {
+  display: none;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.mobile-control-pill {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 42px;
+  border: 1.5px solid var(--border-mid);
+  background: #fff;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+.mobile-control-pill:hover { border-color: var(--primary); }
+.mobile-control-pill i { font-size: 14px; color: var(--text-muted); }
+
+/* ===== MOBILE LAB CARDS ===== */
+.lab-cards-mobile { display: none; flex-direction: column; gap: 12px; }
+.mlab-card {
+  background: #fff;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.mlab-head { display: flex; gap: 12px; align-items: flex-start; }
+.mlab-logo {
+  width: 56px; height: 56px;
+  border-radius: 10px;
+  background: #fff;
+  border: 1px solid var(--border-soft);
+  display: inline-flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  padding: 2px;
+  flex-shrink: 0;
+}
+.mlab-logo img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.mlab-head-text { flex: 1; min-width: 0; }
+.mlab-name { font-size: 15.5px; font-weight: 800; color: var(--text-primary); margin-bottom: 5px; }
+.mlab-badges { display: inline-flex; gap: 5px; flex-wrap: wrap; }
+.mlab-badges .badge { font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: 700; }
+
+.mlab-meta { display: flex; flex-wrap: wrap; gap: 8px 14px; font-size: 13px; }
+.mlab-meta-item { display: inline-flex; align-items: center; gap: 4px; color: var(--text-primary); white-space: nowrap; }
+.mlab-meta-item i { color: var(--text-muted); font-size: 11.5px; }
+.mlab-meta-rating { color: var(--text-primary); font-weight: 700; }
+.mlab-meta-rating .stars { color: #F6B100; font-size: 11px; }
+.mlab-meta-rating .new-tag { color: var(--text-muted); font-weight: 500; }
+
+.mlab-price-row {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: 12px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--border-soft);
+}
+.mlab-price-block { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.mlab-price-mrp {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-decoration: line-through;
+  font-variant-numeric: tabular-nums;
+}
+.mlab-price {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.mlab-save {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--green-soft);
+  color: var(--green);
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 11.5px;
+  font-weight: 700;
+  width: fit-content;
+}
+.mlab-select {
+  background: var(--accent);
+  color: #fff;
+  border: 0;
+  border-radius: 999px;
+  padding: 12px 18px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  flex-shrink: 0;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+.mlab-select:hover { background: var(--accent-dark); }
+
+/* ===== MOBILE SHEET (Filters + Sort) ===== */
+.sheet-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(11, 21, 48, 0.55);
+  z-index: 1000;
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+}
+.sheet-overlay.is-open { display: flex; animation: sheetFade 0.2s ease both; }
+@keyframes sheetFade { from { opacity: 0; } to { opacity: 1; } }
+.sheet {
+  width: 100%;
+  max-width: 560px;
+  background: #fff;
+  border-radius: 18px 18px 0 0;
+  display: flex;
+  flex-direction: column;
+  max-height: 88vh;
+  animation: sheetSlide 0.25s cubic-bezier(0.2, 0.8, 0.3, 1) both;
+}
+.sheet-sm { max-height: 70vh; }
+@keyframes sheetSlide { from { transform: translateY(100%); } to { transform: none; } }
+.sheet-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 18px 14px;
+  border-bottom: 1px solid var(--border-soft);
+  flex-shrink: 0;
+  position: relative;
+}
+.sheet-head::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 6px;
+  width: 40px;
+  height: 4px;
+  background: #D5DAE5;
+  border-radius: 4px;
+  transform: translateX(-50%);
+}
+.sheet-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--text-primary);
+  letter-spacing: -0.005em;
+}
+.sheet-close {
+  background: transparent; border: 0;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  font-size: 16px;
+  color: var(--text-primary);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.sheet-close:hover { background: var(--bg-soft); }
+.sheet-body {
+  padding: 14px 18px;
+  overflow-y: auto;
+  flex: 1;
+}
+.sheet-foot {
+  display: flex;
+  gap: 10px;
+  padding: 12px 18px max(12px, env(safe-area-inset-bottom));
+  border-top: 1px solid var(--border-soft);
+  flex-shrink: 0;
+}
+.sheet-btn {
+  flex: 1;
+  height: 46px;
+  border: 0;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 14.5px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.sheet-btn-secondary { background: var(--bg-soft); color: var(--text-primary); border: 1.5px solid var(--border-mid); }
+.sheet-btn-primary { background: var(--accent); color: #fff; }
+.sheet-btn-primary:hover { background: var(--accent-dark); }
+
+/* Sort options inside the sort sheet */
+.sort-options { display: flex; flex-direction: column; gap: 4px; padding-bottom: max(20px, env(safe-area-inset-bottom)); }
+.sort-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  border: 1.5px solid transparent;
+  background: transparent;
+  font: inherit;
+  font-size: 15px;
+  color: var(--text-primary);
+  text-align: left;
+  width: 100%;
+}
+.sort-option:hover { background: var(--bg-soft); }
+.sort-option.is-active { border-color: var(--accent); background: var(--accent-soft); }
+.sort-option .so-icon { width: 28px; text-align: center; color: var(--text-muted); }
+.sort-option.is-active .so-icon { color: var(--accent); }
+.sort-option .so-label { flex: 1; font-weight: 600; }
+.sort-option.is-active .so-label { font-weight: 800; }
+.sort-option .so-dir {
+  font-size: 12px;
+  color: var(--text-muted);
+  background: transparent;
+  border: 1.5px solid var(--border-mid);
+  border-radius: 999px;
+  padding: 4px 8px;
+  cursor: pointer;
+  display: none;
+}
+.sort-option.is-active .so-dir { display: inline-block; color: var(--accent); border-color: var(--accent); }
+
 @media (max-width: 768px) {
+  html, body { overflow-x: hidden; }
+  body { max-width: 100vw; }
   :root { --site-inset: 16px; }
-  .top-bar-inner { font-size: 13.5px; padding-top: 6px; padding-bottom: 6px; gap: 10px; line-height: 1.3; }
+  .top-bar-inner { font-size: 12px; padding: 6px 16px; gap: 10px; line-height: 1.3; }
+  .top-bar-link span, .top-bar-location span:not(#topBarLocationDisplay) { font-size: 12px; }
   .site-header { top: 26px; }
-  .site-header-inner { padding-top: 10px; padding-bottom: 10px; gap: 10px; }
+  .site-header-inner {
+    padding: 10px 16px;
+    gap: 10px;
+    flex-wrap: nowrap;
+    max-width: 100vw;
+    overflow: hidden;
+  }
+  .brand-block { gap: 8px; }
   .brand-logo { height: 28px; }
-  .brand-rating { padding: 2px 5px; font-size: 12.5px; gap: 4px; }
+  .brand-rating { padding: 2px 6px; font-size: 10.5px; gap: 4px; }
+  .brand-rating-stars { font-size: 8.5px; }
   .main-nav { display: none; }
-  .header-upload .main-nav-pill { padding: 5px 10px; font-size: 12.5px; gap: 5px; }
-  .main-nav-upload-sub { font-size: 12px; white-space: nowrap; }
+  .header-upload { margin-left: auto; flex-shrink: 0; }
+  .header-upload .main-nav-pill { padding: 8px 12px; font-size: 0; gap: 0; line-height: 0; }
+  .header-upload .main-nav-pill i { font-size: 16px; }
+  .header-upload .main-nav-pill span { display: none; }
+  .main-nav-upload-sub { display: none; }
+
+  /* Search strip stacks on mobile */
+  .search-strip-inner { padding: 10px 16px; flex-wrap: wrap; gap: 8px; }
+  .loc-box, .search-box, .cat-select { height: 42px; font-size: 14px; }
+  .cat-select { min-width: 0; flex: 0 0 110px; padding: 0 30px 0 12px; background-position: right 10px center; }
+  .search-box-wrap { flex: 1; min-width: 0; }
+
+  /* Context banner */
+  .ctx-inner { padding: 0 16px 10px; gap: 8px; }
+  .ctx-label { font-size: 11.5px; letter-spacing: 0.06em; }
+  .ctx-chip { font-size: 12px; padding: 4px 8px 4px 6px; }
+
+  /* Main + page body */
+  .main-title { font-size: 24px; }
+  .page-body { padding: 14px 16px 32px; gap: 14px; }
   .filters { padding: 0; }
   .section-divider::before, .section-divider::after { display: none; }
-  .main-title { font-size: 24px; }
+
+  /* Mobile flow: drop the sidebar, hide the desktop table, show the cards + controls */
+  .filters { display: none !important; }
+  .page-body { grid-template-columns: 1fr; }
+  .lab-table-wrap { display: none !important; }
+  .lab-cards-mobile { display: flex; }
+  .mobile-controls { display: flex; }
+
+  /* Compact main-header on mobile */
+  .main-header { gap: 12px; }
+  .main-header-text { display: none; }
+  .tabs { width: 100%; }
+  .tab { flex: 1; }
+
+  /* Suggestion dropdown fits mobile width */
+  .search-suggestions { max-height: 260px; }
+  .suggestion { padding: 10px; gap: 10px; font-size: 14px; }
+  .suggestion-icon { width: 28px; height: 28px; font-size: 12px; }
+  .suggestion-tag { font-size: 10.5px; padding: 2px 7px; }
 }
 </style>
 </head>
@@ -1790,7 +2076,13 @@ button { font-family: inherit; }
       </div>
     </div>
 
-    <!-- LAB TABLE -->
+    <!-- MOBILE CONTROL BAR (Filters + Sort pills) -->
+    <div class="mobile-controls">
+      <button type="button" class="mobile-control-pill" id="mobileFiltersBtn"><i class="fas fa-sliders"></i><span>Filters</span></button>
+      <button type="button" class="mobile-control-pill" id="mobileSortBtn"><i class="fas fa-arrow-down-wide-short"></i><span id="mobileSortLabel">Nearest first</span></button>
+    </div>
+
+    <!-- LAB TABLE (desktop) -->
     <div class="lab-table-wrap" id="labTableWrap">
       <table class="lab-table">
         <thead>
@@ -1799,6 +2091,9 @@ button { font-family: inherit; }
         <tbody id="labTableBody"></tbody>
       </table>
     </div>
+
+    <!-- LAB CARDS (mobile) -->
+    <div class="lab-cards-mobile" id="labCardsMobile"></div>
 
     <div class="empty-banner" id="emptyBanner" hidden>
       <div class="empty-emoji" aria-hidden="true">🔬</div>
@@ -1824,6 +2119,32 @@ button { font-family: inherit; }
 
 <!-- Price-detail tooltip (one shared instance) -->
 <div class="price-tooltip" id="priceTooltip" role="tooltip" aria-hidden="true"></div>
+
+<!-- ===== MOBILE FILTERS DRAWER ===== -->
+<div class="sheet-overlay" id="filtersSheet" aria-hidden="true">
+  <div class="sheet" role="dialog" aria-labelledby="filtersSheetTitle">
+    <div class="sheet-head">
+      <span class="sheet-title" id="filtersSheetTitle">Filters</span>
+      <button type="button" class="sheet-close" aria-label="Close" data-sheet-close><i class="fas fa-xmark"></i></button>
+    </div>
+    <div class="sheet-body" id="filtersSheetBody"></div>
+    <div class="sheet-foot">
+      <button type="button" class="sheet-btn sheet-btn-secondary" id="filtersSheetClear">Clear all</button>
+      <button type="button" class="sheet-btn sheet-btn-primary" data-sheet-close>Apply filters</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MOBILE SORT SHEET ===== -->
+<div class="sheet-overlay" id="sortSheet" aria-hidden="true">
+  <div class="sheet sheet-sm" role="dialog" aria-labelledby="sortSheetTitle">
+    <div class="sheet-head">
+      <span class="sheet-title" id="sortSheetTitle">Sort by</span>
+      <button type="button" class="sheet-close" aria-label="Close" data-sheet-close><i class="fas fa-xmark"></i></button>
+    </div>
+    <div class="sheet-body sort-options" id="sortOptions"></div>
+  </div>
+</div>
 
 <script>
 (function () {
@@ -2085,7 +2406,70 @@ button { font-family: inherit; }
   function renderResults(list) {
     document.getElementById('labTableWrap').hidden = !list.length;
     document.getElementById('emptyBanner').hidden = !!list.length;
-    if (list.length) renderTable(list);
+    if (list.length) {
+      renderTable(list);
+      renderMobileCards(list);
+    } else {
+      document.getElementById('labCardsMobile').innerHTML = '';
+    }
+  }
+
+  // ===== Mobile cards renderer =====
+  function renderMobileCards(list) {
+    const isVisit = mode === 'visit';
+    document.getElementById('labCardsMobile').innerHTML = list.map(l => {
+      const save = l.mrp - l.price;
+      const pct = Math.round((save / l.mrp) * 100);
+      const ratingHtml = l.ratingType === 'new'
+        ? `<span class="mlab-meta-rating"><span class="new-tag">No rating</span></span>`
+        : `<span class="mlab-meta-rating">${l.rating.toFixed(1)} <span class="stars">★</span></span>`;
+      const tatShort = (l.tat || '').replace(/^Reports in\s*/, '').replace(/^Reports\s*/, '');
+      // Day / time split for mobile (same heuristic as table)
+      let dayPart = '', timePart = '';
+      if (isVisit) { dayPart = l.days || ''; timePart = l.visitHours || ''; }
+      else {
+        const s = l.hours || '';
+        if (s.includes('·')) { const parts = s.split('·').map(p => p.trim()); dayPart = parts[0]; timePart = parts.slice(1).join(' · '); }
+        else { const m = s.match(/^(.+?)\s+(\d.*|24[×x]7.*)$/); if (m) { dayPart = m[1].trim(); timePart = m[2].trim(); } else { dayPart = s; } }
+      }
+      const badgeHtml = l.badges.slice(0, 3).map(b => `<span class="badge ${badgeClass(b[1])}">${b[0]}</span>`).join('');
+      const ctaLabel = isVisit ? 'Book slot' : 'Select Lab';
+      return `
+        <article class="mlab-card" data-id="${l.id}">
+          <div class="mlab-head">
+            <div class="mlab-logo"><img src="${l.logo}" alt=""></div>
+            <div class="mlab-head-text">
+              <div class="mlab-name">${l.name}</div>
+              <div class="mlab-badges">${badgeHtml}</div>
+            </div>
+          </div>
+          <div class="mlab-meta">
+            <span class="mlab-meta-item"><i class="fas fa-location-dot"></i>${l.location}</span>
+            <span class="mlab-meta-item"><i class="fas fa-route"></i>${l.distanceKm.toFixed(1)} km · ~${l.etaMin} min</span>
+          </div>
+          <div class="mlab-meta">
+            ${ratingHtml}
+            <span class="mlab-meta-item"><i class="fas fa-bolt"></i>${tatShort}</span>
+            <span class="mlab-meta-item"><i class="fas fa-clock"></i>${dayPart}${timePart ? ' · ' + timePart : ''}</span>
+          </div>
+          <div class="mlab-price-row">
+            <div class="mlab-price-block">
+              <span class="mlab-price-mrp">₹${l.mrp.toLocaleString()}</span>
+              <span class="mlab-price">
+                ₹${l.price.toLocaleString()}
+                <button type="button" class="price-info" aria-label="Price details"
+                  data-mrp="${l.mrp}" data-price="${l.price}"
+                  data-discount="${save}" data-discount-pct="${pct}">
+                  <i class="fas fa-circle-info"></i>
+                </button>
+              </span>
+              <span class="mlab-save">💚 Save ₹${save.toLocaleString()} · ${pct}% off</span>
+            </div>
+            <button class="mlab-select" data-action="select" data-name="${l.name}">${ctaLabel}</button>
+          </div>
+        </article>
+      `;
+    }).join('');
   }
 
   // ===== Table renderer =====
@@ -2194,6 +2578,10 @@ button { font-family: inherit; }
       else dir = defaultDir[key] || 'desc';
     }
     currentSort = { key, dir };
+    // Keep the mobile sort pill in sync (no-op on desktop where it's hidden)
+    const sortLabels = { distance: 'Nearest first', price: 'Lowest price', rating: 'Highest rated', speed: 'Proc. time', name: 'Name', mrp: 'MRP', timing: 'Timing' };
+    const lbl = document.getElementById('mobileSortLabel');
+    if (lbl && sortLabels[key]) lbl.textContent = sortLabels[key];
     renderResults(sortLabs(key, dir));
   }
 
@@ -2219,8 +2607,8 @@ button { font-family: inherit; }
     renderResults(sortLabs(currentSort.key, currentSort.dir));
   });
 
-  // ===== Select lab =====
-  document.getElementById('labTableBody').addEventListener('click', (e) => {
+  // ===== Select lab (shared: table on desktop, cards on mobile) =====
+  function handleLabSelect(e) {
     const btn = e.target.closest('button[data-action="select"]');
     if (!btn) return;
     const row = btn.closest('[data-id]');
@@ -2239,7 +2627,9 @@ button { font-family: inherit; }
     url.searchParams.set('price', lab.price);
     url.searchParams.set('mrp', lab.mrp);
     location.href = url.toString();
-  });
+  }
+  document.getElementById('labTableBody').addEventListener('click', handleLabSelect);
+  document.getElementById('labCardsMobile').addEventListener('click', handleLabSelect);
 
   // ===== Rating slider =====
   const slider = document.getElementById('ratingSlider');
@@ -2283,6 +2673,93 @@ button { font-family: inherit; }
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2600);
   }
+
+  // ===== Mobile sheets (Filters + Sort) =====
+  function openSheet(id) {
+    const sh = document.getElementById(id);
+    sh.classList.add('is-open');
+    sh.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeSheet(id) {
+    const sh = document.getElementById(id);
+    sh.classList.remove('is-open');
+    sh.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+  // Close handlers (overlay click + close buttons)
+  document.querySelectorAll('.sheet-overlay').forEach(o => {
+    o.addEventListener('click', (e) => {
+      if (e.target === o) closeSheet(o.id);
+      if (e.target.closest('[data-sheet-close]')) closeSheet(o.id);
+    });
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.sheet-overlay.is-open').forEach(o => closeSheet(o.id));
+    }
+  });
+
+  // Filters drawer — move the sidebar .filters into the sheet on first open
+  const filtersBody = document.getElementById('filtersSheetBody');
+  const filtersEl = document.querySelector('.filters');
+  let filtersMoved = false;
+  function ensureFiltersInSheet() {
+    if (filtersMoved) return;
+    if (window.innerWidth <= 768 && filtersEl && filtersBody) {
+      filtersBody.appendChild(filtersEl);
+      filtersEl.style.display = 'block';
+      filtersEl.style.position = 'static';
+      filtersEl.style.background = 'transparent';
+      filtersEl.style.border = '0';
+      filtersEl.style.borderRadius = '0';
+      filtersMoved = true;
+    }
+  }
+  document.getElementById('mobileFiltersBtn').addEventListener('click', () => {
+    ensureFiltersInSheet();
+    openSheet('filtersSheet');
+  });
+  document.getElementById('filtersSheetClear').addEventListener('click', () => {
+    document.getElementById('clearFiltersBtn').click();
+  });
+
+  // Sort sheet
+  const sortMeta = [
+    { key: 'distance', label: 'Nearest first', icon: 'fa-location-dot' },
+    { key: 'price', label: 'Lowest price', icon: 'fa-indian-rupee-sign' },
+    { key: 'rating', label: 'Highest rated', icon: 'fa-star' },
+    { key: 'speed', label: 'Proc. time', icon: 'fa-bolt' },
+  ];
+  function renderSortOptions() {
+    document.getElementById('sortOptions').innerHTML = sortMeta.map(s => {
+      const active = currentSort.key === s.key;
+      const arrow = active ? (currentSort.dir === 'desc' ? '▼ High to low' : '▲ Low to high') : '';
+      return `<button type="button" class="sort-option ${active ? 'is-active' : ''}" data-key="${s.key}">
+        <span class="so-icon"><i class="fas ${s.icon}"></i></span>
+        <span class="so-label">${s.label}</span>
+        <span class="so-dir">${arrow}</span>
+      </button>`;
+    }).join('');
+    const cur = sortMeta.find(s => s.key === currentSort.key);
+    document.getElementById('mobileSortLabel').textContent = cur ? cur.label : 'Sort';
+  }
+  document.getElementById('mobileSortBtn').addEventListener('click', () => {
+    renderSortOptions();
+    openSheet('sortSheet');
+  });
+  document.getElementById('sortOptions').addEventListener('click', (e) => {
+    const opt = e.target.closest('.sort-option');
+    if (!opt) return;
+    applySort(opt.dataset.key);
+    renderSortOptions();
+    setTimeout(() => closeSheet('sortSheet'), 150);
+  });
+  // Refresh sort label on every sort change (column-header clicks etc.)
+  const _origApplySort = applySort;
+  // (No wrap needed — renderSortOptions reads currentSort on open. We just update label on init.)
+  const initCur = sortMeta.find(s => s.key === currentSort.key);
+  if (initCur) document.getElementById('mobileSortLabel').textContent = initCur.label;
 
   // ===== Price-detail tooltip =====
   const priceTT = document.getElementById('priceTooltip');
