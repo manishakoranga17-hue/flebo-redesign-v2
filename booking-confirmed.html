@@ -575,10 +575,18 @@ button { font-family: inherit; }
   .receipt-card { position: static; }
   .confirm-title { font-size: 36px; }
 }
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   html, body { overflow-x: hidden; }
   body { max-width: 100vw; }
   :root { --site-inset: 16px; }
+
+  /* Width clamps */
+  .confirm-hero-inner, .page-body, .card, .receipt-card, .help-card,
+  .detail-grid, .detail-row, .tests-list, .timeline, .cta-row,
+  .reminder, .pay-on-visit-banner {
+    max-width: 100%;
+    min-width: 0;
+  }
 
   /* Header parity */
   .top-bar-inner { font-size: 12px; padding: 6px 16px; gap: 10px; line-height: 1.3; }

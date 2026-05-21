@@ -957,10 +957,22 @@ button { font-family: inherit; }
   .hamburger-btn { display: inline-flex !important; }
   .header-upload { margin-left: auto; }
 }
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   html, body { overflow-x: hidden; }
   body { max-width: 100vw; padding-bottom: 84px; }
   :root { --site-inset: 16px; }
+
+  /* Hard width clamp on every direct content container so nothing can leak */
+  .page-head-inner, .page-body, .step-card, .summary-card,
+  .form-grid, .time-grid, .addr-card, .who-toggle, .gender-pills,
+  .field, .field-input, .field-select,
+  .coupon-trigger, .coupon-applied {
+    max-width: 100%;
+    min-width: 0;
+  }
+  .field-input, .field-select { width: 100%; }
+  /* Step card heading must not push past the card */
+  .step-card-head { flex-wrap: wrap; }
 
   /* Header parity with home */
   .top-bar-inner { font-size: 12px; padding: 6px 16px; gap: 10px; line-height: 1.3; }
@@ -1083,7 +1095,7 @@ button { font-family: inherit; }
   .mab-cta:hover { background: var(--accent-dark); }
 }
 .mobile-action-bar { display: none; }
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .mobile-action-bar { display: flex; }
 }
 </style>
