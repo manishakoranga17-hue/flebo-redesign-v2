@@ -4691,13 +4691,16 @@ main { padding: 0 16px; }
   }
   .hamburger-btn { display: inline-flex !important; margin: 0; width: 38px; height: 38px; flex-shrink: 0; }
 
-  /* Mobile brand: logo + compact rating pill next to it (desktop parity) */
-  .brand-block { gap: 8px; }
-  .brand-logo { height: 28px; }
-  .brand-rating { display: inline-flex; padding: 2px 6px; font-size: 10.5px; gap: 4px; }
-  .brand-rating-stars { font-size: 8.5px; }
+  /* Mobile brand: bigger logo + 1-star rating pill next to it */
+  .brand-block { gap: 6px; }
+  .brand-logo { height: 36px; }
+  .brand-rating { display: inline-flex; padding: 2px 6px; font-size: 10.5px; gap: 3px; }
+  .brand-rating-stars { font-size: 9px; }
+  .brand-rating-stars i:nth-child(n+2) { display: none; }
+  /* Hamburger compact so the desktop-style Upload pill fits next to everything */
+  .hamburger-btn { width: 34px !important; height: 34px !important; font-size: 16px !important; }
 
-  /* Mobile Upload pill: icon-only, sits at the right edge */
+  /* Mobile Upload pill: same look as desktop (red border + icon + label) */
   .header-upload {
     margin-left: auto;
     flex-shrink: 0;
@@ -4705,15 +4708,18 @@ main { padding: 0 16px; }
     gap: 0;
   }
   .header-upload .main-nav-pill {
-    padding: 8px 12px;
-    font-size: 0;
-    gap: 0;
-    line-height: 0;
+    padding: 6px 10px;
+    font-size: 11.5px;
+    gap: 5px;
+    line-height: 1.2;
+    white-space: nowrap;
   }
-  .header-upload .main-nav-pill i { font-size: 16px; }
-  /* Hide pill text + the trust subtitle on mobile — they don't fit */
-  .header-upload .main-nav-pill span { display: none; }
+  .header-upload .main-nav-pill i { font-size: 12px; }
+  .header-upload .main-nav-pill span { display: inline; }
+  /* Subtitle below pill stays hidden — phone doesn't need it */
   .main-nav-upload-sub { display: none; }
+  /* Tighten the site-header inner gap so all four items fit on one line */
+  .site-header-inner { gap: 8px; padding: 8px 12px; }
 
   /* Hide hero image column on mobile — show panels only */
   .hero-v2-visual { display: none; }
