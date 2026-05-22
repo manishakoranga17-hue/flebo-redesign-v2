@@ -640,9 +640,17 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   .site-header-inner { gap: 8px; padding: 8px 12px; }
 
   /* Confirm hero */
-  .confirm-hero-inner { flex-direction: column; align-items: flex-start; padding: 28px 16px; gap: 16px; }
-  .confirm-tick { width: 60px; height: 60px; }
-  .confirm-tick i { font-size: 30px; }
+  .confirm-hero-inner {
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 22px 16px;
+    gap: 14px;
+  }
+  .confirm-tick { width: 52px; height: 52px; flex-shrink: 0; margin-top: 4px; }
+  .confirm-tick i { font-size: 26px; }
+  .confirm-text { flex: 1; min-width: 0; }
+  .confirm-eyebrow { margin-bottom: 4px; }
+  .confirm-title { font-size: 24px; line-height: 1.1; margin-bottom: 8px; }
   .confirm-eyebrow { font-size: 11.5px; letter-spacing: 0.10em; margin-bottom: 4px; }
   .confirm-title { font-size: 28px; line-height: 1.1; margin-bottom: 8px; }
   .confirm-sub { font-size: 14.5px; margin-bottom: 12px; }
