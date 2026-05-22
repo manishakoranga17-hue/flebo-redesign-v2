@@ -4724,6 +4724,14 @@ main { padding: 0 16px; }
   /* Hide hero image column on mobile — show panels only */
   .hero-v2-visual { display: none; }
 
+  /* Let the test-search dropdown extend below the navy hero on phones */
+  .hero-v2 { overflow: visible !important; }
+  .hero-test-suggestions {
+    max-height: 60vh;
+    box-shadow: 0 18px 44px rgba(11, 21, 48, 0.35);
+    z-index: 100;
+  }
+
   /* Check Your Vitals: show only 3 cards on mobile (no Thyroid) */
   .concerns-bento .concern-card--thyroid { display: none; }
 
