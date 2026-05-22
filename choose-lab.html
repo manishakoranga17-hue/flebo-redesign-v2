@@ -1867,10 +1867,30 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   .cat-select { min-width: 0; flex: 0 0 110px; padding: 0 30px 0 12px; background-position: right 10px center; }
   .search-box-wrap { flex: 1; min-width: 0; }
 
-  /* Context banner */
-  .ctx-inner { padding: 0 16px 8px; gap: 8px; }
-  .ctx-label { font-size: 11.5px; letter-spacing: 0.06em; }
-  .ctx-chip { font-size: 12px; padding: 4px 8px 4px 6px; }
+  /* Context banner — chip row scrolls horizontally instead of wrapping */
+  .ctx-inner {
+    padding: 0 16px 8px;
+    gap: 8px;
+    flex-wrap: nowrap;
+    overflow-x: hidden;
+  }
+  .ctx-label { font-size: 11.5px; letter-spacing: 0.06em; flex-shrink: 0; }
+  .ctx-tests {
+    flex: 1;
+    min-width: 0;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+  }
+  .ctx-tests::-webkit-scrollbar { display: none; }
+  .ctx-chip {
+    font-size: 12px;
+    padding: 4px 8px 4px 6px;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
 
   /* Main + page body */
   .main-title { font-size: 24px; }
