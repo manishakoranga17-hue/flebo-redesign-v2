@@ -4673,8 +4673,12 @@ main { padding: 0 16px; }
   .top-bar-location span:not(#topBarLocationDisplay) { font-size: 12px; }
   :root { --site-inset: 16px; }
   .top-bar { position: sticky; top: 0; margin: 0; border: 0; }
-  .top-bar-inner { font-size: 11.5px; padding-top: 6px; padding-bottom: 6px; gap: 10px; margin: 0; line-height: 1.3; }
-  .top-bar-link span { display: inline; font-size: 11.5px; }
+  .top-bar-inner { font-size: 11px; padding: 6px 12px; gap: 8px; margin: 0; line-height: 1.3; flex-wrap: nowrap; }
+  .top-bar-link, .top-bar-location { white-space: nowrap; gap: 5px; font-size: 11px; }
+  .top-bar-link span, .top-bar-location span:not(#topBarLocationDisplay) { display: inline; font-size: 11px; }
+  #topBarLocationDisplay { font-size: 11px; }
+  .top-bar-location i, .top-bar-link i { font-size: 12px; }
+  .top-bar-phone { margin-left: auto; }
 
   .site-header { position: sticky; top: 26px; margin: 0; border-top: 0; }
   .site-header-inner {

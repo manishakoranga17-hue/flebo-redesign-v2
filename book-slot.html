@@ -999,8 +999,11 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   .step-card-head { flex-wrap: wrap; }
 
   /* Header parity with home */
-  .top-bar-inner { font-size: 12px; padding: 6px 16px; gap: 10px; line-height: 1.3; }
-  .top-bar-link span, .top-bar-location span:not(#topBarLocationDisplay) { font-size: 12px; }
+  .top-bar-inner { font-size: 11px; padding: 6px 12px; gap: 8px; line-height: 1.3; flex-wrap: nowrap; }
+  .top-bar-link, .top-bar-location { white-space: nowrap; gap: 5px; font-size: 11px; }
+  .top-bar-link span, .top-bar-location span { font-size: 11px; }
+  .top-bar-location i, .top-bar-link i { font-size: 12px; }
+  .top-bar-phone { margin-left: auto; }
   .site-header { top: 26px; }
   .site-header-inner {
     padding: 10px 16px;
