@@ -1587,6 +1587,8 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   gap: 8px;
   margin-bottom: 8px;
 }
+/* Mobile filter icon (sits next to Home/Lab-Visit tabs); hidden on desktop */
+.mobile-filter-icon { display: none; }
 .mobile-control-pill {
   flex: 1;
   display: inline-flex;
@@ -1905,11 +1907,55 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   .lab-cards-mobile { display: flex; }
   .mobile-controls { display: flex; }
 
-  /* Compact main-header on mobile */
-  .main-header { gap: 12px; }
+  /* Compact main-header on mobile: tabs + filter icon */
+  .main-header { gap: 10px; align-items: stretch; }
   .main-header-text { display: none; }
-  .tabs { width: 100%; padding: 3px; }
-  .tab { flex: 1; padding: 7px 12px; font-size: 13.5px; }
+  .tabs { flex: 1; padding: 3px; min-width: 0; }
+  .tab { flex: 1; padding: 7px 12px; font-size: 13.5px; min-width: 0; }
+  .tab-icon { display: none; }
+  .mobile-filter-icon {
+    flex-shrink: 0;
+    width: 42px;
+    border: 1px solid var(--border-soft);
+    background: #fff;
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    cursor: pointer;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .mobile-filter-icon:hover { border-color: var(--primary); background: var(--bg-soft); }
+  .mobile-filter-icon.has-active::after {
+    content: '';
+    position: absolute;
+    margin-top: -16px;
+    margin-left: 14px;
+    width: 8px; height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    border: 2px solid #fff;
+  }
+
+  /* The old Filters + Sort pills bar is gone — replaced by the tab-row icon */
+  .mobile-controls { display: none !important; }
+
+  /* Sort block at the top of the filter sheet */
+  .filters-sort-block {
+    margin-bottom: 14px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .filters-sort-title {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
 
   /* Suggestion dropdown fits mobile width */
   .search-suggestions { max-height: 260px; }
@@ -2107,9 +2153,10 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
         <div class="main-title">Labs offering all selected tests</div>
       </div>
       <div class="tabs">
-        <button class="tab is-active" data-mode="home"><span aria-hidden="true">🏠</span> Home Collection</button>
-        <button class="tab" data-mode="visit"><span aria-hidden="true">🏥</span> Lab Visit</button>
+        <button class="tab is-active" data-mode="home"><span class="tab-icon" aria-hidden="true">🏠</span> Home Collection</button>
+        <button class="tab" data-mode="visit"><span class="tab-icon" aria-hidden="true">🏥</span> Lab Visit</button>
       </div>
+      <button type="button" class="mobile-filter-icon" id="mobileFilterIcon" aria-label="Filters & sort"><i class="fas fa-sliders"></i></button>
     </div>
 
     <!-- MOBILE CONTROL BAR (Filters + Sort pills) -->
@@ -2163,7 +2210,12 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
       <span class="sheet-title" id="filtersSheetTitle">Filters</span>
       <button type="button" class="sheet-close" aria-label="Close" data-sheet-close><i class="fas fa-xmark"></i></button>
     </div>
-    <div class="sheet-body" id="filtersSheetBody"></div>
+    <div class="sheet-body" id="filtersSheetBody">
+      <div class="filters-sort-block">
+        <div class="filters-sort-title">Sort by</div>
+        <div class="sort-options" id="filtersSortOptions"></div>
+      </div>
+    </div>
     <div class="sheet-foot">
       <button type="button" class="sheet-btn sheet-btn-secondary" id="filtersSheetClear">Clear all</button>
       <button type="button" class="sheet-btn sheet-btn-primary" data-sheet-close>Apply filters</button>
@@ -2756,15 +2808,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
       filtersMoved = true;
     }
   }
-  document.getElementById('mobileFiltersBtn').addEventListener('click', () => {
-    ensureFiltersInSheet();
-    openSheet('filtersSheet');
-  });
-  document.getElementById('filtersSheetClear').addEventListener('click', () => {
-    document.getElementById('clearFiltersBtn').click();
-  });
-
-  // Sort sheet
+  // Sort meta + render — used for the sort block inside the filter sheet
   const sortMeta = [
     { key: 'distance', label: 'Nearest first', icon: 'fa-location-dot' },
     { key: 'price', label: 'Lowest price', icon: 'fa-indian-rupee-sign' },
@@ -2772,7 +2816,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
     { key: 'speed', label: 'Proc. time', icon: 'fa-bolt' },
   ];
   function renderSortOptions() {
-    document.getElementById('sortOptions').innerHTML = sortMeta.map(s => {
+    const html = sortMeta.map(s => {
       const active = currentSort.key === s.key;
       const arrow = active ? (currentSort.dir === 'desc' ? '▼ High to low' : '▲ Low to high') : '';
       return `<button type="button" class="sort-option ${active ? 'is-active' : ''}" data-key="${s.key}">
@@ -2781,25 +2825,43 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
         <span class="so-dir">${arrow}</span>
       </button>`;
     }).join('');
-    const cur = sortMeta.find(s => s.key === currentSort.key);
-    document.getElementById('mobileSortLabel').textContent = cur ? cur.label : 'Sort';
+    const inFilters = document.getElementById('filtersSortOptions');
+    if (inFilters) inFilters.innerHTML = html;
+    const standalone = document.getElementById('sortOptions');
+    if (standalone) standalone.innerHTML = html;
   }
-  document.getElementById('mobileSortBtn').addEventListener('click', () => {
+
+  function openFilters() {
+    ensureFiltersInSheet();
+    renderSortOptions();
+    openSheet('filtersSheet');
+  }
+  document.getElementById('mobileFiltersBtn').addEventListener('click', openFilters);
+  document.getElementById('mobileFilterIcon').addEventListener('click', openFilters);
+  document.getElementById('filtersSheetClear').addEventListener('click', () => {
+    document.getElementById('clearFiltersBtn').click();
+    renderSortOptions();
+  });
+
+  // Sort option clicks (works for both the in-filter sort block and the legacy standalone sheet)
+  function wireSortClicks(el) {
+    if (!el) return;
+    el.addEventListener('click', (e) => {
+      const opt = e.target.closest('.sort-option');
+      if (!opt) return;
+      applySort(opt.dataset.key);
+      renderSortOptions();
+    });
+  }
+  wireSortClicks(document.getElementById('filtersSortOptions'));
+  wireSortClicks(document.getElementById('sortOptions'));
+
+  // Legacy standalone sort sheet still works if the icon is wired elsewhere
+  const legacySortBtn = document.getElementById('mobileSortBtn');
+  if (legacySortBtn) legacySortBtn.addEventListener('click', () => {
     renderSortOptions();
     openSheet('sortSheet');
   });
-  document.getElementById('sortOptions').addEventListener('click', (e) => {
-    const opt = e.target.closest('.sort-option');
-    if (!opt) return;
-    applySort(opt.dataset.key);
-    renderSortOptions();
-    setTimeout(() => closeSheet('sortSheet'), 150);
-  });
-  // Refresh sort label on every sort change (column-header clicks etc.)
-  const _origApplySort = applySort;
-  // (No wrap needed — renderSortOptions reads currentSort on open. We just update label on init.)
-  const initCur = sortMeta.find(s => s.key === currentSort.key);
-  if (initCur) document.getElementById('mobileSortLabel').textContent = initCur.label;
 
   // ===== Price-detail tooltip =====
   const priceTT = document.getElementById('priceTooltip');
