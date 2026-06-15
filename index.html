@@ -96,7 +96,7 @@ input, select { font-family: inherit; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #1a1a1a;
+  background: #0B1530;
   padding: 8px 16px;
   position: sticky;
   top: 0;
@@ -3305,7 +3305,7 @@ main { padding: 0 16px; }
     margin-top: 4px;
   }
 
-  main { padding: 0 32px; max-width: 1320px; margin: 0 auto; }
+  main { padding: 0 32px; max-width: 1480px; margin: 0 auto; }
   /* Media coverage breaks out of the main container's gutter */
   main > .media-coverage-section {
     margin-left: -32px;
@@ -3323,10 +3323,10 @@ main { padding: 0 16px; }
 /* =================================================================
    ===== WIDE DESKTOP (>=1280px) ====================================
    ================================================================= */
-@media (min-width: 1280px) {
+@media (min-width: 1024px) {
   .hero-section { margin-left: auto; margin-right: auto; max-width: 1280px; }
-  .top-bar > * { max-width: 1320px; }
-  .header-top { max-width: 1320px; }
+  .top-bar > * { max-width: 1480px; }
+  .header-top { max-width: 1480px; }
 
   /* 4-up package grid on widest screens shows all 5 nicely (4 + 1) */
   .packages-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
@@ -3350,7 +3350,7 @@ main { padding: 0 16px; }
 }
 :root { --site-inset: 32px; }
 .top-bar-inner {
-  max-width: 1320px;
+  max-width: 1480px;
   margin: 0 auto;
   padding: 10px var(--site-inset);
   display: flex;
@@ -3358,7 +3358,7 @@ main { padding: 0 16px; }
   justify-content: flex-start;
   gap: 16px;
   color: #fff;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 500;
 }
 .top-bar-trust,
@@ -3383,7 +3383,7 @@ main { padding: 0 16px; }
 }
 .top-bar-link:hover,
 .top-bar-utility a:hover { opacity: 0.75; }
-.top-bar-login { margin-left: auto; }
+.top-bar-phone { margin-left: auto; }
 .tb-icon-green {
   color: #21C669;
   font-size: 14px;
@@ -3413,7 +3413,7 @@ main { padding: 0 16px; }
   z-index: 190;
 }
 .site-header-inner {
-  max-width: 1320px;
+  max-width: 1480px;
   margin: 0 auto;
   padding: 14px var(--site-inset);
   display: flex;
@@ -3561,7 +3561,7 @@ main { padding: 0 16px; }
 
 /* ---------- MAIN NAV (inline in site-header) ---------- */
 .main-nav {
-  margin-left: auto;
+  align-self: stretch;
   display: flex;
   align-items: center;
 }
@@ -3586,12 +3586,12 @@ main { padding: 0 16px; }
   padding: 16px 18px;
   color: var(--text-primary);
   text-decoration: none;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
   white-space: nowrap;
   transition: color 0.2s;
 }
-.main-nav-link i { font-size: 14px; color: var(--text-secondary); transition: color 0.2s; }
+.main-nav-link i { font-size: 16px; color: var(--text-muted); transition: color 0.2s; }
 .main-nav-link:hover { color: var(--accent); }
 .main-nav-link:hover i { color: var(--accent); }
 .main-nav-link.active { color: var(--accent); }
@@ -3675,10 +3675,10 @@ main { padding: 0 16px; }
 
 /* Upload Report list item: stack pill + sub-line below it */
 .main-nav-upload {
+  margin: 0 0 0 auto;
   display: inline-flex;
   flex-direction: column;
   align-items: center;
-  margin: 0 14px;
   align-self: center;
 }
 .main-nav-upload-sub {
@@ -3714,7 +3714,7 @@ main { padding: 0 16px; }
   pointer-events: none;
 }
 .hero-v2-inner {
-  max-width: 1320px;
+  max-width: 1480px;
   margin: 0 auto;
   padding: 32px 32px 32px;
   display: grid;
@@ -4496,7 +4496,7 @@ main { padding: 0 16px; }
   border-bottom: 1px solid #E6EAF2;
 }
 .sample-tested-inner {
-  max-width: 1320px;
+  max-width: 1480px;
   margin: 0 auto;
   padding: 18px 32px;
   display: flex;
@@ -4633,10 +4633,7 @@ main { padding: 0 16px; }
 /* Tablet */
 @media (max-width: 1100px) {
   :root { --site-inset: 20px; }
-  .top-bar-inner { padding-top: 9px; padding-bottom: 9px; gap: 12px; font-size: 12.5px; }
   .top-bar-trust, .top-bar-utility { gap: 16px; }
-
-  .site-header-inner { padding-top: 12px; padding-bottom: 12px; gap: 12px; }
 
   /* Below desktop, fall back to hamburger menu */
   .main-nav { display: none; }
@@ -4976,7 +4973,7 @@ main { padding: 0 16px; }
 }
 .trust-v2-inner { position: relative; z-index: 1; }
 .trust-v2-inner {
-  max-width: 1320px;
+  max-width: 1480px;
   margin: 0 auto;
   padding: 0 32px;
   display: grid;
@@ -5558,7 +5555,7 @@ main { padding: 0 16px; }
     <nav class="main-nav" role="navigation" aria-label="Primary">
       <ul class="main-nav-list">
         <li><a href="tests.html" class="main-nav-link"><i class="fas fa-flask-vial" aria-hidden="true"></i><span>Tests</span></a></li>
-        <li><a href="#" class="main-nav-link"><i class="fas fa-box-open" aria-hidden="true"></i><span>Packages</span></a></li>
+        <li><a href="packages.html" class="main-nav-link"><i class="fas fa-box-open" aria-hidden="true"></i><span>Packages</span></a></li>
         <li><a href="#" class="main-nav-link"><i class="fas fa-folder-open" aria-hidden="true"></i><span>Reports</span></a></li>
         <li><a href="#" class="main-nav-link"><i class="fas fa-chart-line" aria-hidden="true"></i><span>Health Trend Graph</span></a></li>
         <li><a href="#" class="main-nav-link main-nav-bmi">
@@ -5609,7 +5606,7 @@ main { padding: 0 16px; }
     <a class="sidebar-link" href="#" data-menu="bmi"><i class="fas fa-calculator"></i> BMI Calculator</a>
     <div class="sidebar-divider"></div>
     <a class="sidebar-link" href="tests.html" data-menu="tests"><i class="fas fa-flask-vial"></i> Tests</a>
-    <a class="sidebar-link" href="#" data-menu="packages"><i class="fas fa-box-open"></i> Packages</a>
+    <a class="sidebar-link" href="packages.html" data-menu="packages"><i class="fas fa-box-open"></i> Packages</a>
     <a class="sidebar-link" href="#" data-menu="trends"><i class="fas fa-chart-line"></i> Health Trend Graph</a>
     <a class="sidebar-link" href="#" data-menu="referral"><i class="fas fa-gift"></i> Referral & Earning</a>
     <div class="sidebar-divider"></div>
@@ -6663,7 +6660,7 @@ main { padding: 0 16px; }
     <i class="fas fa-house" aria-hidden="true"></i>
     <span class="nav-label">Home</span>
   </a>
-  <a href="#" class="nav-item">
+  <a href="packages.html" class="nav-item">
     <i class="fas fa-gift" aria-hidden="true"></i>
     <span class="nav-label">Packages</span>
   </a>

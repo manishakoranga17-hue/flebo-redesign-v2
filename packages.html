@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Browse Tests & Health Packages — Flebo.in</title>
+<title>Health Checkup Packages — Flebo.in</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
@@ -2005,39 +2005,31 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 }
 .tests-sub { font-size: 15px; color: var(--text-muted); max-width: 640px; }
 
-/* Category circles (home-style: picture + circle + label) */
+/* Category chips */
 .cat-chips-strip {
-  background: transparent;
+  background: #fff;
+  border-bottom: 1px solid var(--border-soft);
 }
 .cat-chips {
   max-width: 1480px; margin: 0 auto;
-  display: flex; gap: 22px; overflow-x: auto;
-  padding: 18px var(--site-inset);
+  display: flex; gap: 8px; overflow-x: auto;
+  padding: 12px var(--site-inset);
   scrollbar-width: none; -ms-overflow-style: none;
 }
 .cat-chips::-webkit-scrollbar { display: none; }
-.cat-circle {
+.cat-chip {
   flex: 0 0 auto;
-  display: flex; flex-direction: column; align-items: center; gap: 10px;
-  background: none; border: none; cursor: pointer; padding: 2px;
+  border: 1.5px solid var(--border-soft);
+  background: #fff; color: var(--text-primary);
+  font-size: 14px; font-weight: 600;
+  padding: 8px 16px; border-radius: 50px;
+  cursor: pointer; white-space: nowrap;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
 }
-.cat-icon {
-  width: 88px; height: 88px; border-radius: 50%;
-  background-size: cover; background-position: center; background-color: #f0e8e0;
-  display: block; transition: box-shadow 0.18s, transform 0.18s;
+.cat-chip:hover { border-color: var(--primary); }
+.cat-chip.is-active {
+  background: var(--primary); color: #fff; border-color: var(--primary);
 }
-.cat-icon-fa {
-  display: flex; align-items: center; justify-content: center;
-  background: var(--blue-soft); color: var(--primary); font-size: 32px;
-}
-.cat-circle-label {
-  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
-  font-size: 12px; font-weight: 600; color: var(--text-primary);
-  white-space: nowrap; transition: color 0.15s;
-}
-.cat-circle:hover .cat-icon { transform: translateY(-2px); }
-.cat-circle.is-active .cat-icon { box-shadow: 0 0 0 3px var(--accent); }
-.cat-circle.is-active .cat-circle-label { color: var(--accent); font-weight: 700; }
 
 /* Grid */
 .tests-main {
@@ -2085,8 +2077,32 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 .test-name {
   font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
   font-size: 16px; font-weight: 700; color: var(--text-primary);
-  line-height: 1.3; margin-bottom: 10px;
+  line-height: 1.3; margin-bottom: 4px;
 }
+
+/* Package-specific card bits */
+.pkg-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.03em; color: var(--primary);
+  background: var(--blue-soft); border: 1px solid var(--border-soft);
+  padding: 5px 10px; border-radius: 50px;
+}
+.pkg-badge i { font-size: 11px; }
+.pkg-off {
+  font-size: 11px; font-weight: 800; color: var(--green);
+  background: var(--green-soft); border-radius: 50px;
+  padding: 5px 10px; white-space: nowrap;
+}
+.pkg-sub { font-size: 13.5px; color: var(--text-muted); margin-bottom: 12px; }
+.pkg-tests {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 12.5px; font-weight: 600; color: var(--primary);
+  background: var(--bg-soft); border: 1px solid var(--border-soft);
+  padding: 6px 11px; border-radius: 8px;
+  align-self: flex-start; margin-bottom: 16px;
+}
+.pkg-tests i { color: var(--accent); font-size: 12px; }
 .test-meta {
   display: flex; flex-direction: column; gap: 5px;
   font-size: 12.5px; color: var(--text-muted);
@@ -2267,8 +2283,8 @@ body.has-select-bar { padding-bottom: 80px; }
 
     <nav class="main-nav" role="navigation" aria-label="Primary">
       <ul class="main-nav-list">
-        <li><a href="tests.html" class="main-nav-link is-active" aria-current="page"><i class="fas fa-flask-vial" aria-hidden="true"></i><span>Tests</span></a></li>
-        <li><a href="packages.html" class="main-nav-link"><i class="fas fa-box-open" aria-hidden="true"></i><span>Packages</span></a></li>
+        <li><a href="tests.html" class="main-nav-link"><i class="fas fa-flask-vial" aria-hidden="true"></i><span>Tests</span></a></li>
+        <li><a href="packages.html" class="main-nav-link is-active" aria-current="page"><i class="fas fa-box-open" aria-hidden="true"></i><span>Packages</span></a></li>
         <li><a href="index.html" class="main-nav-link"><i class="fas fa-folder-open" aria-hidden="true"></i><span>Reports</span></a></li>
         <li><a href="index.html" class="main-nav-link"><i class="fas fa-chart-line" aria-hidden="true"></i><span>Health Trend Graph</span></a></li>
         <li><a href="index.html" class="main-nav-link main-nav-bmi">
@@ -2308,7 +2324,7 @@ body.has-select-bar { padding-bottom: 80px; }
     <div class="search-box-wrap">
       <label class="search-box">
         <i class="fas fa-magnifying-glass search-icon" aria-hidden="true"></i>
-        <input id="testSearchInput" type="search" placeholder="Search blood tests, scans &amp; health packages…" autocomplete="off" aria-label="Search tests" aria-controls="testsGrid">
+        <input id="testSearchInput" type="search" placeholder="Search health packages &amp; checkups…" autocomplete="off" aria-label="Search packages" aria-controls="testsGrid">
         <button type="button" class="search-clear" id="searchClear" aria-label="Clear search" hidden><i class="fas fa-xmark"></i></button>
       </label>
     </div>
@@ -2318,8 +2334,8 @@ body.has-select-bar { padding-bottom: 80px; }
 <!-- ===== PAGE INTRO ===== -->
 <section class="tests-intro" aria-label="Browse tests">
   <div class="tests-intro-inner">
-    <h1 class="tests-h1">Book lab tests &amp; health checkups</h1>
-    <p class="tests-sub">Pick the tests you need, then compare prices across 160+ certified labs near you. Free home sample collection.</p>
+    <h1 class="tests-h1">Health checkup packages</h1>
+    <p class="tests-sub">Curated test bundles at up to 70% off. Pick a package, then compare prices across 160+ certified labs near you. Free home sample collection.</p>
   </div>
 </section>
 
@@ -2335,8 +2351,8 @@ body.has-select-bar { padding-bottom: 80px; }
 
   <div class="tests-empty" id="testsEmpty" hidden>
     <div class="tests-empty-emoji" aria-hidden="true">🔬</div>
-    <div class="tests-empty-title">No tests found</div>
-    <div class="tests-empty-sub">Try a different category or search term — or let us add the test you need.</div>
+    <div class="tests-empty-title">No packages found</div>
+    <div class="tests-empty-sub">Try a different category or search term — or build your own panel from individual tests.</div>
   </div>
 </main>
 
@@ -2359,7 +2375,7 @@ body.has-select-bar { padding-bottom: 80px; }
   <div class="select-bar-inner">
     <div class="select-bar-actions">
       <div class="select-bar-info">
-        <span class="select-bar-count" id="selectCount">0 tests selected</span>
+        <span class="select-bar-count" id="selectCount">0 packages selected</span>
         <span class="select-bar-total" id="selectTotal">₹0</span>
       </div>
       <div class="select-bar-chips" id="selectChips" aria-label="Selected tests"></div>
@@ -2374,7 +2390,7 @@ body.has-select-bar { padding-bottom: 80px; }
     <i class="fas fa-house" aria-hidden="true"></i>
     <span class="nav-label">Home</span>
   </a>
-  <a href="index.html" class="nav-item">
+  <a href="packages.html" class="nav-item active" aria-current="page">
     <i class="fas fa-gift" aria-hidden="true"></i>
     <span class="nav-label">Packages</span>
   </a>
@@ -2382,7 +2398,7 @@ body.has-select-bar { padding-bottom: 80px; }
     <img src="doctor2.png" alt="">
     <span class="nav-label">Flebo.AI</span>
   </a>
-  <a href="tests.html" class="nav-item active" aria-current="page">
+  <a href="tests.html" class="nav-item">
     <i class="fas fa-flask" aria-hidden="true"></i>
     <span class="nav-label">Tests</span>
   </a>
@@ -2394,72 +2410,62 @@ body.has-select-bar { padding-bottom: 80px; }
 
 <script>
 (function () {
-  // ===== Test catalog (mirrors index.html / choose-lab.html) =====
-  const testCatalog = [
-    // Bone
-    { name: 'Vitamin D 25-Hydroxy', tag: 'Bone', icon: 'fa-bone', price: 799 },
-    { name: 'Calcium Serum', tag: 'Bone', icon: 'fa-bone', price: 249 },
-    { name: 'Bone Health Panel', tag: 'Bone', icon: 'fa-bone', price: 699 },
-    { name: 'Phosphorus Serum', tag: 'Bone', icon: 'fa-bone', price: 249 },
-    // Diabetes
-    { name: 'HbA1c (Diabetes)', tag: 'Diabetes', icon: 'fa-droplet', price: 399 },
-    { name: 'Blood Sugar Fasting', tag: 'Diabetes', icon: 'fa-droplet', price: 149 },
-    { name: 'Blood Sugar Random (BSR)', tag: 'Diabetes', icon: 'fa-droplet', price: 149 },
-    { name: 'Diabetes Profile', tag: 'Diabetes', icon: 'fa-droplet', price: 999 },
-    // Gastro
-    { name: 'H. Pylori Antigen', tag: 'Gastro', icon: 'fa-bacterium', price: 599 },
-    { name: 'Amylase Serum', tag: 'Gastro', icon: 'fa-flask', price: 449 },
-    { name: 'Lipase Serum', tag: 'Gastro', icon: 'fa-flask', price: 499 },
-    { name: 'Stool Routine', tag: 'Gastro', icon: 'fa-vial', price: 299 },
-    // Gynae
-    { name: 'Beta hCG (Pregnancy)', tag: 'Gynae', icon: 'fa-venus', price: 599 },
-    { name: 'AMH (Anti-Müllerian Hormone)', tag: 'Gynae', icon: 'fa-venus', price: 1499 },
-    { name: 'Estradiol (E2)', tag: 'Gynae', icon: 'fa-venus', price: 699 },
-    { name: 'Prolactin', tag: 'Gynae', icon: 'fa-venus', price: 549 },
-    // Heart
-    { name: 'Lipid Profile', tag: 'Heart', icon: 'fa-heart-pulse', price: 499 },
-    { name: 'ECG', tag: 'Heart', icon: 'fa-heart-pulse', price: 249 },
-    { name: '2D Echo', tag: 'Heart', icon: 'fa-heart-pulse', price: 1499 },
-    { name: 'hs-CRP (Cardiac)', tag: 'Heart', icon: 'fa-heart', price: 549 },
-    // Kidney
-    { name: 'Kidney Function Test (KFT)', tag: 'Kidney', icon: 'fa-vial', price: 599 },
-    { name: 'Urine Routine (RU)', tag: 'Kidney', icon: 'fa-flask', price: 199 },
-    { name: 'Uric Acid', tag: 'Kidney', icon: 'fa-vial', price: 299 },
-    { name: 'Creatinine Serum', tag: 'Kidney', icon: 'fa-vial', price: 249 },
-    // Liver
-    { name: 'Liver Function Test (LFT)', tag: 'Liver', icon: 'fa-vial', price: 549 },
-    { name: 'SGPT / SGOT', tag: 'Liver', icon: 'fa-vial', price: 399 },
-    { name: 'Bilirubin Total', tag: 'Liver', icon: 'fa-vial', price: 249 },
-    { name: 'Hepatitis B (HBsAg)', tag: 'Liver', icon: 'fa-virus', price: 499 },
-    // Prostate
-    { name: 'PSA Total (Prostate)', tag: 'Prostate', icon: 'fa-mars', price: 699 },
-    { name: 'PSA Free', tag: 'Prostate', icon: 'fa-mars', price: 799 },
-    { name: 'Prostate Health Panel', tag: 'Prostate', icon: 'fa-mars', price: 1299 },
-    // Thyroid
-    { name: 'Thyroid Profile (T3, T4, TSH)', tag: 'Thyroid', icon: 'fa-gauge', price: 549 },
-    { name: 'TSH (Ultrasensitive)', tag: 'Thyroid', icon: 'fa-gauge', price: 299 },
-    { name: 'Free T4 (FT4)', tag: 'Thyroid', icon: 'fa-gauge', price: 349 },
-    { name: 'Anti-TPO Antibody', tag: 'Thyroid', icon: 'fa-microscope', price: 699 },
-  ];
+  // ===== Package catalog (mirrors index.html) =====
+  const packageData = {
+    'Popular': [
+      { name: 'Flebo Prime Care', sub: 'Diabetic Checkup', tests: 71, price: 1179, oldPrice: 2040, badge: 'Verified Lab', icon: 'fa-shield-halved', discount: 'Up to 42% off' },
+      { name: 'Healthy India 2026', sub: 'Full Body Checkup Lite', tests: 80, price: 1046, oldPrice: 2180, badge: 'Bestseller', icon: 'fa-star', discount: 'Up to 52% off' },
+      { name: 'Flebo She Care', sub: "Women's Health Package", tests: 65, price: 1299, oldPrice: 2500, badge: "Women's Care", icon: 'fa-heart-pulse', discount: '' },
+      { name: 'Advanced Full Body', sub: 'Comprehensive Checkup', tests: 92, price: 1599, oldPrice: 3200, badge: 'Value Pack', icon: 'fa-bolt', discount: '' },
+    ],
+    'Fever': [
+      { name: 'Fever Panel Basic', sub: 'Dengue + Malaria + Typhoid', tests: 12, price: 599, oldPrice: 1200, badge: 'Quick Results', icon: 'fa-bolt', discount: 'Up to 50% off' },
+      { name: 'Fever Panel Advanced', sub: 'Complete Infection Screen', tests: 28, price: 999, oldPrice: 2100, badge: 'Comprehensive', icon: 'fa-shield-halved', discount: 'Up to 52% off' },
+      { name: 'Dengue NS1 + IgG/IgM', sub: 'Dengue Detection', tests: 3, price: 450, oldPrice: 900, badge: 'Fast Track', icon: 'fa-clock', discount: '' },
+      { name: 'Malaria Panel', sub: 'P. vivax + P. falciparum', tests: 5, price: 350, oldPrice: 700, badge: 'Seasonal', icon: 'fa-sun', discount: '' },
+    ],
+    'STD': [
+      { name: 'STD Basic Panel', sub: 'HIV + Hepatitis B & C', tests: 8, price: 899, oldPrice: 1800, badge: 'Confidential', icon: 'fa-lock', discount: 'Up to 50% off' },
+      { name: 'STD Comprehensive', sub: 'Full STD Screening', tests: 18, price: 1631, oldPrice: 5438, badge: 'Complete', icon: 'fa-shield-halved', discount: 'Up to 70% off' },
+      { name: 'HIV Screening', sub: 'HIV 1 & 2 Antibody', tests: 2, price: 399, oldPrice: 800, badge: 'Discrete', icon: 'fa-user-shield', discount: '' },
+      { name: 'Hepatitis Panel', sub: 'Hep A, B, C Markers', tests: 6, price: 750, oldPrice: 1500, badge: 'Liver Safe', icon: 'fa-heart-pulse', discount: '' },
+    ],
+    'Vitamins': [
+      { name: 'Vitamin D + B12', sub: 'Most Common Deficiencies', tests: 4, price: 599, oldPrice: 1400, badge: 'Most Booked', icon: 'fa-fire', discount: 'Up to 57% off' },
+      { name: 'Complete Vitamin Panel', sub: 'All Essential Vitamins', tests: 14, price: 1299, oldPrice: 3000, badge: 'Comprehensive', icon: 'fa-shield-halved', discount: 'Up to 57% off' },
+      { name: 'Iron + Vitamin Panel', sub: 'Anemia Prevention', tests: 8, price: 799, oldPrice: 1600, badge: 'Women Special', icon: 'fa-heart-pulse', discount: '' },
+      { name: 'Bone Health Panel', sub: 'Calcium + Vitamin D3', tests: 6, price: 699, oldPrice: 1400, badge: 'Senior Care', icon: 'fa-bone', discount: '' },
+    ],
+    'Diabetes': [
+      { name: 'Diabetes Screening', sub: 'HbA1c + Fasting Glucose', tests: 6, price: 499, oldPrice: 1000, badge: 'Essential', icon: 'fa-droplet', discount: 'Up to 50% off' },
+      { name: 'Diabetes Advanced', sub: 'Complete Sugar Profile', tests: 22, price: 999, oldPrice: 2200, badge: 'Recommended', icon: 'fa-star', discount: 'Up to 55% off' },
+      { name: 'Pre-Diabetes Check', sub: 'Early Detection', tests: 8, price: 599, oldPrice: 1200, badge: 'Prevention', icon: 'fa-shield-halved', discount: '' },
+      { name: 'Diabetes Monitor', sub: 'Quarterly Tracking', tests: 10, price: 699, oldPrice: 1400, badge: 'Follow-up', icon: 'fa-chart-line', discount: '' },
+    ],
+    'Heart': [
+      { name: 'Cardiac Risk Panel', sub: 'Lipid + Homocysteine', tests: 10, price: 899, oldPrice: 2000, badge: 'Essential', icon: 'fa-heart', discount: 'Up to 55% off' },
+      { name: 'Heart Health Complete', sub: 'Advanced Cardiac Screen', tests: 30, price: 1599, oldPrice: 3800, badge: 'Complete', icon: 'fa-shield-halved', discount: 'Up to 58% off' },
+      { name: 'Cholesterol Panel', sub: 'Lipid Profile Extended', tests: 8, price: 499, oldPrice: 1000, badge: 'Quick Check', icon: 'fa-bolt', discount: '' },
+      { name: 'BP + Heart Screen', sub: 'Hypertension Risk', tests: 15, price: 1099, oldPrice: 2500, badge: 'Preventive', icon: 'fa-heart-pulse', discount: '' },
+    ],
+    'Thyroid': [
+      { name: 'Thyroid Basic', sub: 'TSH + T3 + T4', tests: 3, price: 299, oldPrice: 600, badge: 'Quick', icon: 'fa-bolt', discount: 'Up to 50% off' },
+      { name: 'Thyroid Complete', sub: 'Full Thyroid Panel', tests: 8, price: 699, oldPrice: 1500, badge: 'Complete', icon: 'fa-shield-halved', discount: 'Up to 53% off' },
+      { name: 'Thyroid + Vitamin Panel', sub: 'Thyroid & Deficiency', tests: 12, price: 899, oldPrice: 2000, badge: 'Combo', icon: 'fa-layer-group', discount: '' },
+      { name: 'Thyroid Antibody', sub: 'Anti-TPO + Anti-TG', tests: 5, price: 599, oldPrice: 1200, badge: 'Advanced', icon: 'fa-microscope', discount: '' },
+    ],
+    'Liver': [
+      { name: 'LFT Basic', sub: 'Liver Function Test', tests: 12, price: 399, oldPrice: 800, badge: 'Essential', icon: 'fa-droplet', discount: 'Up to 50% off' },
+      { name: 'Liver Health Complete', sub: 'Comprehensive Screen', tests: 28, price: 1471, oldPrice: 4906, badge: 'Complete', icon: 'fa-shield-halved', discount: 'Up to 70% off' },
+      { name: 'Hepatitis Screening', sub: 'Hep B + C + LFT', tests: 15, price: 899, oldPrice: 1800, badge: 'Important', icon: 'fa-triangle-exclamation', discount: '' },
+      { name: 'Fatty Liver Panel', sub: 'NAFLD Assessment', tests: 10, price: 699, oldPrice: 1400, badge: 'Trending', icon: 'fa-fire', discount: '' },
+    ],
+  };
 
-  // Derive sample type, turnaround and a strike-through MRP for each test.
-  testCatalog.forEach(t => {
-    if (t.tag === 'Radiology') {
-      t.sample = t.name.startsWith('Ultrasound') ? 'Ultrasound scan'
-        : t.name.startsWith('MRI') ? 'MRI scan'
-        : t.name.startsWith('CT') ? 'CT scan' : 'Imaging';
-      t.report = 'Report within 24 hrs';
-    } else if (t.name.startsWith('Urine')) {
-      t.sample = 'Urine sample';
-      t.report = 'Reports in 12 hrs';
-    } else if (t.name === 'ECG' || t.name === '2D Echo') {
-      t.sample = 'In-clinic recording';
-      t.report = 'Same-day report';
-    } else {
-      t.sample = 'Blood sample';
-      t.report = 'Reports in 12–24 hrs';
-    }
-    t.mrp = Math.round((t.price * 1.85) / 10) * 10;
+  // Flatten into a single catalog, tagging each package with its category.
+  const testCatalog = [];
+  Object.keys(packageData).forEach(cat => {
+    packageData[cat].forEach(p => testCatalog.push(Object.assign({ tag: cat }, p)));
   });
   const priceByTest = Object.fromEntries(testCatalog.map(t => [t.name, t.price]));
 
@@ -2473,8 +2479,10 @@ body.has-select-bar { padding-bottom: 80px; }
     selected.set(name, parseInt(prePrices[i], 10) || priceByTest[name] || 0);
   });
 
-  // ===== Categories — same set as the home screen "Tests by Category" =====
-  const categories = ['All', 'Bone', 'Diabetes', 'Gastro', 'Gynae', 'Heart', 'Kidney', 'Liver', 'Prostate', 'Thyroid'];
+  // ===== Category chips (data-driven from tags) =====
+  const tagOrder = [];
+  testCatalog.forEach(t => { if (!tagOrder.includes(t.tag)) tagOrder.push(t.tag); });
+  const categories = ['All', ...tagOrder];
   let activeCat = 'All';
   let query = '';
 
@@ -2490,37 +2498,15 @@ body.has-select-bar { padding-bottom: 80px; }
   const selectTotal = document.getElementById('selectTotal');
   const continueBtn = document.getElementById('continueBtn');
 
-  // Category → icon (picture where we have one, else a Font Awesome glyph)
-  const CAT_ICON = {
-    All: { fa: 'fa-border-all' },
-    Bone: { svg: 'popular-tests/bone.svg' },
-    Diabetes: { svg: 'popular-tests/diabetes.svg' },
-    Gastro: { svg: 'popular-tests/gastro.svg' },
-    Gynae: { svg: 'popular-tests/gynae.svg' },
-    Heart: { svg: 'popular-tests/heart.svg' },
-    Kidney: { svg: 'popular-tests/kidney.svg' },
-    Liver: { svg: 'popular-tests/liver.svg' },
-    Prostate: { svg: 'popular-tests/prostate.svg' },
-    Thyroid: { svg: 'popular-tests/thyroid.svg' },
-  };
-  function catIconHtml(c) {
-    const m = CAT_ICON[c] || { fa: 'fa-vial' };
-    return m.svg
-      ? `<span class="cat-icon" style="background-image:url('${m.svg}')"></span>`
-      : `<span class="cat-icon cat-icon-fa"><i class="fas ${m.fa}" aria-hidden="true"></i></span>`;
-  }
   catChips.innerHTML = categories.map((c, i) =>
-    `<button type="button" class="cat-circle${i === 0 ? ' is-active' : ''}" data-cat="${c}" aria-label="${c} tests">
-      ${catIconHtml(c)}
-      <span class="cat-circle-label">${c}</span>
-    </button>`
+    `<button type="button" class="cat-chip${i === 0 ? ' is-active' : ''}" data-cat="${c}">${c}</button>`
   ).join('');
 
   catChips.addEventListener('click', (e) => {
-    const chip = e.target.closest('.cat-circle');
+    const chip = e.target.closest('.cat-chip');
     if (!chip) return;
     activeCat = chip.dataset.cat;
-    catChips.querySelectorAll('.cat-circle').forEach(c => c.classList.toggle('is-active', c === chip));
+    catChips.querySelectorAll('.cat-chip').forEach(c => c.classList.toggle('is-active', c === chip));
     render();
   });
 
@@ -2542,28 +2528,24 @@ body.has-select-bar { padding-bottom: 80px; }
       countEl.textContent = '';
     } else {
       emptyEl.hidden = true;
-      countEl.textContent = `${list.length} test${list.length > 1 ? 's' : ''}${activeCat !== 'All' ? ' in ' + activeCat : ''}`;
+      countEl.textContent = `${list.length} package${list.length > 1 ? 's' : ''}${activeCat !== 'All' ? ' in ' + activeCat : ''}`;
       grid.innerHTML = list.map(t => {
         const isSel = selected.has(t.name);
         return `
         <article class="test-card${isSel ? ' is-selected' : ''}" data-name="${t.name}">
           <div class="test-card-top">
-            <span class="test-icon"><i class="fas ${t.icon}" aria-hidden="true"></i></span>
-            <span class="test-badge">${t.tag}</span>
+            <span class="pkg-badge"><i class="fas ${t.icon}" aria-hidden="true"></i> ${t.badge}</span>
+            ${t.discount ? `<span class="pkg-off">${t.discount}</span>` : ''}
           </div>
           <h3 class="test-name">${t.name}</h3>
-          <div class="test-meta">
-            <span><i class="fas fa-vial" aria-hidden="true"></i> ${t.sample}</span>
-            <span><i class="fas fa-clock" aria-hidden="true"></i> ${t.report}</span>
-          </div>
+          <div class="pkg-sub">${t.sub}</div>
+          <div class="pkg-tests"><i class="fas fa-vial" aria-hidden="true"></i> Includes ${t.tests} tests</div>
           <div class="test-card-bottom">
             <div class="test-price">
               <span class="test-price-now">₹${t.price}</span>
-              <span class="test-price-mrp">₹${t.mrp}</span>
+              <span class="test-price-mrp">₹${t.oldPrice}</span>
             </div>
-            <button type="button" class="test-add${isSel ? ' is-added' : ''}" data-name="${t.name}" data-price="${t.price}">
-              ${isSel ? '<i class="fas fa-check" aria-hidden="true"></i> Added' : '+ Add'}
-            </button>
+            <button type="button" class="test-add" data-name="${t.name}" data-price="${t.price}" aria-label="Book ${t.name}">Book Now</button>
           </div>
         </article>`;
       }).join('');
@@ -2573,12 +2555,11 @@ body.has-select-bar { padding-bottom: 80px; }
   grid.addEventListener('click', (e) => {
     const btn = e.target.closest('.test-add');
     if (!btn) return;
-    const name = btn.dataset.name;
-    const price = parseInt(btn.dataset.price, 10);
-    if (selected.has(name)) selected.delete(name);
-    else selected.set(name, price);
-    render();
-    updateBar();
+    // Book Now → go to the lab-visit list with this single package; the
+    // pkgflow flag triggers the "1 to Book / 2 to Compare" popup there.
+    const name = encodeURIComponent(btn.dataset.name);
+    const price = btn.dataset.price;
+    location.href = 'choose-lab.html?tests=' + name + '&prices=' + price + '&pkgflow=1';
   });
 
   // ===== Search =====
@@ -2601,7 +2582,7 @@ body.has-select-bar { padding-bottom: 80px; }
     document.body.classList.add('has-select-bar');
     let total = 0;
     selected.forEach(p => total += p);
-    selectCount.textContent = `${n} test${n > 1 ? 's' : ''} selected`;
+    selectCount.textContent = `${n} package${n > 1 ? 's' : ''} selected`;
     selectTotal.textContent = '₹' + total.toLocaleString('en-IN');
     selectChips.innerHTML = Array.from(selected.keys()).map(name => `
       <span class="select-chip">
@@ -2623,7 +2604,7 @@ body.has-select-bar { padding-bottom: 80px; }
     if (!selected.size) return;
     const names = [], prices = [];
     selected.forEach((p, name) => { names.push(encodeURIComponent(name)); prices.push(p); });
-    location.href = 'choose-lab.html?tests=' + names.join('|') + '&prices=' + prices.join('|');
+    location.href = 'choose-lab.html?tests=' + names.join('|') + '&prices=' + prices.join('|') + '&pkgflow=1';
   });
 
   render();

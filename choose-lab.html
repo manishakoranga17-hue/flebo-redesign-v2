@@ -57,7 +57,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   z-index: 200;
 }
 .top-bar-inner {
-  max-width: 1320px;
+  max-width: 1480px;
   margin: 0 auto;
   padding: 10px var(--site-inset);
   display: flex;
@@ -97,7 +97,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   z-index: 190;
 }
 .site-header-inner {
-  max-width: 1320px;
+  max-width: 1480px;
   margin: 0 auto;
   padding: 14px var(--site-inset);
   display: flex;
@@ -251,7 +251,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 }
 .search-strip-inner { position: relative; z-index: 1; }
 .search-strip-inner {
-  max-width: 1320px;
+  max-width: 1480px;
   margin: 0 auto;
   padding: 14px calc(var(--site-inset) - 4px);
   display: flex;
@@ -412,7 +412,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 }
 .ctx-inner { position: relative; z-index: 1; }
 .ctx-inner {
-  max-width: 1320px;
+  max-width: 1480px;
   margin: 0 auto;
   padding: 0 var(--site-inset) 14px;
   display: flex;
@@ -484,7 +484,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 
 /* ===== BACK NAV ===== */
 .back-nav {
-  max-width: 1320px;
+  max-width: 1480px;
   margin: 0 auto;
   padding: 20px var(--site-inset) 0;
 }
@@ -504,7 +504,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 
 /* ===== PAGE BODY ===== */
 .page-body {
-  max-width: 1320px;
+  max-width: 1480px;
   margin: 0 auto;
   padding: 16px var(--site-inset) 60px;
   display: grid;
@@ -684,7 +684,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 .suggest-btn:hover { background: var(--accent-dark); }
 
 /* ===== MAIN CONTENT ===== */
-.main { display: flex; flex-direction: column; gap: 18px; }
+.main { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
 .main-header {
   display: flex;
   align-items: center;
@@ -829,6 +829,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   border: 1px solid var(--border-soft);
   border-radius: var(--radius-lg);
   overflow-x: auto;
+  box-shadow: 0 10px 30px rgba(11, 21, 48, 0.10), 0 2px 6px rgba(11, 21, 48, 0.05);
   animation: cardIn 0.3s ease both;
 }
 .lab-table {
@@ -845,7 +846,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   letter-spacing: 0.06em;
   text-transform: uppercase;
   text-align: left;
-  padding: 12px 16px;
+  padding: 12px 12px;
   border-bottom: 1px solid var(--border-soft);
   white-space: nowrap;
   cursor: pointer;
@@ -867,7 +868,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 .lab-table tbody tr { transition: background 0.15s; }
 .lab-table tbody tr:hover { background: var(--bg-soft); }
 .lab-table tbody td {
-  padding: 14px 16px;
+  padding: 14px 12px;
   border-bottom: 1px solid var(--border-soft);
   vertical-align: middle;
 }
@@ -1074,6 +1075,32 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   color: var(--text-muted);
   font-weight: 500;
 }
+
+/* Test Details column (one package per row) */
+.tbl-pkgs-cell { min-width: 150px; max-width: 200px; white-space: normal; }
+.tbl-pkg-name {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13px; font-weight: 700; color: var(--primary);
+  margin-bottom: 5px; line-height: 1.25; white-space: normal;
+}
+.tbl-pkg-meta { display: flex; flex-direction: column; gap: 4px; font-size: 11.5px; font-weight: 600; }
+.tbl-pkg-tests { color: var(--text-secondary, #4A5578); display: inline-flex; align-items: center; gap: 5px; }
+.tbl-pkg-tests i { color: var(--primary); }
+.tbl-pkg-fast { display: inline-flex; align-items: center; gap: 5px; }
+.tbl-pkg-fast.is-fasting { color: var(--amber); }
+.tbl-pkg-fast.no-fasting { color: var(--green); }
+
+/* Test Details banner on mobile cards */
+.mlab-pkg-banner {
+  display: flex; flex-direction: column; gap: 3px;
+  padding: 8px 11px; border: 1px solid var(--border-soft);
+  border-radius: 9px; background: var(--bg-soft); margin-bottom: 4px;
+}
+.mlab-pkg-name { font-weight: 700; font-size: 13px; color: var(--primary); }
+.mlab-pkg-meta { font-size: 11.5px; font-weight: 600; color: var(--text-secondary, #4A5578); }
+.mlab-pkg-meta i { color: var(--primary); margin-right: 2px; }
+.mlab-pkg-dot { color: var(--border-mid); margin: 0 3px; }
+
 .tbl-loc {
   display: inline-flex;
   align-items: center;
@@ -1518,7 +1545,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   border-bottom: 1px solid var(--border-soft);
 }
 .trust-inner {
-  max-width: 1320px;
+  max-width: 1480px;
   margin: 0 auto;
   padding: 18px var(--site-inset);
   display: flex;
@@ -1610,7 +1637,120 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 .mobile-control-pill i { font-size: 14px; color: var(--text-muted); }
 
 /* ===== MOBILE LAB CARDS ===== */
-.lab-cards-mobile { display: none; flex-direction: column; gap: 10px; }
+/* Lab cards shown at all sizes (replaces the wide table) so everything
+   fits without horizontal scrolling. One card per lab, packages inside. */
+/* Tests flow (default): original responsive — table on desktop, cards on mobile.
+   Package flow (body.pkg-flow): grouped table at all sizes, no cards. */
+.lab-cards-mobile { display: none; flex-direction: column; gap: 12px; }
+@media (max-width: 768px) {
+  body:not(.pkg-flow) .lab-table-wrap { display: none; }
+  body:not(.pkg-flow) .lab-cards-mobile { display: flex; }
+}
+body.pkg-flow .lab-cards-mobile { display: none !important; }
+
+/* ===== COMPACT 4-COLUMN LAB TABLE ===== */
+.lab-table { table-layout: auto; }
+.ltab-h-lab { width: 34%; }
+.lab-table td.ltab-lab {
+  vertical-align: top; background: #F2F5FC;
+  border-right: 1px solid var(--border-mid);
+}
+.ltab-lab-top { display: flex; gap: 10px; align-items: flex-start; }
+.ltab-logo { width: 40px; height: 40px; border-radius: 9px; border: 1px solid var(--border-soft); background: #fff; flex-shrink: 0; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.ltab-logo img { width: 100%; height: 100%; object-fit: contain; padding: 4px; }
+.ltab-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14.5px; font-weight: 800; color: var(--primary); line-height: 1.2; }
+.ltab-badges { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 5px; }
+.ltab-badges .badge { font-size: 10px; padding: 2px 6px; }
+.ltab-meta { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 11.5px; color: var(--text-secondary, #4A5578); font-weight: 500; align-items: center; margin-top: 9px; }
+.ltab-meta i { color: var(--accent); margin-right: 3px; }
+.ltab-rating { display: inline-flex; align-items: center; gap: 3px; background: #FEF3C7; color: #92400E; font-weight: 800; font-size: 11.5px; padding: 1px 7px; border-radius: 50px; }
+.ltab-rating i { color: #F5A623; margin: 0; }
+.ltab-rating-new { background: var(--blue-soft); color: var(--blue); }
+
+/* Rows of the same lab: lighter divider; new lab: stronger top divider (package flow) */
+body.pkg-flow .lab-table tbody tr td { border-bottom: 1px dashed var(--border-soft); }
+body.pkg-flow .lab-table tbody tr.ltab-lab-start td { border-top: 2px solid var(--border-mid); }
+body.pkg-flow .lab-table tbody tr:first-child td { border-top: none; }
+
+.ltab-pkg-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13.5px; font-weight: 700; color: var(--text-primary); margin-bottom: 5px; }
+.ltab-pkg-tags { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 12px; font-weight: 600; }
+.ltab-pkg-tests { color: var(--text-secondary, #4A5578); display: inline-flex; align-items: center; gap: 5px; }
+.ltab-pkg-tests i { color: var(--primary); }
+.ltab-pkg-fast { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
+.ltab-pkg-fast.is-fasting { color: var(--amber); }
+.ltab-pkg-fast.no-fasting { color: var(--green); }
+
+.ltab-price { white-space: nowrap; }
+.ltab-now { display: block; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 17px; font-weight: 800; color: var(--primary); }
+.ltab-mrp { font-size: 12px; color: var(--text-muted); text-decoration: line-through; }
+.ltab-save { display: block; font-size: 11px; font-weight: 700; color: var(--green); margin-top: 2px; }
+
+.ltab-act { white-space: nowrap; text-align: center; }
+.ltab-book { border: none; background: var(--accent); color: #fff; font-size: 13px; font-weight: 700; padding: 8px 18px; border-radius: 50px; cursor: pointer; transition: background 0.15s; }
+.ltab-book:hover { background: var(--accent-dark); }
+.ltab-act .cmp-check { margin-top: 8px; justify-content: center; font-size: 11.5px; }
+
+/* Expand / collapse a lab's package list */
+.lab-table tbody tr.ltab-more-row td { padding: 0; border-bottom: 1px dashed var(--border-soft); }
+.ltab-more {
+  width: 100%; border: none; background: none; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 9px 14px; font: inherit; font-size: 12.5px; font-weight: 700;
+  color: var(--primary); text-align: left;
+}
+.ltab-more i { font-size: 11px; color: var(--accent); }
+.ltab-more:hover { background: var(--bg-soft); color: var(--accent); }
+
+/* ===== GROUPED LAB CARD (compact) ===== */
+.labx-card {
+  background: #fff; border: 1px solid var(--border-soft);
+  border-radius: var(--radius-lg); overflow: hidden;
+  box-shadow: 0 4px 14px rgba(11,21,48,0.06);
+}
+.labx-head { display: flex; gap: 11px; align-items: flex-start; padding: 12px 14px; }
+.labx-logo { width: 42px; height: 42px; border-radius: 10px; border: 1px solid var(--border-soft); background: var(--bg-soft); flex-shrink: 0; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.labx-logo img { width: 100%; height: 100%; object-fit: contain; padding: 5px; }
+.labx-headinfo { min-width: 0; flex: 1; }
+.labx-name-row { display: flex; align-items: center; gap: 8px; justify-content: space-between; }
+.labx-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 15px; font-weight: 800; color: var(--primary); line-height: 1.2; }
+.labx-badges { display: flex; flex-wrap: wrap; gap: 4px; margin: 5px 0; }
+.labx-badges .badge { font-size: 10px; padding: 2px 6px; }
+.labx-meta { display: flex; flex-wrap: wrap; gap: 3px 12px; font-size: 11.5px; color: var(--text-muted); align-items: center; }
+.labx-meta i { color: var(--accent); margin-right: 3px; }
+.labx-rating { display: inline-flex; align-items: center; gap: 3px; background: #FEF3C7; color: #92400E; font-weight: 800; font-size: 12px; padding: 2px 7px; border-radius: 50px; flex-shrink: 0; }
+.labx-rating i { color: #F5A623; margin: 0; }
+.labx-rating-new { background: var(--blue-soft); color: var(--blue); }
+
+.labx-pkgs { display: flex; flex-direction: column; border-top: 1px solid var(--border-soft); }
+.labx-pkg {
+  display: grid; grid-template-columns: 1fr auto; column-gap: 10px; row-gap: 6px;
+  align-items: center; padding: 10px 14px; border-bottom: 1px solid var(--border-soft);
+}
+.labx-pkg:last-child { border-bottom: none; }
+.labx-pkg:nth-child(even) { background: var(--bg-soft); }
+.labx-pkg-name { grid-column: 1; grid-row: 1; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13.5px; font-weight: 700; color: var(--text-primary); line-height: 1.25; }
+.labx-pkg-price { grid-column: 2; grid-row: 1; display: inline-flex; align-items: baseline; gap: 6px; justify-self: end; white-space: nowrap; }
+.labx-pkg-now { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 16px; font-weight: 800; color: var(--primary); }
+.labx-pkg-mrp { font-size: 11.5px; color: var(--text-muted); text-decoration: line-through; }
+.labx-pkg-off { font-size: 10.5px; font-weight: 800; color: var(--green); }
+.labx-pkg-tags { grid-column: 1; grid-row: 2; display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 11.5px; font-weight: 600; }
+.labx-pkg-tests { color: var(--text-secondary, #4A5578); display: inline-flex; align-items: center; gap: 4px; }
+.labx-pkg-tests i { color: var(--primary); }
+.labx-pkg-fast { display: inline-flex; align-items: center; gap: 4px; }
+.labx-pkg-fast.is-fasting { color: var(--amber); }
+.labx-pkg-fast.no-fasting { color: var(--green); }
+.labx-pkg-actions { grid-column: 2; grid-row: 2; display: flex; align-items: center; gap: 10px; justify-self: end; }
+.labx-pkg-actions .cmp-check { margin-top: 0; font-size: 11.5px; }
+.labx-book {
+  border: none; background: var(--accent); color: #fff;
+  font-size: 13px; font-weight: 700; padding: 7px 16px; border-radius: 50px; cursor: pointer;
+  white-space: nowrap; transition: background 0.15s;
+}
+.labx-book:hover { background: var(--accent-dark); }
+
+@media (max-width: 480px) {
+  .labx-pkg-actions .cmp-check span { display: none; }
+}
 .mlab-card {
   background: #fff;
   border: 1px solid var(--border-soft);
@@ -1905,12 +2045,12 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   .filters { padding: 0; }
   .section-divider::before, .section-divider::after { display: none; }
 
-  /* Mobile flow: drop the sidebar, hide the desktop table, show the cards + controls */
+  /* Mobile flow: drop the sidebar; keep the table (scrolls within its card if needed) */
   .filters { display: none !important; }
   .page-body { grid-template-columns: 1fr; }
-  .lab-table-wrap { display: none !important; }
-  .lab-cards-mobile { display: flex; }
   .mobile-controls { display: flex; }
+  .lab-table th, .lab-table td { padding: 10px 10px; }
+  .ltab-h-lab { width: auto; }
 
   /* Compact main-header on mobile: tabs + filter icon */
   .main-header { gap: 10px; align-items: stretch; }
@@ -1968,6 +2108,213 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   .suggestion-icon { width: 28px; height: 28px; font-size: 12px; }
   .suggestion-tag { font-size: 10.5px; padding: 2px 7px; }
 }
+
+/* ===== PACKAGE-FLOW POPUP ===== */
+.pkg-popup-overlay {
+  position: fixed; inset: 0; z-index: 1000;
+  display: none; align-items: center; justify-content: center;
+  background: rgba(11,21,48,0.55); padding: 20px;
+  -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px);
+}
+.pkg-popup-overlay.is-open { display: flex; animation: pkgFade 0.2s ease both; }
+@keyframes pkgFade { from { opacity: 0; } to { opacity: 1; } }
+.pkg-popup {
+  position: relative; width: 100%; max-width: 400px;
+  background: #fff; border-radius: var(--radius-lg, 16px);
+  padding: 28px 24px 24px; text-align: center;
+  box-shadow: 0 24px 60px rgba(11,21,48,0.30);
+  animation: pkgPop 0.25s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+@keyframes pkgPop { from { transform: translateY(12px) scale(0.96); opacity: 0; } to { transform: none; opacity: 1; } }
+.pkg-popup-close {
+  position: absolute; top: 12px; right: 12px;
+  width: 32px; height: 32px; border: none; border-radius: 50%;
+  background: var(--bg-soft, #f2f4f8); color: var(--text-muted, #6B7592);
+  font-size: 18px; line-height: 1; cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center;
+  transition: background 0.15s, color 0.15s;
+}
+.pkg-popup-close:hover { background: var(--accent, #D33535); color: #fff; }
+.pkg-popup-icon {
+  width: 56px; height: 56px; margin: 0 auto 14px;
+  border-radius: 16px; background: var(--accent-soft, #FDECEC); color: var(--accent, #D33535);
+  display: flex; align-items: center; justify-content: center; font-size: 26px;
+}
+.pkg-popup-title {
+  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  font-size: 19px; font-weight: 800; color: var(--primary, #1B2A5B);
+  margin-bottom: 16px;
+}
+.pkg-popup-rules {
+  display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; text-align: left;
+}
+.pkg-popup-rule {
+  display: flex; align-items: center; gap: 12px;
+  border: 1px solid var(--border-soft, #E5E9F3); border-radius: 12px; padding: 12px 14px;
+}
+.pkg-popup-rule .num {
+  flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%;
+  background: var(--primary, #1B2A5B); color: #fff;
+  font-weight: 800; font-size: 14px;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.pkg-popup-rule .txt { font-size: 14px; color: var(--text-primary, #0B1530); line-height: 1.35; }
+.pkg-popup-rule .txt strong { color: var(--primary, #1B2A5B); }
+.pkg-popup-btn {
+  width: 100%; border: none; cursor: pointer;
+  background: var(--accent, #D33535); color: #fff;
+  font-size: 15px; font-weight: 700; padding: 13px; border-radius: 50px;
+  transition: background 0.15s;
+}
+.pkg-popup-btn:hover { background: var(--accent-dark, #B82E2E); }
+
+/* ===== LAB COMPARE: checkbox ===== */
+.cmp-check {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 8px; cursor: pointer;
+  font-size: 12.5px; font-weight: 600; color: var(--text-muted, #6B7592);
+  user-select: none;
+}
+.cmp-check input { width: 15px; height: 15px; accent-color: var(--accent, #D33535); cursor: pointer; }
+.cmp-check:hover { color: var(--primary, #1B2A5B); }
+
+/* ===== LAB COMPARE: sticky bar ===== */
+.cmp-bar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 95;
+  background: #fff; border-top: 1px solid var(--border-soft, #E5E9F3);
+  box-shadow: 0 -6px 24px rgba(11,21,48,0.12);
+}
+.cmp-bar-inner {
+  max-width: 1480px; margin: 0 auto;
+  /* Default padding; on desktop JS (alignCompareBar) overrides paddingLeft/Right
+     to line the label up with the lab-name column and the buttons with the CTA. */
+  padding: 12px var(--site-inset, 32px);
+  display: flex; align-items: center; gap: 16px;
+}
+.cmp-bar-info { display: flex; flex-direction: column; gap: 1px; flex-shrink: 0; }
+.cmp-bar-title { font-size: 14px; font-weight: 800; color: var(--primary, #1B2A5B); display: inline-flex; align-items: center; gap: 7px; }
+.cmp-bar-title i { color: var(--accent, #D33535); }
+.cmp-bar-count { font-size: 12.5px; font-weight: 600; color: var(--text-muted, #6B7592); }
+.cmp-bar-slots { flex: 1; min-width: 0; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+.cmp-bar-slots::-webkit-scrollbar { display: none; }
+.cmp-slot {
+  flex: 0 0 auto; display: inline-flex; align-items: center; gap: 7px;
+  background: var(--bg-soft, #F7F8FB); border: 1px solid var(--border-soft, #E5E9F3);
+  border-radius: 50px; padding: 5px 6px 5px 10px;
+  font-size: 12.5px; font-weight: 600; color: var(--text-primary, #0B1530); max-width: 220px;
+}
+.cmp-slot img { width: 22px; height: 22px; border-radius: 50%; object-fit: contain; background: #fff; flex-shrink: 0; }
+.cmp-slot-x {
+  border: none; background: var(--border-soft, #E5E9F3); color: var(--text-muted, #6B7592);
+  width: 18px; height: 18px; border-radius: 50%; cursor: pointer; flex-shrink: 0;
+  display: inline-flex; align-items: center; justify-content: center; font-size: 13px; line-height: 1;
+}
+.cmp-slot-x:hover { background: var(--accent, #D33535); color: #fff; }
+.cmp-bar-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.cmp-bar-clear { border: none; background: none; color: var(--text-muted, #6B7592); font-size: 13px; font-weight: 600; cursor: pointer; }
+.cmp-bar-clear:hover { color: var(--accent, #D33535); }
+.cmp-bar-btn {
+  border: none; background: var(--accent, #D33535); color: #fff;
+  font-size: 14px; font-weight: 700; padding: 11px 24px; border-radius: 50px; cursor: pointer;
+  transition: background 0.15s;
+}
+.cmp-bar-btn:hover:not(:disabled) { background: var(--accent-dark, #B82E2E); }
+.cmp-bar-btn:disabled { background: #C5CCDB; cursor: not-allowed; }
+body.has-cmp-bar { padding-bottom: 92px; }
+
+/* ===== LAB COMPARE: modal ===== */
+.cmp-modal-overlay {
+  position: fixed; inset: 0; z-index: 1000; display: none;
+  align-items: center; justify-content: center;
+  background: rgba(11,21,48,0.55); padding: 20px;
+}
+.cmp-modal-overlay.is-open { display: flex; animation: pkgFade 0.2s ease both; }
+.cmp-modal {
+  width: 100%; max-width: 920px; max-height: 90vh; display: flex; flex-direction: column;
+  background: #fff; border-radius: var(--radius-lg, 16px); overflow: hidden;
+  box-shadow: 0 24px 60px rgba(11,21,48,0.30);
+  animation: pkgPop 0.25s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+.cmp-modal-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 20px; border-bottom: 1px solid var(--border-soft, #E5E9F3); flex-shrink: 0;
+}
+.cmp-modal-title { font-family: 'Plus Jakarta Sans', 'Inter', sans-serif; font-size: 19px; font-weight: 800; color: var(--accent, #D33535); }
+.cmp-modal-close {
+  width: 32px; height: 32px; border: none; border-radius: 50%;
+  background: var(--bg-soft, #F7F8FB); color: var(--text-muted, #6B7592);
+  font-size: 16px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center;
+}
+.cmp-modal-close:hover { background: var(--accent, #D33535); color: #fff; }
+.cmp-modal-body { overflow-y: auto; padding: 0; }
+
+.cmp-table { width: 100%; border-collapse: collapse; }
+.cmp-table th, .cmp-table td { padding: 14px 18px; text-align: left; vertical-align: top; font-size: 14px; }
+.cmp-table thead .cmp-head-row th { background: var(--primary, #1B2A5B); border-bottom: none; vertical-align: top; }
+.cmp-table .cmp-corner { width: 36%; }
+.cmp-table tbody td { color: var(--text-primary, #0B1530); white-space: nowrap; }
+
+/* Header package card (on navy band) */
+.cmp-pkg { line-height: 1.3; color: #fff; }
+.cmp-pkg-top { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 10px; }
+.cmp-pkg-logo { width: 38px; height: 38px; border-radius: 10px; background: #fff; flex-shrink: 0; overflow: hidden; display: inline-flex; align-items: center; justify-content: center; }
+.cmp-pkg-logo img { width: 100%; height: 100%; object-fit: contain; padding: 5px; }
+.cmp-pkg-name { font-family: 'Plus Jakarta Sans', 'Inter', sans-serif; font-weight: 800; color: #fff; font-size: 14px; line-height: 1.25; }
+.cmp-pkg-lab { font-weight: 600; color: rgba(255,255,255,0.72); font-size: 12.5px; margin-top: 2px; }
+.cmp-pkg-badges { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
+.cmp-pkg-meta { display: flex; flex-wrap: wrap; gap: 5px 14px; font-size: 12px; color: rgba(255,255,255,0.78); align-items: center; margin-bottom: 6px; }
+.cmp-pkg-meta i { color: rgba(255,255,255,0.6); margin-right: 4px; width: 13px; text-align: center; }
+.cmp-pkg-rating { display: inline-flex; align-items: center; gap: 4px; background: rgba(255,255,255,0.16); color: #fff; font-weight: 700; padding: 2px 8px; border-radius: 50px; }
+.cmp-pkg-rating i { color: #FCD34D; margin: 0; }
+.cmp-pkg-new { font-weight: 700; }
+
+/* Price row */
+.cmp-price-row td, .cmp-price-row th { background: var(--bg-soft, #F7F8FB); border-bottom: 1px solid var(--border-soft, #E5E9F3); }
+.cmp-price-pick { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; }
+.cmp-price-pick input { width: 18px; height: 18px; margin-top: 2px; accent-color: var(--accent, #D33535); cursor: pointer; flex-shrink: 0; }
+.cmp-price-now { font-size: 19px; font-weight: 800; color: var(--primary, #1B2A5B); }
+.cmp-price-mrp { font-size: 13px; color: var(--text-muted, #6B7592); text-decoration: line-through; }
+.cmp-price-final { color: var(--accent, #D33535); font-weight: 800; font-size: 13px; margin-top: 6px; }
+.cmp-price-final span { font-weight: 600; }
+
+/* Test/parameter rows */
+.cmp-table tbody tr { border-bottom: 1px solid var(--border-soft, #E5E9F3); }
+.cmp-table tbody tr:nth-child(even) { background: var(--bg-soft, #F7F8FB); }
+.cmp-grp { font-weight: 600 !important; color: var(--text-primary, #0B1530) !important; text-transform: none !important; letter-spacing: 0 !important; font-size: 13.5px !important; white-space: normal !important; }
+.cmp-grp-plus { color: var(--accent, #D33535); margin-right: 8px; font-size: 11px; }
+.cmp-yes, .cmp-no { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 50%; font-size: 10px; margin-right: 8px; vertical-align: -4px; }
+.cmp-yes { background: var(--green-soft, #E1F5EA); color: var(--green, #1B8A5A); }
+.cmp-no { background: var(--accent-soft, #FDECEC); color: var(--accent, #D33535); }
+.cmp-pcount { color: var(--text-primary, #0B1530); font-size: 13px; font-weight: 600; }
+.cmp-pcount-off { color: var(--text-muted, #6B7592); font-weight: 500; }
+
+/* Sticky footer */
+.cmp-foot {
+  position: sticky; bottom: 0; display: flex; gap: 12px;
+  padding: 14px 18px; background: #fff; border-top: 1px solid var(--border-soft, #E5E9F3);
+}
+.cmp-back { border: 1.5px solid var(--border-mid, #C5CCDB); background: #fff; color: var(--text-secondary, #4A5578); font-weight: 700; font-size: 14px; padding: 11px 22px; border-radius: 50px; cursor: pointer; display: inline-flex; align-items: center; gap: 7px; }
+.cmp-back:hover { border-color: var(--primary, #1B2A5B); color: var(--primary, #1B2A5B); }
+.cmp-book { flex: 1; border: none; background: var(--accent, #D33535); color: #fff; font-weight: 700; font-size: 15px; padding: 12px; border-radius: 50px; cursor: pointer; transition: background 0.15s; }
+.cmp-book:hover { background: var(--accent-dark, #B82E2E); }
+
+@media (max-width: 768px) {
+  .cmp-bar-inner { flex-wrap: wrap; padding: 10px 16px; gap: 10px; }
+  .cmp-bar-info { order: 1; }
+  .cmp-bar-actions { order: 2; margin-left: auto; }
+  .cmp-bar-slots { order: 3; flex-basis: 100%; }
+  body.has-cmp-bar { padding-bottom: 132px; }
+  .cmp-modal { max-height: 94vh; border-radius: 16px 16px 0 0; align-self: flex-end; }
+  .cmp-modal-overlay { align-items: flex-end; padding: 0; }
+  .cmp-table th, .cmp-table td { padding: 11px 11px; font-size: 12.5px; }
+  .cmp-table .cmp-corner { width: 32%; }
+  .cmp-grp { font-size: 12px !important; }
+  .cmp-pkg-name { font-size: 12.5px; }
+  .cmp-pkg-meta { font-size: 10.5px; gap: 4px 10px; }
+  .cmp-pkg-logo { width: 32px; height: 32px; }
+  .cmp-price-now { font-size: 16px; }
+  .cmp-pcount { font-size: 12px; }
+}
 </style>
 </head>
 <body>
@@ -2013,7 +2360,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
     <nav class="main-nav" role="navigation" aria-label="Primary">
       <ul class="main-nav-list">
         <li><a href="tests.html" class="main-nav-link"><i class="fas fa-flask-vial" aria-hidden="true"></i><span>Tests</span></a></li>
-        <li><a href="index.html" class="main-nav-link"><i class="fas fa-box-open" aria-hidden="true"></i><span>Packages</span></a></li>
+        <li><a href="packages.html" class="main-nav-link"><i class="fas fa-box-open" aria-hidden="true"></i><span>Packages</span></a></li>
         <li><a href="index.html" class="main-nav-link"><i class="fas fa-folder-open" aria-hidden="true"></i><span>Reports</span></a></li>
         <li><a href="index.html" class="main-nav-link"><i class="fas fa-chart-line" aria-hidden="true"></i><span>Health Trend Graph</span></a></li>
         <li><a href="index.html" class="main-nav-link main-nav-bmi">
@@ -2155,7 +2502,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 
     <div class="main-header">
       <div class="main-header-text">
-        <div class="main-title">Labs offering all selected tests</div>
+        <div class="main-title" id="mainTitle">Labs offering all selected tests</div>
       </div>
       <div class="tabs">
         <button class="tab is-active" data-mode="home"><span class="tab-icon" aria-hidden="true">🏠</span> Home Collection</button>
@@ -2239,6 +2586,32 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   </div>
 </div>
 
+<!-- ===== LAB COMPARE BAR ===== -->
+<div class="cmp-bar" id="cmpBar" hidden>
+  <div class="cmp-bar-inner">
+    <div class="cmp-bar-info">
+      <span class="cmp-bar-title"><i class="fas fa-scale-balanced"></i> Compare labs</span>
+      <span class="cmp-bar-count" id="cmpCount">0 of 2 selected</span>
+    </div>
+    <div class="cmp-bar-slots" id="cmpSlots"></div>
+    <div class="cmp-bar-actions">
+      <button type="button" class="cmp-bar-clear" id="cmpClear">Clear</button>
+      <button type="button" class="cmp-bar-btn" id="cmpCompareBtn" disabled>Compare</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== LAB COMPARE MODAL ===== -->
+<div class="cmp-modal-overlay" id="cmpModal" aria-hidden="true">
+  <div class="cmp-modal" role="dialog" aria-modal="true" aria-labelledby="cmpModalTitle">
+    <div class="cmp-modal-head">
+      <h2 class="cmp-modal-title" id="cmpModalTitle">Comparison Packages</h2>
+      <button type="button" class="cmp-modal-close" id="cmpModalClose" aria-label="Close"><i class="fas fa-xmark"></i></button>
+    </div>
+    <div class="cmp-modal-body" id="cmpModalBody"></div>
+  </div>
+</div>
+
 <script>
 (function () {
   // Selected tests come via URL: ?tests=CBC|Thyroid+Profile&prices=299|549
@@ -2284,6 +2657,10 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
       days: 'Mon–Sun',
       visitHours: '6 AM – 9 PM',
       slots: ['7:00 AM', '8:00 AM', '9:00 AM*', '10:00 AM', '11:00 AM-', '12:00 PM', '2:00 PM'],
+      packages: [
+        { name: 'Healthy India 2025', tests: 80, fasting: true },
+        { name: 'Vitamin Care Panel', tests: 14, fasting: false },
+      ],
     },
     {
       id: 'pathkind',
@@ -2305,6 +2682,15 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
       days: 'Mon–Sat',
       visitHours: '7 AM – 10 PM',
       slots: ['7:30 AM', '8:30 AM', '9:30 AM', '10:30 AM', '11:30 AM', '1:00 PM-', '3:00 PM'],
+      packages: [
+        { name: 'Full Body Checkup 2025', tests: 72, fasting: true },
+        { name: 'Diabetes Screening', tests: 22, fasting: true },
+        { name: 'Thyroid Complete', tests: 8, fasting: false },
+        { name: 'Liver Care Panel', tests: 14, fasting: true },
+        { name: 'Vitamin Profile', tests: 6, fasting: false },
+        { name: "Women's Wellness", tests: 40, fasting: true },
+        { name: 'Heart Risk Panel', tests: 18, fasting: true },
+      ],
     },
     {
       id: 'agilus',
@@ -2326,6 +2712,10 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
       days: 'All Days',
       visitHours: '24×7',
       slots: ['6:00 AM', '7:00 AM', '8:00 AM', '9:00 AM', '10:00 AM', '11:00 AM', '12:00 PM'],
+      packages: [
+        { name: 'Advanced Full Body', tests: 92, fasting: true },
+        { name: 'Heart Health Complete', tests: 30, fasting: true },
+      ],
     },
     {
       id: 'apollo',
@@ -2347,11 +2737,70 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
       days: 'Mon–Sat',
       visitHours: '7 AM – 9 PM',
       slots: ['7:30 AM', '8:30 AM', '9:00 AM*', '10:00 AM', '11:30 AM', '2:00 PM', '4:00 PM'],
+      packages: [
+        { name: 'Apollo Wellness 2025', tests: 88, fasting: true },
+        { name: 'Vitamin & Bone Panel', tests: 10, fasting: false },
+      ],
+    },
+    {
+      id: 'lalpath',
+      name: 'Dr. Lal PathLabs',
+      logo: 'lab-lalpath.png',
+      badges: [['NABL', 'green'], ['CAP', 'blue'], ['National Lab', 'amber']],
+      location: 'Sector 18, Gurgaon',
+      tat: 'Reports in 24 hours',
+      hours: 'Mon–Sun · 7 AM – 8 PM',
+      ratingType: 'on-platform',
+      rating: 4.5,
+      reviews: 3260,
+      tags: ['Home collection', 'Digital reports', 'Trusted brand'],
+      mrp: 1700,
+      price: 870,
+      distanceKm: 5.4,
+      etaMin: 15,
+      openNow: true,
+      days: 'Mon–Sun',
+      visitHours: '7 AM – 8 PM',
+      slots: ['7:00 AM', '8:00 AM', '9:00 AM', '10:30 AM', '12:00 PM', '3:00 PM', '5:00 PM'],
+      packages: [
+        { name: 'Swasth Fit Full Body', tests: 76, fasting: true },
+      ],
     },
   ];
 
-  // Mode state — 'home' (collection) or 'visit' (lab walk-in)
-  let mode = 'home';
+  // Flatten into one row per (lab × package). Each package is independently
+  // priced and bookable; lab-level info repeats across that lab's packages.
+  const labRows = [];
+  labs.forEach(lab => {
+    const pkgs = (lab.packages && lab.packages.length) ? lab.packages : [{ name: 'Standard Health Package', tests: 40, fasting: false }];
+    pkgs.forEach((p, i) => {
+      const price = Math.round((lab.price * (0.55 + p.tests / 120)) / 10) * 10;
+      const mrp = Math.round((price * 2.1) / 10) * 10;
+      labRows.push(Object.assign({}, lab, {
+        rowId: lab.id + '__' + i,
+        labId: lab.id,
+        pkgName: p.name,
+        pkgTests: p.tests,
+        pkgFasting: p.fasting,
+        price: price,
+        mrp: mrp,
+      }));
+    });
+  });
+  const rowById = Object.fromEntries(labRows.map(r => [r.rowId, r]));
+
+  // Entry flow: package "Book Now" (pkgflow=1) → package-grouped view;
+  // otherwise (Tests / home search) → original test-based lab list.
+  const isPkgFlow = new URLSearchParams(location.search).get('pkgflow') === '1';
+  if (isPkgFlow) {
+    document.body.classList.add('pkg-flow');
+    const mt = document.getElementById('mainTitle');
+    if (mt) mt.textContent = 'Packages available near you';
+  }
+
+  // Mode state — 'home' (collection) or 'visit' (lab walk-in).
+  // Arriving via a package "Book Now" defaults to Lab Visit.
+  let mode = isPkgFlow ? 'visit' : 'home';
 
   // ===== Test catalog (mirrors index.html) =====
   const testCatalog = [
@@ -2475,6 +2924,8 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 
   // ===== Helpers + sort state =====
   function badgeClass(c) { return 'badge-' + c; }
+  const PKG_PREVIEW = 2;            // packages shown before the "+N more" expander
+  const expandedLabs = new Set();   // lab ids whose package list is expanded
   let currentSort = { key: 'distance', dir: 'asc' };
   const defaultDir = { best: 'desc', price: 'asc', mrp: 'asc', distance: 'asc', speed: 'asc', rating: 'desc', name: 'asc', location: 'asc', timing: 'asc' };
 
@@ -2500,14 +2951,95 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
     document.getElementById('labTableWrap').hidden = !list.length;
     document.getElementById('emptyBanner').hidden = !!list.length;
     if (list.length) {
-      renderTable(list);
-      renderMobileCards(list);
+      if (isPkgFlow) {
+        renderLabTable(list);
+      } else {
+        renderTable(list);
+        renderMobileCards(list);
+      }
     } else {
+      document.getElementById('labTableBody').innerHTML = '';
       document.getElementById('labCardsMobile').innerHTML = '';
     }
+    applyCompareState();
   }
 
-  // ===== Mobile cards renderer =====
+  // ===== Lab table: 4 compact columns; lab cell spans its packages (rowspan) =====
+  function renderLabTable(list) {
+    const isVisit = mode === 'visit';
+    const ctaLabel = isVisit ? 'Book slot' : 'Select';
+    document.getElementById('labTableHead').innerHTML =
+      `<th class="ltab-h-lab">Lab</th><th>Test details</th><th>Price</th><th></th>`;
+
+    document.getElementById('labTableBody').innerHTML = list.map(lab => {
+      const ratingHtml = lab.ratingType === 'new'
+        ? `<span class="ltab-rating ltab-rating-new">New</span>`
+        : `<span class="ltab-rating"><i class="fas fa-star"></i> ${lab.rating.toFixed(1)}</span>`;
+      const tatShort = (lab.tat || '').replace(/^Reports in\s*/, '').replace(/^Reports\s*/, '');
+      const timing = isVisit ? `${lab.days || ''}${lab.visitHours ? ' · ' + lab.visitHours : ''}` : (lab.hours || '');
+      const badgeHtml = lab.badges.slice(0, 3).map(b => `<span class="badge ${badgeClass(b[1])}">${b[0]}</span>`).join('');
+      const pkgs = (lab.packages && lab.packages.length) ? lab.packages : [{ name: 'Standard Health Package', tests: 40, fasting: false }];
+      const isExp = expandedLabs.has(lab.id);
+      const collapsible = pkgs.length > PKG_PREVIEW;
+      const visibleCount = (collapsible && !isExp) ? PKG_PREVIEW : pkgs.length;
+      const hiddenCount = pkgs.length - visibleCount;
+      const rowSpan = visibleCount + (collapsible ? 1 : 0);   // +1 for the expander row
+      const labCell = `
+        <td class="ltab-lab" rowspan="${rowSpan}">
+          <div class="ltab-lab-top">
+            <span class="ltab-logo"><img src="${lab.logo}" alt=""></span>
+            <div class="ltab-lab-id">
+              <div class="ltab-name">${lab.name}</div>
+              <div class="ltab-badges">${badgeHtml}</div>
+            </div>
+          </div>
+          <div class="ltab-meta">
+            ${ratingHtml}
+            <span><i class="fas fa-route"></i> ${lab.distanceKm.toFixed(1)} km</span>
+            <span><i class="fas fa-bolt"></i> ${tatShort}</span>
+            <span><i class="fas fa-clock"></i> ${timing}</span>
+            <span><i class="fas fa-location-dot"></i> ${lab.location}</span>
+          </div>
+        </td>`;
+      const pkgRows = pkgs.slice(0, visibleCount).map((p, i) => {
+        const r = rowById[lab.id + '__' + i] || { rowId: lab.id + '__' + i, price: lab.price, mrp: lab.mrp };
+        const save = r.mrp - r.price;
+        const pct = Math.round((save / r.mrp) * 100);
+        return `
+          <tr data-id="${r.rowId}" class="${i === 0 ? 'ltab-lab-start' : ''}">
+            ${i === 0 ? labCell : ''}
+            <td class="ltab-pkg">
+              <div class="ltab-pkg-name">${p.name}</div>
+              <div class="ltab-pkg-tags">
+                <span class="ltab-pkg-tests"><i class="fas fa-vial"></i> ${p.tests} tests</span>
+                <span class="ltab-pkg-fast ${p.fasting ? 'is-fasting' : 'no-fasting'}"><i class="fas fa-${p.fasting ? 'mug-saucer' : 'circle-check'}"></i> ${p.fasting ? 'Fasting required' : 'No fasting'}</span>
+              </div>
+            </td>
+            <td class="ltab-price">
+              <span class="ltab-now">₹${r.price.toLocaleString()}</span>
+              <span class="ltab-mrp">₹${r.mrp.toLocaleString()}</span>
+              <span class="ltab-save">Save ₹${save.toLocaleString()} · ${pct}% off</span>
+            </td>
+            <td class="ltab-act">
+              <button type="button" class="ltab-book" data-action="select" data-name="${lab.name}">${ctaLabel}</button>
+              <label class="cmp-check"><input type="checkbox" class="cmp-checkbox" data-cmp="${r.rowId}"><span>Compare</span></label>
+            </td>
+          </tr>`;
+      }).join('');
+      const toggleRow = collapsible ? `
+        <tr class="ltab-more-row">
+          <td colspan="3">
+            <button type="button" class="ltab-more" data-lab-toggle="${lab.id}">
+              ${isExp
+                ? `<i class="fas fa-chevron-up"></i> Show fewer packages`
+                : `<i class="fas fa-chevron-down"></i> ${hiddenCount} more package${hiddenCount > 1 ? 's' : ''} at ${lab.name}`}
+            </button>
+          </td>
+        </tr>` : '';
+      return pkgRows + toggleRow;
+    }).join('');
+  }
+
   function renderMobileCards(list) {
     const isVisit = mode === 'visit';
     document.getElementById('labCardsMobile').innerHTML = list.map(l => {
@@ -2659,6 +3191,226 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
     }).join('');
   }
 
+
+  // ===== Lab comparison (select up to 2 labs) =====
+  const compareSet = new Set();
+  const cmpBar = document.getElementById('cmpBar');
+  const cmpBarInner = cmpBar.querySelector('.cmp-bar-inner');
+  const cmpCount = document.getElementById('cmpCount');
+  const cmpSlots = document.getElementById('cmpSlots');
+  const cmpCompareBtn = document.getElementById('cmpCompareBtn');
+  const cmpModal = document.getElementById('cmpModal');
+  const cmpModalBody = document.getElementById('cmpModalBody');
+
+  // Align the bar's label (left) and buttons (right) exactly to the lab list's
+  // lab-name column and "Book slot" CTA by measuring their live positions.
+  function alignCompareBar() {
+    // Align the bar's content to the table card's left and right margins.
+    const wrap = document.getElementById('labTableWrap');
+    if (!wrap || wrap.getClientRects().length === 0) {
+      cmpBarInner.style.maxWidth = '';
+      cmpBarInner.style.paddingLeft = '';
+      cmpBarInner.style.paddingRight = '';
+      return;
+    }
+    const rect = wrap.getBoundingClientRect();
+    const leftX = rect.left;
+    const rightX = rect.right;
+    cmpBarInner.style.maxWidth = 'none';
+    cmpBarInner.style.paddingLeft = Math.max(0, leftX) + 'px';
+    cmpBarInner.style.paddingRight = Math.max(0, window.innerWidth - rightX) + 'px';
+  }
+
+  function updateCompareBar() {
+    const n = compareSet.size;
+    cmpBar.hidden = n === 0;
+    document.body.classList.toggle('has-cmp-bar', n > 0);
+    cmpCount.textContent = `${n} of 2 selected`;
+    cmpCompareBtn.disabled = n < 2;
+    cmpSlots.innerHTML = Array.from(compareSet).map(id => {
+      const l = labRows.find(x => x.rowId === id);
+      return `<span class="cmp-slot"><img src="${l.logo}" alt="">${l.pkgName}<button type="button" class="cmp-slot-x" data-cmp-remove="${id}" aria-label="Remove ${l.pkgName}">&times;</button></span>`;
+    }).join('');
+    if (n > 0) alignCompareBar();
+  }
+  window.addEventListener('resize', () => { if (!cmpBar.hidden) alignCompareBar(); });
+
+  function applyCompareState() {
+    document.querySelectorAll('.cmp-checkbox').forEach(cb => { cb.checked = compareSet.has(cb.dataset.cmp); });
+    updateCompareBar();
+  }
+
+  function toggleCompare(id, checkbox) {
+    if (compareSet.has(id)) {
+      compareSet.delete(id);
+    } else {
+      if (compareSet.size >= 2) {
+        if (checkbox) checkbox.checked = false;
+        showToast('⚖️ You can compare up to 2 labs at a time');
+        return;
+      }
+      compareSet.add(id);
+    }
+    applyCompareState();
+  }
+
+  function onCompareChange(e) {
+    const cb = e.target.closest('.cmp-checkbox');
+    if (!cb) return;
+    toggleCompare(cb.dataset.cmp, cb);
+  }
+  document.getElementById('labTableBody').addEventListener('change', onCompareChange);
+  document.getElementById('labCardsMobile').addEventListener('change', onCompareChange);
+
+  cmpSlots.addEventListener('click', (e) => {
+    const x = e.target.closest('[data-cmp-remove]');
+    if (!x) return;
+    compareSet.delete(x.dataset.cmpRemove);
+    applyCompareState();
+  });
+  document.getElementById('cmpClear').addEventListener('click', () => { compareSet.clear(); applyCompareState(); });
+
+  // Test/parameter groups shown in the package comparison breakdown.
+  const CMP_GROUPS = [
+    { name: 'Iron Profile (Iron Serum, TIBC, UIBC, Transferrin Saturation)', params: 4 },
+    { name: 'Vitamin D3 25-Hydroxy', params: 1 },
+    { name: 'Vitamin B12', params: 1 },
+    { name: 'Glycosylated Hemoglobin (HbA1c)', params: 2 },
+    { name: 'Thyroid Profile Total (T3, T4, TSH)', params: 3 },
+    { name: 'Lipid Profile (Heart Risk)', params: 9 },
+    { name: 'Liver Function Test (LFT)', params: 12 },
+    { name: 'Kidney Function Test (KFT) Basic', params: 11 },
+    { name: 'Blood Sugar Fasting (BSF)', params: 1 },
+    { name: 'Erythrocyte Sedimentation Rate (ESR)', params: 1 },
+    { name: 'Urine Routine (RU)', params: 21 },
+    { name: 'Complete Blood Count (CBC)', params: 26 },
+    { name: 'Calcium (Ca+)', params: 1 },
+  ];
+  // Deterministic per-package parameter coverage (0 => not included in that package).
+  function cmpParams(lab, idx) {
+    const id = lab.rowId || lab.id || 'x';
+    const seed = id.charCodeAt(0) + id.charCodeAt(id.length - 1) + idx * 13;
+    if (seed % 6 === 0) return 0;
+    return Math.max(1, CMP_GROUPS[idx].params + ((seed % 5) - 2));
+  }
+
+  function openCompareModal() {
+    const ids = Array.from(compareSet);
+    if (ids.length < 2) return;
+    const a = labRows.find(l => l.rowId === ids[0]);
+    const b = labRows.find(l => l.rowId === ids[1]);
+    const isVisit = mode === 'visit';
+    const tatDays = l => { const m = (l.tat || '').match(/\d+/); const h = m ? parseInt(m[0], 10) : 24; return Math.max(1, Math.round(h / 24)); };
+    const timings = l => isVisit ? `${l.days || ''} ${l.visitHours || ''}`.trim() : (l.hours || '—');
+
+    const header = l => `
+      <div class="cmp-pkg">
+        <div class="cmp-pkg-top">
+          <span class="cmp-pkg-logo"><img src="${l.logo}" alt=""></span>
+          <div class="cmp-pkg-titles">
+            <div class="cmp-pkg-name">${l.pkgName}</div>
+            <div class="cmp-pkg-lab">${l.name}</div>
+          </div>
+        </div>
+        <div class="cmp-pkg-badges">
+          ${l.badges.slice(0, 3).map(x => `<span class="badge ${badgeClass(x[1])}">${x[0]}</span>`).join('')}
+        </div>
+        <div class="cmp-pkg-meta">
+          ${l.ratingType === 'new' ? '<span class="cmp-pkg-rating cmp-pkg-new">New</span>' : `<span class="cmp-pkg-rating"><i class="fas fa-star"></i> ${l.rating.toFixed(1)}</span>`}
+          <span><i class="fas fa-route"></i> ${l.distanceKm.toFixed(1)} km</span>
+          <span><i class="fas fa-location-dot"></i> ${l.location}</span>
+        </div>
+        <div class="cmp-pkg-meta">
+          <span><i class="fas fa-bolt"></i> ${tatDays(l)}-day report</span>
+          <span><i class="fas fa-clock"></i> ${timings(l)}</span>
+        </div>
+      </div>`;
+
+    const priceCol = (l, checked) => {
+      const save = l.mrp - l.price;
+      const pct = Math.round((save / l.mrp) * 100);
+      return `
+        <td class="cmp-price-cell">
+          <label class="cmp-price-pick">
+            <input type="radio" name="cmpPick" value="${l.id}" ${checked ? 'checked' : ''}>
+            <span class="tbl-price-wrap">
+              <span class="tbl-price-mrp">₹${l.mrp.toLocaleString()}</span>
+              <span class="tbl-price-row"><span class="tbl-price">₹${l.price.toLocaleString()}</span></span>
+              <span class="tbl-save">💚 Save ₹${save.toLocaleString()} · ${pct}% off</span>
+              <span class="tbl-price-note">incl. cashback &amp; discount</span>
+            </span>
+          </label>
+        </td>`;
+    };
+
+    const cell = c => c > 0
+      ? `<span class="cmp-yes"><i class="fas fa-check"></i></span><span class="cmp-pcount">${c} Parameter${c > 1 ? 's' : ''}</span>`
+      : `<span class="cmp-no"><i class="fas fa-xmark"></i></span><span class="cmp-pcount cmp-pcount-off">0 Parameter</span>`;
+
+    const cheaperFirst = a.price <= b.price;
+    const groupRows = CMP_GROUPS.map((g, i) =>
+      `<tr><th class="cmp-grp"><i class="fas fa-plus cmp-grp-plus"></i> ${g.name}</th><td>${cell(cmpParams(a, i))}</td><td>${cell(cmpParams(b, i))}</td></tr>`
+    ).join('');
+
+    cmpModalBody.innerHTML = `
+      <table class="cmp-table">
+        <thead>
+          <tr class="cmp-head-row">
+            <th class="cmp-corner"></th>
+            <th>${header(a)}</th>
+            <th>${header(b)}</th>
+          </tr>
+          <tr class="cmp-price-row">
+            <th class="cmp-corner"></th>
+            ${priceCol(a, cheaperFirst)}
+            ${priceCol(b, !cheaperFirst)}
+          </tr>
+        </thead>
+        <tbody>${groupRows}</tbody>
+      </table>
+      <div class="cmp-foot">
+        <button type="button" class="cmp-back" id="cmpBackBtn"><i class="fas fa-chevron-left"></i> Back</button>
+        <button type="button" class="cmp-book" id="cmpBookBtn">Book Slot</button>
+      </div>`;
+    cmpModal.classList.add('is-open');
+    cmpModal.setAttribute('aria-hidden', 'false');
+  }
+
+  function closeCompareModal() {
+    cmpModal.classList.remove('is-open');
+    cmpModal.setAttribute('aria-hidden', 'true');
+  }
+  cmpCompareBtn.addEventListener('click', openCompareModal);
+  document.getElementById('cmpModalClose').addEventListener('click', closeCompareModal);
+  cmpModal.addEventListener('click', (e) => { if (e.target === cmpModal) closeCompareModal(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeCompareModal(); });
+
+  cmpModalBody.addEventListener('click', (e) => {
+    if (e.target.closest('#cmpBackBtn')) { closeCompareModal(); return; }
+    if (!e.target.closest('#cmpBookBtn')) return;
+    const picked = cmpModalBody.querySelector('input[name="cmpPick"]:checked');
+    const r = labRows.find(l => l.rowId === (picked && picked.value));
+    if (!r) { showToast('Please select a package to book'); return; }
+    closeCompareModal();
+    // Same flow as the lab "Book slot" CTA → slot booking page.
+    const url = new URL('book-slot.html', location.href);
+    url.searchParams.set('tests', r.pkgName);
+    url.searchParams.set('prices', String(r.price));
+    url.searchParams.set('lab', r.name);
+    url.searchParams.set('labId', r.labId);
+    url.searchParams.set('price', r.price);
+    url.searchParams.set('mrp', r.mrp);
+    if (mode === 'visit') url.searchParams.set('mode', 'visit');
+    location.href = url.toString();
+  });
+
+  // Sync the tab UI + visit-only filters to the initial mode before first render.
+  if (mode === 'visit') {
+    document.querySelectorAll('.tab').forEach(t => t.classList.toggle('is-active', t.dataset.mode === 'visit'));
+    document.body.dataset.mode = 'visit';
+    document.querySelectorAll('.fb-visit-only').forEach(el => { el.style.display = ''; });
+  }
+
   renderResults(sortLabs(currentSort.key, currentSort.dir));
 
   // ===== Sorting =====
@@ -2703,23 +3455,43 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
     if (!btn) return;
     const row = btn.closest('[data-id]');
     if (!row) return;
-    const lab = labs.find(l => l.id === row.dataset.id);
-    if (!lab) return;
-    if (mode === 'visit') {
-      showToast(`✓ ${lab.name} — proceeding to checkout…`);
-      return;
-    }
     const url = new URL('book-slot.html', location.href);
-    url.searchParams.set('tests', selectedTests.join('|'));
-    url.searchParams.set('prices', selectedPrices.join('|'));
-    url.searchParams.set('lab', lab.name);
-    url.searchParams.set('labId', lab.id);
-    url.searchParams.set('price', lab.price);
-    url.searchParams.set('mrp', lab.mrp);
+    if (isPkgFlow) {
+      // Book the selected package at this lab.
+      const r = labRows.find(x => x.rowId === row.dataset.id);
+      if (!r) return;
+      url.searchParams.set('tests', r.pkgName);
+      url.searchParams.set('prices', String(r.price));
+      url.searchParams.set('lab', r.name);
+      url.searchParams.set('labId', r.labId);
+      url.searchParams.set('price', r.price);
+      url.searchParams.set('mrp', r.mrp);
+    } else {
+      // Tests flow — book the chosen lab for the selected tests.
+      const lab = labs.find(l => l.id === row.dataset.id);
+      if (!lab) return;
+      url.searchParams.set('tests', selectedTests.join('|'));
+      url.searchParams.set('prices', selectedPrices.join('|'));
+      url.searchParams.set('lab', lab.name);
+      url.searchParams.set('labId', lab.id);
+      url.searchParams.set('price', lab.price);
+      url.searchParams.set('mrp', lab.mrp);
+    }
+    if (mode === 'visit') url.searchParams.set('mode', 'visit');
     location.href = url.toString();
   }
   document.getElementById('labTableBody').addEventListener('click', handleLabSelect);
   document.getElementById('labCardsMobile').addEventListener('click', handleLabSelect);
+
+  // ===== Expand / collapse a lab's package list =====
+  document.getElementById('labTableBody').addEventListener('click', (e) => {
+    const toggle = e.target.closest('[data-lab-toggle]');
+    if (!toggle) return;
+    const id = toggle.dataset.labToggle;
+    if (expandedLabs.has(id)) expandedLabs.delete(id);
+    else expandedLabs.add(id);
+    renderResults(sortLabs(currentSort.key, currentSort.dir));
+  });
 
   // ===== Rating slider =====
   const slider = document.getElementById('ratingSlider');
@@ -2961,6 +3733,41 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
     if (e.target.closest('.price-info')) ttHideTimer = setTimeout(hideTT, 120);
   });
   window.addEventListener('scroll', () => { if (priceTT.style.display === 'block') hideTT(); }, true);
+})();
+</script>
+
+<!-- ===== PACKAGE-FLOW POPUP (shown when arriving via a package "Book Now") ===== -->
+<div class="pkg-popup-overlay" id="pkgPopup" aria-hidden="true">
+  <div class="pkg-popup" role="dialog" aria-modal="true" aria-labelledby="pkgPopupTitle">
+    <button type="button" class="pkg-popup-close" id="pkgPopupClose" aria-label="Close">&times;</button>
+    <div class="pkg-popup-icon" aria-hidden="true"><i class="fas fa-box-open"></i></div>
+    <h2 class="pkg-popup-title" id="pkgPopupTitle">Here's how it works</h2>
+    <div class="pkg-popup-rules">
+      <div class="pkg-popup-rule">
+        <span class="num">1</span>
+        <span class="txt">Select <strong>1 package</strong> to <strong>Book</strong> it with a lab.</span>
+      </div>
+      <div class="pkg-popup-rule">
+        <span class="num">2</span>
+        <span class="txt">Select <strong>2 packages</strong> to <strong>Compare</strong> them side by side.</span>
+      </div>
+    </div>
+    <button type="button" class="pkg-popup-btn" id="pkgPopupOk">Got it</button>
+  </div>
+</div>
+
+<script>
+(function () {
+  if (new URLSearchParams(location.search).get('pkgflow') !== '1') return;
+  const overlay = document.getElementById('pkgPopup');
+  if (!overlay) return;
+  const open = () => { overlay.classList.add('is-open'); overlay.setAttribute('aria-hidden', 'false'); };
+  const close = () => { overlay.classList.remove('is-open'); overlay.setAttribute('aria-hidden', 'true'); };
+  open();
+  document.getElementById('pkgPopupClose').addEventListener('click', close);
+  document.getElementById('pkgPopupOk').addEventListener('click', close);
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
 })();
 </script>
 </body>
