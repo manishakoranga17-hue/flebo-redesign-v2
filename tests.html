@@ -2212,11 +2212,24 @@ body.has-select-bar { padding-bottom: 80px; }
 .bottom-nav .nav-item.nav-chat.active .nav-label { color: #fff; }
 
 @media (max-width: 768px) {
-  .tests-h1 { font-size: 22px; }
-  .tests-sub { font-size: 14px; }
-  .tests-intro-inner { padding: 18px 16px 16px; }
+  .tests-h1 { font-size: 21px; }
+  .tests-sub { font-size: 13px; }
+  .tests-intro-inner { padding: 14px 16px 8px; }
   .cat-chips, .tests-main, .select-bar-inner { padding-left: 16px; padding-right: 16px; }
-  .tests-grid { grid-template-columns: 1fr; gap: 12px; }
+  /* Smaller category circles */
+  .cat-chips { gap: 14px; padding-top: 10px; padding-bottom: 10px; }
+  .cat-icon { width: 52px; height: 52px; }
+  .cat-icon-fa { font-size: 21px; }
+  .cat-circle-label { font-size: 11px; }
+  .tests-main { padding-top: 14px; }
+  /* Single column with compact cards so at least two stack above the fold */
+  .tests-grid { grid-template-columns: 1fr; gap: 10px; }
+  .test-card { padding: 13px 14px; }
+  .test-icon { width: 36px; height: 36px; font-size: 16px; }
+  .test-name { font-size: 15px; }
+  .test-meta { font-size: 12px; margin-bottom: 12px; }
+  .test-price-now { font-size: 18px; }
+  .test-add { padding: 8px 16px; font-size: 13.5px; }
   .bottom-nav { display: flex; }
   body { padding-bottom: 72px; }
   body.has-select-bar { padding-bottom: 144px; }
