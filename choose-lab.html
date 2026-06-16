@@ -464,6 +464,16 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   transition: background 0.15s, color 0.15s;
 }
 .ctx-chip-x:hover { background: var(--accent); color: #fff; }
+
+/* Package flow: included tests scroll horizontally in a single row */
+body.pkg-flow .ctx-inner { flex-wrap: nowrap; align-items: center; }
+body.pkg-flow .ctx-label { flex-shrink: 0; }
+body.pkg-flow .ctx-tests {
+  flex: 1; min-width: 0; flex-wrap: nowrap; overflow-x: auto;
+  scrollbar-width: none; -ms-overflow-style: none; padding-bottom: 2px;
+}
+body.pkg-flow .ctx-tests::-webkit-scrollbar { display: none; }
+body.pkg-flow .ctx-chip { flex-shrink: 0; white-space: nowrap; }
 .ctx-slot {
   font-size: 14.5px;
   color: rgba(255, 255, 255, 0.82);
@@ -702,6 +712,15 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   color: var(--primary);
   letter-spacing: -0.01em;
   line-height: 1.1;
+}
+.main-title-note {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-muted);
+  letter-spacing: 0;
+  margin-left: 8px;
+  white-space: nowrap;
 }
 .main-subtitle {
   font-size: 15.5px;
@@ -1679,6 +1698,32 @@ body.pkg-flow .lab-table tbody tr:first-child td { border-top: none; }
 .ltab-pkg-fast { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
 .ltab-pkg-fast.is-fasting { color: var(--amber); }
 .ltab-pkg-fast.no-fasting { color: var(--green); }
+.ltab-viewtests {
+  margin-top: 7px; border: none; background: none; cursor: pointer; padding: 0;
+  font: inherit; font-size: 12px; font-weight: 700; color: var(--primary);
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.ltab-viewtests i { font-size: 11px; }
+.ltab-viewtests:hover { color: var(--accent); text-decoration: underline; }
+
+/* Package test-breakdown modal */
+.ptests-modal-overlay { position: fixed; inset: 0; z-index: 1000; display: none; align-items: center; justify-content: center; background: rgba(11,21,48,0.55); padding: 20px; }
+.ptests-modal-overlay.is-open { display: flex; animation: pkgFade 0.2s ease both; }
+.ptests-modal { width: 100%; max-width: 460px; max-height: 86vh; display: flex; flex-direction: column; background: #fff; border-radius: var(--radius-lg); overflow: hidden; box-shadow: 0 24px 60px rgba(11,21,48,0.30); animation: pkgPop 0.25s cubic-bezier(0.34,1.56,0.64,1) both; }
+.ptests-modal-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 18px 20px; border-bottom: 1px solid var(--border-soft); }
+.ptests-modal-title { font-family: 'Plus Jakarta Sans', 'Inter', sans-serif; font-size: 18px; font-weight: 800; color: var(--primary); }
+.ptests-modal-sub { font-size: 13px; color: var(--text-muted); margin-top: 3px; }
+.ptests-modal-close { flex-shrink: 0; width: 32px; height: 32px; border: none; border-radius: 50%; background: var(--bg-soft); color: var(--text-muted); font-size: 16px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
+.ptests-modal-close:hover { background: var(--accent); color: #fff; }
+.ptests-modal-body { overflow-y: auto; padding: 8px 20px 16px; }
+.ptests-group { padding: 14px 0; border-bottom: 1px solid var(--border-soft); }
+.ptests-group:last-child { border-bottom: none; }
+.ptests-group-name { font-family: 'Plus Jakarta Sans', 'Inter', sans-serif; font-weight: 800; font-size: 14px; color: var(--text-primary); display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.ptests-group-count { font-size: 11px; font-weight: 700; color: var(--primary); background: var(--blue-soft); border-radius: 50px; padding: 1px 8px; }
+.ptests-group-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 6px 16px; }
+.ptests-group-list li { font-size: 13px; color: var(--text-secondary, #4A5578); display: flex; align-items: center; gap: 7px; }
+.ptests-group-list li i { color: var(--green); font-size: 10px; }
+@media (max-width: 480px) { .ptests-group-list { grid-template-columns: 1fr; } }
 
 .ltab-price { white-space: nowrap; }
 .ltab-now { display: block; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 17px; font-weight: 800; color: var(--primary); }
@@ -2612,6 +2657,20 @@ body.has-cmp-bar { padding-bottom: 92px; }
   </div>
 </div>
 
+<!-- ===== PACKAGE TEST-BREAKDOWN MODAL ===== -->
+<div class="ptests-modal-overlay" id="ptestsModal" aria-hidden="true">
+  <div class="ptests-modal" role="dialog" aria-modal="true" aria-labelledby="ptestsTitle">
+    <div class="ptests-modal-head">
+      <div class="ptests-modal-heading">
+        <div class="ptests-modal-title" id="ptestsTitle">Package</div>
+        <div class="ptests-modal-sub" id="ptestsSub"></div>
+      </div>
+      <button type="button" class="ptests-modal-close" id="ptestsClose" aria-label="Close"><i class="fas fa-xmark"></i></button>
+    </div>
+    <div class="ptests-modal-body" id="ptestsBody"></div>
+  </div>
+</div>
+
 <script>
 (function () {
   // Selected tests come via URL: ?tests=CBC|Thyroid+Profile&prices=299|549
@@ -2795,7 +2854,10 @@ body.has-cmp-bar { padding-bottom: 92px; }
   if (isPkgFlow) {
     document.body.classList.add('pkg-flow');
     const mt = document.getElementById('mainTitle');
-    if (mt) mt.textContent = 'Packages available near you';
+    if (mt) {
+      const pkgName = selectedTests[0] || 'Selected package';
+      mt.innerHTML = pkgName + ' <span class="main-title-note">(Showing packages offering the following tests)</span>';
+    }
   }
 
   // Mode state — 'home' (collection) or 'visit' (lab walk-in).
@@ -2967,7 +3029,7 @@ body.has-cmp-bar { padding-bottom: 92px; }
   // ===== Lab table: 4 compact columns; lab cell spans its packages (rowspan) =====
   function renderLabTable(list) {
     const isVisit = mode === 'visit';
-    const ctaLabel = isVisit ? 'Book slot' : 'Select';
+    const ctaLabel = 'Book Now';
     document.getElementById('labTableHead').innerHTML =
       `<th class="ltab-h-lab">Lab</th><th>Test details</th><th>Price</th><th></th>`;
 
@@ -3014,6 +3076,7 @@ body.has-cmp-bar { padding-bottom: 92px; }
                 <span class="ltab-pkg-tests"><i class="fas fa-vial"></i> ${p.tests} tests</span>
                 <span class="ltab-pkg-fast ${p.fasting ? 'is-fasting' : 'no-fasting'}"><i class="fas fa-${p.fasting ? 'mug-saucer' : 'circle-check'}"></i> ${p.fasting ? 'Fasting required' : 'No fasting'}</span>
               </div>
+              <button type="button" class="ltab-viewtests" data-pkg-name="${p.name}" data-pkg-tests="${p.tests}"><i class="fas fa-list-check"></i> View all tests</button>
             </td>
             <td class="ltab-price">
               <span class="ltab-now">₹${r.price.toLocaleString()}</span>
@@ -3370,7 +3433,7 @@ body.has-cmp-bar { padding-bottom: 92px; }
       </table>
       <div class="cmp-foot">
         <button type="button" class="cmp-back" id="cmpBackBtn"><i class="fas fa-chevron-left"></i> Back</button>
-        <button type="button" class="cmp-book" id="cmpBookBtn">Book Slot</button>
+        <button type="button" class="cmp-book" id="cmpBookBtn">Book Now</button>
       </div>`;
     cmpModal.classList.add('is-open');
     cmpModal.setAttribute('aria-hidden', 'false');
@@ -3400,6 +3463,7 @@ body.has-cmp-bar { padding-bottom: 92px; }
     url.searchParams.set('labId', r.labId);
     url.searchParams.set('price', r.price);
     url.searchParams.set('mrp', r.mrp);
+    url.searchParams.set('pkg', '1');
     if (mode === 'visit') url.searchParams.set('mode', 'visit');
     location.href = url.toString();
   });
@@ -3411,7 +3475,91 @@ body.has-cmp-bar { padding-bottom: 92px; }
     document.querySelectorAll('.fb-visit-only').forEach(el => { el.style.display = ''; });
   }
 
+  // Package flow: show the tests included in the chosen package under the search bar.
+  (function renderPkgCtx() {
+    if (!isPkgFlow) return;
+    const ctxLabel = document.querySelector('.ctx-label');
+    const ctxTests = document.getElementById('ctxTests');
+    if (!ctxTests) return;
+    if (ctxLabel) ctxLabel.textContent = 'Tests included in ' + (selectedTests[0] || 'this package');
+    ctxTests.innerHTML = CMP_GROUPS.map(g => `<span class="ctx-chip"><span class="ctx-chip-icon" aria-hidden="true">🧪</span> ${g.name}</span>`).join('');
+  })();
+
   renderResults(sortLabs(currentSort.key, currentSort.dir));
+
+  // ===== Package "View all tests" modal (categorised breakdown) =====
+  const PKG_GROUP_SETS = {
+    diabetes: [
+      { name: 'Sugar Profile', tests: ['Fasting Glucose', 'Post-Prandial Glucose', 'HbA1c'] },
+      { name: 'Kidney Function', tests: ['Urea', 'Creatinine', 'Uric Acid', 'Microalbumin'] },
+      { name: 'Lipid Profile', tests: ['Total Cholesterol', 'HDL', 'LDL', 'Triglycerides'] },
+    ],
+    heart: [
+      { name: 'Lipid Profile', tests: ['Total Cholesterol', 'HDL', 'LDL', 'Triglycerides', 'VLDL'] },
+      { name: 'Cardiac Markers', tests: ['Homocysteine', 'hs-CRP', 'Apolipoprotein A/B'] },
+    ],
+    thyroid: [
+      { name: 'Thyroid Profile', tests: ['TSH', 'T3', 'T4', 'Free T3', 'Free T4'] },
+      { name: 'Antibodies', tests: ['Anti-TPO', 'Anti-TG'] },
+    ],
+    liver: [
+      { name: 'Liver Function', tests: ['SGPT', 'SGOT', 'Bilirubin Total', 'Bilirubin Direct', 'Albumin', 'Globulin', 'Alkaline Phosphatase'] },
+      { name: 'Viral Markers', tests: ['Hepatitis B (HBsAg)', 'Hepatitis C (Anti-HCV)'] },
+    ],
+    vitamin: [
+      { name: 'Vitamins', tests: ['Vitamin D (25-OH)', 'Vitamin B12', 'Folate'] },
+      { name: 'Minerals & Iron', tests: ['Iron', 'Ferritin', 'Calcium', 'Phosphorus'] },
+    ],
+    women: [
+      { name: 'Hormones', tests: ['Estradiol', 'Prolactin', 'LH', 'FSH'] },
+      { name: 'Iron & Vitamins', tests: ['Hemoglobin', 'Iron', 'Vitamin D', 'Vitamin B12'] },
+      { name: 'Thyroid', tests: ['TSH', 'T3', 'T4'] },
+    ],
+    fullbody: [
+      { name: 'Complete Blood Count', tests: ['Hemoglobin', 'RBC', 'WBC', 'Platelets', 'PCV', 'MCV · MCH · MCHC'] },
+      { name: 'Sugar Profile', tests: ['Fasting Glucose', 'HbA1c'] },
+      { name: 'Lipid Profile', tests: ['Total Cholesterol', 'HDL', 'LDL', 'Triglycerides', 'VLDL'] },
+      { name: 'Liver Function', tests: ['SGPT', 'SGOT', 'Bilirubin', 'Albumin', 'Alkaline Phosphatase'] },
+      { name: 'Kidney Function', tests: ['Urea', 'Creatinine', 'Uric Acid', 'Electrolytes'] },
+      { name: 'Thyroid', tests: ['TSH', 'T3', 'T4'] },
+      { name: 'Iron & Vitamins', tests: ['Iron', 'Vitamin D', 'Vitamin B12'] },
+    ],
+  };
+  function pkgGroupsFor(name) {
+    const n = (name || '').toLowerCase();
+    if (n.includes('diabet') || n.includes('sugar')) return PKG_GROUP_SETS.diabetes;
+    if (n.includes('heart') || n.includes('cardiac')) return PKG_GROUP_SETS.heart;
+    if (n.includes('thyroid')) return PKG_GROUP_SETS.thyroid;
+    if (n.includes('liver') || n.includes('hepat')) return PKG_GROUP_SETS.liver;
+    if (n.includes('vitamin') || n.includes('bone')) return PKG_GROUP_SETS.vitamin;
+    if (n.includes('she') || n.includes('women')) return PKG_GROUP_SETS.women;
+    return PKG_GROUP_SETS.fullbody;
+  }
+  const ptestsModal = document.getElementById('ptestsModal');
+  const ptestsBody = document.getElementById('ptestsBody');
+  const ptestsTitle = document.getElementById('ptestsTitle');
+  const ptestsSub = document.getElementById('ptestsSub');
+  function openPkgTests(name, count) {
+    const groups = pkgGroupsFor(name);
+    ptestsTitle.textContent = name;
+    ptestsSub.textContent = `${count} tests across ${groups.length} panels`;
+    ptestsBody.innerHTML = groups.map(g => `
+      <div class="ptests-group">
+        <div class="ptests-group-name">${g.name} <span class="ptests-group-count">${g.tests.length}</span></div>
+        <ul class="ptests-group-list">${g.tests.map(tn => `<li><i class="fas fa-check" aria-hidden="true"></i> ${tn}</li>`).join('')}</ul>
+      </div>`).join('');
+    ptestsModal.classList.add('is-open');
+    ptestsModal.setAttribute('aria-hidden', 'false');
+  }
+  function closePkgTests() { ptestsModal.classList.remove('is-open'); ptestsModal.setAttribute('aria-hidden', 'true'); }
+  document.getElementById('ptestsClose').addEventListener('click', closePkgTests);
+  ptestsModal.addEventListener('click', (e) => { if (e.target === ptestsModal) closePkgTests(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closePkgTests(); });
+  document.getElementById('labTableBody').addEventListener('click', (e) => {
+    const vt = e.target.closest('.ltab-viewtests');
+    if (!vt) return;
+    openPkgTests(vt.dataset.pkgName, vt.dataset.pkgTests);
+  });
 
   // ===== Sorting =====
   function applySort(key, dir) {
@@ -3466,6 +3614,7 @@ body.has-cmp-bar { padding-bottom: 92px; }
       url.searchParams.set('labId', r.labId);
       url.searchParams.set('price', r.price);
       url.searchParams.set('mrp', r.mrp);
+      url.searchParams.set('pkg', '1');
     } else {
       // Tests flow — book the chosen lab for the selected tests.
       const lab = labs.find(l => l.id === row.dataset.id);

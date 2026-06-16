@@ -446,6 +446,25 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 }
 .add-addr-btn:hover { border-color: var(--primary); }
 
+/* Multiple patients */
+.patient-block + .patient-block { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border-soft); }
+.patient-block-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.patient-block-title { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 14px; color: var(--primary); }
+.patient-remove {
+  border: none; background: none; color: var(--text-muted); cursor: pointer;
+  font: inherit; font-size: 12.5px; font-weight: 700; display: inline-flex; align-items: center; gap: 5px;
+}
+.patient-remove:hover { color: var(--accent); }
+.add-patient-btn {
+  margin-top: 14px;
+  background: transparent; border: 1.5px dashed var(--border-mid); border-radius: var(--radius-md);
+  padding: 11px 16px; font: inherit; font-size: 14px; font-weight: 700; color: var(--primary);
+  cursor: pointer; width: 100%;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  transition: border-color 0.15s, background 0.15s;
+}
+.add-patient-btn:hover { border-color: var(--primary); background: var(--bg-soft, #F7F8FB); }
+
 /* Patient form */
 .who-toggle {
   display: inline-flex;
@@ -1149,6 +1168,121 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 @media (max-width: 900px) {
   .mobile-action-bar { display: flex; }
 }
+
+/* ===== CHOOSE CENTER (lab-visit flow) ===== */
+.center-list { display: flex; flex-direction: column; gap: 10px; }
+.center-card {
+  border: 1.5px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  transition: border-color 0.15s, background 0.15s;
+}
+.center-card:hover { border-color: var(--primary); }
+.center-card.is-active { border-color: var(--primary); background: #F3F6FB; }
+.center-radio {
+  width: 18px; height: 18px;
+  border: 2px solid var(--border-mid);
+  border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 2px;
+}
+.center-card.is-active .center-radio { border-color: var(--primary); }
+.center-card.is-active .center-radio::after {
+  content: ''; width: 10px; height: 10px; border-radius: 50%; background: var(--primary);
+}
+.center-info { min-width: 0; flex: 1; }
+.center-name {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700; font-size: 15px; color: var(--text-primary);
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+}
+.center-dist {
+  font-size: 12px; font-weight: 700; color: var(--green);
+  background: var(--green-soft); padding: 2px 8px; border-radius: 50px;
+}
+.center-addr { font-size: 13px; color: var(--text-muted); margin-top: 4px; line-height: 1.4; }
+.center-meta { font-size: 12px; color: var(--text-secondary, #4A5578); margin-top: 6px; display: flex; flex-wrap: wrap; gap: 4px 14px; }
+.center-meta i { color: var(--primary); margin-right: 4px; }
+
+/* ===== WHAT'S INCLUDED (package flow) ===== */
+.pkg-incl-list { display: flex; flex-direction: column; }
+.pkg-incl-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 10px 2px; border-bottom: 1px dashed var(--border-soft);
+}
+.pkg-incl-row:last-child { border-bottom: none; }
+.pkg-incl-name { font-size: 14px; font-weight: 600; color: var(--text-primary); display: flex; align-items: center; gap: 9px; }
+.pkg-incl-name i { color: var(--green); font-size: 13px; }
+.pkg-incl-params { font-size: 12.5px; font-weight: 700; color: var(--text-muted); white-space: nowrap; }
+.pkg-incl-instr {
+  margin-top: 14px; padding: 14px 16px;
+  background: var(--amber-soft, #FEF3C7); border-radius: var(--radius-md);
+}
+.pkg-incl-instr-title { font-weight: 800; font-size: 13.5px; color: var(--amber, #B45309); margin-bottom: 8px; display: flex; align-items: center; gap: 7px; }
+.pkg-incl-instr-list { margin: 0; padding-left: 20px; }
+.pkg-incl-instr-list li { font-size: 13px; color: var(--text-secondary, #4A5578); margin-bottom: 5px; line-height: 1.4; }
+.pkg-incl-instr-list li:last-child { margin-bottom: 0; }
+
+/* ===== CUSTOMIZE (add tests / replace package) ===== */
+.cz-current {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  padding: 10px 12px; background: var(--bg-soft, #F7F8FB); border-radius: var(--radius-md); margin-bottom: 12px;
+}
+.cz-pkg { font-weight: 700; font-size: 14px; color: var(--primary); display: inline-flex; align-items: center; gap: 8px; }
+.cz-pkg i { color: var(--accent); }
+.cz-replace { border: none; background: none; font: inherit; font-size: 13px; font-weight: 700; color: var(--accent); display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+.cz-replace:hover { color: var(--accent-dark); }
+
+/* Replace-package modal list */
+.replace-list { display: flex; flex-direction: column; gap: 10px; }
+.replace-card {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  border: 1.5px solid var(--border-soft); border-radius: var(--radius-md);
+  padding: 12px 14px; cursor: pointer; transition: border-color 0.15s, background 0.15s;
+}
+.replace-card:hover { border-color: var(--primary); background: #F3F6FB; }
+.replace-card.is-current { border-color: var(--primary); background: #F3F6FB; }
+.replace-card-info { min-width: 0; }
+.replace-card-name { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 14.5px; color: var(--text-primary); }
+.replace-card-meta { font-size: 12.5px; color: var(--text-muted); margin-top: 3px; }
+.replace-card-price { text-align: right; white-space: nowrap; }
+.replace-card-now { font-weight: 800; font-size: 16px; color: var(--primary); }
+.replace-card-mrp { font-size: 12px; color: var(--text-muted); text-decoration: line-through; display: block; }
+.replace-card-tag { font-size: 11px; font-weight: 700; color: var(--green); }
+.cz-add { display: flex; gap: 10px; }
+.cz-select {
+  flex: 1; min-width: 0; height: 44px; padding: 0 40px 0 12px;
+  border: 1.5px solid var(--border-soft); border-radius: var(--radius-md);
+  font: inherit; font-size: 14px; color: var(--text-primary); cursor: pointer;
+  appearance: none; -webkit-appearance: none; -moz-appearance: none;
+  background-color: #fff;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%236B7592' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+}
+.cz-add-btn {
+  flex-shrink: 0; border: none; background: var(--primary); color: #fff;
+  font-size: 14px; font-weight: 700; padding: 0 22px; border-radius: var(--radius-md); cursor: pointer;
+  transition: background 0.15s;
+}
+.cz-add-btn:hover { background: var(--primary-soft, #2C3E66); }
+.cz-added { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.cz-added:empty { display: none; }
+.cz-chip {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: var(--accent-soft, #FDECEC); color: var(--accent-dark, #B82E2E);
+  border-radius: 50px; padding: 5px 6px 5px 12px; font-size: 13px; font-weight: 600;
+}
+.cz-chip-x {
+  border: none; background: rgba(0,0,0,0.08); color: inherit;
+  width: 18px; height: 18px; border-radius: 50%; cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center; font-size: 13px; line-height: 1;
+}
+.cz-chip-x:hover { background: var(--accent); color: #fff; }
 </style>
 </head>
 <body>
@@ -1232,7 +1366,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 <div class="page-head">
   <div class="page-head-inner">
     <button class="back-btn" onclick="history.back()">← Back to labs</button>
-    <h1 class="page-title">Confirm your home collection</h1>
+    <h1 class="page-title" id="pageTitle">Confirm your home collection</h1>
     <div class="page-stepper">
       <span class="stepper-dot is-done">✓</span>
       <span class="stepper-line"></span>
@@ -1250,11 +1384,54 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   <!-- LEFT: STEP CARDS -->
   <div>
 
+    <!-- STEP 0: CHOOSE CENTER (lab-visit flow only) -->
+    <section class="step-card" id="centerSection" hidden>
+      <div class="step-card-head">
+        <span class="step-num"><i class="fas fa-hospital"></i></span>
+        <h2 class="step-title">Choose a center</h2>
+        <span class="step-sub">Pick the nearest <span id="centerLabName">lab</span> center to visit</span>
+      </div>
+      <div class="center-list" id="centerList"></div>
+    </section>
+
+    <!-- WHAT'S INCLUDED (package flow only) -->
+    <section class="step-card" id="pkgIncludesSection" hidden>
+      <div class="step-card-head">
+        <span class="step-num"><i class="fas fa-vial-circle-check"></i></span>
+        <h2 class="step-title">What's included</h2>
+        <span class="step-sub" id="pkgIncludesSummary"></span>
+      </div>
+      <div class="pkg-incl-list" id="pkgInclList"></div>
+      <div class="pkg-incl-instr">
+        <div class="pkg-incl-instr-title"><i class="fas fa-circle-info"></i> Special instructions</div>
+        <ul class="pkg-incl-instr-list" id="pkgInstrList"></ul>
+      </div>
+    </section>
+
+    <!-- CUSTOMIZE: add tests or replace package (package flow only) -->
+    <section class="step-card" id="customizeSection" hidden>
+      <div class="step-card-head">
+        <span class="step-num"><i class="fas fa-sliders"></i></span>
+        <h2 class="step-title">Add tests or replace package</h2>
+      </div>
+      <div class="cz-current">
+        <span class="cz-pkg"><i class="fas fa-box-open"></i> <span id="czPkgName">Package</span></span>
+        <button type="button" class="cz-replace" id="czReplaceBtn"><i class="fas fa-right-left"></i> Replace package</button>
+      </div>
+      <div class="cz-add">
+        <select id="czTestSelect" class="cz-select" aria-label="Add a test">
+          <option value="">+ Add a test to this booking…</option>
+        </select>
+        <button type="button" id="czAddBtn" class="cz-add-btn">Add</button>
+      </div>
+      <div class="cz-added" id="czAdded"></div>
+    </section>
+
     <!-- STEP 1: DATE -->
     <section class="step-card">
       <div class="step-card-head">
         <span class="step-num">1</span>
-        <h2 class="step-title">Pick a collection date</h2>
+        <h2 class="step-title" id="dateTitle">Pick a collection date</h2>
         <span class="step-sub">Phlebotomist arrives within your slot window</span>
       </div>
       <div class="date-row" id="dateRow"></div>
@@ -1277,7 +1454,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
     </section>
 
     <!-- STEP 3: ADDRESS -->
-    <section class="step-card">
+    <section class="step-card" id="addrSection">
       <div class="step-card-head">
         <span class="step-num">3</span>
         <h2 class="step-title">Where should we collect?</h2>
@@ -1304,45 +1481,52 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
     </section>
 
     <!-- STEP 4: WHO IS THE TEST FOR -->
-    <section class="step-card">
+    <section class="step-card" id="patientSection">
       <div class="step-card-head">
         <span class="step-num">4</span>
         <h2 class="step-title">Who is the test for?</h2>
+        <span class="step-sub">Add everyone who needs to be tested</span>
       </div>
-      <div class="who-toggle" id="whoToggle">
-        <button class="who-tab is-active" data-who="self">Myself</button>
-        <button class="who-tab" data-who="other">Someone else</button>
-      </div>
-      <div class="form-grid">
-        <div class="field">
-          <label class="field-label">Full name</label>
-          <input class="field-input" type="text" value="Nilesh Sharma">
-        </div>
-        <div class="field">
-          <label class="field-label">Phone number</label>
-          <input class="field-input" type="tel" value="+91 98765 43210">
-        </div>
-        <div class="field">
-          <label class="field-label">Age</label>
-          <input class="field-input" type="number" value="32" min="1" max="120">
-        </div>
-        <div class="field">
-          <label class="field-label">Gender</label>
-          <div class="gender-pills" id="genderPills">
-            <button class="gender-pill is-active" data-gender="m" type="button">Male</button>
-            <button class="gender-pill" data-gender="f" type="button">Female</button>
-            <button class="gender-pill" data-gender="o" type="button">Other</button>
+      <div id="patientsList">
+        <div class="patient-block">
+          <div class="patient-block-head"><span class="patient-block-title">Patient 1</span></div>
+          <div class="who-toggle">
+            <button class="who-tab is-active" data-who="self" type="button">Myself</button>
+            <button class="who-tab" data-who="other" type="button">Someone else</button>
+          </div>
+          <div class="form-grid">
+            <div class="field">
+              <label class="field-label">Full name</label>
+              <input class="field-input pt-name" type="text" value="Nilesh Sharma">
+            </div>
+            <div class="field">
+              <label class="field-label">Phone number</label>
+              <input class="field-input pt-phone" type="tel" value="+91 98765 43210">
+            </div>
+            <div class="field">
+              <label class="field-label">Age</label>
+              <input class="field-input pt-age" type="number" value="32" min="1" max="120">
+            </div>
+            <div class="field">
+              <label class="field-label">Gender</label>
+              <div class="gender-pills">
+                <button class="gender-pill is-active" data-gender="m" type="button">Male</button>
+                <button class="gender-pill" data-gender="f" type="button">Female</button>
+                <button class="gender-pill" data-gender="o" type="button">Other</button>
+              </div>
+            </div>
+            <div class="field field--full">
+              <label class="field-label">Email (for digital report)</label>
+              <input class="field-input pt-email" type="email" value="nilesh@example.com">
+            </div>
           </div>
         </div>
-        <div class="field field--full">
-          <label class="field-label">Email (for digital report)</label>
-          <input class="field-input" type="email" value="nilesh@example.com">
-        </div>
       </div>
+      <button type="button" class="add-patient-btn" id="addPatientBtn"><i class="fas fa-plus"></i> Add another patient</button>
     </section>
 
     <!-- STEP 5: INSTRUCTIONS -->
-    <section class="step-card">
+    <section class="step-card" id="instrSection">
       <div class="step-card-head">
         <span class="step-num">5</span>
         <h2 class="step-title">Pre-test instructions</h2>
@@ -1457,6 +1641,20 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   </div>
 </div>
 
+<!-- Replace-package modal -->
+<div class="modal-overlay" id="replaceModal" role="dialog" aria-modal="true" aria-labelledby="replaceModalTitle">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div class="modal-title" id="replaceModalTitle">Replace package</div>
+      <button type="button" class="modal-close" id="replaceModalClose" aria-label="Close"><i class="fas fa-xmark"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="available-label">Choose a different package</div>
+      <div class="replace-list" id="replaceList"></div>
+    </div>
+  </div>
+</div>
+
 <script>
 (function () {
   const params = new URLSearchParams(location.search);
@@ -1464,8 +1662,51 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   const pricesParam = params.get('prices') || '299|549';
   const labName = params.get('lab') || 'Thyrocare Technologies';
   const labId = params.get('labId') || 'thyrocare';
-  const price = parseInt(params.get('price'), 10) || 641;
-  const mrp = parseInt(params.get('mrp'), 10) || 1582;
+  let price = parseInt(params.get('price'), 10) || 641;
+  let mrp = parseInt(params.get('mrp'), 10) || 1582;
+  const isVisit = params.get('mode') === 'visit';
+  const isPackage = params.get('pkg') === '1';
+
+  // ===== Lab-visit: choose a center (one lab can have multiple centers) =====
+  let selectedCenter = '';
+  if (isVisit) {
+    const centers = [
+      { name: 'Sector 14 Branch', addr: 'Shop 12, Main Market, Sector 14, Gurgaon, Haryana 122001', dist: '2.1 km', hours: 'Mon–Sun · 7 AM – 9 PM' },
+      { name: 'DLF Cyber Hub', addr: 'Tower B, Cyber Hub Road, DLF Phase 3, Gurgaon, Haryana 122002', dist: '4.6 km', hours: 'Mon–Sat · 8 AM – 8 PM' },
+      { name: 'Sector 56', addr: 'Plot 5, Near Hong Kong Bazaar, Sector 56, Gurgaon, Haryana 122011', dist: '6.3 km', hours: 'All Days · Open 24×7' },
+    ];
+    selectedCenter = `${labName} — ${centers[0].name}`;
+    const centerSection = document.getElementById('centerSection');
+    const centerList = document.getElementById('centerList');
+    const addrSection = document.getElementById('addrSection');
+    const centerLabNameEl = document.getElementById('centerLabName');
+    const dateTitle = document.getElementById('dateTitle');
+    const pageTitle = document.getElementById('pageTitle');
+    if (pageTitle) pageTitle.textContent = 'Confirm your lab collection';
+    if (centerLabNameEl) centerLabNameEl.textContent = labName;
+    if (dateTitle) dateTitle.textContent = 'Pick a visit date';
+    if (addrSection) addrSection.hidden = true;        // no home collection for a lab visit
+    if (centerSection) centerSection.hidden = false;
+    if (centerList) {
+      centerList.innerHTML = centers.map((c, i) => `
+        <div class="center-card${i === 0 ? ' is-active' : ''}" data-center="${labName} — ${c.name}">
+          <span class="center-radio"></span>
+          <div class="center-info">
+            <div class="center-name">${labName} — ${c.name} <span class="center-dist">${c.dist}</span></div>
+            <div class="center-addr"><i class="fas fa-location-dot"></i> ${c.addr}</div>
+            <div class="center-meta"><span><i class="fas fa-clock"></i> ${c.hours}</span><span><i class="fas fa-vial"></i> Walk-in sample collection</span></div>
+          </div>
+        </div>`).join('');
+      centerList.addEventListener('click', (e) => {
+        const card = e.target.closest('.center-card');
+        if (!card) return;
+        centerList.querySelectorAll('.center-card').forEach(c => c.classList.toggle('is-active', c === card));
+        selectedCenter = card.dataset.center;
+      });
+    }
+  }
+
+  // What's-included rendering happens later (renderIncludes), after `tests` is defined.
 
   // Split on `|` (new format) OR commas that are NOT inside parentheses (legacy)
   function splitTests(str) {
@@ -1526,12 +1767,14 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   document.getElementById('sumLabLogo').src = logoMap[labId] || logoMap.thyrocare;
 
   // Tests list with per-test price (always renders price; falls back to "—" if unknown)
-  console.log('[book-slot] tests:', tests, 'prices:', testPrices);
-  document.getElementById('sumTests').innerHTML = tests.map((t, i) => {
-    const p = testPrices[i];
-    const label = p > 0 ? `₹${p}` : '—';
-    return `<div class="summary-test"><span class="summary-test-name">${t}</span><span class="summary-test-price">${label}</span></div>`;
-  }).join('');
+  function renderSumTests() {
+    document.getElementById('sumTests').innerHTML = tests.map((t, i) => {
+      const p = testPrices[i];
+      const label = p > 0 ? `₹${p}` : '—';
+      return `<div class="summary-test"><span class="summary-test-name">${t}</span><span class="summary-test-price">${label}</span></div>`;
+    }).join('');
+  }
+  renderSumTests();
 
   // Date chips — today + next 4 days
   const dateRow = document.getElementById('dateRow');
@@ -1600,22 +1843,60 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   });
 
   // Who toggle + gender
-  document.getElementById('whoToggle').addEventListener('click', (e) => {
-    const tab = e.target.closest('.who-tab');
-    if (!tab) return;
-    document.querySelectorAll('.who-tab').forEach(t => t.classList.remove('is-active'));
-    tab.classList.add('is-active');
-    // Clear fields when switching to "Someone else"
-    if (tab.dataset.who === 'other') {
-      document.querySelector('.field-input[type="text"]').value = '';
-      document.querySelector('.field-input[type="number"]').value = '';
+  // ===== Patients (supports multiple) — delegated toggles scoped per block =====
+  const patientsList = document.getElementById('patientsList');
+  function renumberPatients() {
+    patientsList.querySelectorAll('.patient-block').forEach((b, i) => {
+      const t = b.querySelector('.patient-block-title');
+      if (t) t.textContent = 'Patient ' + (i + 1);
+    });
+  }
+  function patientTemplate(n) {
+    return `
+      <div class="patient-block">
+        <div class="patient-block-head">
+          <span class="patient-block-title">Patient ${n}</span>
+          <button type="button" class="patient-remove" aria-label="Remove patient"><i class="fas fa-xmark"></i> Remove</button>
+        </div>
+        <div class="form-grid">
+          <div class="field"><label class="field-label">Full name</label><input class="field-input pt-name" type="text" placeholder="Patient name"></div>
+          <div class="field"><label class="field-label">Phone number</label><input class="field-input pt-phone" type="tel" placeholder="+91 …"></div>
+          <div class="field"><label class="field-label">Age</label><input class="field-input pt-age" type="number" min="1" max="120" placeholder="Age"></div>
+          <div class="field"><label class="field-label">Gender</label>
+            <div class="gender-pills">
+              <button class="gender-pill is-active" data-gender="m" type="button">Male</button>
+              <button class="gender-pill" data-gender="f" type="button">Female</button>
+              <button class="gender-pill" data-gender="o" type="button">Other</button>
+            </div>
+          </div>
+          <div class="field field--full"><label class="field-label">Email (for digital report)</label><input class="field-input pt-email" type="email" placeholder="email@example.com"></div>
+        </div>
+      </div>`;
+  }
+  patientsList.addEventListener('click', (e) => {
+    const whoTab = e.target.closest('.who-tab');
+    if (whoTab) {
+      whoTab.parentElement.querySelectorAll('.who-tab').forEach(t => t.classList.remove('is-active'));
+      whoTab.classList.add('is-active');
+      if (whoTab.dataset.who === 'other') {
+        const block = whoTab.closest('.patient-block');
+        block.querySelector('.pt-name').value = '';
+        block.querySelector('.pt-age').value = '';
+      }
+      return;
     }
-  });
-  document.getElementById('genderPills').addEventListener('click', (e) => {
     const pill = e.target.closest('.gender-pill');
-    if (!pill) return;
-    document.querySelectorAll('.gender-pill').forEach(p => p.classList.remove('is-active'));
-    pill.classList.add('is-active');
+    if (pill) {
+      pill.parentElement.querySelectorAll('.gender-pill').forEach(p => p.classList.remove('is-active'));
+      pill.classList.add('is-active');
+      return;
+    }
+    const rm = e.target.closest('.patient-remove');
+    if (rm) { rm.closest('.patient-block').remove(); renumberPatients(); }
+  });
+  document.getElementById('addPatientBtn').addEventListener('click', () => {
+    const n = patientsList.querySelectorAll('.patient-block').length + 1;
+    patientsList.insertAdjacentHTML('beforeend', patientTemplate(n));
   });
 
   // ===== Coupons =====
@@ -1655,6 +1936,176 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
     if (mabVal) mabVal.textContent = `₹${finalTotal.toLocaleString()}`;
   }
   renderPriceRows();
+
+  // ===== What's included — package contents OR the selected tests =====
+  const PKG_INCL_GROUPS = [
+    { name: 'Complete Blood Count (CBC)', params: 26 },
+    { name: 'Lipid Profile (Heart Risk)', params: 9 },
+    { name: 'Liver Function Test (LFT)', params: 12 },
+    { name: 'Kidney Function Test (KFT)', params: 11 },
+    { name: 'Thyroid Profile (T3, T4, TSH)', params: 3 },
+    { name: 'Iron Studies', params: 4 },
+    { name: 'Vitamin D & B12', params: 2 },
+    { name: 'HbA1c (Diabetes)', params: 2 },
+    { name: 'Urine Routine (RU)', params: 21 },
+    { name: 'Electrolytes', params: 4 },
+  ];
+  const PKG_INCL_INSTR = [
+    '10–12 hours fasting required before sample collection',
+    'Carry a valid government photo ID to the lab center',
+    'Avoid alcohol for 24 hours before the test',
+    'Continue regular medication unless advised otherwise by your doctor',
+  ];
+  function renderIncludes() {
+    const inclSection = document.getElementById('pkgIncludesSection');
+    if (!inclSection) return;
+    const inclList = document.getElementById('pkgInclList');
+    const inclSummary = document.getElementById('pkgIncludesSummary');
+    const instrBlock = document.querySelector('.pkg-incl-instr');
+    const instrList = document.getElementById('pkgInstrList');
+    const instrSection = document.getElementById('instrSection');
+    inclSection.hidden = false;
+    if (isPackage) {
+      const totalParams = PKG_INCL_GROUPS.reduce((s, g) => s + g.params, 0);
+      inclSummary.textContent = `${PKG_INCL_GROUPS.length} tests covering ${totalParams} parameters`;
+      inclList.innerHTML = PKG_INCL_GROUPS.map(g => `
+        <div class="pkg-incl-row">
+          <span class="pkg-incl-name"><i class="fas fa-circle-check"></i> ${g.name}</span>
+          <span class="pkg-incl-params">${g.params} parameter${g.params > 1 ? 's' : ''}</span>
+        </div>`).join('');
+      if (instrList) instrList.innerHTML = PKG_INCL_INSTR.map(s => `<li>${s}</li>`).join('');
+      if (instrBlock) instrBlock.hidden = false;
+      if (instrSection) instrSection.hidden = true;   // covered by Special instructions
+    } else {
+      // Tests flow — list the selected tests
+      inclSummary.textContent = `${tests.length} test${tests.length > 1 ? 's' : ''} in this booking`;
+      inclList.innerHTML = tests.map((t, i) => `
+        <div class="pkg-incl-row">
+          <span class="pkg-incl-name"><i class="fas fa-circle-check"></i> ${t}</span>
+          <span class="pkg-incl-params">₹${(testPrices[i] || 0).toLocaleString()}</span>
+        </div>`).join('');
+      if (instrList) instrList.innerHTML = PKG_INCL_INSTR.map(s => `<li>${s}</li>`).join('');
+      if (instrBlock) instrBlock.hidden = false;       // show special instructions here
+      if (instrSection) instrSection.hidden = true;    // remove the standalone pre-test card
+    }
+  }
+  renderIncludes();
+
+  // ===== Customize: add tests, and replace (package flow) / add (tests flow) a package =====
+  (function setupCustomize() {
+    const czSection = document.getElementById('customizeSection');
+    if (!czSection) return;
+    const czPkgNameEl = document.getElementById('czPkgName');
+    const czSelect = document.getElementById('czTestSelect');
+    const czAddBtn = document.getElementById('czAddBtn');
+    const czAdded = document.getElementById('czAdded');
+    const czReplaceBtn = document.getElementById('czReplaceBtn');
+    const czTitle = czSection.querySelector('.step-title');
+    const baseCount = isPackage ? 1 : 0;   // package occupies index 0 in the package flow
+    czSection.hidden = false;
+    if (czTitle) czTitle.textContent = isPackage ? 'Add tests or replace package' : 'Add tests or a package';
+    if (czReplaceBtn) czReplaceBtn.innerHTML = isPackage
+      ? '<i class="fas fa-right-left"></i> Replace package'
+      : '<i class="fas fa-plus"></i> Add a package';
+
+    const addable = Object.keys(priceCatalog);
+    const renderHeader = () => {
+      if (czPkgNameEl) czPkgNameEl.textContent = isPackage
+        ? (tests[0] || labName)
+        : `${tests.length} test${tests.length > 1 ? 's' : ''} selected`;
+    };
+    const refreshSelect = () => {
+      czSelect.innerHTML = ['<option value="">+ Add a test to this booking…</option>']
+        .concat(addable.filter(n => !tests.includes(n)).map(n => `<option value="${n}">${n} — ₹${priceCatalog[n]}</option>`))
+        .join('');
+    };
+    const renderAdded = () => {
+      czAdded.innerHTML = tests.slice(baseCount).map((t, i) =>
+        `<span class="cz-chip">${t} <button type="button" class="cz-chip-x" data-i="${i + baseCount}" aria-label="Remove ${t}">&times;</button></span>`).join('');
+    };
+    const refreshAll = () => { renderSumTests(); renderPriceRows(); renderIncludes(); renderAdded(); refreshSelect(); renderHeader(); };
+    renderHeader(); refreshSelect(); renderAdded();
+
+    czAddBtn.addEventListener('click', () => {
+      const name = czSelect.value;
+      if (!name || tests.includes(name)) return;
+      const p = priceCatalog[name] || 0;
+      tests.push(name); testPrices.push(p);
+      price += p; mrp += Math.round(p * 1.8);
+      refreshAll();
+      showToast('✓ ' + name + ' added');
+    });
+    czAdded.addEventListener('click', (e) => {
+      const x = e.target.closest('.cz-chip-x');
+      if (!x) return;
+      const i = parseInt(x.dataset.i, 10);
+      if (!(i >= baseCount && i < tests.length)) return;
+      const p = testPrices[i] || 0;
+      tests.splice(i, 1); testPrices.splice(i, 1);
+      price = Math.max(0, price - p); mrp = Math.max(0, mrp - Math.round(p * 1.8));
+      refreshAll();
+    });
+
+    // ----- Package modal: replace (package flow) or add (tests flow) -----
+    let pkgMrp = isPackage ? mrp : 0;   // package's own MRP contribution (package flow)
+    const REPLACE_PKGS = [
+      { name: 'Healthy India 2025', tests: 80, price: 1046, mrp: 2180 },
+      { name: 'Flebo Prime Care', tests: 71, price: 1179, mrp: 2040 },
+      { name: 'Advanced Full Body', tests: 92, price: 1599, mrp: 3200 },
+      { name: 'Flebo She Care', tests: 65, price: 1299, mrp: 2500 },
+      { name: 'Diabetes Advanced', tests: 22, price: 999, mrp: 2200 },
+      { name: 'Heart Health Complete', tests: 30, price: 1599, mrp: 3800 },
+    ];
+    const replaceModal = document.getElementById('replaceModal');
+    const replaceList = document.getElementById('replaceList');
+    const replaceTitle = document.getElementById('replaceModalTitle');
+    const renderReplaceList = () => {
+      replaceList.innerHTML = REPLACE_PKGS.map((pk, i) => {
+        const off = Math.round((1 - pk.price / pk.mrp) * 100);
+        const current = isPackage && pk.name === tests[0];
+        const added = !isPackage && tests.includes(pk.name);
+        return `<div class="replace-card${current ? ' is-current' : ''}" data-i="${i}">
+          <div class="replace-card-info">
+            <div class="replace-card-name">${pk.name}${current ? ' · Current' : added ? ' · Added' : ''}</div>
+            <div class="replace-card-meta">${pk.tests} tests · ${off}% off</div>
+          </div>
+          <div class="replace-card-price"><span class="replace-card-now">₹${pk.price.toLocaleString()}</span><span class="replace-card-mrp">₹${pk.mrp.toLocaleString()}</span></div>
+        </div>`;
+      }).join('');
+    };
+    const openReplace = () => {
+      if (replaceTitle) replaceTitle.textContent = isPackage ? 'Replace package' : 'Add a package';
+      renderReplaceList();
+      replaceModal.classList.add('is-open');
+    };
+    const closeReplace = () => replaceModal.classList.remove('is-open');
+    czReplaceBtn.addEventListener('click', openReplace);
+    document.getElementById('replaceModalClose').addEventListener('click', closeReplace);
+    replaceModal.addEventListener('click', (e) => { if (e.target === replaceModal) closeReplace(); });
+    replaceList.addEventListener('click', (e) => {
+      const card = e.target.closest('.replace-card');
+      if (!card) return;
+      const pk = REPLACE_PKGS[parseInt(card.dataset.i, 10)];
+      if (!pk) { closeReplace(); return; }
+      if (isPackage) {
+        if (pk.name === tests[0]) { closeReplace(); return; }
+        price = Math.max(0, price - (testPrices[0] || 0) + pk.price);
+        mrp = Math.max(0, mrp - pkgMrp + pk.mrp);
+        pkgMrp = pk.mrp;
+        tests[0] = pk.name; testPrices[0] = pk.price;
+        refreshAll();
+        closeReplace();
+        showToast('✓ Switched to ' + pk.name);
+      } else {
+        if (tests.includes(pk.name)) { closeReplace(); return; }
+        tests.push(pk.name); testPrices.push(pk.price);
+        price += pk.price; mrp += pk.mrp;
+        refreshAll();
+        closeReplace();
+        showToast('✓ ' + pk.name + ' added');
+      }
+    });
+  })();
 
   // Mobile bottom CTA mirrors the in-summary Proceed to Pay click
   const mabBtn = document.getElementById('mabProceedBtn');
@@ -1794,24 +2245,27 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
     // Address
     const activeAddr = document.querySelector('.addr-card.is-active');
     let addressLabel = 'Home · DLF Phase 4, Gurgaon';
-    if (activeAddr) {
+    if (isVisit) {
+      // Lab-visit: the chosen center is the location.
+      addressLabel = 'Lab visit · ' + (selectedCenter || labName);
+    } else if (activeAddr) {
       const tag = activeAddr.querySelector('.addr-tag')?.textContent.trim() || '';
       const name = activeAddr.querySelector('.addr-name')?.textContent.trim() || '';
       const line = activeAddr.querySelector('.addr-line')?.textContent.trim() || '';
       addressLabel = [tag, name].filter(Boolean).join(' · ') + (line ? ' — ' + line : '');
     }
     // Patient — read from the patient step-card (contains .who-toggle)
-    const who = document.querySelector('.who-tab.is-active')?.dataset.who || 'self';
-    const gender = document.querySelector('.gender-pill.is-active')?.dataset.gender || 'm';
-    const patientCard = document.querySelector('.who-toggle')?.closest('.step-card');
-    const patInputs = patientCard ? patientCard.querySelectorAll('.field-input') : [];
-    const patName = patInputs[0]?.value?.trim() || '';
-    const patAge = patInputs[2]?.value?.trim() || '';
-    let patientLabel = who === 'self' ? (patName || 'Self') : (patName || 'Family member');
-    const bits = [];
-    if (patAge) bits.push(`${patAge} yrs`);
-    bits.push(gender === 'f' ? 'Female' : gender === 'o' ? 'Other' : 'Male');
-    patientLabel += ' · ' + bits.join(' · ');
+    // Collect every patient block
+    const patientNames = [];
+    document.querySelectorAll('#patientsList .patient-block').forEach((b, i) => {
+      const name = b.querySelector('.pt-name')?.value.trim() || (i === 0 ? 'Self' : 'Patient ' + (i + 1));
+      const age = b.querySelector('.pt-age')?.value.trim();
+      const g = b.querySelector('.gender-pill.is-active')?.dataset.gender || 'm';
+      const gl = g === 'f' ? 'Female' : g === 'o' ? 'Other' : 'Male';
+      patientNames.push(name + (age ? ` · ${age} yrs` : '') + ` · ${gl}`);
+    });
+    let patientLabel = patientNames[0] || 'Self';
+    if (patientNames.length > 1) patientLabel += `  +${patientNames.length - 1} more`;
 
     showToast('✓ Proceeding to payment…');
 
