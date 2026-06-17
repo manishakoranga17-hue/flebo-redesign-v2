@@ -2358,6 +2358,22 @@ body.has-select-bar { padding-bottom: 80px; }
 .ptests-book { width: 100%; border: none; background: var(--accent); color: #fff; font-size: 15px; font-weight: 700; padding: 13px; border-radius: 50px; cursor: pointer; transition: background 0.15s; }
 .ptests-book:hover { background: var(--accent-dark); }
 @media (max-width: 480px) { .ptests-group-list { grid-template-columns: 1fr; } }
+
+/* Mobile package-card compaction — MUST come after the base .pcard rules so it wins.
+   Goal: at least two cards visible in the first fold. */
+@media (max-width: 768px) {
+  .pcard { padding: 12px 14px; }
+  .pcard-top { margin-bottom: 8px; }
+  .pcard-sub { display: none; }
+  .pcard-title { font-size: 15px; margin-bottom: 6px; }
+  .pcard-tests-link { padding: 8px 0; margin-bottom: 10px; font-size: 12.5px; }
+  .pcard-foot { display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 12px; }
+  .pcard-price-block { min-width: 0; }
+  .pcard-now { font-size: 18px; }
+  .pcard-save { font-size: 11px; }
+  .pcard-book { width: auto; margin-top: 0; padding: 9px 18px; font-size: 14px; white-space: nowrap; }
+  .pcard-private { margin-top: 10px; padding-top: 8px; }
+}
 </style>
 </head>
 <body>
