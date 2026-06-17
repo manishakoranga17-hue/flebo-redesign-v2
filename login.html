@@ -824,8 +824,8 @@ a { color: inherit; text-decoration: none; }
 
   function verifyOtp() {
     const code = Array.from(otpBoxes).map(b => b.value).join('');
-    // Demo rule: accept any code where the digits sum > 0 EXCEPT '000000', which fails
-    if (code === '000000') {
+    // Demo: accept any complete 6-digit code (no real backend to validate against)
+    if (!/^\d{6}$/.test(code)) {
       otpBoxes.forEach(b => b.classList.add('is-error'));
       otpError.hidden = false;
       return;
