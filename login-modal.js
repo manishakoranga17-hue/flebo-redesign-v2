@@ -103,6 +103,22 @@
   .lm-resend-cta:disabled{color:var(--text-muted,#6B7592);cursor:not-allowed;}\
   .lm-resend-timer{font-family:"Plus Jakarta Sans",sans-serif;font-weight:700;color:var(--primary,#1B2A5B);}\
   body.lm-locked{overflow:hidden;}\
+  /* ----- logged-in profile dropdown ----- */\
+  .lm-authed{cursor:pointer;}\
+  .lm-menu{position:fixed;z-index:10001;min-width:238px;max-width:290px;background:#fff;border:1px solid var(--border-soft,#E5E9F3);\
+    border-radius:14px;box-shadow:0 18px 50px rgba(11,21,48,.22);padding:6px;display:none;\
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;}\
+  .lm-menu.is-open{display:block;animation:lmPop .16s ease;}\
+  .lm-menu-head{display:flex;align-items:center;gap:10px;padding:10px 10px 12px;margin-bottom:4px;border-bottom:1px solid var(--border-soft,#E5E9F3);}\
+  .lm-menu-avatar{width:38px;height:38px;border-radius:50%;background:var(--primary,#1B2A5B);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}\
+  .lm-menu-name{font-size:14px;font-weight:700;color:var(--text-primary,#0B1530);line-height:1.2;}\
+  .lm-menu-phone{font-size:12px;color:var(--text-muted,#6B7592);margin-top:1px;}\
+  .lm-menu-item{display:flex;align-items:center;gap:12px;width:100%;padding:10px 10px;border:0;background:0;border-radius:9px;\
+    font:inherit;font-size:14px;font-weight:600;color:var(--text-primary,#0B1530);cursor:pointer;text-align:left;}\
+  .lm-menu-item:hover{background:var(--bg-soft,#F7F8FB);}\
+  .lm-menu-item i{width:18px;text-align:center;font-size:14px;color:var(--text-muted,#6B7592);}\
+  .lm-menu-sep{height:1px;background:var(--border-soft,#E5E9F3);margin:6px 4px;}\
+  .lm-menu-item.is-logout,.lm-menu-item.is-logout i{color:var(--accent,#D33535);}\
   @media (max-width:820px){.lm-card{grid-template-columns:1fr;max-width:440px;}.lm-left{display:none;}.lm-right{max-height:92vh;}}\
   @media (max-width:520px){.lm-right{padding:32px 20px 24px;}.lm-title{font-size:26px;}.lm-social{grid-template-columns:1fr;}}';
 
@@ -417,22 +433,90 @@
     b.addEventListener('click', function () { /* placeholder — social sign-in */ });
   });
 
-  /* ---------- reflect logged-in state on triggers ---------- */
+  /* ---------- logged-in profile dropdown ---------- */
+  var MENU_ITEMS = [
+    { label: 'View Reports', icon: 'fa-file-lines' },
+    { label: 'My Bookings', icon: 'fa-calendar-check' },
+    { label: 'Health Trend Graph', icon: 'fa-chart-line' },
+    { label: 'BMI Calculator', icon: 'fa-calculator' },
+    { label: 'Referral & Earning', icon: 'fa-gift' },
+    { label: 'Address Book', icon: 'fa-address-book' },
+    { label: 'My Profiles', icon: 'fa-id-card' },
+    { label: 'My Wallet', icon: 'fa-wallet' }
+  ];
+  var menu = document.createElement('div');
+  menu.id = 'lmMenu';
+  menu.className = 'lm-menu';
+  menu.setAttribute('role', 'menu');
+  menu.innerHTML =
+    '<div class="lm-menu-head"><span class="lm-menu-avatar"><i class="fas fa-user"></i></span>' +
+    '<div><div class="lm-menu-name">My account</div><div class="lm-menu-phone" id="lmMenuPhone"></div></div></div>' +
+    MENU_ITEMS.map(function (m) {
+      return '<button class="lm-menu-item" role="menuitem"><i class="fas ' + m.icon + '"></i> ' + m.label + '</button>';
+    }).join('') +
+    '<div class="lm-menu-sep"></div>' +
+    '<button class="lm-menu-item is-logout" role="menuitem" data-action="logout"><i class="fas fa-right-from-bracket"></i> Logout</button>';
+  document.body.appendChild(menu);
+  var menuOpen = false;
+
+  function isLoggedIn() { try { return localStorage.getItem('flebo:loggedIn') === '1'; } catch (e) { return false; } }
+  function loginTriggers() { return document.querySelectorAll('.top-bar-login, a[href$="login.html"], a[href*="login.html?"], [data-login-trigger]'); }
+
   function reflectLoggedIn() {
-    var phone;
+    var on = isLoggedIn(), phone;
     try { phone = localStorage.getItem('flebo:phone'); } catch (e) {}
-    if (!phone) return;
-    document.querySelectorAll('.top-bar-login span, a[href$="login.html"] span, [data-login-trigger] span').forEach(function (s) {
-      s.textContent = '+91 ' + formatPhone(phone);
+    loginTriggers().forEach(function (t) {
+      var span = t.querySelector('span'), ic = t.querySelector('i');
+      if (on && phone) {
+        t.classList.add('lm-authed');
+        if (span) span.textContent = '+91 ' + formatPhone(phone);
+        if (ic) ic.className = 'fas fa-circle-user';
+      } else {
+        t.classList.remove('lm-authed');
+        if (span) span.textContent = 'Login / Signup';
+        if (ic) ic.className = 'fas fa-user';
+      }
     });
   }
-  try { if (localStorage.getItem('flebo:loggedIn') === '1') reflectLoggedIn(); } catch (e) {}
 
-  /* ---------- intercept login links ---------- */
-  document.addEventListener('click', function (e) {
-    var a = e.target.closest('a[href$="login.html"], a[href*="login.html?"], [data-login-trigger]');
-    if (!a) return;
-    e.preventDefault();
-    open(a);
+  function openMenu(trigger) {
+    var phone; try { phone = localStorage.getItem('flebo:phone'); } catch (e) {}
+    document.getElementById('lmMenuPhone').textContent = phone ? '+91 ' + formatPhone(phone) : '';
+    var r = trigger.getBoundingClientRect();
+    menu.style.top = (r.bottom + 8) + 'px';
+    menu.style.left = 'auto';
+    menu.style.right = Math.max(8, window.innerWidth - r.right) + 'px';
+    menu.classList.add('is-open');
+    menuOpen = true;
+  }
+  function closeMenu() { menu.classList.remove('is-open'); menuOpen = false; }
+
+  function logout() {
+    try { localStorage.removeItem('flebo:loggedIn'); localStorage.removeItem('flebo:phone'); } catch (e) {}
+    reflectLoggedIn();
+  }
+
+  menu.addEventListener('click', function (e) {
+    var item = e.target.closest('.lm-menu-item');
+    if (!item) return;
+    if (item.getAttribute('data-action') === 'logout') logout();
+    closeMenu();
   });
+
+  /* ---------- intercept login / profile triggers ---------- */
+  document.addEventListener('click', function (e) {
+    var t = e.target.closest('a[href$="login.html"], a[href*="login.html?"], [data-login-trigger]');
+    if (t) {
+      e.preventDefault();
+      if (isLoggedIn()) { menuOpen ? closeMenu() : openMenu(t); }
+      else open(t);
+      return;
+    }
+    if (menuOpen && !e.target.closest('#lmMenu')) closeMenu();
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && menuOpen) closeMenu(); });
+  window.addEventListener('scroll', function () { if (menuOpen) closeMenu(); }, true);
+  window.addEventListener('resize', function () { if (menuOpen) closeMenu(); });
+
+  reflectLoggedIn();
 })();
