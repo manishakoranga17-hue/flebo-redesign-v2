@@ -138,8 +138,16 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 /* ===== BMI calculator page ===== */
 .bmi-page { max-width: 1480px; margin: 0 auto; padding: 32px var(--site-inset, 32px) 64px; }
 .bmi-head { position: relative; margin-bottom: 26px; padding: 32px 34px; border-radius: var(--radius-xl, 24px); overflow: hidden;
+  display: grid; grid-template-columns: 1fr 296px; gap: 30px; align-items: center;
   background: radial-gradient(130% 150% at 100% 0%, rgba(211,53,53,0.12) 0%, transparent 48%), linear-gradient(180deg, #ECF1FB 0%, #F8FAFE 100%);
   border: 1px solid var(--border-soft, #E5E9F3); }
+.bmi-hero-art { background: rgba(255,255,255,0.72); border: 1px solid var(--border-soft, #E5E9F3); border-radius: var(--radius-lg, 16px); padding: 20px 20px 18px; box-shadow: 0 8px 24px rgba(11,21,48,0.07); -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px); }
+.bmi-hero-art svg { display: block; width: 100%; height: auto; }
+.bmi-hero-cap { text-align: center; font-size: 12.5px; color: var(--text-secondary, #4A5578); line-height: 1.4; margin: 6px 0 14px; }
+.bmi-hero-cap b { color: var(--green, #1B8A5A); }
+.bmi-hero-legend { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 14px; }
+.bmi-hero-legend span { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; color: var(--text-secondary, #4A5578); }
+.bmi-hero-legend i { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
 .bmi-head::after { content: ''; position: absolute; right: -50px; top: -60px; width: 230px; height: 230px; border-radius: 50%;
   background: radial-gradient(circle, rgba(27,42,91,0.07), transparent 70%); pointer-events: none; }
 .bmi-head > * { position: relative; z-index: 1; }
@@ -261,12 +269,16 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 .bmi-note { margin-top: 24px; font-size: 13px; color: var(--text-muted, #6B7592); line-height: 1.55; background: var(--bg-soft, #F7F8FB); border-radius: var(--radius-md, 12px); padding: 14px 16px; }
 
 @media (max-width: 820px) {
+  .bmi-head { grid-template-columns: 1fr; gap: 22px; }
+  .bmi-hero-art { max-width: 340px; }
   .bmi-calc { grid-template-columns: 1fr; }
   .bmi-result { border-left: 0; border-top: 1px solid var(--border-soft, #E5E9F3); }
   .bmi-cols, .bmi-cards { grid-template-columns: 1fr; }
 }
 @media (max-width: 600px) {
   .bmi-page { padding-top: 22px; }
+  .bmi-head { padding: 26px 22px; }
+  .bmi-hero-art { display: none; }
   .bmi-h1 { font-size: 30px; }
   .bmi-sub { font-size: 15px; }
   .bmi-form, .bmi-result { padding: 22px 18px; }
@@ -479,13 +491,44 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 <!-- ===== BMI CALCULATOR ===== -->
 <main class="bmi-page">
   <div class="bmi-head">
-    <div class="bmi-eyebrow"><i class="fas fa-heart-pulse"></i> Free health tool</div>
-    <h1 class="bmi-h1">BMI Calculator</h1>
-    <p class="bmi-sub">Body Mass Index (BMI) is a quick screening of your weight relative to your height. Enter your details below to find your BMI, what category it falls in, and the healthy weight range for you.</p>
-    <div class="bmi-chips">
-      <span class="bmi-chip"><i class="fas fa-bolt"></i> Instant result</span>
-      <span class="bmi-chip"><i class="fas fa-lock"></i> Private — nothing saved</span>
-      <span class="bmi-chip"><i class="fas fa-indian-rupee-sign"></i> 100% free</span>
+    <div class="bmi-head-text">
+      <div class="bmi-eyebrow"><i class="fas fa-heart-pulse"></i> Free health tool</div>
+      <h1 class="bmi-h1">BMI Calculator</h1>
+      <p class="bmi-sub">Body Mass Index (BMI) is a quick screening of your weight relative to your height. Enter your details below to find your BMI, what category it falls in, and the healthy weight range for you.</p>
+      <div class="bmi-chips">
+        <span class="bmi-chip"><i class="fas fa-bolt"></i> Instant result</span>
+        <span class="bmi-chip"><i class="fas fa-lock"></i> Private — nothing saved</span>
+        <span class="bmi-chip"><i class="fas fa-indian-rupee-sign"></i> 100% free</span>
+      </div>
+    </div>
+    <div class="bmi-hero-art">
+      <svg viewBox="0 0 260 156" role="img" aria-label="BMI scale dial">
+        <defs>
+          <linearGradient id="bmiHeroArc" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#3B82F6"/>
+            <stop offset="0.28" stop-color="#1B8A5A"/>
+            <stop offset="0.52" stop-color="#F4B940"/>
+            <stop offset="1" stop-color="#E8453C"/>
+          </linearGradient>
+        </defs>
+        <path d="M30 140 A100 100 0 0 1 230 140" fill="none" stroke="#EEF1F7" stroke-width="22" stroke-linecap="round"/>
+        <path d="M30 140 A100 100 0 0 1 230 140" fill="none" stroke="url(#bmiHeroArc)" stroke-width="20" stroke-linecap="round"/>
+        <g stroke="#fff" stroke-width="3" stroke-linecap="round">
+          <line x1="59" y1="55" x2="73" y2="72"/>
+          <line x1="137" y1="29" x2="136" y2="51"/>
+          <line x1="206" y1="59" x2="191" y2="75"/>
+        </g>
+        <line x1="130" y1="140" x2="108" y2="70" stroke="#1B2A5B" stroke-width="6" stroke-linecap="round"/>
+        <circle cx="130" cy="140" r="11" fill="#1B2A5B"/>
+        <circle cx="130" cy="140" r="4.5" fill="#fff"/>
+      </svg>
+      <div class="bmi-hero-cap">Aim for the <b>green zone</b> — a healthy BMI of 18.5–24.9</div>
+      <div class="bmi-hero-legend">
+        <span><i style="background:#3B82F6"></i> Underweight</span>
+        <span><i style="background:#1B8A5A"></i> Normal</span>
+        <span><i style="background:#F4B940"></i> Overweight</span>
+        <span><i style="background:#E8453C"></i> Obese</span>
+      </div>
     </div>
   </div>
 
