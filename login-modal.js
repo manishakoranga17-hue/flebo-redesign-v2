@@ -12,11 +12,12 @@
   /* ---------- styles (scoped with .lm- prefix, shared tokens w/ fallbacks) ---------- */
   var css = '\
   #lmOverlay{position:fixed;inset:0;z-index:10000;display:none;align-items:center;justify-content:center;\
-    padding:20px;background:rgba(11,21,48,.55);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);}\
+    padding:20px;background:rgba(6,9,18,.66);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);}\
   #lmOverlay.is-open{display:flex;animation:lmFade .18s ease;}\
   @keyframes lmFade{from{opacity:0}to{opacity:1}}\
   .lm-card{position:relative;width:100%;max-width:900px;max-height:92vh;display:grid;grid-template-columns:1.05fr 1fr;\
-    background:#fff;border-radius:22px;overflow:hidden;box-shadow:0 28px 80px rgba(11,21,48,.36);\
+    background:#fff;border-radius:22px;overflow:hidden;border:1px solid rgba(255,255,255,.16);\
+    box-shadow:0 30px 90px rgba(0,0,0,.55),0 0 0 1px rgba(0,0,0,.2);\
     font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text-primary,#0B1530);\
     animation:lmPop .2s cubic-bezier(.2,.8,.3,1);}\
   @keyframes lmPop{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:none}}\
