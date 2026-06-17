@@ -2096,8 +2096,12 @@ body.pkg-flow .lab-table tbody tr:first-child td { border-top: none; }
   .ltab-h-lab { width: auto; }
 
   /* Compact main-header on mobile: tabs + filter icon */
-  .main-header { gap: 10px; align-items: stretch; }
+  .main-header { gap: 10px; align-items: stretch; flex-wrap: wrap; }
   .main-header-text { display: none; }
+  /* Package flow: show the selected-package heading above the tabs on mobile */
+  body.pkg-flow .main-header-text { display: block; flex-basis: 100%; order: -1; }
+  body.pkg-flow .main-title { font-size: 22px; }
+  body.pkg-flow .main-title-note { display: block; margin-left: 0; margin-top: 2px; font-size: 13px; }
   .tabs { flex: 1; padding: 3px; min-width: 0; }
   .tab { flex: 1; padding: 7px 12px; font-size: 13.5px; min-width: 0; justify-content: center; text-align: center; }
   .tab-icon { display: none; }
