@@ -1658,14 +1658,12 @@ body.pkg-flow .ctx-chip { flex-shrink: 0; white-space: nowrap; }
 /* ===== MOBILE LAB CARDS ===== */
 /* Lab cards shown at all sizes (replaces the wide table) so everything
    fits without horizontal scrolling. One card per lab, packages inside. */
-/* Tests flow (default): original responsive — table on desktop, cards on mobile.
-   Package flow (body.pkg-flow): grouped table at all sizes, no cards. */
+/* Both flows: table on desktop, cards on mobile (no horizontal scroll). */
 .lab-cards-mobile { display: none; flex-direction: column; gap: 12px; }
 @media (max-width: 768px) {
-  body:not(.pkg-flow) .lab-table-wrap { display: none; }
-  body:not(.pkg-flow) .lab-cards-mobile { display: flex; }
+  .lab-table-wrap { display: none !important; }
+  .lab-cards-mobile { display: flex; }
 }
-body.pkg-flow .lab-cards-mobile { display: none !important; }
 
 /* ===== COMPACT 4-COLUMN LAB TABLE ===== */
 .lab-table { table-layout: auto; }
@@ -2360,6 +2358,28 @@ body.has-cmp-bar { padding-bottom: 92px; }
   .cmp-price-now { font-size: 16px; }
   .cmp-pcount { font-size: 12px; }
 }
+
+/* ===== PACKAGE FLOW — MOBILE CARDS (no horizontal scroll) ===== */
+.plab-card { background: #fff; border: 1px solid var(--border-soft); border-radius: var(--radius-lg); overflow: hidden; box-shadow: 0 1px 3px rgba(11,21,48,0.05); }
+.plab-head { display: flex; gap: 10px; align-items: center; padding: 12px 14px 8px; }
+.plab-logo { width: 40px; height: 40px; border-radius: 9px; border: 1px solid var(--border-soft); background: var(--bg-soft); flex-shrink: 0; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.plab-logo img { width: 100%; height: 100%; object-fit: contain; padding: 4px; }
+.plab-name { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 15px; color: var(--primary); line-height: 1.2; }
+.plab-badges { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+.plab-badges .badge { font-size: 10px; padding: 2px 6px; }
+.plab-meta { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 11.5px; color: var(--text-secondary, #4A5578); font-weight: 500; align-items: center; padding: 0 14px 10px; }
+.plab-meta i { color: var(--accent); margin-right: 3px; }
+.plab-pkgs { border-top: 1px solid var(--border-soft); }
+.plab-pkg { padding: 11px 14px; border-bottom: 1px solid var(--border-soft); }
+.plab-pkg:last-child { border-bottom: none; }
+.plab-pkg-name { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 14px; color: var(--text-primary); margin-bottom: 5px; }
+.plab-pkg-tags { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 12px; font-weight: 600; margin-bottom: 6px; }
+.plab-pkg-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+.plab-price { display: flex; align-items: baseline; flex-wrap: wrap; gap: 2px 8px; }
+.plab-save { flex-basis: 100%; font-size: 11px; font-weight: 700; color: var(--green); }
+.plab-cmp { margin-top: 8px; }
+.plab-more { width: 100%; border: none; background: var(--bg-soft); cursor: pointer; padding: 9px; font: inherit; font-size: 12.5px; font-weight: 700; color: var(--primary); display: inline-flex; align-items: center; justify-content: center; gap: 7px; }
+.plab-more:hover { color: var(--accent); }
 </style>
 </head>
 <body>
@@ -3014,7 +3034,8 @@ body.has-cmp-bar { padding-bottom: 92px; }
     document.getElementById('emptyBanner').hidden = !!list.length;
     if (list.length) {
       if (isPkgFlow) {
-        renderLabTable(list);
+        renderLabTable(list);        // desktop
+        renderPkgMobileCards(list);  // mobile
       } else {
         renderTable(list);
         renderMobileCards(list);
@@ -3100,6 +3121,64 @@ body.has-cmp-bar { padding-bottom: 92px; }
           </td>
         </tr>` : '';
       return pkgRows + toggleRow;
+    }).join('');
+  }
+
+  // ===== Package flow — mobile cards (one card per lab, packages inside) =====
+  function renderPkgMobileCards(list) {
+    const ctaLabel = 'Book Now';
+    const isVisit = mode === 'visit';
+    document.getElementById('labCardsMobile').innerHTML = list.map(lab => {
+      const ratingHtml = lab.ratingType === 'new'
+        ? `<span class="ltab-rating ltab-rating-new">New</span>`
+        : `<span class="ltab-rating"><i class="fas fa-star"></i> ${lab.rating.toFixed(1)}</span>`;
+      const tatShort = (lab.tat || '').replace(/^Reports in\s*/, '').replace(/^Reports\s*/, '');
+      const timing = isVisit ? `${lab.days || ''}${lab.visitHours ? ' · ' + lab.visitHours : ''}` : (lab.hours || '');
+      const badgeHtml = lab.badges.slice(0, 3).map(b => `<span class="badge ${badgeClass(b[1])}">${b[0]}</span>`).join('');
+      const pkgs = (lab.packages && lab.packages.length) ? lab.packages : [{ name: 'Standard Health Package', tests: 40, fasting: false }];
+      const isExp = expandedLabs.has(lab.id);
+      const collapsible = pkgs.length > PKG_PREVIEW;
+      const visibleCount = (collapsible && !isExp) ? PKG_PREVIEW : pkgs.length;
+      const hiddenCount = pkgs.length - visibleCount;
+      const pkgRows = pkgs.slice(0, visibleCount).map((p, i) => {
+        const r = rowById[lab.id + '__' + i] || { rowId: lab.id + '__' + i, price: lab.price, mrp: lab.mrp };
+        const save = r.mrp - r.price;
+        const pct = Math.round((save / r.mrp) * 100);
+        return `
+          <div class="plab-pkg" data-id="${r.rowId}">
+            <div class="plab-pkg-name">${p.name}</div>
+            <div class="plab-pkg-tags">
+              <span class="ltab-pkg-tests"><i class="fas fa-vial"></i> ${p.tests} tests</span>
+              <span class="ltab-pkg-fast ${p.fasting ? 'is-fasting' : 'no-fasting'}"><i class="fas fa-${p.fasting ? 'mug-saucer' : 'circle-check'}"></i> ${p.fasting ? 'Fasting required' : 'No fasting'}</span>
+            </div>
+            <button type="button" class="ltab-viewtests" data-pkg-name="${p.name}" data-pkg-tests="${p.tests}"><i class="fas fa-list-check"></i> View all tests</button>
+            <div class="plab-pkg-foot">
+              <div class="plab-price">
+                <span class="ltab-now">₹${r.price.toLocaleString()}</span>
+                <span class="ltab-mrp">₹${r.mrp.toLocaleString()}</span>
+                <span class="plab-save">Save ₹${save.toLocaleString()} · ${pct}% off</span>
+              </div>
+              <button type="button" class="ltab-book" data-action="select" data-name="${lab.name}">${ctaLabel}</button>
+            </div>
+            <label class="cmp-check plab-cmp"><input type="checkbox" class="cmp-checkbox" data-cmp="${r.rowId}"><span>Compare</span></label>
+          </div>`;
+      }).join('');
+      const toggle = collapsible ? `
+        <button type="button" class="plab-more" data-lab-toggle="${lab.id}">
+          ${isExp ? '<i class="fas fa-chevron-up"></i> Show fewer packages' : `<i class="fas fa-chevron-down"></i> ${hiddenCount} more package${hiddenCount > 1 ? 's' : ''}`}
+        </button>` : '';
+      return `
+        <article class="plab-card">
+          <div class="plab-head">
+            <span class="plab-logo"><img src="${lab.logo}" alt=""></span>
+            <div class="plab-id">
+              <div class="plab-name">${lab.name}</div>
+              <div class="plab-badges">${badgeHtml}</div>
+            </div>
+          </div>
+          <div class="plab-meta">${ratingHtml}<span><i class="fas fa-route"></i> ${lab.distanceKm.toFixed(1)} km</span><span><i class="fas fa-bolt"></i> ${tatShort}</span><span><i class="fas fa-clock"></i> ${timing}</span></div>
+          <div class="plab-pkgs">${pkgRows}${toggle}</div>
+        </article>`;
     }).join('');
   }
 
@@ -3555,11 +3634,13 @@ body.has-cmp-bar { padding-bottom: 92px; }
   document.getElementById('ptestsClose').addEventListener('click', closePkgTests);
   ptestsModal.addEventListener('click', (e) => { if (e.target === ptestsModal) closePkgTests(); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closePkgTests(); });
-  document.getElementById('labTableBody').addEventListener('click', (e) => {
+  function onViewTests(e) {
     const vt = e.target.closest('.ltab-viewtests');
     if (!vt) return;
     openPkgTests(vt.dataset.pkgName, vt.dataset.pkgTests);
-  });
+  }
+  document.getElementById('labTableBody').addEventListener('click', onViewTests);
+  document.getElementById('labCardsMobile').addEventListener('click', onViewTests);
 
   // ===== Sorting =====
   function applySort(key, dir) {
@@ -3632,15 +3713,17 @@ body.has-cmp-bar { padding-bottom: 92px; }
   document.getElementById('labTableBody').addEventListener('click', handleLabSelect);
   document.getElementById('labCardsMobile').addEventListener('click', handleLabSelect);
 
-  // ===== Expand / collapse a lab's package list =====
-  document.getElementById('labTableBody').addEventListener('click', (e) => {
+  // ===== Expand / collapse a lab's package list (table + mobile cards) =====
+  function onLabToggle(e) {
     const toggle = e.target.closest('[data-lab-toggle]');
     if (!toggle) return;
     const id = toggle.dataset.labToggle;
     if (expandedLabs.has(id)) expandedLabs.delete(id);
     else expandedLabs.add(id);
     renderResults(sortLabs(currentSort.key, currentSort.dir));
-  });
+  }
+  document.getElementById('labTableBody').addEventListener('click', onLabToggle);
+  document.getElementById('labCardsMobile').addEventListener('click', onLabToggle);
 
   // ===== Rating slider =====
   const slider = document.getElementById('ratingSlider');
