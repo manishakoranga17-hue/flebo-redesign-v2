@@ -2359,27 +2359,33 @@ body.has-cmp-bar { padding-bottom: 92px; }
   .cmp-pcount { font-size: 12px; }
 }
 
-/* ===== PACKAGE FLOW — MOBILE CARDS (no horizontal scroll) ===== */
-.plab-card { background: #fff; border: 1px solid var(--border-soft); border-radius: var(--radius-lg); overflow: hidden; box-shadow: 0 1px 3px rgba(11,21,48,0.05); }
-.plab-head { display: flex; gap: 10px; align-items: center; padding: 12px 14px 8px; }
+/* ===== PACKAGE FLOW — MOBILE CARDS (one package at a time, dropdown to switch) ===== */
+.plab-card { background: #fff; border: 1px solid var(--border-soft); border-radius: var(--radius-lg); padding: 14px; box-shadow: 0 1px 3px rgba(11,21,48,0.05); }
+.plab-head { display: flex; gap: 10px; align-items: center; }
 .plab-logo { width: 40px; height: 40px; border-radius: 9px; border: 1px solid var(--border-soft); background: var(--bg-soft); flex-shrink: 0; overflow: hidden; display: flex; align-items: center; justify-content: center; }
 .plab-logo img { width: 100%; height: 100%; object-fit: contain; padding: 4px; }
 .plab-name { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 15px; color: var(--primary); line-height: 1.2; }
 .plab-badges { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
 .plab-badges .badge { font-size: 10px; padding: 2px 6px; }
-.plab-meta { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 11.5px; color: var(--text-secondary, #4A5578); font-weight: 500; align-items: center; padding: 0 14px 10px; }
+.plab-meta { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 11.5px; color: var(--text-secondary, #4A5578); font-weight: 500; align-items: center; margin-top: 10px; }
 .plab-meta i { color: var(--accent); margin-right: 3px; }
-.plab-pkgs { border-top: 1px solid var(--border-soft); }
-.plab-pkg { padding: 11px 14px; border-bottom: 1px solid var(--border-soft); }
-.plab-pkg:last-child { border-bottom: none; }
-.plab-pkg-name { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 14px; color: var(--text-primary); margin-bottom: 5px; }
-.plab-pkg-tags { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 12px; font-weight: 600; margin-bottom: 6px; }
-.plab-pkg-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
-.plab-price { display: flex; align-items: baseline; flex-wrap: wrap; gap: 2px 8px; }
+.plab-selectlabel { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-muted); margin: 12px 0 6px; }
+.plab-only-name { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 15px; color: var(--text-primary); margin-top: 12px; }
+.plab-select {
+  width: 100%; height: 42px; padding: 0 38px 0 12px;
+  border: 1.5px solid var(--border-soft); border-radius: var(--radius-md);
+  font: inherit; font-size: 14px; font-weight: 700; color: var(--text-primary); cursor: pointer;
+  appearance: none; -webkit-appearance: none; background-color: #fff;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%236B7592' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 14px center;
+}
+.plab-detail { margin-top: 12px; }
+.plab-pkg-tags { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 12px; font-weight: 600; margin-bottom: 8px; }
+.plab-pricerow { display: flex; align-items: baseline; flex-wrap: wrap; gap: 2px 8px; margin: 10px 0; }
 .plab-save { flex-basis: 100%; font-size: 11px; font-weight: 700; color: var(--green); }
-.plab-cmp { margin-top: 8px; }
-.plab-more { width: 100%; border: none; background: var(--bg-soft); cursor: pointer; padding: 9px; font: inherit; font-size: 12.5px; font-weight: 700; color: var(--primary); display: inline-flex; align-items: center; justify-content: center; gap: 7px; }
-.plab-more:hover { color: var(--accent); }
+.plab-actions { display: flex; align-items: center; gap: 14px; }
+.plab-book { flex: 1; padding: 10px; font-size: 14px; }
+.plab-cmp { margin-top: 0; flex-shrink: 0; }
 </style>
 </head>
 <body>
@@ -3125,8 +3131,31 @@ body.has-cmp-bar { padding-bottom: 92px; }
   }
 
   // ===== Package flow — mobile cards (one card per lab, packages inside) =====
+  // Details (tags, price, CTA) for one package of a lab — re-rendered on dropdown change.
+  function pkgDetailHtml(lab, i) {
+    const pkgs = (lab.packages && lab.packages.length) ? lab.packages : [{ name: 'Standard Health Package', tests: 40, fasting: false }];
+    const p = pkgs[i] || pkgs[0];
+    const r = rowById[lab.id + '__' + i] || { rowId: lab.id + '__' + i, price: lab.price, mrp: lab.mrp };
+    const save = r.mrp - r.price;
+    const pct = Math.round((save / r.mrp) * 100);
+    return `
+      <div class="plab-pkg-tags">
+        <span class="ltab-pkg-tests"><i class="fas fa-vial"></i> ${p.tests} tests</span>
+        <span class="ltab-pkg-fast ${p.fasting ? 'is-fasting' : 'no-fasting'}"><i class="fas fa-${p.fasting ? 'mug-saucer' : 'circle-check'}"></i> ${p.fasting ? 'Fasting required' : 'No fasting'}</span>
+      </div>
+      <button type="button" class="ltab-viewtests" data-pkg-name="${p.name}" data-pkg-tests="${p.tests}"><i class="fas fa-list-check"></i> View all tests</button>
+      <div class="plab-pricerow">
+        <span class="ltab-now">₹${r.price.toLocaleString()}</span>
+        <span class="ltab-mrp">₹${r.mrp.toLocaleString()}</span>
+        <span class="plab-save">Save ₹${save.toLocaleString()} · ${pct}% off</span>
+      </div>
+      <div class="plab-actions">
+        <button type="button" class="ltab-book plab-book" data-action="select" data-name="${lab.name}">Book Now</button>
+        <label class="cmp-check plab-cmp"><input type="checkbox" class="cmp-checkbox" data-cmp="${r.rowId}" ${compareSet.has(r.rowId) ? 'checked' : ''}><span>Compare</span></label>
+      </div>`;
+  }
+
   function renderPkgMobileCards(list) {
-    const ctaLabel = 'Book Now';
     const isVisit = mode === 'visit';
     document.getElementById('labCardsMobile').innerHTML = list.map(lab => {
       const ratingHtml = lab.ratingType === 'new'
@@ -3136,37 +3165,13 @@ body.has-cmp-bar { padding-bottom: 92px; }
       const timing = isVisit ? `${lab.days || ''}${lab.visitHours ? ' · ' + lab.visitHours : ''}` : (lab.hours || '');
       const badgeHtml = lab.badges.slice(0, 3).map(b => `<span class="badge ${badgeClass(b[1])}">${b[0]}</span>`).join('');
       const pkgs = (lab.packages && lab.packages.length) ? lab.packages : [{ name: 'Standard Health Package', tests: 40, fasting: false }];
-      const isExp = expandedLabs.has(lab.id);
-      const collapsible = pkgs.length > PKG_PREVIEW;
-      const visibleCount = (collapsible && !isExp) ? PKG_PREVIEW : pkgs.length;
-      const hiddenCount = pkgs.length - visibleCount;
-      const pkgRows = pkgs.slice(0, visibleCount).map((p, i) => {
-        const r = rowById[lab.id + '__' + i] || { rowId: lab.id + '__' + i, price: lab.price, mrp: lab.mrp };
-        const save = r.mrp - r.price;
-        const pct = Math.round((save / r.mrp) * 100);
-        return `
-          <div class="plab-pkg" data-id="${r.rowId}">
-            <div class="plab-pkg-name">${p.name}</div>
-            <div class="plab-pkg-tags">
-              <span class="ltab-pkg-tests"><i class="fas fa-vial"></i> ${p.tests} tests</span>
-              <span class="ltab-pkg-fast ${p.fasting ? 'is-fasting' : 'no-fasting'}"><i class="fas fa-${p.fasting ? 'mug-saucer' : 'circle-check'}"></i> ${p.fasting ? 'Fasting required' : 'No fasting'}</span>
-            </div>
-            <button type="button" class="ltab-viewtests" data-pkg-name="${p.name}" data-pkg-tests="${p.tests}"><i class="fas fa-list-check"></i> View all tests</button>
-            <div class="plab-pkg-foot">
-              <div class="plab-price">
-                <span class="ltab-now">₹${r.price.toLocaleString()}</span>
-                <span class="ltab-mrp">₹${r.mrp.toLocaleString()}</span>
-                <span class="plab-save">Save ₹${save.toLocaleString()} · ${pct}% off</span>
-              </div>
-              <button type="button" class="ltab-book" data-action="select" data-name="${lab.name}">${ctaLabel}</button>
-            </div>
-            <label class="cmp-check plab-cmp"><input type="checkbox" class="cmp-checkbox" data-cmp="${r.rowId}"><span>Compare</span></label>
-          </div>`;
-      }).join('');
-      const toggle = collapsible ? `
-        <button type="button" class="plab-more" data-lab-toggle="${lab.id}">
-          ${isExp ? '<i class="fas fa-chevron-up"></i> Show fewer packages' : `<i class="fas fa-chevron-down"></i> ${hiddenCount} more package${hiddenCount > 1 ? 's' : ''}`}
-        </button>` : '';
+      // One package shown at a time; a dropdown switches packages when there are several.
+      const selector = pkgs.length > 1
+        ? `<select class="plab-select" data-lab="${lab.id}" aria-label="Choose a package">
+             ${pkgs.map((p, i) => `<option value="${i}">${p.name}</option>`).join('')}
+           </select>`
+        : `<div class="plab-only-name">${pkgs[0].name}</div>`;
+      const first = rowById[lab.id + '__0'] || { rowId: lab.id + '__0' };
       return `
         <article class="plab-card">
           <div class="plab-head">
@@ -3177,10 +3182,27 @@ body.has-cmp-bar { padding-bottom: 92px; }
             </div>
           </div>
           <div class="plab-meta">${ratingHtml}<span><i class="fas fa-route"></i> ${lab.distanceKm.toFixed(1)} km</span><span><i class="fas fa-bolt"></i> ${tatShort}</span><span><i class="fas fa-clock"></i> ${timing}</span></div>
-          <div class="plab-pkgs">${pkgRows}${toggle}</div>
+          ${pkgs.length > 1 ? `<div class="plab-selectlabel">Package</div>` : ''}
+          ${selector}
+          <div class="plab-detail" data-lab="${lab.id}" data-id="${first.rowId}">${pkgDetailHtml(lab, 0)}</div>
         </article>`;
     }).join('');
   }
+
+  // Switch the displayed package when the dropdown changes.
+  document.getElementById('labCardsMobile').addEventListener('change', (e) => {
+    const sel = e.target.closest('.plab-select');
+    if (!sel) return;
+    const lab = labs.find(l => l.id === sel.dataset.lab);
+    if (!lab) return;
+    const i = parseInt(sel.value, 10) || 0;
+    const card = sel.closest('.plab-card');
+    const detail = card && card.querySelector('.plab-detail');
+    if (!detail) return;
+    const r = rowById[lab.id + '__' + i] || { rowId: lab.id + '__' + i };
+    detail.dataset.id = r.rowId;
+    detail.innerHTML = pkgDetailHtml(lab, i);
+  });
 
   function renderMobileCards(list) {
     const isVisit = mode === 'visit';
