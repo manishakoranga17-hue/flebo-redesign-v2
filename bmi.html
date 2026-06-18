@@ -144,31 +144,33 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 .bmi-stage-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1.04fr 0.96fr; }
 
 /* Left: heading + control deck */
-.bmi-deck { padding: 42px 42px 38px; }
+.bmi-deck { padding: 32px 38px 30px; }
 .bmi-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 11.5px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: #fff; background: rgba(255,255,255,0.10); border: 1px solid rgba(255,255,255,0.18); padding: 6px 13px; border-radius: 999px; }
 .bmi-eyebrow i { font-size: 12px; color: #FF8A8A; }
-.bmi-h1 { font-family: 'Instrument Serif', serif; font-size: 52px; font-weight: 400; color: #fff; line-height: 1.02; margin: 16px 0 8px; letter-spacing: -0.01em; }
-.bmi-sub { font-size: 15px; color: rgba(255,255,255,0.72); max-width: 440px; line-height: 1.55; }
-.bmi-controls { margin-top: 26px; }
-.bmi-field { margin-bottom: 16px; }
+.bmi-h1 { font-family: 'Instrument Serif', serif; font-size: 42px; font-weight: 400; color: #fff; line-height: 1.04; margin: 12px 0 6px; letter-spacing: -0.01em; }
+.bmi-sub { font-size: 14.5px; color: rgba(255,255,255,0.72); max-width: 440px; line-height: 1.5; }
+.bmi-controls { margin-top: 18px; }
+.bmi-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 12px; }
+.bmi-row2 .bmi-field { margin-bottom: 0; }
+.bmi-field { margin-bottom: 12px; }
 .bmi-field:last-of-type { margin-bottom: 0; }
-.bmi-field-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.bmi-field-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
 .bmi-label { font-size: 12px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: rgba(255,255,255,0.62); }
 .bmi-toggle { display: inline-flex; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14); border-radius: 999px; padding: 3px; gap: 2px; }
 .bmi-toggle button { border: 0; background: 0; font: inherit; font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.6); padding: 6px 14px; border-radius: 999px; cursor: pointer; transition: background 0.15s, color 0.15s; }
 .bmi-toggle button.is-active { background: #fff; color: var(--primary, #1B2A5B); }
 .bmi-input-row { display: flex; gap: 10px; }
 .bmi-input-wrap { position: relative; flex: 1; }
-.bmi-input { width: 100%; height: 50px; padding: 0 46px 0 15px; border: 1px solid rgba(255,255,255,0.18); border-radius: var(--radius-md, 12px); font: inherit; font-size: 16px; font-weight: 700; color: #fff; outline: 0; background: rgba(255,255,255,0.07); transition: border-color 0.15s, box-shadow 0.15s, background 0.15s; }
+.bmi-input { width: 100%; height: 46px; padding: 0 46px 0 15px; border: 1px solid rgba(255,255,255,0.18); border-radius: var(--radius-md, 12px); font: inherit; font-size: 16px; font-weight: 700; color: #fff; outline: 0; background: rgba(255,255,255,0.07); transition: border-color 0.15s, box-shadow 0.15s, background 0.15s; }
 .bmi-input::placeholder { color: rgba(255,255,255,0.38); font-weight: 500; }
 .bmi-input:focus { border-color: rgba(255,255,255,0.55); background: rgba(255,255,255,0.12); box-shadow: 0 0 0 4px rgba(255,255,255,0.08); }
 .bmi-unit { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.5); pointer-events: none; }
 .bmi-gender { display: flex; gap: 10px; }
-.bmi-gender button { flex: 1; height: 50px; border: 1px solid rgba(255,255,255,0.18); border-radius: var(--radius-md, 12px); background: rgba(255,255,255,0.07); font: inherit; font-size: 14px; font-weight: 700; color: rgba(255,255,255,0.82); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: background 0.15s, color 0.15s, border-color 0.15s; }
+.bmi-gender button { flex: 1; height: 46px; border: 1px solid rgba(255,255,255,0.18); border-radius: var(--radius-md, 12px); background: rgba(255,255,255,0.07); font: inherit; font-size: 14px; font-weight: 700; color: rgba(255,255,255,0.82); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: background 0.15s, color 0.15s, border-color 0.15s; }
 .bmi-gender button.is-active { background: #fff; color: var(--primary, #1B2A5B); border-color: #fff; }
 .bmi-gender button i { font-size: 15px; }
 .bmi-hide { display: none !important; }
-.bmi-go { width: 100%; height: 52px; margin-top: 24px; background: var(--accent, #D33535); color: #fff; border: 0; border-radius: 999px; font: inherit; font-size: 15px; font-weight: 800; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 12px 28px rgba(211,53,53,0.42); transition: background 0.2s, transform 0.15s; }
+.bmi-go { width: 100%; height: 48px; margin-top: 18px; background: var(--accent, #D33535); color: #fff; border: 0; border-radius: 999px; font: inherit; font-size: 15px; font-weight: 800; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 12px 28px rgba(211,53,53,0.42); transition: background 0.2s, transform 0.15s; }
 .bmi-go:hover { background: var(--accent-dark, #B82E2E); transform: translateY(-1px); }
 
 /* Right: illuminated dial readout */
@@ -276,6 +278,8 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   .bmi-page { padding-top: 22px; }
   .bmi-deck { padding: 30px 22px 26px; }
   .bmi-readout { padding: 30px 22px; }
+  .bmi-row2 { grid-template-columns: 1fr; gap: 0; }
+  .bmi-row2 .bmi-field { margin-bottom: 12px; }
   .bmi-h1 { font-size: 38px; }
   .bmi-spectrum { margin: -26px 14px 0; padding: 20px 18px; }
   .bmi-section-title { font-size: 23px; }
@@ -502,32 +506,34 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
               <button type="button" data-gender="female"><i class="fas fa-venus"></i> Female</button>
             </div>
           </div>
-          <div class="bmi-field">
-            <div class="bmi-field-head">
-              <span class="bmi-label">Height</span>
-              <div class="bmi-toggle" id="bmiHeightUnit">
-                <button type="button" data-unit="cm" class="is-active">cm</button>
-                <button type="button" data-unit="ft">ft / in</button>
+          <div class="bmi-row2">
+            <div class="bmi-field">
+              <div class="bmi-field-head">
+                <span class="bmi-label">Height</span>
+                <div class="bmi-toggle" id="bmiHeightUnit">
+                  <button type="button" data-unit="cm" class="is-active">cm</button>
+                  <button type="button" data-unit="ft">ft/in</button>
+                </div>
+              </div>
+              <div class="bmi-input-row" id="bmiHeightCm">
+                <div class="bmi-input-wrap"><input class="bmi-input" id="bmiCm" type="number" inputmode="numeric" min="50" max="260" placeholder="170"><span class="bmi-unit">cm</span></div>
+              </div>
+              <div class="bmi-input-row bmi-hide" id="bmiHeightFt">
+                <div class="bmi-input-wrap"><input class="bmi-input" id="bmiFt" type="number" inputmode="numeric" min="1" max="8" placeholder="5"><span class="bmi-unit">ft</span></div>
+                <div class="bmi-input-wrap"><input class="bmi-input" id="bmiIn" type="number" inputmode="numeric" min="0" max="11" placeholder="7"><span class="bmi-unit">in</span></div>
               </div>
             </div>
-            <div class="bmi-input-row" id="bmiHeightCm">
-              <div class="bmi-input-wrap"><input class="bmi-input" id="bmiCm" type="number" inputmode="numeric" min="50" max="260" placeholder="170"><span class="bmi-unit">cm</span></div>
-            </div>
-            <div class="bmi-input-row bmi-hide" id="bmiHeightFt">
-              <div class="bmi-input-wrap"><input class="bmi-input" id="bmiFt" type="number" inputmode="numeric" min="1" max="8" placeholder="5"><span class="bmi-unit">ft</span></div>
-              <div class="bmi-input-wrap"><input class="bmi-input" id="bmiIn" type="number" inputmode="numeric" min="0" max="11" placeholder="7"><span class="bmi-unit">in</span></div>
-            </div>
-          </div>
-          <div class="bmi-field">
-            <div class="bmi-field-head">
-              <span class="bmi-label">Weight</span>
-              <div class="bmi-toggle" id="bmiWeightUnit">
-                <button type="button" data-unit="kg" class="is-active">kg</button>
-                <button type="button" data-unit="lb">lb</button>
+            <div class="bmi-field">
+              <div class="bmi-field-head">
+                <span class="bmi-label">Weight</span>
+                <div class="bmi-toggle" id="bmiWeightUnit">
+                  <button type="button" data-unit="kg" class="is-active">kg</button>
+                  <button type="button" data-unit="lb">lb</button>
+                </div>
               </div>
-            </div>
-            <div class="bmi-input-row">
-              <div class="bmi-input-wrap"><input class="bmi-input" id="bmiWeight" type="number" inputmode="numeric" min="10" max="400" placeholder="65"><span class="bmi-unit" id="bmiWeightSuffix">kg</span></div>
+              <div class="bmi-input-row">
+                <div class="bmi-input-wrap"><input class="bmi-input" id="bmiWeight" type="number" inputmode="numeric" min="10" max="400" placeholder="65"><span class="bmi-unit" id="bmiWeightSuffix">kg</span></div>
+              </div>
             </div>
           </div>
           <div class="bmi-field">
