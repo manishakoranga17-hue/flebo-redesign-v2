@@ -120,6 +120,15 @@
   .lm-menu-item i{width:18px;text-align:center;font-size:14px;color:var(--text-muted,#6B7592);}\
   .lm-menu-sep{height:1px;background:var(--border-soft,#E5E9F3);margin:6px 4px;}\
   .lm-menu-item.is-logout,.lm-menu-item.is-logout i{color:var(--accent,#D33535);}\
+  /* ----- mobile nav drawer (hamburger) ----- */\
+  .main-nav.lmnav-open{display:flex !important;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;\
+    background:#fff;border-top:1px solid var(--border-soft,#E5E9F3);box-shadow:0 18px 36px rgba(11,21,48,.16);padding:8px;z-index:250;max-height:74vh;overflow-y:auto;}\
+  .main-nav.lmnav-open .main-nav-list{flex-direction:column;width:100%;gap:2px;}\
+  .main-nav.lmnav-open .main-nav-list li{width:100%;}\
+  .main-nav.lmnav-open .main-nav-link{width:100%;padding:13px 14px;border-radius:10px;font-size:15px;}\
+  .main-nav.lmnav-open .main-nav-link::before{content:none !important;}\
+  .main-nav.lmnav-open .main-nav-link:hover{background:var(--bg-soft,#F7F8FB);}\
+  .hamburger-btn.lmnav-active{background:var(--primary,#1B2A5B);color:#fff;}\
   @media (max-width:820px){.lm-card{grid-template-columns:1fr;max-width:440px;}.lm-left{display:none;}.lm-right{max-height:92vh;}}\
   @media (max-width:520px){.lm-right{padding:32px 20px 24px;}.lm-title{font-size:26px;}.lm-social{grid-template-columns:1fr;}}';
 
@@ -520,6 +529,25 @@
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && menuOpen) closeMenu(); });
   window.addEventListener('scroll', function () { if (menuOpen) closeMenu(); }, true);
   window.addEventListener('resize', function () { if (menuOpen) closeMenu(); });
+
+  /* ---------- mobile nav: make the hamburger open the main nav ---------- */
+  // Skip the home page, which ships its own sidebar menu.
+  var ham = document.querySelector('.hamburger-btn');
+  var siteNav = document.querySelector('.main-nav');
+  if (ham && siteNav && !document.getElementById('sidebarOverlay')) {
+    function closeNav() { siteNav.classList.remove('lmnav-open'); ham.classList.remove('lmnav-active'); ham.setAttribute('aria-expanded', 'false'); }
+    ham.addEventListener('click', function (e) {
+      e.preventDefault(); e.stopPropagation();
+      var open = siteNav.classList.toggle('lmnav-open');
+      ham.classList.toggle('lmnav-active', open);
+      ham.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    document.addEventListener('click', function (e) {
+      if (siteNav.classList.contains('lmnav-open') && !e.target.closest('.main-nav') && !e.target.closest('.hamburger-btn')) closeNav();
+    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeNav(); });
+    window.addEventListener('resize', closeNav);
+  }
 
   reflectLoggedIn();
 })();
