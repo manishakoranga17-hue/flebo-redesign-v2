@@ -445,7 +445,7 @@
 
   /* ---------- logged-in profile dropdown ---------- */
   var MENU_ITEMS = [
-    { label: 'View Reports', icon: 'fa-file-lines' },
+    { label: 'View Reports', icon: 'fa-file-lines', href: 'reports.html' },
     { label: 'My Bookings', icon: 'fa-calendar-check' },
     { label: 'Health Trend Graph', icon: 'fa-chart-line' },
     { label: 'BMI Calculator', icon: 'fa-calculator', href: 'bmi.html' },
