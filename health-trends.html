@@ -143,11 +143,11 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 .ht-sub { font-size: 15.5px; color: var(--text-secondary, #4A5578); line-height: 1.55; }
 
 /* Master-detail: sticky chart beside the marker list */
-.ht-main { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; align-items: start; }
+.ht-main { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; align-items: stretch; }
 .ht-main-chart { position: sticky; top: 116px; }
 
-/* Focal chart card */
-.ht-chart-card { background: #fff; border: 1px solid var(--border-soft, #E5E9F3); border-radius: var(--radius-xl, 24px); box-shadow: 0 16px 44px rgba(11,21,48,0.09); padding: 26px 28px 22px; }
+/* Focal chart card — fills its column so it matches the markers' height */
+.ht-chart-card { background: #fff; border: 1px solid var(--border-soft, #E5E9F3); border-radius: var(--radius-xl, 24px); box-shadow: 0 16px 44px rgba(11,21,48,0.09); padding: 26px 28px 22px; height: 100%; display: flex; flex-direction: column; }
 .ht-chart-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
 .ht-chart-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 800; color: var(--text-muted, #6B7592); text-transform: uppercase; letter-spacing: 0.06em; }
 .ht-current { display: flex; align-items: baseline; gap: 8px; margin-top: 7px; }
@@ -161,8 +161,8 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 .ht-delta.flat { background: var(--bg-soft, #F7F8FB); color: var(--text-muted, #6B7592); }
 .ht-range-note { font-size: 13px; color: var(--text-secondary, #4A5578); }
 .ht-range-note b { color: var(--text-primary, #0B1530); font-family: 'Plus Jakarta Sans', sans-serif; }
-.ht-chart-svg { margin-top: 18px; }
-.ht-chart-svg svg { display: block; width: 100%; height: auto; overflow: visible; }
+.ht-chart-svg { margin-top: 18px; flex: 1 1 auto; min-height: 240px; display: flex; align-items: center; }
+.ht-chart-svg svg { display: block; width: 100%; height: 100%; overflow: visible; }
 .ht-legend { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 12px; font-size: 12px; color: var(--text-muted, #6B7592); }
 .ht-legend span { display: inline-flex; align-items: center; gap: 7px; }
 .ht-legend .sw { width: 14px; height: 10px; border-radius: 3px; }
