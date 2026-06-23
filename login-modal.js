@@ -447,7 +447,7 @@
   var MENU_ITEMS = [
     { label: 'View Reports', icon: 'fa-file-lines', href: 'reports.html' },
     { label: 'My Bookings', icon: 'fa-calendar-check' },
-    { label: 'Health Trend Graph', icon: 'fa-chart-line' },
+    { label: 'Health Trend Graph', icon: 'fa-chart-line', href: 'health-trends.html' },
     { label: 'BMI Calculator', icon: 'fa-calculator', href: 'bmi.html' },
     { label: 'Referral & Earning', icon: 'fa-gift' },
     { label: 'Address Book', icon: 'fa-address-book' },

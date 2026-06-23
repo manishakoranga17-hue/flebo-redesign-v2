@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Health Trends — Flebo.in</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --primary: #1B2A5B;
+  --accent: #D33535;
+  --accent-dark: #B82E2E;
+  --accent-soft: #FDECEC;
+  --green: #1B8A5A;
+  --green-dark: #157049;
+  --green-soft: #E1F5EA;
+  --amber: #B45309;
+  --amber-soft: #FEF3C7;
+  --blue: #1D4ED8;
+  --blue-soft: #EFF6FF;
+  --text-primary: #0B1530;
+  --text-muted: #6B7592;
+  --border-soft: #E5E9F3;
+  --border-mid: #C5CCDB;
+  --bg-soft: #F7F8FB;
+  --bg-page: #F4F6FA;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --site-inset: 32px;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: var(--text-primary);
+  background: var(--bg-page);
+  font-size: 16px;
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: transparent; }
+
+/* TOP BAR + HEADER (identical to siblings) */
+.top-bar { background: #0B1530; position: sticky; top: 0; z-index: 200; }
+.top-bar-inner {
+  max-width: 1320px; margin: 0 auto;
+  padding: 10px var(--site-inset);
+  display: flex; align-items: center; gap: 16px;
+  color: #fff; font-size: 15px; font-weight: 500;
+}
+.top-bar-location {
+  background: transparent; border: 0; color: #fff; font: inherit;
+  display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+}
+.tb-icon-green { color: #21C669; font-size: 16px; }
+.top-bar-link { color: #fff; display: inline-flex; align-items: center; gap: 8px; }
+.top-bar-phone { margin-left: auto; }
+
+.site-header {
+  background: #fff; border-bottom: 1px solid var(--border-soft);
+  position: sticky; top: 38px; z-index: 190;
+}
+.site-header-inner {
+  max-width: 1320px; margin: 0 auto;
+  padding: 14px var(--site-inset);
+  display: flex; align-items: center; gap: 28px;
+}
+.brand-block { display: inline-flex; flex-direction: row; align-items: center; gap: 12px; flex-shrink: 0; }
+.brand { display: inline-flex; align-items: center; }
+.brand-logo { height: 46px; width: auto; }
+.brand-rating {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: #EAF2FC; border-radius: 6px; padding: 3px 8px;
+  font-size: 14px; font-weight: 700; color: var(--primary);
+  line-height: 1;
+}
+.brand-rating-score { font-weight: 800; }
+.brand-rating-stars { display: inline-flex; gap: 1px; color: #F6B100; font-size: 12px; }
+.brand-rating-count { font-weight: 600; opacity: 0.85; }
+.hamburger-btn {
+  width: 40px; height: 40px; border-radius: 12px; display: none;
+  align-items: center; justify-content: center;
+  background: var(--bg-soft); color: var(--text-muted);
+  border: 0; font-size: 20px; cursor: pointer; flex-shrink: 0;
+}
+.top-bar-trust { display: flex; list-style: none; margin: 0; padding: 0; align-items: center; }
+.top-bar-trust li { display: inline-flex; align-items: center; }
+.main-nav { align-self: stretch; display: flex; align-items: center; }
+.main-nav-list { display: flex; list-style: none; margin: 0; padding: 0; gap: 0; }
+.main-nav-list li { list-style: none; }
+.main-nav-link {
+  position: relative; display: inline-flex; align-items: center; gap: 8px;
+  padding: 16px 18px; color: var(--text-primary);
+  text-decoration: none; font-size: 16px; font-weight: 600;
+  white-space: nowrap; transition: color 0.2s;
+}
+.main-nav-link i { font-size: 16px; color: var(--text-muted); transition: color 0.2s; }
+.main-nav-link:hover { color: var(--accent); }
+.main-nav-link:hover i { color: var(--accent); }
+.main-nav-list > li:nth-child(2) > .main-nav-link::before,
+.main-nav-list > li:nth-child(3) > .main-nav-link::before,
+.main-nav-list > li:nth-child(4) > .main-nav-link::before,
+.main-nav-list > li:nth-child(5) > .main-nav-link::before {
+  content: '|'; color: #D5DAE5; font-weight: 400;
+  margin-left: -10px; margin-right: 20px; font-size: 17px;
+}
+.main-nav-pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  border: 1.5px solid var(--accent);
+  background: #fff; color: var(--accent);
+  font-size: 16px; font-weight: 700;
+  padding: 8px 18px; border-radius: 999px;
+  text-decoration: none; white-space: nowrap;
+  transition: background 0.2s, color 0.2s;
+}
+.main-nav-pill:hover { background: var(--accent); color: #fff; }
+.main-nav-pill i { color: var(--accent); font-size: 16px; transition: color 0.2s; }
+.main-nav-pill:hover i { color: #fff; }
+.header-upload, .main-nav-upload {
+  margin-left: auto; display: inline-flex; flex-direction: column;
+  align-items: center; align-self: center;
+}
+.main-nav-upload-sub {
+  margin-top: 4px; font-size: 12px; font-weight: 600;
+  color: var(--primary); white-space: nowrap;
+}
+.main-nav-upload-sub-sep { margin: 0 6px; color: #C5CCDB; }
+.main-nav-bmi { gap: 10px; }
+.bmi-gauge-icon { display: inline-flex; align-items: center; justify-content: center; line-height: 0; }
+
+/* ===== Health Trends page ===== */
+.ht-page { max-width: 1480px; margin: 0 auto; padding: 32px var(--site-inset, 32px) 64px; }
+.ht-head { margin-bottom: 22px; }
+.ht-eyebrow { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent, #D33535); background: var(--accent-soft, #FDECEC); border: 1px solid #F4C9C9; padding: 6px 13px; border-radius: 999px; }
+.ht-h1 { font-family: 'Instrument Serif', serif; font-size: 42px; font-weight: 400; color: var(--primary, #1B2A5B); line-height: 1.06; margin: 12px 0 6px; letter-spacing: -0.01em; }
+.ht-sub { font-size: 15.5px; color: var(--text-secondary, #4A5578); max-width: 660px; line-height: 1.55; }
+
+/* Focal chart card */
+.ht-chart-card { background: #fff; border: 1px solid var(--border-soft, #E5E9F3); border-radius: var(--radius-xl, 24px); box-shadow: 0 16px 44px rgba(11,21,48,0.09); padding: 26px 28px 22px; margin-bottom: 30px; }
+.ht-chart-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
+.ht-chart-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 800; color: var(--text-muted, #6B7592); text-transform: uppercase; letter-spacing: 0.06em; }
+.ht-current { display: flex; align-items: baseline; gap: 8px; margin-top: 7px; }
+.ht-current-val { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 46px; font-weight: 800; line-height: 1; transition: color 0.3s; }
+.ht-current-unit { font-size: 15px; font-weight: 700; color: var(--text-muted, #6B7592); }
+.ht-status { font-size: 11.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.03em; padding: 5px 12px; border-radius: 999px; align-self: center; }
+.ht-meta-row { display: flex; align-items: center; gap: 8px 16px; flex-wrap: wrap; margin-top: 12px; }
+.ht-delta { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 800; padding: 6px 13px; border-radius: 999px; }
+.ht-delta.good { background: var(--green-soft, #E1F5EA); color: var(--green, #1B8A5A); }
+.ht-delta.bad { background: var(--accent-soft, #FDECEC); color: var(--accent, #D33535); }
+.ht-delta.flat { background: var(--bg-soft, #F7F8FB); color: var(--text-muted, #6B7592); }
+.ht-range-note { font-size: 13px; color: var(--text-secondary, #4A5578); }
+.ht-range-note b { color: var(--text-primary, #0B1530); font-family: 'Plus Jakarta Sans', sans-serif; }
+.ht-chart-svg { margin-top: 18px; }
+.ht-chart-svg svg { display: block; width: 100%; height: auto; overflow: visible; }
+.ht-legend { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 12px; font-size: 12px; color: var(--text-muted, #6B7592); }
+.ht-legend span { display: inline-flex; align-items: center; gap: 7px; }
+.ht-legend .sw { width: 14px; height: 10px; border-radius: 3px; }
+.ht-legend .sw.band { background: rgba(27,138,90,0.18); border: 1px solid rgba(27,138,90,0.4); }
+.ht-legend .sw.line { width: 16px; height: 3px; border-radius: 2px; background: var(--primary, #1B2A5B); }
+
+/* Metric grid */
+.ht-grid-title { position: relative; font-family: 'Instrument Serif', serif; font-size: 26px; font-weight: 400; color: var(--primary, #1B2A5B); margin: 0 0 14px; padding-left: 16px; }
+.ht-grid-title::before { content: ''; position: absolute; left: 0; top: 5px; bottom: 5px; width: 5px; border-radius: 3px; background: linear-gradient(180deg, var(--accent, #D33535), var(--primary, #1B2A5B)); }
+.ht-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.ht-mcard { background: #fff; border: 1px solid var(--border-soft, #E5E9F3); border-radius: var(--radius-lg, 16px); padding: 16px 16px 14px; cursor: pointer; transition: box-shadow 0.18s, transform 0.18s, border-color 0.18s; text-align: left; }
+.ht-mcard:hover { box-shadow: 0 12px 28px rgba(11,21,48,0.10); transform: translateY(-2px); border-color: var(--border-mid, #C5CCDB); }
+.ht-mcard.is-active { border-color: var(--primary, #1B2A5B); box-shadow: 0 0 0 1.5px var(--primary, #1B2A5B); }
+.ht-mcard-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.ht-mcard-name { font-size: 13px; font-weight: 700; color: var(--text-primary, #0B1530); line-height: 1.25; }
+.ht-mdot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+.ht-mcard-val { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 23px; font-weight: 800; color: var(--text-primary, #0B1530); margin-top: 8px; display: flex; align-items: baseline; gap: 5px; }
+.ht-mcard-unit { font-size: 11px; color: var(--text-muted, #6B7592); font-weight: 700; }
+.ht-mcard-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 8px; }
+.ht-mtrend { font-size: 11.5px; font-weight: 800; display: inline-flex; align-items: center; gap: 4px; }
+.ht-mtrend.good { color: var(--green, #1B8A5A); }
+.ht-mtrend.bad { color: var(--accent, #D33535); }
+.ht-mtrend.flat { color: var(--text-muted, #6B7592); }
+.ht-spark { width: 92px; height: 30px; flex-shrink: 0; }
+.ht-spark svg { display: block; width: 100%; height: 100%; }
+
+/* CTA */
+.ht-cta { margin-top: 34px; background: var(--bg-soft, #F7F8FB); border: 1px solid var(--border-soft, #E5E9F3); border-radius: var(--radius-xl, 24px); padding: 26px 30px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.ht-cta-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 17px; font-weight: 800; color: var(--primary, #1B2A5B); }
+.ht-cta-sub { font-size: 13.5px; color: var(--text-muted, #6B7592); margin-top: 3px; }
+.ht-cta-btn { display: inline-flex; align-items: center; gap: 9px; background: var(--accent, #D33535); color: #fff; border: 0; border-radius: 999px; padding: 13px 24px; font: inherit; font-size: 15px; font-weight: 800; text-decoration: none; white-space: nowrap; box-shadow: 0 8px 20px rgba(211,53,53,0.28); }
+.ht-cta-btn:hover { background: var(--accent-dark, #B82E2E); }
+
+@media (max-width: 980px) { .ht-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) {
+  .ht-page { padding-top: 22px; }
+  .ht-h1 { font-size: 32px; }
+  .ht-current-val { font-size: 38px; }
+  .ht-chart-card { padding: 20px 16px; }
+  .ht-grid { grid-template-columns: 1fr; }
+  .ht-grid-title { font-size: 22px; }
+  .ht-cta { flex-direction: column; align-items: flex-start; }
+}
+@media (max-width: 1080px) {
+  .page-body { grid-template-columns: 1fr; }
+  .receipt-card { position: static; }
+  .confirm-title { font-size: 36px; }
+}
+@media (max-width: 900px) {
+  html, body { overflow-x: clip; max-width: 100vw; }
+  body { overflow-wrap: anywhere; word-break: break-word; }
+  :root { --site-inset: 16px; }
+
+  /* Width clamps + min-width:0 so flex/grid children can't push past viewport */
+  .confirm-hero-inner, .confirm-text, .page-body, .card, .card-head,
+  .receipt-card, .receipt-head, .receipt-head-text, .receipt-section,
+  .receipt-row,
+  .help-card, .help-text,
+  .detail-grid, .detail-row, .detail-text,
+  .tests-list, .tests-list-item, .tests-list-item-name,
+  .timeline, .timeline-item,
+  .cta-row,
+  .reminder, .pay-on-visit-banner, .pov-text {
+    max-width: 100%;
+    min-width: 0;
+  }
+  .confirm-title, .confirm-sub,
+  .detail-value, .detail-sub,
+  .tests-list-item-name,
+  .timeline-title, .timeline-sub,
+  .receipt-row-key, .receipt-row-val,
+  .pov-title, .pov-sub {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+  .page-body { grid-template-columns: 1fr; display: block; }
+  .page-body > div, .page-body > aside { margin-bottom: 14px; }
+
+  /* Header parity */
+  .top-bar-inner { font-size: 11px; padding: 6px 12px; gap: 8px; line-height: 1.3; flex-wrap: nowrap; }
+  .top-bar-link, .top-bar-location { white-space: nowrap; gap: 5px; font-size: 11px; }
+  .top-bar-link span, .top-bar-location span { font-size: 11px; }
+  .top-bar-location i, .top-bar-link i { font-size: 12px; }
+  .top-bar-phone { margin-left: auto; }
+  .site-header { top: 26px; }
+  .site-header-inner {
+    padding: 10px 16px; gap: 10px; flex-wrap: nowrap; max-width: 100vw; overflow: hidden;
+  }
+  .brand-block { gap: 6px; }
+  .brand-logo { height: 36px; }
+  .brand-rating { padding: 2px 6px; font-size: 10px; gap: 3px; }
+  .brand-rating-stars { font-size: 9px; }
+  .brand-rating-stars i:nth-child(n+2) { display: none; }
+  .main-nav { display: none; }
+  .hamburger-btn { display: inline-flex !important; width: 34px; height: 34px; font-size: 16px; }
+  .header-upload { margin-left: auto; flex-shrink: 0; }
+  .header-upload .main-nav-pill {
+    padding: 6px 10px;
+    font-size: 11px;
+    gap: 5px;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+  .header-upload .main-nav-pill i { font-size: 12px; }
+  .header-upload .main-nav-pill span { display: inline; }
+  .main-nav-upload-sub { display: none; }
+  .site-header-inner { gap: 8px; padding: 8px 12px; }
+
+  /* Confirm hero */
+  .confirm-hero-inner {
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 22px 16px;
+    gap: 14px;
+  }
+  .confirm-tick { width: 52px; height: 52px; flex-shrink: 0; margin-top: 4px; }
+  .confirm-tick i { font-size: 26px; }
+  .confirm-text { flex: 1; min-width: 0; }
+  .confirm-eyebrow { margin-bottom: 4px; }
+  .confirm-title { font-size: 24px; line-height: 1.1; margin-bottom: 8px; }
+  .confirm-eyebrow { font-size: 11px; letter-spacing: 0.10em; margin-bottom: 4px; }
+  .confirm-title { font-size: 28px; line-height: 1.1; margin-bottom: 8px; }
+  .confirm-sub { font-size: 14px; margin-bottom: 12px; }
+  .confirm-id-pill { font-size: 13px; padding: 7px 12px; gap: 8px; }
+
+  /* Page body */
+  .page-body { padding: 16px 16px 28px; gap: 14px; }
+  .card { padding: 18px 16px; }
+  .card-head { flex-wrap: nowrap; gap: 10px; }
+  .card-title { font-size: 18px; flex-shrink: 0; }
+  .card-sub {
+    font-size: 11px;
+    text-align: right;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+  }
+
+  /* Booking details: single col with smaller icons */
+  .detail-grid { grid-template-columns: 1fr; gap: 12px; }
+  .detail-row { gap: 10px; }
+  .detail-ico { width: 32px; height: 32px; font-size: 13px; }
+  .detail-label { font-size: 11px; }
+  .detail-value { font-size: 14px; }
+  .detail-sub { font-size: 12px; }
+
+  /* Tests + timeline */
+  .tests-list-item { font-size: 14px; }
+  .timeline { padding-left: 44px; }
+  .timeline-item { padding-bottom: 18px; }
+  .timeline-dot { left: -44px; width: 26px; height: 26px; font-size: 11px; }
+  .timeline-title { font-size: 14px; }
+  .timeline-sub { font-size: 12px; }
+  .timeline-time { font-size: 11px; padding: 2px 7px; }
+
+  /* Reminder + pay-on-visit banner */
+  .reminder { padding: 12px 14px; font-size: 13px; gap: 10px; }
+  .pay-on-visit-banner { padding: 14px 16px; gap: 12px; }
+  .pov-ico { width: 40px; height: 40px; font-size: 16px; }
+  .pov-title { font-size: 15px; }
+  .pov-sub { font-size: 12px; }
+
+  /* CTAs full-width and stacked-friendly */
+  .cta-row { flex-direction: column; gap: 10px; }
+  .cta-row > button { min-width: 0; width: 100%; height: 54px; padding: 14px 22px; font-size: 15px; gap: 10px; }
+  .cta-row > button i { font-size: 16px; }
+
+  /* Receipt + help inline */
+  .receipt-card { position: static; border-radius: var(--radius-md); }
+  .receipt-head { padding: 14px 16px; }
+  .receipt-head-amount { font-size: 19px; }
+  .receipt-section { padding: 14px 16px; }
+  .receipt-row { font-size: 13px; }
+  .receipt-row.is-total .receipt-row-key { font-size: 14px; }
+  .receipt-row.is-total .receipt-row-val { font-size: 16px; }
+  .help-card { padding: 14px 16px; gap: 12px; }
+  .help-ico { width: 38px; height: 38px; font-size: 15px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== TOP BAR ===== -->
+<div class="top-bar">
+  <div class="top-bar-inner">
+    <ul class="top-bar-trust" aria-label="Location">
+      <li>
+        <button class="top-bar-location" aria-label="Change location">
+          <i class="fas fa-location-dot tb-icon-green"></i>
+          <span>Gurgaon - 122001</span>
+          <i class="fas fa-chevron-down"></i>
+        </button>
+      </li>
+    </ul>
+    <a href="tel:01244550000" class="top-bar-link top-bar-phone">
+      <i class="fas fa-phone"></i><span>0124-4550000</span>
+    </a>
+    <a href="login.html" class="top-bar-link">
+      <i class="fas fa-user"></i><span>Login / Signup</span>
+    </a>
+  </div>
+</div>
+
+<!-- ===== SITE HEADER ===== -->
+<header class="site-header" role="banner">
+  <div class="site-header-inner">
+    <button class="hamburger-btn" aria-label="Open menu"><i class="fas fa-bars"></i></button>
+    <div class="brand-block">
+      <a href="index.html" class="brand" aria-label="Flebo.in"><img src="flebo-logo.svg" alt="Flebo.in" class="brand-logo"></a>
+      <div class="brand-rating" aria-label="Rated 4.9 out of 5">
+        <span class="brand-rating-score">4.9</span>
+        <span class="brand-rating-stars" aria-hidden="true"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+      </div>
+    </div>
+    <nav class="main-nav" role="navigation" aria-label="Primary">
+      <ul class="main-nav-list">
+        <li><a href="tests.html" class="main-nav-link"><i class="fas fa-flask-vial"></i><span>Tests</span></a></li>
+        <li><a href="packages.html" class="main-nav-link"><i class="fas fa-box-open"></i><span>Packages</span></a></li>
+        <li><a href="reports.html" class="main-nav-link"><i class="fas fa-folder-open"></i><span>Reports</span></a></li>
+        <li><a href="health-trends.html" class="main-nav-link is-active" aria-current="page"><i class="fas fa-chart-line"></i><span>Health Trend Graph</span></a></li>
+        <li><a href="bmi.html" class="main-nav-link main-nav-bmi">
+          <span class="bmi-gauge-icon">
+            <svg viewBox="0 0 24 14" width="22" height="13" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="bmiGrad" x1="0" x2="1" y1="0" y2="0">
+                  <stop offset="0" stop-color="#E8453C"/><stop offset="0.35" stop-color="#F4B940"/>
+                  <stop offset="0.65" stop-color="#C7D147"/><stop offset="1" stop-color="#3FAE5A"/>
+                </linearGradient>
+              </defs>
+              <path d="M 2.5 12.5 A 9.5 9.5 0 0 1 21.5 12.5" stroke="url(#bmiGrad)" stroke-width="2.8" stroke-linecap="round" fill="none"/>
+              <line x1="12" y1="12.5" x2="8" y2="5" stroke="#2C3E50" stroke-width="1.6" stroke-linecap="round"/>
+              <circle cx="12" cy="12.5" r="1.4" fill="#2C3E50"/>
+            </svg>
+          </span>
+          <span>BMI Calculator</span>
+        </a></li>
+      </ul>
+    </nav>
+    <div class="header-upload main-nav-upload">
+      <a href="#" class="main-nav-pill"><i class="fas fa-cloud-arrow-up"></i><span>Upload Report of Any Lab</span></a>
+      <span class="main-nav-upload-sub">Secure Data Vault <span class="main-nav-upload-sub-sep">|</span> Free AI Analysis</span>
+    </div>
+  </div>
+</header>
+
+<!-- ===== HEALTH TRENDS ===== -->
+<main class="ht-page">
+  <div class="ht-head">
+    <div class="ht-eyebrow"><i class="fas fa-chart-line"></i> Health records</div>
+    <h1 class="ht-h1">Health trends</h1>
+    <p class="ht-sub">See how your key results move over time. Each marker is plotted against its healthy range, so you can tell at a glance whether things are heading the right way.</p>
+  </div>
+
+  <!-- Focal chart -->
+  <section class="ht-chart-card">
+    <div class="ht-chart-top">
+      <div>
+        <div class="ht-chart-name" id="htName">—</div>
+        <div class="ht-current"><span class="ht-current-val" id="htVal">—</span><span class="ht-current-unit" id="htUnit"></span></div>
+        <div class="ht-meta-row">
+          <span class="ht-delta" id="htDelta"></span>
+          <span class="ht-range-note" id="htRange"></span>
+        </div>
+      </div>
+      <span class="ht-status" id="htStatus"></span>
+    </div>
+    <div class="ht-chart-svg" id="htChart"></div>
+    <div class="ht-legend">
+      <span><span class="sw line"></span> Your results</span>
+      <span><span class="sw band"></span> Healthy range</span>
+      <span id="htLegendLatest"></span>
+    </div>
+  </section>
+
+  <!-- Metric grid -->
+  <h2 class="ht-grid-title">All your markers</h2>
+  <div class="ht-grid" id="htGrid"></div>
+
+  <!-- CTA -->
+  <section class="ht-cta">
+    <div>
+      <div class="ht-cta-title">Keep your trends up to date</div>
+      <div class="ht-cta-sub">Re-test periodically to add new data points and watch your progress — free home collection.</div>
+    </div>
+    <a class="ht-cta-btn" href="packages.html"><i class="fas fa-box-open"></i> Book a follow-up test</a>
+  </section>
+</main>
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var ST = { normal: { c: '#1B8A5A', l: 'Normal' }, low: { c: '#2563EB', l: 'Low' }, high: { c: '#D33535', l: 'High' } };
+  function hexA(hex, a) { var n = parseInt(hex.slice(1), 16); return 'rgba(' + ((n >> 16) & 255) + ',' + ((n >> 8) & 255) + ',' + (n & 255) + ',' + a + ')'; }
+
+  var MARKERS = [
+    { id: 'ldl', name: 'LDL Cholesterol', unit: 'mg/dL', lo: 0, hi: 100, good: 'down', series: [['Sep 25', 158], ['Nov 25', 150], ['Jan 26', 144], ['Mar 26', 138], ['Jun 26', 132]] },
+    { id: 'tchol', name: 'Total Cholesterol', unit: 'mg/dL', lo: 125, hi: 200, good: 'down', series: [['Sep 25', 224], ['Nov 25', 214], ['Jan 26', 205], ['Mar 26', 196], ['Jun 26', 188]] },
+    { id: 'tg', name: 'Triglycerides', unit: 'mg/dL', lo: 0, hi: 150, good: 'down', series: [['Sep 25', 180], ['Nov 25', 168], ['Jan 26', 158], ['Mar 26', 146], ['Jun 26', 138]] },
+    { id: 'hba1c', name: 'HbA1c', unit: '%', lo: 4.0, hi: 5.6, good: 'down', series: [['Sep 25', 6.3], ['Nov 25', 6.2], ['Jan 26', 6.1], ['Mar 26', 6.0], ['Jun 26', 5.9]] },
+    { id: 'glucose', name: 'Fasting Glucose', unit: 'mg/dL', lo: 70, hi: 100, good: 'down', series: [['Sep 25', 104], ['Nov 25', 101], ['Jan 26', 99], ['Mar 26', 98], ['Jun 26', 96]] },
+    { id: 'hb', name: 'Hemoglobin', unit: 'g/dL', lo: 13, hi: 17, good: 'up', series: [['Sep 25', 11.8], ['Nov 25', 12.0], ['Jan 26', 12.3], ['Mar 26', 12.5], ['Jun 26', 12.6]] },
+    { id: 'vitd', name: 'Vitamin D (25-OH)', unit: 'ng/mL', lo: 30, hi: 100, good: 'up', series: [['Sep 25', 12], ['Nov 25', 14], ['Jan 26', 15], ['Mar 26', 17], ['Jun 26', 18]] },
+    { id: 'tsh', name: 'TSH', unit: 'µIU/mL', lo: 0.4, hi: 4.0, good: 'within', series: [['Sep 25', 3.0], ['Nov 25', 2.8], ['Jan 26', 2.6], ['Mar 26', 2.5], ['Jun 26', 2.4]] }
+  ];
+
+  function vals(m) { return m.series.map(function (s) { return s[1]; }); }
+  function last(m) { return m.series[m.series.length - 1][1]; }
+  function prev(m) { return m.series[m.series.length - 2][1]; }
+  function statusOf(m, v) { if (v < m.lo) return 'low'; if (v > m.hi) return 'high'; return 'normal'; }
+  function improving(m) {
+    var d = last(m) - prev(m);
+    if (m.good === 'down') return d < 0;
+    if (m.good === 'up') return d > 0;
+    var c = (m.lo + m.hi) / 2; return Math.abs(last(m) - c) < Math.abs(prev(m) - c);
+  }
+  function trendClass(m) { var d = last(m) - prev(m); if (d === 0) return 'flat'; return improving(m) ? 'good' : 'bad'; }
+  function fmtDelta(m) { return Math.round(Math.abs(last(m) - prev(m)) * 10) / 10; }
+
+  /* ---- main line chart ---- */
+  function buildChart(m) {
+    var W = 860, H = 320, padL = 46, padR = 18, padT = 18, padB = 36;
+    var pw = W - padL - padR, ph = H - padT - padB, n = m.series.length;
+    var v = vals(m), dMin = Math.min.apply(null, v.concat([m.lo])), dMax = Math.max.apply(null, v.concat([m.hi]));
+    var pad = (dMax - dMin) * 0.14 || 1, yMin = dMin - pad, yMax = dMax + pad;
+    if (m.lo === 0 && yMin < 0) yMin = 0;
+    function X(i) { return padL + (n <= 1 ? 0 : i / (n - 1) * pw); }
+    function Y(val) { return padT + (1 - (val - yMin) / (yMax - yMin)) * ph; }
+
+    // healthy band
+    var bandTop = Y(Math.min(m.hi, yMax)), bandBot = Y(Math.max(m.lo, yMin));
+    var band = '<rect x="' + padL + '" y="' + bandTop.toFixed(1) + '" width="' + pw + '" height="' + (bandBot - bandTop).toFixed(1) + '" fill="rgba(27,138,90,0.12)"/>' +
+      '<line x1="' + padL + '" x2="' + (W - padR) + '" y1="' + bandTop.toFixed(1) + '" y2="' + bandTop.toFixed(1) + '" stroke="rgba(27,138,90,0.45)" stroke-width="1" stroke-dasharray="4 4"/>' +
+      '<line x1="' + padL + '" x2="' + (W - padR) + '" y1="' + bandBot.toFixed(1) + '" y2="' + bandBot.toFixed(1) + '" stroke="rgba(27,138,90,0.45)" stroke-width="1" stroke-dasharray="4 4"/>';
+
+    // gridlines + y labels
+    var grid = '', i;
+    for (i = 0; i <= 3; i++) {
+      var gv = yMin + (yMax - yMin) * (i / 3), gy = Y(gv);
+      grid += '<line x1="' + padL + '" x2="' + (W - padR) + '" y1="' + gy.toFixed(1) + '" y2="' + gy.toFixed(1) + '" stroke="#EEF1F7" stroke-width="1"/>';
+      grid += '<text x="' + (padL - 10) + '" y="' + (gy + 4).toFixed(1) + '" text-anchor="end" font-size="11" fill="#9AA3B8" font-family="Plus Jakarta Sans,sans-serif">' + (Math.round(gv * 10) / 10) + '</text>';
+    }
+
+    // area + line
+    var pts = m.series.map(function (s, idx) { return [X(idx), Y(s[1])]; });
+    var poly = pts.map(function (p) { return p[0].toFixed(1) + ',' + p[1].toFixed(1); }).join(' ');
+    var area = 'M' + pts[0][0].toFixed(1) + ',' + Y(yMin).toFixed(1) + ' L' + pts.map(function (p) { return p[0].toFixed(1) + ',' + p[1].toFixed(1); }).join(' L') + ' L' + pts[n - 1][0].toFixed(1) + ',' + Y(yMin).toFixed(1) + ' Z';
+
+    // points + x labels
+    var dots = '', labels = '';
+    for (i = 0; i < n; i++) {
+      var isLast = i === n - 1;
+      if (!isLast) dots += '<circle cx="' + pts[i][0].toFixed(1) + '" cy="' + pts[i][1].toFixed(1) + '" r="3.5" fill="#fff" stroke="#1B2A5B" stroke-width="2"/>';
+      labels += '<text x="' + pts[i][0].toFixed(1) + '" y="' + (H - 12) + '" text-anchor="middle" font-size="11.5" fill="#6B7592" font-family="Inter,sans-serif">' + m.series[i][0] + '</text>';
+    }
+    // latest emphasized
+    var lx = pts[n - 1][0], ly = pts[n - 1][1], lc = ST[statusOf(m, last(m))].c;
+    var bubbleX = Math.max(padL + 26, Math.min(W - padR - 26, lx)), bubbleY = ly - 16 < padT + 12 ? ly + 26 : ly - 16;
+    var latest = '<circle cx="' + lx.toFixed(1) + '" cy="' + ly.toFixed(1) + '" r="6.5" fill="' + lc + '" stroke="#fff" stroke-width="2.5"/>' +
+      '<g><rect x="' + (bubbleX - 24) + '" y="' + (bubbleY - 13) + '" width="48" height="22" rx="6" fill="' + lc + '"/>' +
+      '<text x="' + bubbleX + '" y="' + (bubbleY + 2) + '" text-anchor="middle" font-size="12" font-weight="700" fill="#fff" font-family="Plus Jakarta Sans,sans-serif">' + last(m) + '</text></g>';
+
+    return '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + m.name + ' trend">' +
+      '<defs><linearGradient id="htArea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(27,42,91,0.16)"/><stop offset="1" stop-color="rgba(27,42,91,0)"/></linearGradient></defs>' +
+      grid + band +
+      '<path d="' + area + '" fill="url(#htArea)"/>' +
+      '<polyline points="' + poly + '" fill="none" stroke="#1B2A5B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>' +
+      dots + latest + labels + '</svg>';
+  }
+
+  /* ---- sparkline ---- */
+  function buildSpark(m) {
+    var v = vals(m), n = v.length, mn = Math.min.apply(null, v), mx = Math.max.apply(null, v), pad = (mx - mn) * 0.18 || 1;
+    mn -= pad; mx += pad;
+    var col = { good: '#1B8A5A', bad: '#D33535', flat: '#9AA3B8' }[trendClass(m)];
+    function X(i) { return 4 + (n <= 1 ? 0 : i / (n - 1) * 84); }
+    function Y(val) { return 4 + (1 - (val - mn) / (mx - mn)) * 22; }
+    var poly = v.map(function (val, i) { return X(i).toFixed(1) + ',' + Y(val).toFixed(1); }).join(' ');
+    return '<svg viewBox="0 0 92 30" preserveAspectRatio="none"><polyline points="' + poly + '" fill="none" stroke="' + col + '" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>' +
+      '<circle cx="' + X(n - 1).toFixed(1) + '" cy="' + Y(v[n - 1]).toFixed(1) + '" r="2.6" fill="' + col + '"/></svg>';
+  }
+
+  /* ---- render ---- */
+  function select(m) {
+    var s = statusOf(m, last(m)), meta = ST[s];
+    $('htName').textContent = m.name;
+    $('htVal').textContent = last(m); $('htVal').style.color = meta.c;
+    $('htUnit').textContent = m.unit;
+    $('htStatus').textContent = meta.l; $('htStatus').style.background = hexA(meta.c, 0.14); $('htStatus').style.color = meta.c;
+    var tc = trendClass(m), d = last(m) - prev(m);
+    var arrow = d < 0 ? 'fa-arrow-down' : (d > 0 ? 'fa-arrow-up' : 'fa-minus');
+    var word = tc === 'flat' ? 'no change' : (tc === 'good' ? 'improving' : 'needs attention');
+    $('htDelta').className = 'ht-delta ' + tc;
+    $('htDelta').innerHTML = '<i class="fas ' + arrow + '"></i> ' + fmtDelta(m) + ' ' + m.unit + ' · ' + word;
+    $('htRange').innerHTML = 'Healthy range <b>' + m.lo + '–' + m.hi + ' ' + m.unit + '</b>';
+    $('htLegendLatest').innerHTML = '<span class="sw" style="width:10px;height:10px;border-radius:50%;background:' + meta.c + '"></span> Latest · ' + m.series[m.series.length - 1][0];
+    $('htChart').innerHTML = buildChart(m);
+    document.querySelectorAll('.ht-mcard').forEach(function (c) { c.classList.toggle('is-active', c.getAttribute('data-id') === m.id); });
+  }
+
+  $('htGrid').innerHTML = MARKERS.map(function (m) {
+    var s = statusOf(m, last(m)), tc = trendClass(m), d = last(m) - prev(m);
+    var arrow = d < 0 ? 'fa-arrow-down' : (d > 0 ? 'fa-arrow-up' : 'fa-minus');
+    return '<button class="ht-mcard" data-id="' + m.id + '">' +
+      '<div class="ht-mcard-head"><span class="ht-mcard-name">' + m.name + '</span><span class="ht-mdot" style="background:' + ST[s].c + '"></span></div>' +
+      '<div class="ht-mcard-val">' + last(m) + ' <span class="ht-mcard-unit">' + m.unit + '</span></div>' +
+      '<div class="ht-mcard-foot"><span class="ht-mtrend ' + tc + '"><i class="fas ' + arrow + '"></i> ' + fmtDelta(m) + '</span><span class="ht-spark">' + buildSpark(m) + '</span></div>' +
+      '</button>';
+  }).join('');
+
+  $('htGrid').addEventListener('click', function (e) {
+    var b = e.target.closest('.ht-mcard'); if (!b) return;
+    var m = MARKERS.filter(function (x) { return x.id === b.getAttribute('data-id'); })[0];
+    if (m) { select(m); $('htChart').scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
+  });
+
+  select(MARKERS[0]);
+})();
+</script>
+
+  <script src="login-modal.js" defer></script>
+
+</body>
+</html>
