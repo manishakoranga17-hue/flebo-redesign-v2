@@ -1440,8 +1440,6 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
       </div>
       <div class="cz-added" id="czAdded"></div>
     </section>
-
-      <button type="button" class="step1-continue" id="step1Continue">Continue to slot &amp; details <i class="fas fa-arrow-right"></i></button>
     </div>
 
     <div id="bsStep2" hidden>
@@ -2347,7 +2345,6 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
     if (hasStep1) { window.bsStep = 1; s1.hidden = false; s2.hidden = true; }
     else { window.bsStep = 2; s1.hidden = true; s2.hidden = false; }
     setLabels();
-    var c = document.getElementById('step1Continue'); if (c) c.addEventListener('click', window.goToStep2);
     var b = document.getElementById('backToStep1'); if (b) b.addEventListener('click', backToStep1);
   })();
   </script>
