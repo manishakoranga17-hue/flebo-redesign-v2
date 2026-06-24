@@ -524,7 +524,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
     <div class="rep-stats">
       <div class="rep-stat"><div class="rep-stat__ic"><i class="fas fa-users"></i></div><div class="rep-stat__num" id="statMembers">—</div><div class="rep-stat__label">Members</div></div>
       <div class="rep-stat"><div class="rep-stat__ic"><i class="fas fa-file-lines"></i></div><div class="rep-stat__num" id="statReports">—</div><div class="rep-stat__label">Reports</div></div>
-      <button class="rep-stat rep-stat--review" id="reviewStat"><div class="rep-stat__ic"><i class="fas fa-triangle-exclamation"></i></div><div class="rep-stat__num" id="statFlag">—</div><div class="rep-stat__label">To review</div><div class="rep-stat__sub" id="statSub"></div></button>
+      <div class="rep-stat"><div class="rep-stat__ic"><i class="fas fa-flask-vial"></i></div><div class="rep-stat__num" id="statLabs">—</div><div class="rep-stat__label">Labs</div></div>
     </div>
   </section>
 
@@ -627,12 +627,11 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 
   /* ---- hero stats ---- */
   (function () {
-    var nFlag = 0, nRep = 0;
-    REPORTS.forEach(function (r) { if (r.status === 'ready' && flagged(r).length) nRep++; nFlag += (r.status === 'ready' ? flagged(r).length : 0); });
+    var labs = {};
+    REPORTS.forEach(function (r) { labs[r.lab] = 1; });
     $('statMembers').textContent = PATIENTS.length;
     $('statReports').textContent = REPORTS.length;
-    $('statFlag').textContent = nFlag;
-    $('statSub').textContent = 'values · ' + nRep + ' reports';
+    $('statLabs').textContent = Object.keys(labs).length;
   })();
 
   /* ---- people chips ---- */
@@ -759,12 +758,6 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
     state.member = b.getAttribute('data-member'); renderChips(); render();
   });
   $('repSearch').addEventListener('input', function (e) { state.q = e.target.value.trim().toLowerCase(); render(); });
-  $('reviewStat').addEventListener('click', function () {
-    state.reviewOnly = !state.reviewOnly;
-    this.classList.toggle('is-on', state.reviewOnly);
-    render();
-    if (state.reviewOnly) $('repGroups').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
   $('repGroups').addEventListener('click', function (e) {
     var open = e.target.closest('[data-open]'), ai = e.target.closest('[data-ai]'),
         dl = e.target.closest('[data-dl]'), sh = e.target.closest('[data-share]');
