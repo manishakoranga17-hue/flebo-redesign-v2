@@ -137,25 +137,20 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 
 /* ===== Reports page (tabular, grouped by patient) ===== */
 .rep-page { max-width: 1480px; margin: 0 auto; padding: 32px var(--site-inset, 32px) 64px; }
-.rep-head { margin-bottom: 22px; }
-.rep-eyebrow { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent, #D33535); background: var(--accent-soft, #FDECEC); border: 1px solid #F4C9C9; padding: 6px 13px; border-radius: 999px; }
-.rep-h1 { font-family: 'Instrument Serif', serif; font-size: 42px; font-weight: 400; color: var(--primary, #1B2A5B); line-height: 1.06; margin: 12px 0 6px; letter-spacing: -0.01em; }
-.rep-sub { font-size: 15.5px; color: var(--text-secondary, #4A5578); line-height: 1.55; }
-
-/* Needs-attention banner */
-.rep-alert { position: relative; overflow: hidden; border-radius: var(--radius-xl, 24px); background: #131D44 url('b-hero3.jpeg') center / cover no-repeat; box-shadow: 0 20px 50px rgba(11,21,48,0.28); margin: 22px 0 30px; }
-.rep-alert::before { content: ''; position: absolute; inset: 0; background: linear-gradient(115deg, rgba(11,18,42,0.92) 0%, rgba(13,21,52,0.80) 70%); }
-.rep-alert::after { content: ''; position: absolute; right: -4%; top: -50%; width: 38%; height: 200%; background: radial-gradient(circle at 55% 50%, rgba(211,53,53,0.40), transparent 60%); pointer-events: none; }
-.rep-alert-inner { position: relative; z-index: 1; padding: 26px 32px; }
-.rep-alert-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 11.5px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.78); }
-.rep-alert-eyebrow .dot { width: 8px; height: 8px; border-radius: 50%; background: #FF6B6B; box-shadow: 0 0 0 4px rgba(255,107,107,0.25); }
-.rep-alert-title { font-family: 'Instrument Serif', serif; font-size: 24px; font-weight: 400; color: #fff; line-height: 1.12; margin: 10px 0 0; }
-.rep-alert-flags { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 16px; }
-.rep-flag { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.10); border: 1px solid rgba(255,255,255,0.18); border-radius: 999px; padding: 7px 14px 7px 11px; font-size: 13px; font-weight: 700; color: #fff; cursor: pointer; transition: background 0.15s; }
-.rep-flag:hover { background: rgba(255,255,255,0.18); }
-.rep-flag .pin { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
-.rep-flag .who { opacity: 0.7; font-weight: 600; }
-.rep-flag .st { font-size: 11px; font-weight: 800; text-transform: uppercase; }
+/* Navy hero header */
+.rep-hero { position: relative; overflow: hidden; border-radius: var(--radius-xl, 24px); background: #131D44 url('b-hero3.jpeg') center / cover no-repeat; box-shadow: 0 22px 54px rgba(11,21,48,0.30); margin-bottom: 28px; }
+.rep-hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(115deg, rgba(11,18,42,0.92) 0%, rgba(13,21,52,0.80) 68%); }
+.rep-hero::after { content: ''; position: absolute; right: -4%; top: -55%; width: 40%; height: 210%; background: radial-gradient(circle at 55% 50%, rgba(211,53,53,0.40), transparent 60%); pointer-events: none; }
+.rep-hero-inner { position: relative; z-index: 1; padding: 36px 40px; display: flex; align-items: center; justify-content: space-between; gap: 30px; flex-wrap: wrap; }
+.rep-eyebrow { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #fff; background: rgba(255,255,255,0.10); border: 1px solid rgba(255,255,255,0.18); padding: 6px 13px; border-radius: 999px; }
+.rep-eyebrow i { color: #FF8A8A; }
+.rep-h1 { font-family: 'Instrument Serif', serif; font-size: 44px; font-weight: 400; color: #fff; line-height: 1.04; margin: 14px 0 8px; letter-spacing: -0.01em; }
+.rep-sub { font-size: 15px; color: rgba(255,255,255,0.78); line-height: 1.55; max-width: 520px; }
+.rep-hero-stats { display: flex; gap: 14px; }
+.rep-stat { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.16); border-radius: var(--radius-lg, 16px); padding: 16px 22px; text-align: center; min-width: 96px; }
+.rep-stat-num { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 30px; font-weight: 800; color: #fff; line-height: 1; }
+.rep-stat.flag .rep-stat-num { color: #FF8A8A; }
+.rep-stat-key { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: rgba(255,255,255,0.6); margin-top: 7px; }
 
 /* Toolbar */
 .rep-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 22px; flex-wrap: wrap; }
@@ -247,10 +242,15 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   .rep-actions-cell { text-align: left; }
   .rep-actions { justify-content: flex-start; margin-top: 6px; }
 }
+@media (max-width: 820px) {
+  .rep-hero-stats { width: 100%; }
+  .rep-stat { flex: 1; min-width: 0; }
+}
 @media (max-width: 600px) {
   .rep-page { padding-top: 22px; }
   .rep-h1 { font-size: 32px; }
-  .rep-alert-inner { padding: 22px 20px; }
+  .rep-hero-inner { padding: 26px 22px; }
+  .rep-list { grid-template-columns: 1fr; }
   .rep-toolbar { flex-direction: column; align-items: stretch; }
   .rep-search input { width: 100%; }
   .rep-cta { flex-direction: column; align-items: flex-start; }
@@ -460,18 +460,19 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 
 <!-- ===== REPORTS ===== -->
 <main class="rep-page">
-  <div class="rep-head">
-    <div class="rep-eyebrow"><i class="fas fa-folder-open"></i> Health records</div>
-    <h1 class="rep-h1">Your reports</h1>
-    <p class="rep-sub">All your family's lab reports in one place — grouped by member. Review results, see what needs attention, and download anytime.</p>
-  </div>
-
-  <!-- Needs attention -->
-  <section class="rep-alert" id="repAlert">
-    <div class="rep-alert-inner">
-      <div class="rep-alert-eyebrow"><span class="dot"></span> Needs attention</div>
-      <h2 class="rep-alert-title" id="repAlertTitle"></h2>
-      <div class="rep-alert-flags" id="repFlags"></div>
+  <!-- Hero header -->
+  <section class="rep-hero">
+    <div class="rep-hero-inner">
+      <div class="rep-hero-text">
+        <div class="rep-eyebrow"><i class="fas fa-folder-open"></i> Health records</div>
+        <h1 class="rep-h1">Your reports</h1>
+        <p class="rep-sub">All your family's lab reports in one place — grouped by member. Review results, track trends, and download anytime.</p>
+      </div>
+      <div class="rep-hero-stats">
+        <div class="rep-stat"><div class="rep-stat-num" id="statMembers">—</div><div class="rep-stat-key">Members</div></div>
+        <div class="rep-stat"><div class="rep-stat-num" id="statReports">—</div><div class="rep-stat-key">Reports</div></div>
+        <div class="rep-stat flag"><div class="rep-stat-num" id="statFlag">—</div><div class="rep-stat-key">Flagged</div></div>
+      </div>
     </div>
   </section>
 
@@ -620,18 +621,13 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
     if (!any) groups.innerHTML = '<div style="text-align:center;padding:50px 20px;color:var(--text-muted,#6B7592)"><i class="fas fa-folder-open" style="font-size:32px;color:var(--border-mid,#C5CCDB);display:block;margin-bottom:12px"></i>No reports match your search.</div>';
   }
 
-  /* ---- needs-attention flags ---- */
+  /* ---- hero stats ---- */
   (function () {
-    var flags = [];
-    REPORTS.forEach(function (r) {
-      if (r.status !== 'ready') return;
-      flagged(r).forEach(function (p) { flags.push({ rid: r.id, who: patient(r.pid).name.split(' ')[0], name: p.name, st: p.st }); });
-    });
-    if (!flags.length) { $('repAlert').style.display = 'none'; return; }
-    $('repAlertTitle').textContent = flags.length + ' result' + (flags.length > 1 ? 's' : '') + ' across your family need a closer look';
-    $('repFlags').innerHTML = flags.slice(0, 6).map(function (f) {
-      return '<button class="rep-flag" data-open="' + f.rid + '"><span class="pin" style="background:' + ST[f.st].c + '"></span><span class="who">' + f.who + ' ·</span> ' + esc(f.name) + ' <span class="st" style="color:' + ST[f.st].c + '">' + ST[f.st].l + '</span></button>';
-    }).join('');
+    var nFlag = 0;
+    REPORTS.forEach(function (r) { if (r.status === 'ready') nFlag += flagged(r).length; });
+    $('statMembers').textContent = PATIENTS.length;
+    $('statReports').textContent = REPORTS.length;
+    $('statFlag').textContent = nFlag;
   })();
 
   /* ---- modal ---- */
