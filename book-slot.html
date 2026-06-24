@@ -914,6 +914,19 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 }
 .coupon-apply-btn:hover { text-decoration: underline; }
 
+.step1-continue {
+  width: 100%; margin-top: 4px; padding: 15px 18px; border: 0; border-radius: 999px;
+  background: var(--accent); color: #fff; font: inherit; font-size: 16px; font-weight: 800;
+  cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  box-shadow: 0 8px 22px rgba(211,53,53,0.28); transition: background 0.2s, transform 0.15s;
+}
+.step1-continue:hover { background: var(--accent-dark); transform: translateY(-1px); }
+.bs-back {
+  display: inline-flex; align-items: center; gap: 8px; background: transparent; border: 0;
+  color: var(--text-muted); font: inherit; font-size: 14px; font-weight: 700; cursor: pointer;
+  padding: 2px 0; margin-bottom: 14px;
+}
+.bs-back:hover { color: var(--primary); }
 .proceed-btn {
   width: 100%;
   background: var(--accent);
@@ -1383,6 +1396,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 
   <!-- LEFT: STEP CARDS -->
   <div>
+    <div id="bsStep1">
 
     <!-- STEP 0: CHOOSE CENTER (lab-visit flow only) -->
     <section class="step-card" id="centerSection" hidden>
@@ -1426,6 +1440,12 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
       </div>
       <div class="cz-added" id="czAdded"></div>
     </section>
+
+      <button type="button" class="step1-continue" id="step1Continue">Continue to slot &amp; details <i class="fas fa-arrow-right"></i></button>
+    </div>
+
+    <div id="bsStep2" hidden>
+    <button type="button" class="bs-back" id="backToStep1"><i class="fas fa-arrow-left"></i> Back to your package</button>
 
     <!-- STEP 1: DATE -->
     <section class="step-card">
@@ -1556,6 +1576,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
         </div>
       </div>
     </section>
+    </div>
 
   </div>
 
@@ -1597,7 +1618,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 
     <div style="padding:18px 20px;">
       <button class="proceed-btn" id="proceedBtn">
-        Proceed to Pay
+        <span id="proceedLabel">Proceed to Pay</span>
         <span class="proceed-arrow"><i class="fas fa-arrow-right"></i></span>
       </button>
     </div>
@@ -1618,7 +1639,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
     <span class="mab-price-val" id="mabPriceVal">₹0</span>
   </div>
   <button type="button" class="mab-cta" id="mabProceedBtn">
-    Proceed to Pay
+    <span id="mabLabel">Proceed to Pay</span>
     <i class="fas fa-arrow-right"></i>
   </button>
 </div>
@@ -2234,6 +2255,8 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 
   // Proceed → payment.html with full booking state
   document.getElementById('proceedBtn').addEventListener('click', () => {
+    // On step 1 (package / center), this CTA advances to step 2 instead of paying.
+    if (window.bsStep === 1) { window.goToStep2 && window.goToStep2(); return; }
     // Date chip
     const activeDateChip = document.querySelector('.date-chip.is-active');
     const dateLabel = activeDateChip
@@ -2299,6 +2322,36 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   }
 })();
 </script>
+  <script>
+  /* Two-step booking: Step 1 = your package (center / included / customize), Step 2 = slot & details */
+  (function () {
+    var s1 = document.getElementById('bsStep1'), s2 = document.getElementById('bsStep2');
+    if (!s1 || !s2) return;
+    function setLabels() {
+      var t = window.bsStep === 1 ? 'Continue' : 'Proceed to Pay';
+      var pl = document.getElementById('proceedLabel'), ml = document.getElementById('mabLabel');
+      if (pl) pl.textContent = t; if (ml) ml.textContent = t;
+    }
+    window.goToStep2 = function () {
+      window.bsStep = 2; s1.hidden = true; s2.hidden = false; setLabels();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+    function backToStep1() {
+      window.bsStep = 1; s2.hidden = true; s1.hidden = false; setLabels();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    // Show step 1 only if it has content (package / lab-visit flow); otherwise skip the wizard.
+    var hasStep1 = ['centerSection', 'pkgIncludesSection', 'customizeSection'].some(function (id) {
+      var e = document.getElementById(id); return e && !e.hidden;
+    });
+    if (hasStep1) { window.bsStep = 1; s1.hidden = false; s2.hidden = true; }
+    else { window.bsStep = 2; s1.hidden = true; s2.hidden = false; }
+    setLabels();
+    var c = document.getElementById('step1Continue'); if (c) c.addEventListener('click', window.goToStep2);
+    var b = document.getElementById('backToStep1'); if (b) b.addEventListener('click', backToStep1);
+  })();
+  </script>
+
   <script src="login-modal.js" defer></script>
 </body>
 </html>
