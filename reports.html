@@ -170,8 +170,8 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 .rep-chip .ct { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12px; color: var(--text-muted, #6B7592); font-weight: 700; }
 .rep-chip.is-active .ct { color: var(--primary, #1B2A5B); }
 .rep-toolbar__right { margin-left: auto; display: flex; gap: 10px; align-items: center; }
-.rep-upload { display: inline-flex; align-items: center; gap: 8px; background: var(--accent, #D33535); color: #fff; border: 0; border-radius: 11px; padding: 11px 16px; font: inherit; font-weight: 800; font-size: 14px; cursor: pointer; box-shadow: 0 6px 18px rgba(211,53,53,0.25); transition: background 0.14s, transform 0.14s; }
-.rep-upload:hover { background: var(--accent-dark, #B82E2E); transform: translateY(-1px); }
+.rep-upload { display: inline-flex; align-items: center; gap: 8px; background: var(--primary, #1B2A5B); color: #fff; border: 0; border-radius: 11px; padding: 11px 16px; font: inherit; font-weight: 800; font-size: 14px; cursor: pointer; box-shadow: 0 6px 18px rgba(27,42,91,0.28); transition: background 0.14s, transform 0.14s; }
+.rep-upload:hover { background: #14213F; transform: translateY(-1px); }
 .rep-search { position: relative; }
 .rep-search i { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted, #6B7592); font-size: 14px; }
 .rep-search input { width: 240px; border: 1.5px solid var(--border-mid, #C5CCDB); background: #fff; border-radius: 11px; padding: 11px 14px 11px 40px; font: inherit; font-size: 14px; color: var(--text-primary, #0B1530); }
@@ -192,7 +192,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 .rep-group__name { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 24px; letter-spacing: -0.01em; color: var(--primary, #1B2A5B); }
 .rep-tag { font-size: 10.5px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted, #6B7592); background: var(--bg-soft, #F7F8FB); border: 1px solid var(--border-soft, #E5E9F3); padding: 4px 9px; border-radius: 7px; }
 .rep-group__count { margin-left: auto; font-size: 13px; color: var(--text-muted, #6B7592); }
-.rep-table { background: #fff; border: 1px solid var(--border-soft, #E5E9F3); border-radius: var(--radius-lg, 16px); box-shadow: 0 6px 22px rgba(11,21,48,0.05); overflow: hidden; --cols: minmax(190px,2.2fr) 116px 1.1fr 104px minmax(190px,1.6fr) minmax(168px,auto); }
+.rep-table { background: #fff; border: 1px solid var(--border-soft, #E5E9F3); border-radius: var(--radius-lg, 16px); box-shadow: 0 6px 22px rgba(11,21,48,0.05); overflow: hidden; --cols: minmax(210px,2.4fr) 128px minmax(120px,1.2fr) 112px minmax(180px,1.7fr) 264px; }
 .rep-thead { display: grid; grid-template-columns: var(--cols); gap: 18px; align-items: center; padding: 13px 22px; border-bottom: 1px solid var(--border-soft, #E5E9F3); font-size: 11px; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-muted, #6B7592); background: var(--bg-soft, #F7F8FB); }
 .rep-row { display: grid; grid-template-columns: var(--cols); gap: 18px; align-items: center; padding: 16px 22px; border-bottom: 1px solid var(--border-soft, #E5E9F3); }
 .rep-row:last-child { border-bottom: none; }
@@ -228,8 +228,8 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 
 /* Actions */
 .rep-actions { display: flex; align-items: center; justify-content: flex-end; gap: 7px; }
-.rep-view { display: inline-flex; align-items: center; gap: 7px; background: var(--accent, #D33535); color: #fff; border: 0; border-radius: 10px; padding: 9px 15px; font: inherit; font-weight: 800; font-size: 13.5px; cursor: pointer; transition: background 0.14s, transform 0.12s; }
-.rep-view:hover { background: var(--accent-dark, #B82E2E); transform: translateY(-1px); }
+.rep-view { display: inline-flex; align-items: center; gap: 7px; background: var(--primary, #1B2A5B); color: #fff; border: 0; border-radius: 10px; padding: 9px 15px; font: inherit; font-weight: 800; font-size: 13.5px; cursor: pointer; transition: background 0.14s, transform 0.12s; }
+.rep-view:hover { background: #14213F; transform: translateY(-1px); }
 .rep-ico { display: inline-flex; align-items: center; gap: 6px; background: #fff; border: 1.5px solid var(--border-mid, #C5CCDB); border-radius: 10px; padding: 8px 10px; color: var(--text-secondary, #4A5578); cursor: pointer; font: inherit; font-size: 13px; transition: border-color 0.14s, color 0.14s, background 0.14s; }
 .rep-ico:hover { border-color: var(--primary, #1B2A5B); color: var(--primary, #1B2A5B); background: var(--bg-soft, #F7F8FB); }
 .rep-ico--ai { color: #7C3AED; border-color: #DDD2FA; background: #F5F1FE; font-weight: 800; }
@@ -669,7 +669,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
       ? '<div class="rep-test__sub"><span class="rep-pill-pkg"><i class="fas fa-box-open"></i> Package · ' + r.tests.length + ' tests</span></div>'
       : '<div class="rep-test__sub">' + (ps.length ? ps.length + ' parameter' + (ps.length > 1 ? 's' : '') : 'In the lab') + '</div>';
     return '<div class="rep-row">' +
-      '<div class="rep-test"><span class="rep-test__ic" style="background:var(--accent-soft,#FDECEC);color:var(--accent,#D33535)"><i class="fas ' + r.icon + '"></i></span><div style="min-width:0"><div class="rep-test__name">' + esc(r.title) + '</div>' + sub + '</div></div>' +
+      '<div class="rep-test"><span class="rep-test__ic" style="background:#EAEEF9;color:var(--primary,#1B2A5B)"><i class="fas ' + r.icon + '"></i></span><div style="min-width:0"><div class="rep-test__name">' + esc(r.title) + '</div>' + sub + '</div></div>' +
       '<div class="rep-collected" data-label="Collected"><div><span class="rep-num">' + r.date + '</span><small>' + (r.time || '') + '</small></div></div>' +
       '<div class="rep-lab" data-label="Lab">' + esc(r.lab) + '</div>' +
       '<div class="rep-statuscell" data-label="Status"><span class="rep-status rep-status--' + r.status + '"><span class="d"></span>' + (r.status === 'ready' ? 'Ready' : 'Processing') + '</span></div>' +
