@@ -156,18 +156,17 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 .rep-avstack span:first-child { margin-left: 0; }
 .rep-hero-updated { font-size: 13px; color: rgba(255,255,255,0.6); }
 .rep-hero-updated b { color: rgba(255,255,255,0.92); font-weight: 700; }
-.rep-stats { display: flex; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14); border-radius: 18px; overflow: hidden; -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); box-shadow: 0 10px 30px -16px rgba(0,0,0,0.5); }
-.rep-stat { padding: 20px 26px; min-width: 112px; text-align: left; }
-.rep-stat + .rep-stat { border-left: 1px solid rgba(255,255,255,0.10); }
+.rep-stats { display: flex; gap: 12px; }
+.rep-stat { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15); border-radius: 16px; padding: 18px 22px; min-width: 112px; text-align: left; }
 .rep-stat__ic { font-size: 12px; color: rgba(255,255,255,0.4); margin-bottom: 12px; }
 .rep-stat__num { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 36px; line-height: 1; letter-spacing: -0.02em; }
 .rep-stat__label { margin-top: 8px; font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.6); }
 .rep-stat__sub { margin-top: 3px; font-size: 11px; color: rgba(255,255,255,0.45); }
-.rep-stat--review { background: rgba(211,53,53,0.18); cursor: pointer; transition: background 0.15s ease; font: inherit; color: #fff; border: 0; }
-.rep-stat--review:hover { background: rgba(211,53,53,0.27); }
+.rep-stat--review { background: rgba(211,53,53,0.18); border-color: rgba(231,140,146,0.40); cursor: pointer; transition: background 0.15s ease, transform 0.15s ease; font: inherit; color: #fff; }
+.rep-stat--review:hover { background: rgba(211,53,53,0.27); transform: translateY(-2px); }
 .rep-stat--review .rep-stat__num { color: #FFB4A8; }
 .rep-stat--review .rep-stat__label, .rep-stat--review .rep-stat__ic { color: #F4C4C7; }
-.rep-stat--review.is-on { box-shadow: inset 0 0 0 2px #FFB4A8; }
+.rep-stat--review.is-on { box-shadow: 0 0 0 2px #FFB4A8; }
 
 /* Toolbar */
 .rep-toolbar { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin: 26px 0 8px; }
