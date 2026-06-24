@@ -156,6 +156,8 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 .rep-avstack span:first-child { margin-left: 0; }
 .rep-hero-updated { font-size: 13px; color: rgba(255,255,255,0.6); }
 .rep-hero-updated b { color: rgba(255,255,255,0.92); font-weight: 700; }
+.rep-hero-art { width: 360px; max-width: 100%; }
+.rep-hero-art svg { width: 100%; height: auto; display: block; overflow: visible; }
 .rep-stats { display: flex; gap: 12px; }
 .rep-stat { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15); border-radius: 16px; padding: 18px 22px; min-width: 112px; text-align: left; }
 .rep-stat__ic { font-size: 12px; color: rgba(255,255,255,0.4); margin-bottom: 12px; }
@@ -521,10 +523,47 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
         <span class="rep-hero-updated"><b>3 members</b> · last updated 20 Jun 2026</span>
       </div>
     </div>
-    <div class="rep-stats">
-      <div class="rep-stat"><div class="rep-stat__ic"><i class="fas fa-users"></i></div><div class="rep-stat__num" id="statMembers">—</div><div class="rep-stat__label">Members</div></div>
-      <div class="rep-stat"><div class="rep-stat__ic"><i class="fas fa-file-lines"></i></div><div class="rep-stat__num" id="statReports">—</div><div class="rep-stat__label">Reports</div></div>
-      <div class="rep-stat"><div class="rep-stat__ic"><i class="fas fa-flask-vial"></i></div><div class="rep-stat__num" id="statLabs">—</div><div class="rep-stat__label">Labs</div></div>
+    <div class="rep-hero-art" aria-hidden="true">
+      <svg viewBox="0 0 360 300" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Lab report preview">
+        <defs>
+          <filter id="rcSh" x="-30%" y="-30%" width="160%" height="160%">
+            <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#060a1c" flood-opacity="0.5"/>
+          </filter>
+        </defs>
+        <!-- back card -->
+        <rect x="78" y="18" width="248" height="196" rx="18" fill="#ffffff" opacity="0.10"/>
+        <!-- main card -->
+        <g filter="url(#rcSh)"><rect x="30" y="42" width="262" height="214" rx="18" fill="#ffffff"/></g>
+        <!-- header -->
+        <rect x="48" y="62" width="34" height="34" rx="10" fill="#FDECEC"/>
+        <path d="M59 79c0-3 5-3 6 0 1-3 6-3 6 0 0 4-6 8-6 8s-6-4-6-8z" fill="#D33535"/>
+        <rect x="92" y="68" width="104" height="9" rx="4.5" fill="#1B2A5B"/>
+        <rect x="92" y="83" width="70" height="7" rx="3.5" fill="#C5CCDB"/>
+        <rect x="214" y="66" width="60" height="22" rx="11" fill="#E1F5EA"/>
+        <circle cx="228" cy="77" r="3.6" fill="#1B8A5A"/>
+        <rect x="237" y="73.5" width="28" height="7" rx="3.5" fill="#1B8A5A" opacity="0.8"/>
+        <line x1="48" y1="114" x2="274" y2="114" stroke="#EEF0F6" stroke-width="2"/>
+        <!-- result row 1: label + green bars + a red flag dot -->
+        <rect x="48" y="132" width="92" height="8" rx="4" fill="#0B1530" opacity="0.78"/>
+        <rect x="170" y="133" width="16" height="6" rx="3" fill="#1B8A5A" opacity="0.5"/>
+        <rect x="192" y="133" width="16" height="6" rx="3" fill="#1B8A5A" opacity="0.5"/>
+        <rect x="214" y="133" width="16" height="6" rx="3" fill="#1B8A5A" opacity="0.5"/>
+        <circle cx="246" cy="136" r="5.5" fill="#D33535"/>
+        <!-- result row 2: all in range -->
+        <rect x="48" y="164" width="74" height="8" rx="4" fill="#0B1530" opacity="0.78"/>
+        <rect x="170" y="165" width="16" height="6" rx="3" fill="#1B8A5A" opacity="0.5"/>
+        <rect x="192" y="165" width="16" height="6" rx="3" fill="#1B8A5A" opacity="0.5"/>
+        <rect x="214" y="165" width="16" height="6" rx="3" fill="#1B8A5A" opacity="0.5"/>
+        <rect x="236" y="165" width="16" height="6" rx="3" fill="#1B8A5A" opacity="0.5"/>
+        <!-- footer: View pill + two ghost dots -->
+        <rect x="48" y="206" width="92" height="30" rx="15" fill="#1B2A5B"/>
+        <rect x="64" y="218" width="60" height="7" rx="3.5" fill="#ffffff" opacity="0.92"/>
+        <circle cx="232" cy="221" r="13" fill="#F4F6FA"/>
+        <circle cx="262" cy="221" r="13" fill="#F4F6FA"/>
+        <!-- floating check badge -->
+        <circle cx="290" cy="56" r="22" fill="#1B8A5A"/>
+        <path d="M281 56l6 6 12-13" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
     </div>
   </section>
 
@@ -625,14 +664,6 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 
   var state = { member: 'all', q: '', reviewOnly: false };
 
-  /* ---- hero stats ---- */
-  (function () {
-    var labs = {};
-    REPORTS.forEach(function (r) { labs[r.lab] = 1; });
-    $('statMembers').textContent = PATIENTS.length;
-    $('statReports').textContent = REPORTS.length;
-    $('statLabs').textContent = Object.keys(labs).length;
-  })();
 
   /* ---- people chips ---- */
   function peopleHTML() {
