@@ -652,11 +652,9 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   /* ---- actions cell ---- */
   function actionsCell(r) {
     if (r.status !== 'ready') return '<div class="rep-actions"></div>';
-    var trend = r.trend ? '<button class="rep-ico" data-trend="1" title="Trend over time" aria-label="Trend over time"><i class="fas fa-arrow-trend-up"></i></button>' : '';
     return '<div class="rep-actions">' +
       '<button class="rep-view" data-open="' + r.id + '"><i class="fas fa-eye"></i> View</button>' +
       '<button class="rep-ico rep-ico--ai" data-ai="' + r.id + '" title="AI summary"><i class="fas fa-wand-magic-sparkles"></i> AI</button>' +
-      trend +
       '<button class="rep-ico" data-dl="' + r.id + '" title="Download PDF" aria-label="Download PDF"><i class="fas fa-download"></i></button>' +
       '<button class="rep-ico" data-share="' + r.id + '" title="Share report" aria-label="Share report"><i class="fas fa-share-nodes"></i></button>' +
     '</div>';
@@ -759,12 +757,11 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   $('repGroups').addEventListener('click', function (e) {
     var open = e.target.closest('[data-open]'), ai = e.target.closest('[data-ai]'),
         dl = e.target.closest('[data-dl]'), sh = e.target.closest('[data-share]'),
-        notify = e.target.closest('.rep-notify'), trend = e.target.closest('[data-trend]');
+        notify = e.target.closest('.rep-notify');
     if (open) openModal(open.getAttribute('data-open'));
     else if (ai) openModal(ai.getAttribute('data-ai'));
     else if (dl) flash(dl, 'fa-check');
     else if (sh) { var r = byId(sh.getAttribute('data-share')); if (navigator.share && r) navigator.share({ title: 'Flebo report — ' + r.title, url: location.href }).catch(function () {}); else { try { navigator.clipboard.writeText(location.href); } catch (x) {} } flash(sh, 'fa-check'); }
-    else if (trend) location.href = 'health-trends.html';
     else if (notify && notify.getAttribute('data-on') !== '1') { notify.setAttribute('data-on', '1'); notify.innerHTML = '<i class="fas fa-check"></i> We’ll notify you'; }
   });
 
