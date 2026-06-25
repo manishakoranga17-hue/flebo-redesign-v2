@@ -557,7 +557,6 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   .aip-card { position: relative; overflow: hidden; border-radius: 18px; padding: 20px 22px; border: 1px solid; }
   .aip-card.span3 { grid-column: span 3; }
   .aip-card.span2 { grid-column: span 2; }
-  .aip-card::after { content: ''; position: absolute; right: -28px; top: -28px; width: 130px; height: 130px; border-radius: 50%; opacity: 0.09; pointer-events: none; }
   .aip-head { position: relative; z-index: 1; display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
   .aip-ic { width: 46px; height: 46px; border-radius: 13px; display: grid; place-items: center; font-size: 19px; color: #fff; flex-shrink: 0; box-shadow: 0 8px 18px -6px rgba(11,21,48,0.4); }
   .aip-t { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 16px; color: var(--text-primary, #0B1530); }
@@ -570,23 +569,18 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   .aip-card.violet { background: linear-gradient(160deg, #fff, #F6F2FE); border-color: #E9E0FB; }
   .aip-card.violet .aip-ic { background: linear-gradient(135deg, #7C3AED, #9B6BF2); }
   .aip-card.violet .aip-sic, .aip-card.violet .aip-goal { background: #F0EBFD; color: #7C3AED; }
-  .aip-card.violet::after { background: #7C3AED; }
   .aip-card.green { background: linear-gradient(160deg, #fff, #EEFAF3); border-color: #D5EFE0; }
   .aip-card.green .aip-ic { background: linear-gradient(135deg, #1B8A5A, #34B27A); }
   .aip-card.green .aip-sic, .aip-card.green .aip-goal { background: #E1F5EA; color: #1B8A5A; }
-  .aip-card.green::after { background: #1B8A5A; }
   .aip-card.rose { background: linear-gradient(160deg, #fff, #FEF1F1); border-color: #FAD9D9; }
   .aip-card.rose .aip-ic { background: linear-gradient(135deg, #D33535, #F0683F); }
   .aip-card.rose .aip-sic, .aip-card.rose .aip-goal { background: #FDECEC; color: #D33535; }
-  .aip-card.rose::after { background: #D33535; }
   .aip-card.amber { background: linear-gradient(160deg, #fff, #FEF7EA); border-color: #F7E6BF; }
   .aip-card.amber .aip-ic { background: linear-gradient(135deg, #B45309, #E59413); }
   .aip-card.amber .aip-sic, .aip-card.amber .aip-goal { background: #FEF3C7; color: #B45309; }
-  .aip-card.amber::after { background: #B45309; }
   .aip-card.blue { background: linear-gradient(160deg, #fff, #EEF3FE); border-color: #D7E2FA; }
   .aip-card.blue .aip-ic { background: linear-gradient(135deg, #1D4ED8, #4F86F0); }
   .aip-card.blue .aip-sic, .aip-card.blue .aip-goal { background: #E6EDFB; color: #1D4ED8; }
-  .aip-card.blue::after { background: #1D4ED8; }
 
   @media (max-width: 920px) { .aip-grid { grid-template-columns: 1fr 1fr; } .aip-card.span3, .aip-card.span2 { grid-column: span 1; } }
   @media (max-width: 560px) { .aip-grid { grid-template-columns: 1fr; } .aip-card.span3, .aip-card.span2 { grid-column: span 1; } .aip-hero-stats { width: 100%; } .aip-stat { flex: 1; } }
