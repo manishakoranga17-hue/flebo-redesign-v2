@@ -612,7 +612,8 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 
   /* ===== AI dashboard (health-overview style) ===== */
   .aid { margin-top: 20px; }
-  .aid-grid { display: grid; grid-template-columns: 0.96fr 1.04fr 0.92fr; gap: 16px; align-items: start; }
+  .aid-grid { display: grid; grid-template-columns: 0.96fr 1.04fr 0.92fr; gap: 16px; align-items: stretch; }
+  .aid-col.aid-center .aid-stage { flex: 1; }
   .aid-col { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
   .aid-card { background: #fff; border: 1px solid #EBEEF5; border-radius: 20px; box-shadow: 0 2px 4px rgba(11,21,48,0.03), 0 18px 40px -28px rgba(11,21,48,0.5); }
 
@@ -643,11 +644,11 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   .aid-brk .d { width: 9px; height: 9px; border-radius: 3px; flex-shrink: 0; }
   .aid-brk b { margin-left: auto; font-family: 'Plus Jakarta Sans',sans-serif; font-weight: 800; color: var(--text-primary,#0B1530); }
 
-  .aid-stage { position: relative; background: radial-gradient(ellipse 72% 62% at 50% 36%, #FFFFFF 0%, #FFFFFF 44%, #E9EFF9 100%); border: 1px solid #E7EDF7; border-radius: 22px; overflow: hidden; min-height: 540px; display: flex; align-items: flex-end; justify-content: center; perspective: 1500px; }
-  .aid-figure { position: relative; z-index: 1; height: 512px; margin-bottom: -6px; transform-style: preserve-3d; transition: transform 0.55s cubic-bezier(.2,.8,.3,1); will-change: transform; }
+  .aid-stage { position: relative; background: radial-gradient(ellipse 72% 62% at 50% 36%, #FFFFFF 0%, #FFFFFF 44%, #E9EFF9 100%); border: 1px solid #E7EDF7; border-radius: 22px; overflow: hidden; min-height: 540px; display: flex; align-items: flex-end; justify-content: center; }
+  .aid-figure { position: relative; z-index: 1; height: 512px; margin-bottom: -6px; }
   .aid-figure > img { height: 100%; width: auto; display: block; filter: drop-shadow(0 18px 26px rgba(11,21,48,0.22)); }
   .aid-rings { position: absolute; left: 50%; bottom: 30px; transform: translateX(-50%); width: 340px; height: 120px; z-index: 0; pointer-events: none; }
-  .aid-pin { position: absolute; z-index: 5; width: 16px; height: 16px; border-radius: 50%; background: #fff; box-shadow: 0 2px 8px rgba(11,21,48,0.4); display: grid; place-items: center; transform: translate(-50%,-50%) translateZ(40px); }
+  .aid-pin { position: absolute; z-index: 5; width: 16px; height: 16px; border-radius: 50%; background: #fff; box-shadow: 0 2px 8px rgba(11,21,48,0.4); display: grid; place-items: center; transform: translate(-50%,-50%); }
   .aid-pin::after { content: ''; width: 7px; height: 7px; border-radius: 50%; }
   .aid-pin.bad::after { background: var(--accent,#D33535); }
   .aid-pin.warn::after { background: var(--amber,#B45309); }
@@ -667,11 +668,6 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   .aid-float-lbl { font-size: 10px; color: var(--text-muted,#6B7592); margin-top: 4px; }
   .aid-float.tr .row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
   .aid-spark { width: 100%; height: 22px; margin-top: 6px; display: block; }
-  .aid-rotate { position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%); z-index: 4; display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.92); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); border: 1px solid #E7EDF7; border-radius: 999px; padding: 5px; box-shadow: 0 12px 26px -10px rgba(11,21,48,0.5); }
-  .aid-rot { width: 34px; height: 34px; border: 0; border-radius: 50%; background: var(--primary,#1B2A5B); color: #fff; cursor: pointer; display: grid; place-items: center; font-size: 13px; transition: background 0.15s, transform 0.1s; }
-  .aid-rot:hover { background: #142048; }
-  .aid-rot:active { transform: scale(0.92); }
-  .aid-rot-lbl { display: inline-flex; align-items: center; gap: 6px; color: var(--text-muted,#6B7592); font-size: 11px; font-weight: 700; padding: 0 6px; }
 
   .aid-pt { padding: 18px 20px; display: flex; align-items: center; gap: 13px; }
   .aid-pt-av { width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg,var(--accent,#D33535),#F0843A); color: #fff; display: grid; place-items: center; font-weight: 800; font-size: 15px; font-family: 'Plus Jakarta Sans',sans-serif; flex-shrink: 0; }
@@ -1236,7 +1232,6 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
           '<div class="aid-float tr"><div class="row"><div><div class="aid-float-val">150<span>mg/dL</span></div><div class="aid-float-lbl">Triglycerides</div></div><span class="aid-float-pic"><i class="fas fa-heart-pulse"></i></span></div>' + aidSpark + '</div>' +
           '<div class="aid-figure"><img src="ai-body.png" alt="Body systems map">' + aidDots + '</div>' +
           aidRings +
-          '<div class="aid-rotate"><button class="aid-rot" data-rot="l" aria-label="Rotate left"><i class="fas fa-angle-left"></i></button><span class="aid-rot-lbl"><i class="fas fa-arrows-rotate"></i> Rotate</span><button class="aid-rot" data-rot="r" aria-label="Rotate right"><i class="fas fa-angle-right"></i></button></div>' +
         '</div></div>' +
         '<div class="aid-col">' +
           '<div class="aid-card aid-pt"><span class="aid-pt-av">' + initials(patientName) + '</span><div><div class="aid-pt-name">' + patientName + '</div><div class="aid-pt-sub">32 yrs \u00b7 Male \u00b7 ' + lab + '</div></div></div>' +
@@ -1302,18 +1297,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
     }
 
     var ov = document.getElementById('aiOverlay');
-    var figRot = 0;
-    ov.addEventListener('click', function (e) {
-      var btn = e.target.closest && e.target.closest('.aid-rot');
-      if (!btn) return;
-      var fig = ov.querySelector('.aid-figure');
-      if (!fig) return;
-      figRot += (btn.getAttribute('data-rot') === 'r' ? 24 : -24);
-      figRot = Math.max(-72, Math.min(72, figRot));
-      fig.style.transform = 'rotateY(' + figRot + 'deg)';
-    });
     window.openAI = function (patientName, lab) {
-      figRot = 0;
       render(patientName || 'Akash Verma', lab || 'Healthians Lab');
       ov.classList.add('open'); document.body.classList.add('lm-locked'); ov.scrollTop = 0;
     };
