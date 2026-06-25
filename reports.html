@@ -543,15 +543,53 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   .ai-normal-range { font-size: 11px; color: var(--text-muted, #6B7592); margin-top: 9px; }
 
   /* action plans */
-  .ai-plans { display: grid; grid-template-columns: repeat(2, 1fr); gap: 13px; }
-  .ai-plan { background: #fff; border: 1px solid #EBEEF5; border-radius: 16px; padding: 20px 22px; box-shadow: 0 2px 4px rgba(11,21,48,0.03); }
-  .ai-plan-h { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
-  .ai-plan-ic { width: 44px; height: 44px; border-radius: 13px; background: #F0EBFD; color: #7C3AED; display: grid; place-items: center; font-size: 18px; flex-shrink: 0; }
-  .ai-plan-t { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 16px; color: var(--text-primary, #0B1530); }
-  .ai-plan-sub { font-size: 11.5px; color: var(--text-muted, #6B7592); margin-top: 2px; font-weight: 600; }
-  .ai-plan-steps { display: flex; flex-direction: column; gap: 10px; }
-  .ai-plan-step { display: flex; align-items: center; gap: 11px; font-size: 13.5px; color: var(--text-secondary, #4A5578); line-height: 1.4; }
-  .ai-plan-sic { width: 30px; height: 30px; border-radius: 9px; background: #F4F6FB; color: var(--primary, #1B2A5B); display: grid; place-items: center; font-size: 13px; flex-shrink: 0; }
+  /* action plans — colourful bento */
+  .aip-hero { position: relative; overflow: hidden; display: flex; align-items: center; justify-content: space-between; gap: 22px; flex-wrap: wrap; background: linear-gradient(130deg, #16224A 0%, #2A2A6E 55%, #4B2E8A 100%); color: #fff; border-radius: 20px; padding: 24px 28px; }
+  .aip-hero::after { content: ''; position: absolute; right: -40px; top: -60px; width: 220px; height: 220px; border-radius: 50%; background: radial-gradient(circle, rgba(124,91,237,0.55), transparent 70%); pointer-events: none; }
+  .aip-hero-title { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 32px; line-height: 1; }
+  .aip-hero-sub { font-size: 13.5px; color: rgba(255,255,255,0.82); margin-top: 7px; max-width: 460px; line-height: 1.5; }
+  .aip-hero-stats { position: relative; z-index: 1; display: flex; gap: 12px; }
+  .aip-stat { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 14px; padding: 12px 18px; text-align: center; }
+  .aip-stat b { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 24px; display: block; line-height: 1; }
+  .aip-stat span { font-size: 10.5px; color: rgba(255,255,255,0.78); margin-top: 4px; display: block; }
+
+  .aip-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; margin-top: 14px; }
+  .aip-card { position: relative; overflow: hidden; border-radius: 18px; padding: 20px 22px; border: 1px solid; }
+  .aip-card.span3 { grid-column: span 3; }
+  .aip-card.span2 { grid-column: span 2; }
+  .aip-card::after { content: ''; position: absolute; right: -28px; top: -28px; width: 130px; height: 130px; border-radius: 50%; opacity: 0.09; pointer-events: none; }
+  .aip-head { position: relative; z-index: 1; display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .aip-ic { width: 46px; height: 46px; border-radius: 13px; display: grid; place-items: center; font-size: 19px; color: #fff; flex-shrink: 0; box-shadow: 0 8px 18px -6px rgba(11,21,48,0.4); }
+  .aip-t { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 16px; color: var(--text-primary, #0B1530); }
+  .aip-sub { font-size: 11.5px; color: var(--text-muted, #6B7592); margin-top: 2px; font-weight: 600; }
+  .aip-steps { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 9px; }
+  .aip-step { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-secondary, #4A5578); line-height: 1.35; }
+  .aip-sic { width: 28px; height: 28px; border-radius: 8px; display: grid; place-items: center; font-size: 12px; flex-shrink: 0; }
+  .aip-goal { position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 7px; margin-top: 16px; font-size: 12px; font-weight: 800; padding: 7px 13px; border-radius: 999px; }
+
+  .aip-card.violet { background: linear-gradient(160deg, #fff, #F6F2FE); border-color: #E9E0FB; }
+  .aip-card.violet .aip-ic { background: linear-gradient(135deg, #7C3AED, #9B6BF2); }
+  .aip-card.violet .aip-sic, .aip-card.violet .aip-goal { background: #F0EBFD; color: #7C3AED; }
+  .aip-card.violet::after { background: #7C3AED; }
+  .aip-card.green { background: linear-gradient(160deg, #fff, #EEFAF3); border-color: #D5EFE0; }
+  .aip-card.green .aip-ic { background: linear-gradient(135deg, #1B8A5A, #34B27A); }
+  .aip-card.green .aip-sic, .aip-card.green .aip-goal { background: #E1F5EA; color: #1B8A5A; }
+  .aip-card.green::after { background: #1B8A5A; }
+  .aip-card.rose { background: linear-gradient(160deg, #fff, #FEF1F1); border-color: #FAD9D9; }
+  .aip-card.rose .aip-ic { background: linear-gradient(135deg, #D33535, #F0683F); }
+  .aip-card.rose .aip-sic, .aip-card.rose .aip-goal { background: #FDECEC; color: #D33535; }
+  .aip-card.rose::after { background: #D33535; }
+  .aip-card.amber { background: linear-gradient(160deg, #fff, #FEF7EA); border-color: #F7E6BF; }
+  .aip-card.amber .aip-ic { background: linear-gradient(135deg, #B45309, #E59413); }
+  .aip-card.amber .aip-sic, .aip-card.amber .aip-goal { background: #FEF3C7; color: #B45309; }
+  .aip-card.amber::after { background: #B45309; }
+  .aip-card.blue { background: linear-gradient(160deg, #fff, #EEF3FE); border-color: #D7E2FA; }
+  .aip-card.blue .aip-ic { background: linear-gradient(135deg, #1D4ED8, #4F86F0); }
+  .aip-card.blue .aip-sic, .aip-card.blue .aip-goal { background: #E6EDFB; color: #1D4ED8; }
+  .aip-card.blue::after { background: #1D4ED8; }
+
+  @media (max-width: 920px) { .aip-grid { grid-template-columns: 1fr 1fr; } .aip-card.span3, .aip-card.span2 { grid-column: span 1; } }
+  @media (max-width: 560px) { .aip-grid { grid-template-columns: 1fr; } .aip-card.span3, .aip-card.span2 { grid-column: span 1; } .aip-hero-stats { width: 100%; } .aip-stat { flex: 1; } }
 
   /* specialists */
   .ai-specs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 13px; }
@@ -1100,11 +1138,11 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
         { name: 'Insulin (Fasting)', val: '13.71 µIU/mL', range: '1.9–23 µIU/mL', ic: 'fa-syringe', pos: 56 }
       ],
       plans: [
-        { t: 'Hypothyroidism', ic: 'fa-gauge-high', s: [ { i: 'fa-user-doctor', t: 'Consult an endocrinologist for evaluation' }, { i: 'fa-pills', t: 'Consider thyroid hormone therapy' } ] },
-        { t: 'Prediabetes', ic: 'fa-droplet', s: [ { i: 'fa-utensils', t: 'Low-sugar, low-refined-carb diet' }, { i: 'fa-person-walking', t: '150+ min of activity a week' }, { i: 'fa-magnifying-glass-chart', t: 'Monitor blood glucose regularly' } ] },
-        { t: 'Dyslipidemia', ic: 'fa-heart-pulse', s: [ { i: 'fa-apple-whole', t: 'Heart-healthy diet — fruit, veg, whole grains' }, { i: 'fa-ban', t: 'Limit saturated fats and sugars' }, { i: 'fa-pills', t: 'Lipid-lowering medication if needed' } ] },
-        { t: 'Elevated ESR', ic: 'fa-wave-square', s: [ { i: 'fa-microscope', t: 'Further workup to find the cause' }, { i: 'fa-stethoscope', t: 'Monitor symptoms and follow up' } ] },
-        { t: 'Microcytic Anemia', ic: 'fa-droplet', s: [ { i: 'fa-vial', t: 'Iron studies — iron, ferritin, TIBC' }, { i: 'fa-drumstick-bite', t: 'Increase dietary iron intake' } ] }
+        { t: 'Hypothyroidism', ic: 'fa-gauge-high', tone: 'violet', goal: 'Balanced energy & mood', s: [ { i: 'fa-user-doctor', t: 'Consult an endocrinologist for evaluation' }, { i: 'fa-pills', t: 'Consider thyroid hormone therapy' } ] },
+        { t: 'Prediabetes', ic: 'fa-droplet', tone: 'green', goal: 'Steady blood sugar', s: [ { i: 'fa-utensils', t: 'Low-sugar, low-refined-carb diet' }, { i: 'fa-person-walking', t: '150+ min of activity a week' }, { i: 'fa-magnifying-glass-chart', t: 'Monitor blood glucose regularly' } ] },
+        { t: 'Dyslipidemia', ic: 'fa-heart-pulse', tone: 'rose', goal: 'A healthier heart', s: [ { i: 'fa-apple-whole', t: 'Heart-healthy diet — fruit, veg, whole grains' }, { i: 'fa-ban', t: 'Limit saturated fats and sugars' }, { i: 'fa-pills', t: 'Lipid-lowering medication if needed' } ] },
+        { t: 'Elevated ESR', ic: 'fa-wave-square', tone: 'amber', goal: 'Calm inflammation', s: [ { i: 'fa-microscope', t: 'Further workup to find the cause' }, { i: 'fa-stethoscope', t: 'Monitor symptoms and follow up' } ] },
+        { t: 'Microcytic Anemia', ic: 'fa-droplet', tone: 'blue', goal: 'Stronger iron & stamina', s: [ { i: 'fa-vial', t: 'Iron studies — iron, ferritin, TIBC' }, { i: 'fa-drumstick-bite', t: 'Increase dietary iron intake' } ] }
       ],
       specialists: [
         { n: 'General Physician', s: 'Overall guidance and specialist referral', av: 'GP', avail: 'Available' },
@@ -1241,10 +1279,17 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
             '<div class="ai-normal-range">' + n.range + '</div></div>';
         }).join('') + '</div></div>';
 
-      var plans = '<div class="ai-sec"><div class="ai-sec-title"><span class="ico">📌</span> Action Plans</div><div class="ai-plans">' +
-        AI.plans.map(function (p) {
-          return '<div class="ai-plan"><div class="ai-plan-h"><span class="ai-plan-ic"><i class="fas ' + p.ic + '"></i></span><div><div class="ai-plan-t">' + p.t + '</div><div class="ai-plan-sub">' + p.s.length + '-step plan</div></div></div>' +
-            '<div class="ai-plan-steps">' + p.s.map(function (x) { return '<div class="ai-plan-step"><span class="ai-plan-sic"><i class="fas ' + x.i + '"></i></span><span>' + x.t + '</span></div>'; }).join('') + '</div></div>';
+      var plans = '<div class="ai-sec"><div class="ai-sec-title"><span class="ico">📌</span> Action Plans</div>' +
+        '<div class="aip-hero"><div class="aip-hero-l"><div class="aip-hero-title">Small steps, big wins</div>' +
+        '<div class="aip-hero-sub">A simple plan to bring your 5 flagged markers back on track — most are everyday habits you can start this week.</div></div>' +
+        '<div class="aip-hero-stats"><div class="aip-stat"><b>5</b><span>focus areas</span></div><div class="aip-stat"><b>12</b><span>simple actions</span></div><div class="aip-stat"><b>~90</b><span>days</span></div></div></div>' +
+        '<div class="aip-grid">' +
+        AI.plans.map(function (p, idx) {
+          var span = idx < 2 ? 'span3' : 'span2';
+          return '<div class="aip-card ' + p.tone + ' ' + span + '">' +
+            '<div class="aip-head"><span class="aip-ic"><i class="fas ' + p.ic + '"></i></span><div><div class="aip-t">' + p.t + '</div><div class="aip-sub">' + p.s.length + '-step plan</div></div></div>' +
+            '<div class="aip-steps">' + p.s.map(function (x) { return '<div class="aip-step"><span class="aip-sic"><i class="fas ' + x.i + '"></i></span><span>' + x.t + '</span></div>'; }).join('') + '</div>' +
+            '<div class="aip-goal"><i class="fas fa-flag-checkered"></i> ' + p.goal + '</div></div>';
         }).join('') + '</div></div>';
 
       var specs = '<div class="ai-sec"><div class="ai-sec-title"><span class="ico">🩺</span> Recommended Specialists</div><div class="ai-specs">' +
