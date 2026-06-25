@@ -440,108 +440,120 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 }
 
   /* ===== AI Report Analysis overlay ===== */
-  .ai-overlay { position: fixed; inset: 0; z-index: 10001; display: none; justify-content: center; padding: 22px 16px; background: rgba(6,9,18,0.66); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); overflow-y: auto; }
+  .ai-overlay { position: fixed; inset: 0; z-index: 10001; display: none; justify-content: center; padding: 22px 16px; background: rgba(6,9,18,0.66); -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px); overflow-y: auto; }
   .ai-overlay.open { display: flex; align-items: flex-start; }
-  .ai-sheet { position: relative; width: 100%; max-width: 1000px; background: #F4F6FA; border-radius: 24px; overflow: hidden; box-shadow: 0 40px 100px rgba(0,0,0,0.5); animation: aiPop 0.22s ease; }
-  @keyframes aiPop { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
-  .ai-close { position: absolute; top: 18px; right: 18px; z-index: 5; width: 38px; height: 38px; border: 0; border-radius: 50%; background: rgba(255,255,255,0.16); color: #fff; font-size: 17px; cursor: pointer; display: grid; place-items: center; transition: background 0.15s; }
-  .ai-close:hover { background: rgba(255,255,255,0.28); }
-  .ai-body { padding: 26px 30px 34px; }
-  @media (max-width: 640px) { .ai-body { padding: 20px 16px 28px; } }
+  .ai-sheet { position: relative; width: 100%; max-width: 1040px; background: #F4F7FC; border-radius: 28px; overflow: hidden; box-shadow: 0 50px 120px rgba(0,0,0,0.55); animation: aiPop 0.24s cubic-bezier(.2,.8,.3,1); }
+  @keyframes aiPop { from { opacity: 0; transform: translateY(14px) scale(.99); } to { opacity: 1; transform: none; } }
+  .ai-close { position: absolute; top: 20px; right: 20px; z-index: 5; width: 40px; height: 40px; border: 0; border-radius: 50%; background: rgba(255,255,255,0.18); color: #fff; font-size: 17px; cursor: pointer; display: grid; place-items: center; transition: background 0.15s; }
+  .ai-close:hover { background: rgba(255,255,255,0.32); }
+  .ai-body { padding: 22px 28px 34px; }
+  @media (max-width: 640px) { .ai-body { padding: 18px 16px 26px; } }
 
   /* hero */
-  .ai-hero { position: relative; overflow: hidden; background: #131D44 url('b-hero3.jpeg') center / cover no-repeat; color: #fff; padding: 30px 30px 28px; }
-  .ai-hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(115deg, rgba(10,16,40,0.94), rgba(20,24,66,0.82) 70%); }
-  .ai-hero::after { content: ''; position: absolute; right: -6%; top: -60%; width: 44%; height: 220%; background: radial-gradient(circle at 55% 50%, rgba(124,91,237,0.5), transparent 60%); pointer-events: none; }
+  .ai-hero { position: relative; overflow: hidden; background: #101838 url('b-hero3.jpeg') center / cover no-repeat; color: #fff; padding: 30px 32px 28px; }
+  .ai-hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(115deg, rgba(9,13,34,0.95), rgba(20,24,66,0.84) 70%); }
+  .ai-hero::after { content: ''; position: absolute; right: -6%; top: -60%; width: 46%; height: 220%; background: radial-gradient(circle at 55% 50%, rgba(124,91,237,0.55), transparent 60%); pointer-events: none; }
   .ai-hero-row { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
-  .ai-hero-l { display: flex; align-items: center; gap: 14px; }
-  .ai-hero-ic { width: 50px; height: 50px; border-radius: 14px; background: linear-gradient(135deg, #7C3AED, #5B8DEF); display: grid; place-items: center; font-size: 22px; color: #fff; box-shadow: 0 8px 20px rgba(124,91,237,0.4); }
-  .ai-hero-eyebrow { font-size: 11px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #C9C2F5; }
-  .ai-hero-title { font-family: 'Instrument Serif', serif; font-size: 28px; font-weight: 400; line-height: 1.05; margin-top: 2px; }
-  .ai-hero-meta { position: relative; z-index: 1; font-size: 13px; color: rgba(255,255,255,0.78); text-align: right; line-height: 1.7; }
+  .ai-hero-l { display: flex; align-items: center; gap: 15px; }
+  .ai-hero-ic { width: 52px; height: 52px; border-radius: 16px; background: linear-gradient(135deg, #7C3AED, #5B8DEF); display: grid; place-items: center; font-size: 23px; color: #fff; box-shadow: 0 10px 24px rgba(124,91,237,0.45); }
+  .ai-hero-eyebrow { font-size: 11px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: #C9C2F5; }
+  .ai-hero-title { font-family: 'Instrument Serif', serif; font-size: 30px; font-weight: 400; line-height: 1.04; margin-top: 3px; }
+  .ai-hero-meta { position: relative; z-index: 1; font-size: 13px; color: rgba(255,255,255,0.78); text-align: right; line-height: 1.8; }
   .ai-hero-meta i { color: #FF8A8A; width: 16px; }
 
-  /* patient summary */
-  .ai-patient { background: #fff; margin: 22px 0 8px; border: 1px solid var(--border-soft, #E5E9F3); border-radius: 18px; padding: 22px 24px; display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center; }
-  .ai-pt-head { display: flex; align-items: center; gap: 13px; margin-bottom: 18px; }
-  .ai-pt-av { width: 44px; height: 44px; border-radius: 50%; background: var(--accent-soft, #FDECEC); color: var(--accent, #D33535); display: grid; place-items: center; font-size: 18px; }
+  /* card base */
+  .ai-card { background: #fff; border: 1px solid #ECEFF6; border-radius: 22px; box-shadow: 0 2px 4px rgba(11,21,48,0.03), 0 18px 38px -24px rgba(11,21,48,0.5); }
+
+  /* overview bento */
+  .ai-overview { display: grid; grid-template-columns: 1.05fr 0.82fr 1.08fr; gap: 14px; margin: 22px 0 6px; align-items: stretch; }
+  .ai-score-card { padding: 22px 24px; display: flex; flex-direction: column; }
+  .ai-pt-head { display: flex; align-items: center; gap: 13px; }
+  .ai-pt-av { width: 46px; height: 46px; border-radius: 50%; background: linear-gradient(135deg, var(--accent,#D33535), #F0843A); color: #fff; display: grid; place-items: center; font-size: 16px; font-weight: 800; font-family: 'Plus Jakarta Sans', sans-serif; }
   .ai-pt-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 18px; font-weight: 800; color: var(--text-primary, #0B1530); }
-  .ai-pt-sub { font-size: 13px; color: var(--text-muted, #6B7592); margin-top: 1px; }
-  .ai-scorerow { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-  .ai-donut { position: relative; width: 110px; height: 110px; flex-shrink: 0; }
+  .ai-pt-sub { font-size: 12.5px; color: var(--text-muted, #6B7592); margin-top: 1px; }
+  .ai-donut-wrap { margin-top: auto; display: flex; justify-content: center; padding-top: 16px; }
+  .ai-donut { position: relative; width: 138px; height: 138px; }
   .ai-donut svg { transform: rotate(-90deg); }
   .ai-donut-c { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; }
-  .ai-donut-num { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 30px; font-weight: 800; color: var(--text-primary, #0B1530); line-height: 1; }
-  .ai-donut-lbl { font-size: 9.5px; color: var(--text-muted, #6B7592); margin-top: 3px; line-height: 1.2; max-width: 70px; }
-  .ai-stats { display: flex; gap: 12px; }
-  .ai-stat { background: var(--bg-soft, #F7F8FB); border: 1px solid var(--border-soft, #E5E9F3); border-radius: 14px; padding: 14px 18px; text-align: center; min-width: 86px; }
-  .ai-stat-num { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 24px; font-weight: 800; line-height: 1; }
-  .ai-stat-num.bad { color: var(--accent, #D33535); }
-  .ai-stat-num.ok { color: var(--green, #1B8A5A); }
-  .ai-stat-num.act { color: #7C3AED; }
-  .ai-stat-lbl { font-size: 10.5px; font-weight: 700; color: var(--text-muted, #6B7592); margin-top: 7px; text-transform: uppercase; letter-spacing: 0.03em; }
-  .ai-body-map { width: 220px; flex-shrink: 0; }
-  .ai-body-map svg { width: 100%; height: auto; display: block; }
+  .ai-donut-num { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 38px; font-weight: 800; color: var(--text-primary, #0B1530); line-height: 1; }
+  .ai-donut-lbl { font-size: 10px; color: var(--text-muted, #6B7592); margin-top: 4px; line-height: 1.25; max-width: 86px; font-weight: 600; }
+
+  .ai-statcol { display: flex; flex-direction: column; gap: 12px; }
+  .ai-stat { flex: 1; padding: 16px 18px; display: flex; align-items: center; gap: 14px; }
+  .ai-stat-ic { width: 42px; height: 42px; border-radius: 13px; display: grid; place-items: center; font-size: 17px; flex-shrink: 0; }
+  .ai-stat-ic.bad { background: var(--accent-soft, #FDECEC); color: var(--accent, #D33535); }
+  .ai-stat-ic.ok { background: var(--green-soft, #E1F5EA); color: var(--green, #1B8A5A); }
+  .ai-stat-ic.act { background: #F0EBFD; color: #7C3AED; }
+  .ai-stat-num { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 26px; font-weight: 800; line-height: 1; color: var(--text-primary, #0B1530); }
+  .ai-stat-lbl { font-size: 10.5px; font-weight: 700; color: var(--text-muted, #6B7592); margin-top: 5px; text-transform: uppercase; letter-spacing: 0.04em; }
+
+  .ai-bodycard { background: linear-gradient(160deg, #EDF1FB 0%, #F4F7FD 100%); border-color: #DFE6F4; display: flex; align-items: center; justify-content: center; padding: 12px; overflow: hidden; }
+  .ai-bodycard svg { width: 100%; max-width: 240px; height: auto; display: block; }
 
   /* section title */
   .ai-sec { margin-top: 30px; }
-  .ai-sec-title { display: flex; align-items: center; gap: 10px; font-family: 'Instrument Serif', serif; font-size: 25px; font-weight: 400; color: var(--primary, #1B2A5B); margin-bottom: 14px; }
-  .ai-sec-title .ico { font-size: 18px; }
+  .ai-sec-title { display: flex; align-items: center; gap: 10px; font-family: 'Instrument Serif', serif; font-size: 26px; font-weight: 400; color: var(--primary, #1B2A5B); margin-bottom: 16px; }
+  .ai-sec-title .ico { font-size: 19px; }
 
   /* findings */
-  .ai-finding { background: #fff; border: 1px solid var(--border-soft, #E5E9F3); border-radius: 16px; padding: 20px 22px; margin-bottom: 14px; box-shadow: 0 4px 16px rgba(11,21,48,0.04); }
+  .ai-finding { background: #fff; border: 1px solid #ECEFF6; border-radius: 20px; padding: 22px 24px; margin-bottom: 14px; box-shadow: 0 2px 4px rgba(11,21,48,0.03), 0 16px 34px -26px rgba(11,21,48,0.5); }
   .ai-finding-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
-  .ai-finding-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 16px; font-weight: 800; color: var(--text-primary, #0B1530); }
-  .ai-sev { font-size: 10.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; padding: 5px 13px; border-radius: 999px; white-space: nowrap; }
+  .ai-finding-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 17px; font-weight: 800; color: var(--text-primary, #0B1530); }
+  .ai-sev { font-size: 10.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; padding: 6px 14px; border-radius: 999px; white-space: nowrap; }
   .ai-sev.high { background: var(--accent-soft, #FDECEC); color: var(--accent, #D33535); }
   .ai-sev.moderate { background: var(--amber-soft, #FEF3C7); color: var(--amber, #B45309); }
-  .ai-finding-val { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 800; margin-top: 6px; }
+  .ai-finding-val { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 15px; font-weight: 800; margin-top: 8px; }
   .ai-finding-val.high { color: var(--accent, #D33535); }
   .ai-finding-val.moderate { color: var(--amber, #B45309); }
-  .ai-finding-norm { font-size: 12px; color: var(--text-muted, #6B7592); margin-top: 2px; }
-  .ai-finding-desc { font-size: 14px; color: var(--text-secondary, #4A5578); line-height: 1.5; margin-top: 10px; }
-  .ai-range { margin-top: 16px; }
-  .ai-range-bar { position: relative; height: 8px; border-radius: 999px; background: linear-gradient(90deg, #1B8A5A 0%, #1B8A5A 36%, #F4B940 36%, #F4B940 62%, #E8453C 62%); }
+  .ai-finding-norm { font-size: 12px; color: var(--text-muted, #6B7592); margin-top: 3px; }
+  .ai-finding-desc { font-size: 14px; color: var(--text-secondary, #4A5578); line-height: 1.55; margin-top: 12px; }
+  .ai-range { margin-top: 18px; }
+  .ai-range-bar { position: relative; height: 10px; border-radius: 999px; background: linear-gradient(90deg, #1B8A5A 0%, #1B8A5A 36%, #F4B940 36%, #F4B940 62%, #E8453C 62%); box-shadow: inset 0 1px 2px rgba(11,21,48,0.12); }
   .ai-range-bar.rev { background: linear-gradient(90deg, #E8453C 0%, #E8453C 38%, #F4B940 38%, #F4B940 64%, #1B8A5A 64%); }
-  .ai-range-mark { position: absolute; top: 50%; width: 16px; height: 16px; border-radius: 50%; background: #fff; border: 3px solid var(--primary, #1B2A5B); transform: translate(-50%, -50%); box-shadow: 0 2px 6px rgba(11,21,48,0.3); }
-  .ai-range-lbl { font-size: 11px; color: var(--text-muted, #6B7592); margin-top: 8px; }
+  .ai-range-mark { position: absolute; top: 50%; width: 18px; height: 18px; border-radius: 50%; background: #fff; border: 4px solid var(--primary, #1B2A5B); transform: translate(-50%, -50%); box-shadow: 0 3px 8px rgba(11,21,48,0.35); }
+  .ai-range-lbl { font-size: 11px; color: var(--text-muted, #6B7592); margin-top: 9px; }
 
   /* normal findings */
   .ai-normal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-  .ai-normal { background: #fff; border: 1px solid var(--border-soft, #E5E9F3); border-radius: 14px; padding: 16px 18px; display: flex; align-items: flex-start; gap: 12px; }
-  .ai-normal i { color: var(--green, #1B8A5A); font-size: 17px; margin-top: 1px; }
+  .ai-normal { background: #fff; border: 1px solid #ECEFF6; border-radius: 16px; padding: 16px 18px; display: flex; align-items: flex-start; gap: 12px; box-shadow: 0 2px 4px rgba(11,21,48,0.03); }
+  .ai-normal-ic { width: 34px; height: 34px; border-radius: 10px; background: var(--green-soft, #E1F5EA); color: var(--green, #1B8A5A); display: grid; place-items: center; font-size: 15px; flex-shrink: 0; }
   .ai-normal-name { font-weight: 800; font-size: 13.5px; color: var(--text-primary, #0B1530); font-family: 'Plus Jakarta Sans', sans-serif; }
-  .ai-normal-val { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 14px; color: var(--green, #1B8A5A); margin-top: 3px; }
+  .ai-normal-val { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 16px; color: var(--green, #1B8A5A); margin-top: 3px; }
   .ai-normal-range { font-size: 11.5px; color: var(--text-muted, #6B7592); margin-top: 2px; }
 
   /* action plans */
   .ai-plans { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
-  .ai-plan { background: #fff; border: 1px solid var(--border-soft, #E5E9F3); border-left: 4px solid #7C3AED; border-radius: 14px; padding: 18px 20px; }
-  .ai-plan-h { display: flex; align-items: center; gap: 9px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 15px; font-weight: 800; color: var(--primary, #1B2A5B); margin-bottom: 12px; }
-  .ai-plan-h i { color: #7C3AED; }
+  .ai-plan { background: #fff; border: 1px solid #ECEFF6; border-radius: 18px; padding: 20px 22px; box-shadow: 0 2px 4px rgba(11,21,48,0.03); }
+  .ai-plan-h { display: flex; align-items: center; gap: 11px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 15px; font-weight: 800; color: var(--primary, #1B2A5B); margin-bottom: 13px; }
+  .ai-plan-h .chip { width: 30px; height: 30px; border-radius: 9px; background: #F0EBFD; color: #7C3AED; display: grid; place-items: center; font-size: 13px; }
   .ai-plan ol { list-style: none; counter-reset: ai; margin: 0; padding: 0; }
-  .ai-plan li { counter-increment: ai; position: relative; padding: 6px 0 6px 28px; font-size: 13.5px; color: var(--text-secondary, #4A5578); line-height: 1.45; }
-  .ai-plan li::before { content: counter(ai); position: absolute; left: 0; top: 6px; width: 19px; height: 19px; border-radius: 50%; background: #F0EBFD; color: #7C3AED; font-size: 10.5px; font-weight: 800; display: grid; place-items: center; font-family: 'Plus Jakarta Sans', sans-serif; }
+  .ai-plan li { counter-increment: ai; position: relative; padding: 7px 0 7px 30px; font-size: 13.5px; color: var(--text-secondary, #4A5578); line-height: 1.45; }
+  .ai-plan li::before { content: counter(ai); position: absolute; left: 0; top: 7px; width: 20px; height: 20px; border-radius: 50%; background: #F0EBFD; color: #7C3AED; font-size: 10.5px; font-weight: 800; display: grid; place-items: center; font-family: 'Plus Jakarta Sans', sans-serif; }
 
   /* specialists */
   .ai-specs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
-  .ai-spec { background: #fff; border: 1px solid var(--border-soft, #E5E9F3); border-radius: 14px; padding: 18px 20px; display: flex; align-items: center; justify-content: space-between; gap: 14px; }
-  .ai-spec-name { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 15px; color: var(--text-primary, #0B1530); }
-  .ai-spec-sub { font-size: 12.5px; color: var(--text-muted, #6B7592); margin-top: 3px; }
-  .ai-spec-btn { display: inline-flex; align-items: center; gap: 7px; background: var(--accent, #D33535); color: #fff; border: 0; border-radius: 999px; padding: 10px 18px; font: inherit; font-size: 13px; font-weight: 800; cursor: pointer; white-space: nowrap; text-decoration: none; box-shadow: 0 6px 16px rgba(211,53,53,0.26); }
+  .ai-spec { background: #fff; border: 1px solid #ECEFF6; border-radius: 18px; padding: 16px 18px; display: flex; align-items: center; justify-content: space-between; gap: 12px; box-shadow: 0 2px 4px rgba(11,21,48,0.03); }
+  .ai-spec-l { display: flex; align-items: center; gap: 13px; min-width: 0; }
+  .ai-spec-av { width: 46px; height: 46px; border-radius: 50%; background: linear-gradient(135deg, #1B2A5B, #38407E); color: #fff; display: grid; place-items: center; font-size: 15px; font-weight: 800; font-family: 'Plus Jakarta Sans', sans-serif; flex-shrink: 0; }
+  .ai-spec-name { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 14.5px; color: var(--text-primary, #0B1530); }
+  .ai-spec-sub { font-size: 12px; color: var(--text-muted, #6B7592); margin-top: 2px; }
+  .ai-spec-avail { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 700; color: var(--green, #1B8A5A); margin-top: 5px; }
+  .ai-spec-avail .d { width: 7px; height: 7px; border-radius: 50%; background: var(--green, #1B8A5A); }
+  .ai-spec-btn { display: inline-flex; align-items: center; gap: 7px; background: var(--accent, #D33535); color: #fff; border: 0; border-radius: 999px; padding: 10px 18px; font: inherit; font-size: 13px; font-weight: 800; cursor: pointer; white-space: nowrap; text-decoration: none; box-shadow: 0 6px 16px rgba(211,53,53,0.26); flex-shrink: 0; }
   .ai-spec-btn:hover { background: var(--accent-dark, #B82E2E); }
 
   /* note + footer */
-  .ai-note { margin-top: 26px; background: #fff; border: 1px solid var(--border-soft, #E5E9F3); border-radius: 14px; padding: 16px 18px; font-size: 12.5px; color: var(--text-secondary, #4A5578); line-height: 1.55; text-align: center; }
+  .ai-note { margin-top: 26px; background: #fff; border: 1px solid #ECEFF6; border-radius: 16px; padding: 16px 18px; font-size: 12.5px; color: var(--text-secondary, #4A5578); line-height: 1.55; text-align: center; }
   .ai-note b { color: var(--text-primary, #0B1530); }
   .ai-foot { text-align: center; font-size: 12px; font-weight: 700; color: var(--text-muted, #6B7592); margin-top: 18px; letter-spacing: 0.02em; }
 
-  @media (max-width: 760px) {
-    .ai-patient { grid-template-columns: 1fr; }
-    .ai-body-map { width: 180px; margin: 0 auto; }
+  @media (max-width: 820px) {
+    .ai-overview { grid-template-columns: 1fr 1fr; }
+    .ai-bodycard { grid-column: 1 / -1; min-height: 240px; }
+  }
+  @media (max-width: 640px) {
+    .ai-overview { grid-template-columns: 1fr; }
     .ai-normal-grid, .ai-plans, .ai-specs { grid-template-columns: 1fr; }
-    .ai-stats { flex-wrap: wrap; }
-    .ai-stat { flex: 1; min-width: 78px; }
     .ai-hero-meta { text-align: left; }
   }
 </style>
@@ -979,10 +991,10 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
         { t: 'Microcytic Anemia', s: ['Conduct iron studies (serum iron, ferritin, TIBC)', 'Consider dietary changes to increase iron intake'] }
       ],
       specialists: [
-        { n: 'General Physician', s: 'Overall guidance and specialist referral' },
-        { n: 'Endocrinologist', s: 'Hypothyroidism & metabolic disorders' },
-        { n: 'Hematologist', s: 'Anemia and blood disorder evaluation' },
-        { n: 'Nutritionist', s: 'Diet plans for prediabetes & dyslipidemia' }
+        { n: 'General Physician', s: 'Overall guidance and specialist referral', av: 'GP', avail: 'Available' },
+        { n: 'Endocrinologist', s: 'Hypothyroidism & metabolic disorders', av: 'EN', avail: 'Available' },
+        { n: 'Hematologist', s: 'Anemia and blood disorder evaluation', av: 'HE', avail: 'On call' },
+        { n: 'Nutritionist', s: 'Diet plans for prediabetes & dyslipidemia', av: 'NU', avail: 'Available' }
       ]
     };
 
@@ -1012,11 +1024,13 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 
     function donut(score) {
       var col = score < 40 ? '#E8453C' : (score < 70 ? '#F4B940' : '#1B8A5A');
-      var circ = 2 * Math.PI * 48, dash = (score / 100) * circ;
-      return '<div class="ai-donut"><svg width="110" height="110" viewBox="0 0 110 110">' +
-        '<circle cx="55" cy="55" r="48" fill="none" stroke="#EDEFF5" stroke-width="9"/>' +
-        '<circle cx="55" cy="55" r="48" fill="none" stroke="' + col + '" stroke-width="9" stroke-linecap="round" stroke-dasharray="' + dash.toFixed(1) + ' ' + circ.toFixed(1) + '"/>' +
-        '</svg><div class="ai-donut-c"><div class="ai-donut-num">' + score + '</div><div class="ai-donut-lbl">Your Health Score out of 100</div></div></div>';
+      var col2 = score < 40 ? '#FF8A7A' : (score < 70 ? '#FFD37A' : '#5FD19A');
+      var r = 60, circ = 2 * Math.PI * r, dash = (score / 100) * circ;
+      return '<div class="ai-donut"><svg width="138" height="138" viewBox="0 0 138 138">' +
+        '<defs><linearGradient id="aiRing" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="' + col2 + '"/><stop offset="1" stop-color="' + col + '"/></linearGradient></defs>' +
+        '<circle cx="69" cy="69" r="' + r + '" fill="none" stroke="#EDEFF5" stroke-width="11"/>' +
+        '<circle cx="69" cy="69" r="' + r + '" fill="none" stroke="url(#aiRing)" stroke-width="11" stroke-linecap="round" stroke-dasharray="' + dash.toFixed(1) + ' ' + circ.toFixed(1) + '"/>' +
+        '</svg><div class="ai-donut-c"><div class="ai-donut-num">' + score + '</div><div class="ai-donut-lbl">Health Score / 100</div></div></div>';
     }
 
     function render(patientName, lab) {
@@ -1026,14 +1040,19 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
         '<div class="ai-hero-meta"><div><i class="fas fa-calendar-day"></i> Report Date: 27 Mar 2026</div><div><i class="fas fa-flask"></i> Reported By: ' + lab + '</div></div></div>';
       document.getElementById('aiHero').innerHTML = hero;
 
-      var patient = '<div class="ai-patient"><div>' +
-        '<div class="ai-pt-head"><span class="ai-pt-av"><i class="fas fa-user"></i></span><div><div class="ai-pt-name">' + patientName + '</div><div class="ai-pt-sub">32 yrs · Male</div></div></div>' +
-        '<div class="ai-scorerow">' + donut(AI.score) +
-        '<div class="ai-stats">' +
-        '<div class="ai-stat"><div class="ai-stat-num bad">' + AI.counts.out + '</div><div class="ai-stat-lbl">Out of range</div></div>' +
-        '<div class="ai-stat"><div class="ai-stat-num ok">' + AI.counts.normal + '</div><div class="ai-stat-lbl">Normal</div></div>' +
-        '<div class="ai-stat"><div class="ai-stat-num act">' + AI.counts.actions + '</div><div class="ai-stat-lbl">Action Plans</div></div>' +
-        '</div></div></div><div class="ai-body-map">' + bodyMap() + '</div></div>';
+      function initials(n) { var p = n.trim().split(/\s+/); return (((p[0] || '')[0] || '') + ((p[1] || '')[0] || '')).toUpperCase(); }
+      var patient = '<div class="ai-overview">' +
+        '<div class="ai-card ai-score-card">' +
+          '<div class="ai-pt-head"><span class="ai-pt-av">' + initials(patientName) + '</span><div><div class="ai-pt-name">' + patientName + '</div><div class="ai-pt-sub">32 yrs · Male</div></div></div>' +
+          '<div class="ai-donut-wrap">' + donut(AI.score) + '</div>' +
+        '</div>' +
+        '<div class="ai-statcol">' +
+          '<div class="ai-card ai-stat"><span class="ai-stat-ic bad"><i class="fas fa-triangle-exclamation"></i></span><div><div class="ai-stat-num">' + AI.counts.out + '</div><div class="ai-stat-lbl">Out of range</div></div></div>' +
+          '<div class="ai-card ai-stat"><span class="ai-stat-ic ok"><i class="fas fa-circle-check"></i></span><div><div class="ai-stat-num">' + AI.counts.normal + '</div><div class="ai-stat-lbl">Normal</div></div></div>' +
+          '<div class="ai-card ai-stat"><span class="ai-stat-ic act"><i class="fas fa-bolt"></i></span><div><div class="ai-stat-num">' + AI.counts.actions + '</div><div class="ai-stat-lbl">Action Plans</div></div></div>' +
+        '</div>' +
+        '<div class="ai-card ai-bodycard">' + bodyMap() + '</div>' +
+      '</div>';
 
       var findings = '<div class="ai-sec"><div class="ai-sec-title"><span class="ico">⚠️</span> Key Findings &amp; Abnormalities</div>' +
         AI.findings.map(function (f) {
@@ -1049,17 +1068,17 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 
       var normals = '<div class="ai-sec"><div class="ai-sec-title"><span class="ico">✅</span> Normal Findings</div><div class="ai-normal-grid">' +
         AI.normals.map(function (n) {
-          return '<div class="ai-normal"><i class="fas fa-circle-check"></i><div><div class="ai-normal-name">' + n.name + '</div><div class="ai-normal-val">' + n.val + '</div><div class="ai-normal-range">' + n.range + '</div></div></div>';
+          return '<div class="ai-normal"><span class="ai-normal-ic"><i class="fas fa-circle-check"></i></span><div><div class="ai-normal-name">' + n.name + '</div><div class="ai-normal-val">' + n.val + '</div><div class="ai-normal-range">' + n.range + '</div></div></div>';
         }).join('') + '</div></div>';
 
       var plans = '<div class="ai-sec"><div class="ai-sec-title"><span class="ico">📌</span> Action Plans</div><div class="ai-plans">' +
         AI.plans.map(function (p) {
-          return '<div class="ai-plan"><div class="ai-plan-h"><i class="fas fa-bolt"></i> ' + p.t + '</div><ol>' + p.s.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ol></div>';
+          return '<div class="ai-plan"><div class="ai-plan-h"><span class="chip"><i class="fas fa-bolt"></i></span> ' + p.t + '</div><ol>' + p.s.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ol></div>';
         }).join('') + '</div></div>';
 
       var specs = '<div class="ai-sec"><div class="ai-sec-title"><span class="ico">🩺</span> Recommended Specialists</div><div class="ai-specs">' +
         AI.specialists.map(function (s) {
-          return '<div class="ai-spec"><div><div class="ai-spec-name">' + s.n + '</div><div class="ai-spec-sub">' + s.s + '</div></div><a class="ai-spec-btn" href="packages.html">Book Now <i class="fas fa-arrow-right"></i></a></div>';
+          return '<div class="ai-spec"><div class="ai-spec-l"><span class="ai-spec-av">' + s.av + '</span><div><div class="ai-spec-name">' + s.n + '</div><div class="ai-spec-sub">' + s.s + '</div><div class="ai-spec-avail"><span class="d"></span>' + s.avail + '</div></div></div><a class="ai-spec-btn" href="packages.html">Book Now <i class="fas fa-arrow-right"></i></a></div>';
         }).join('') + '</div></div>';
 
       var note = '<div class="ai-note"><b>Note:</b> This AI-generated health summary is based on your lab report and is intended for informational purposes only. Please consult a doctor. This analysis is not valid for medico-legal purposes.</div>' +
