@@ -647,7 +647,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   .aid-figure { position: relative; z-index: 1; height: 512px; margin-bottom: -6px; transform-style: preserve-3d; transition: transform 0.55s cubic-bezier(.2,.8,.3,1); will-change: transform; }
   .aid-figure > img { height: 100%; width: auto; display: block; filter: drop-shadow(0 18px 26px rgba(11,21,48,0.22)); }
   .aid-rings { position: absolute; left: 50%; bottom: 30px; transform: translateX(-50%); width: 340px; height: 120px; z-index: 0; pointer-events: none; }
-  .aid-pin { position: absolute; width: 16px; height: 16px; border-radius: 50%; background: #fff; box-shadow: 0 2px 6px rgba(11,21,48,0.3); display: grid; place-items: center; transform: translate(-50%,-50%); }
+  .aid-pin { position: absolute; z-index: 5; width: 16px; height: 16px; border-radius: 50%; background: #fff; box-shadow: 0 2px 8px rgba(11,21,48,0.4); display: grid; place-items: center; transform: translate(-50%,-50%) translateZ(40px); }
   .aid-pin::after { content: ''; width: 7px; height: 7px; border-radius: 50%; }
   .aid-pin.bad::after { background: var(--accent,#D33535); }
   .aid-pin.warn::after { background: var(--amber,#B45309); }
@@ -1234,7 +1234,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
         '<div class="aid-col aid-center"><div class="aid-card aid-stage">' +
           '<div class="aid-float tl"><span class="aid-float-ic"><i class="fas fa-gauge-high"></i></span><div><div class="aid-float-val">8.27<span>\u00b5IU</span></div><div class="aid-float-lbl">TSH \u00b7 Thyroid</div></div></div>' +
           '<div class="aid-float tr"><div class="row"><div><div class="aid-float-val">150<span>mg/dL</span></div><div class="aid-float-lbl">Triglycerides</div></div><span class="aid-float-pic"><i class="fas fa-heart-pulse"></i></span></div>' + aidSpark + '</div>' +
-          '<div class="aid-figure">' + aidDots + '<img src="ai-body.png" alt="Body systems map"></div>' +
+          '<div class="aid-figure"><img src="ai-body.png" alt="Body systems map">' + aidDots + '</div>' +
           aidRings +
           '<div class="aid-rotate"><button class="aid-rot" data-rot="l" aria-label="Rotate left"><i class="fas fa-angle-left"></i></button><span class="aid-rot-lbl"><i class="fas fa-arrows-rotate"></i> Rotate</span><button class="aid-rot" data-rot="r" aria-label="Rotate right"><i class="fas fa-angle-right"></i></button></div>' +
         '</div></div>' +
