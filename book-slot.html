@@ -1445,63 +1445,10 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
     <div id="bsStep2" hidden>
     <button type="button" class="bs-back" id="backToStep1"><i class="fas fa-arrow-left"></i> Back to your package</button>
 
-    <!-- STEP 1: DATE -->
-    <section class="step-card">
-      <div class="step-card-head">
-        <span class="step-num">1</span>
-        <h2 class="step-title" id="dateTitle">Pick a collection date</h2>
-        <span class="step-sub">Phlebotomist arrives within your slot window</span>
-      </div>
-      <div class="date-row" id="dateRow"></div>
-    </section>
-
-    <!-- STEP 2: TIME -->
-    <section class="step-card">
-      <div class="step-card-head">
-        <span class="step-num">2</span>
-        <h2 class="step-title">Choose a time slot</h2>
-        <span class="step-sub">Early morning slots have highest availability</span>
-      </div>
-      <div class="period-tabs" id="periodTabs">
-        <button class="period-tab is-active" data-period="early">🌅 Early AM</button>
-        <button class="period-tab" data-period="morning">☀️ Morning</button>
-        <button class="period-tab" data-period="afternoon">🌤 Afternoon</button>
-        <button class="period-tab" data-period="evening">🌆 Evening</button>
-      </div>
-      <div class="time-grid" id="timeGrid"></div>
-    </section>
-
-    <!-- STEP 3: ADDRESS -->
-    <section class="step-card" id="addrSection">
-      <div class="step-card-head">
-        <span class="step-num">3</span>
-        <h2 class="step-title">Where should we collect?</h2>
-      </div>
-      <div class="addr-list">
-        <div class="addr-card is-active" data-addr="home">
-          <span class="addr-radio"></span>
-          <div class="addr-info">
-            <span class="addr-tag"><i class="fas fa-house"></i> Home</span>
-            <div class="addr-name">Nilesh Sharma</div>
-            <div class="addr-line">A-204, Iris Apartments, DLF Phase 5, Sector 26, Gurgaon, Haryana 122001<span class="addr-phone"> · +91 98765 43210</span></div>
-          </div>
-        </div>
-        <div class="addr-card" data-addr="office">
-          <span class="addr-radio"></span>
-          <div class="addr-info">
-            <span class="addr-tag" style="background:var(--blue-soft);color:var(--blue);"><i class="fas fa-briefcase"></i> Office</span>
-            <div class="addr-name">Nilesh Sharma</div>
-            <div class="addr-line">Cyber City, Tower B, 7th Floor, DLF Phase 3, Gurgaon, Haryana 122002<span class="addr-phone"> · +91 98765 43210</span></div>
-          </div>
-        </div>
-      </div>
-      <button class="add-addr-btn"><i class="fas fa-plus"></i> Add a new address</button>
-    </section>
-
-    <!-- STEP 4: WHO IS THE TEST FOR -->
+    <!-- STEP 1: WHO IS THE TEST FOR -->
     <section class="step-card" id="patientSection">
       <div class="step-card-head">
-        <span class="step-num">4</span>
+        <span class="step-num">1</span>
         <h2 class="step-title">Who is the test for?</h2>
         <span class="step-sub">Add everyone who needs to be tested</span>
       </div>
@@ -1541,6 +1488,59 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
         </div>
       </div>
       <button type="button" class="add-patient-btn" id="addPatientBtn"><i class="fas fa-plus"></i> Add another patient</button>
+    </section>
+
+    <!-- STEP 2: ADDRESS -->
+    <section class="step-card" id="addrSection">
+      <div class="step-card-head">
+        <span class="step-num">2</span>
+        <h2 class="step-title">Where should we collect?</h2>
+      </div>
+      <div class="addr-list">
+        <div class="addr-card is-active" data-addr="home">
+          <span class="addr-radio"></span>
+          <div class="addr-info">
+            <span class="addr-tag"><i class="fas fa-house"></i> Home</span>
+            <div class="addr-name">Nilesh Sharma</div>
+            <div class="addr-line">A-204, Iris Apartments, DLF Phase 5, Sector 26, Gurgaon, Haryana 122001<span class="addr-phone"> · +91 98765 43210</span></div>
+          </div>
+        </div>
+        <div class="addr-card" data-addr="office">
+          <span class="addr-radio"></span>
+          <div class="addr-info">
+            <span class="addr-tag" style="background:var(--blue-soft);color:var(--blue);"><i class="fas fa-briefcase"></i> Office</span>
+            <div class="addr-name">Nilesh Sharma</div>
+            <div class="addr-line">Cyber City, Tower B, 7th Floor, DLF Phase 3, Gurgaon, Haryana 122002<span class="addr-phone"> · +91 98765 43210</span></div>
+          </div>
+        </div>
+      </div>
+      <button class="add-addr-btn"><i class="fas fa-plus"></i> Add a new address</button>
+    </section>
+
+    <!-- STEP 3: DATE -->
+    <section class="step-card">
+      <div class="step-card-head">
+        <span class="step-num">3</span>
+        <h2 class="step-title" id="dateTitle">Pick a collection date</h2>
+        <span class="step-sub">Phlebotomist arrives within your slot window</span>
+      </div>
+      <div class="date-row" id="dateRow"></div>
+    </section>
+
+    <!-- STEP 4: TIME -->
+    <section class="step-card">
+      <div class="step-card-head">
+        <span class="step-num">4</span>
+        <h2 class="step-title">Choose a time slot</h2>
+        <span class="step-sub">Early morning slots have highest availability</span>
+      </div>
+      <div class="period-tabs" id="periodTabs">
+        <button class="period-tab is-active" data-period="early">🌅 Early AM</button>
+        <button class="period-tab" data-period="morning">☀️ Morning</button>
+        <button class="period-tab" data-period="afternoon">🌤 Afternoon</button>
+        <button class="period-tab" data-period="evening">🌆 Evening</button>
+      </div>
+      <div class="time-grid" id="timeGrid"></div>
     </section>
 
     <!-- STEP 5: INSTRUCTIONS -->
