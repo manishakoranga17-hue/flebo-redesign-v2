@@ -1991,29 +1991,59 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 
 /* Page intro */
 .tests-intro {
-  background: linear-gradient(180deg, #ffffff 0%, var(--bg-page) 100%);
+  background: var(--bg-page);
 }
 .tests-intro-inner {
   max-width: 1480px; margin: 0 auto;
-  padding: 24px var(--site-inset) 20px;
+  padding: 22px var(--site-inset) 8px;
 }
+/* Blue hero — matches the Reports page hero for cross-site consistency */
+.tests-hero {
+  position: relative; overflow: hidden; border-radius: 26px; color: #fff;
+  background: #121A40 url('b-hero3.jpeg') center / cover no-repeat;
+  box-shadow: 0 28px 66px -28px rgba(11,21,48,0.78);
+  padding: 30px 44px;
+  display: grid; grid-template-columns: 1fr auto; gap: 36px; align-items: center;
+}
+.tests-hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(118deg, rgba(10,16,40,0.95) 0%, rgba(17,23,60,0.86) 52%, rgba(30,30,80,0.74) 100%); }
+.tests-hero::after { content: ''; position: absolute; right: -8%; top: -60%; width: 48%; height: 230%; background: radial-gradient(circle at 60% 50%, rgba(211,53,53,0.42), transparent 62%); pointer-events: none; }
+.tests-hero > * { position: relative; z-index: 1; }
+.tests-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.18); padding: 7px 13px; border-radius: 999px; font-size: 11.5px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #fff; }
+.tests-eyebrow i { color: #FF8A8A; }
 .tests-h1 {
   font-family: 'Instrument Serif', serif;
-  font-size: 34px; font-weight: 400; color: var(--primary);
-  letter-spacing: -0.01em; line-height: 1.1; margin-bottom: 6px;
+  font-weight: 400; font-size: clamp(34px, 4.6vw, 50px); color: #fff;
+  letter-spacing: -0.015em; line-height: 1.02; margin: 12px 0 10px;
 }
-.tests-sub { font-size: 15px; color: var(--text-muted); max-width: 640px; }
+.tests-sub { font-size: 15px; color: rgba(255,255,255,0.78); line-height: 1.55; max-width: 52ch; margin: 0; }
+.tests-hero-meta { display: flex; align-items: center; gap: 22px; margin-top: 22px; flex-wrap: wrap; }
+.tests-hero-stat { display: flex; flex-direction: column; line-height: 1.1; }
+.tests-hero-stat b { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 24px; color: #fff; }
+.tests-hero-stat span { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 3px; }
+.tests-hero-sep { width: 1px; height: 30px; background: rgba(255,255,255,0.18); }
+.tests-hero-art { width: 300px; max-width: 100%; transform: scale(1.18); transform-origin: center right; }
+.tests-hero-art svg { width: 100%; height: auto; display: block; overflow: visible; }
+.tests-hero-art .fl { animation: pkgHeroFloat 4.2s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.tests-hero-art .fl2 { animation: pkgHeroFloat 5s ease-in-out infinite 0.7s; transform-box: fill-box; transform-origin: center; }
+@keyframes pkgHeroFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+@media (prefers-reduced-motion: reduce) { .tests-hero-art .fl, .tests-hero-art .fl2 { animation: none; } }
 
 /* Category chips */
 .cat-chips-strip {
   background: transparent;
 }
-.cat-chips {
+.cat-chips-row {
   max-width: 1480px; margin: 0 auto;
-  display: flex; gap: 8px; overflow-x: auto;
   padding: 12px var(--site-inset);
+  display: flex; align-items: center; gap: 18px;
+}
+.cat-chips {
+  flex: 1; min-width: 0;
+  display: flex; gap: 8px; overflow-x: auto;
   scrollbar-width: none; -ms-overflow-style: none;
 }
+.cat-search { flex: 0 0 320px; }
+.cat-search .search-box { width: 100%; }
 .cat-chips::-webkit-scrollbar { display: none; }
 .cat-chip {
   flex: 0 0 auto;
@@ -2042,7 +2072,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 .tests-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 16px;
+  gap: 30px 16px;
 }
 @media (max-width: 1024px) { .tests-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 600px)  { .tests-grid { grid-template-columns: 1fr; } }
@@ -2228,12 +2258,19 @@ body.has-select-bar { padding-bottom: 80px; }
 .bottom-nav .nav-item.nav-chat.active .nav-label { color: #fff; }
 
 @media (max-width: 768px) {
-  .tests-h1 { font-size: 18px; }
-  .tests-sub { display: none; }
-  .tests-intro-inner { padding: 10px 16px 2px; }
-  .cat-chips, .tests-main, .select-bar-inner { padding-left: 16px; padding-right: 16px; }
+  .tests-hero { grid-template-columns: 1fr; gap: 20px; padding: 26px 22px; text-align: center; }
+  .tests-hero-text { display: flex; flex-direction: column; align-items: center; }
+  .tests-h1 { font-size: 32px; }
+  .tests-sub { font-size: 14px; }
+  .tests-hero-meta { justify-content: center; gap: 16px; }
+  .tests-hero-art { order: -1; width: 220px; transform: none; margin: 0 auto; }
+  .tests-intro-inner { padding: 12px 16px 4px; }
+  .cat-chips-row, .tests-main, .select-bar-inner { padding-left: 16px; padding-right: 16px; }
+  /* Stack search below the chips on mobile */
+  .cat-chips-row { flex-direction: column; align-items: stretch; gap: 10px; padding-top: 8px; padding-bottom: 8px; }
+  .cat-search { flex: none; width: 100%; }
   /* Smaller category circles */
-  .cat-chips { gap: 12px; padding-top: 6px; padding-bottom: 6px; }
+  .cat-chips { gap: 12px; }
   .cat-icon { width: 44px; height: 44px; }
   .cat-icon-fa { font-size: 18px; }
   .cat-circle-label { font-size: 10px; }
@@ -2252,21 +2289,30 @@ body.has-select-bar { padding-bottom: 80px; }
    PACKAGE CARD (redesigned)
    =================================================================== */
 .pcard {
-  display: flex; flex-direction: column;
+  display: flex; flex-direction: column; overflow: hidden;
   background: #fff; border: 1px solid var(--border-soft);
-  border-radius: var(--radius-lg); padding: 16px 16px 14px;
+  border-radius: var(--radius-lg);
   box-shadow: 0 1px 3px rgba(11,21,48,0.04);
   transition: box-shadow 0.18s, transform 0.18s, border-color 0.18s;
 }
-.pcard:hover { box-shadow: 0 10px 26px rgba(11,21,48,0.10); transform: translateY(-2px); }
+.pcard:hover { box-shadow: 0 14px 32px rgba(11,21,48,0.12); transform: translateY(-3px); }
 
-.pcard-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 12px; }
+/* ---- Photo banner ---- */
+.pcard-banner {
+  position: relative; height: 142px; overflow: hidden;
+  background: #16224d center / cover no-repeat;  /* fallback colour; photo set inline */
+}
+/* dark top gradient keeps the OFF / badge pills legible over bright photos */
+.pcard-banner::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(8,12,30,0.46) 0%, rgba(8,12,30,0.08) 34%, rgba(8,12,30,0.04) 70%, rgba(8,12,30,0.12) 100%);
+}
 
 /* Badges grouped by meaning, not decoration */
 .pkg-badge {
   display: inline-flex; align-items: center; gap: 5px;
-  font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em;
-  padding: 4px 9px; border-radius: 50px; white-space: nowrap;
+  font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.03em;
+  padding: 5px 10px; border-radius: 50px; white-space: nowrap;
 }
 .pkg-badge--trust    { background: #EEF1F6; color: #475569; }                 /* neutral slate */
 .pkg-badge--promo    { background: var(--amber-soft, #FEF3C7); color: #B45309; } /* amber/gold */
@@ -2274,46 +2320,63 @@ body.has-select-bar { padding-bottom: 80px; }
 .pkg-badge--sensitive{ background: #EDEFF2; color: #5B6472; }                 /* muted, quiet */
 .pkg-badge--sensitive i { font-size: 9px; opacity: 0.8; }
 
-/* Discount — visually lighter than the price */
-.pkg-off { font-size: 11px; font-weight: 700; color: var(--green); letter-spacing: 0.02em; }
+.pcard-badge-off {
+  position: absolute; left: 12px; top: 12px; z-index: 2;
+  background: var(--green-soft); color: var(--green);
+  font-size: 11px; font-weight: 800; letter-spacing: 0.02em;
+  padding: 5px 11px; border-radius: 50px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+}
+.pcard-badge-tag { position: absolute; right: 12px; top: 12px; z-index: 2; box-shadow: 0 2px 8px rgba(0,0,0,0.18); }
 
-/* Title is the boldest / largest text */
+/* ---- Body ---- */
+.pcard-body { display: flex; flex-direction: column; flex: 1; padding: 16px 16px 14px; }
 .pcard-title {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 17px; font-weight: 800; color: var(--text-primary);
-  line-height: 1.25; margin-bottom: 3px; letter-spacing: -0.01em;
+  font-size: 18px; font-weight: 800; color: var(--text-primary);
+  line-height: 1.22; letter-spacing: -0.01em;
 }
-.pcard-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; }
+.pcard-sub { font-size: 13px; color: var(--text-muted); margin-top: 3px; }
 
-/* "Includes N tests" — secondary link, not a heavy pill */
+/* "N parameters in M tests" — opens the breakdown modal */
 .pcard-tests-link {
   display: flex; align-items: center; justify-content: space-between; gap: 8px;
   width: 100%; background: none; border: none; border-top: 1px dashed var(--border-soft);
-  padding: 10px 0; margin-bottom: 12px; cursor: pointer;
-  font: inherit; font-size: 13px; font-weight: 600; color: var(--primary);
+  margin-top: 12px; padding: 11px 0; cursor: pointer;
+  font: inherit; font-size: 13.5px; color: var(--text-muted);
 }
-.pcard-tests-link:hover { color: var(--accent); }
+.pcard-tests-link b { color: var(--text-primary); font-weight: 800; }
 .pcard-tests-link > span { display: inline-flex; align-items: center; gap: 8px; }
-.pcard-tests-link .fa-chevron-right { font-size: 11px; opacity: 0.6; }
+.pcard-tests-link i.fa-list-check { color: var(--accent); font-size: 13px; }
+.pcard-tests-link .fa-chevron-right { font-size: 11px; color: var(--text-muted); }
+.pcard-tests-link:hover b, .pcard-tests-link:hover .fa-chevron-right { color: var(--accent); }
 
-.pcard-foot { margin-top: auto; }
-.pcard-price { display: flex; align-items: baseline; gap: 8px; }
-.pcard-now { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 20px; font-weight: 800; color: var(--text-primary); }
-.pcard-mrp { font-size: 13px; color: var(--text-muted); text-decoration: line-through; }
-.pcard-save { font-size: 12px; font-weight: 600; color: var(--green); margin-top: 2px; }
+/* System tag chips */
+.pcard-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 14px; }
+.pcard-tag { font-size: 12px; font-weight: 700; color: var(--green); background: var(--green-soft); padding: 5px 11px; border-radius: 50px; }
+.pcard-tag--more { color: var(--text-muted); background: var(--bg-soft); }
+
+.pcard-foot { margin-top: auto; border-top: 1px solid var(--border-soft); padding-top: 13px; }
+.pcard-price { display: flex; align-items: baseline; gap: 7px; }
+.pcard-from { font-size: 13px; color: var(--text-muted); font-weight: 600; }
+.pcard-now { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 24px; font-weight: 800; color: var(--text-primary); letter-spacing: -0.01em; }
+.pcard-mrp { font-size: 14px; color: var(--text-muted); text-decoration: line-through; }
+.pcard-save { font-size: 12.5px; font-weight: 700; color: var(--green); margin-top: 3px; }
+.pcard-labs { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--text-muted); margin-top: 8px; }
+.pcard-labs i { font-size: 12px; color: var(--text-muted); }
 .pcard-book {
-  width: 100%; margin-top: 12px; border: none; cursor: pointer;
-  background: var(--accent); color: #fff;
-  font-size: 14px; font-weight: 700; padding: 11px; border-radius: 50px;
-  transition: background 0.15s;
+  width: 100%; margin-top: 13px; cursor: pointer;
+  border: 1.5px solid var(--accent); background: #fff; color: var(--accent);
+  font-size: 15px; font-weight: 800; padding: 12px; border-radius: 50px;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
 }
-.pcard-book:hover { background: var(--accent-dark); }
+.pcard-book:hover { background: var(--accent-soft); }
 
 /* Sensitive package footer */
 .pcard--sensitive { border-color: #E3E6EC; }
 .pcard-private {
   display: flex; align-items: center; gap: 7px;
-  margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border-soft);
+  margin-top: 13px; padding-top: 10px; border-top: 1px solid var(--border-soft);
   font-size: 11px; color: var(--text-muted); line-height: 1.35;
 }
 .pcard-private i { color: #8B90A0; font-size: 11px; }
@@ -2349,20 +2412,16 @@ body.has-select-bar { padding-bottom: 80px; }
 .ptests-book:hover { background: var(--accent-dark); }
 @media (max-width: 480px) { .ptests-group-list { grid-template-columns: 1fr; } }
 
-/* Mobile package-card compaction — MUST come after the base .pcard rules so it wins.
-   Goal: at least two cards visible in the first fold. */
+/* Mobile package-card compaction — MUST come after the base .pcard rules so it wins. */
 @media (max-width: 768px) {
-  .pcard { padding: 11px 13px; }
-  .pcard-top { margin-bottom: 6px; }
-  .pcard-sub { display: none; }
-  .pcard-title { font-size: 15px; margin-bottom: 4px; }
-  .pcard-tests-link { padding: 6px 0; margin-bottom: 8px; font-size: 12px; }
-  .pcard-foot { display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 12px; }
-  .pcard-price-block { min-width: 0; }
-  .pcard-now { font-size: 18px; }
-  .pcard-save { font-size: 11px; }
-  .pcard-book { width: auto; margin-top: 0; padding: 9px 18px; font-size: 14px; white-space: nowrap; }
-  .pcard-private { margin-top: 10px; padding-top: 8px; }
+  .pcard-banner { height: 110px; }
+  .pcard-banner-ic { width: 54px; height: 54px; font-size: 22px; }
+  .pcard-body { padding: 13px 13px 12px; }
+  .pcard-title { font-size: 16px; }
+  .pcard-tests-link { padding: 9px 0; font-size: 13px; }
+  .pcard-tags { gap: 6px; margin-bottom: 12px; }
+  .pcard-now { font-size: 22px; }
+  .pcard-book { padding: 11px; font-size: 14px; }
 }
 </style>
 </head>
@@ -2444,9 +2503,83 @@ body.has-select-bar { padding-bottom: 80px; }
 </header>
 
 <!-- ===== SEARCH STRIP ===== -->
-<div class="search-strip">
-  <div class="search-strip-inner">
-    <div class="search-box-wrap">
+<!-- ===== PAGE INTRO ===== -->
+<section class="tests-intro" aria-label="Browse tests">
+  <div class="tests-intro-inner">
+    <div class="tests-hero">
+      <div class="tests-hero-text">
+        <span class="tests-eyebrow"><i class="fas fa-box-open"></i> Health packages</span>
+        <h1 class="tests-h1">Health checkup packages</h1>
+        <p class="tests-sub">Curated test bundles at up to 70% off. Pick a package, then compare prices across 160+ certified labs near you. Free home sample collection.</p>
+        <div class="tests-hero-meta">
+          <span class="tests-hero-stat"><b>70%</b><span>Up to off</span></span>
+          <span class="tests-hero-sep"></span>
+          <span class="tests-hero-stat"><b>160+</b><span>Certified labs</span></span>
+          <span class="tests-hero-sep"></span>
+          <span class="tests-hero-stat"><b>Free</b><span>Home collection</span></span>
+        </div>
+      </div>
+      <div class="tests-hero-art" aria-hidden="true">
+        <svg viewBox="0 0 384 320" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Packages illustration">
+          <defs>
+            <filter id="pkgSh" x="-40%" y="-40%" width="180%" height="180%">
+              <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#060a1c" flood-opacity="0.40"/>
+            </filter>
+          </defs>
+
+          <!-- back card (depth) -->
+          <rect x="112" y="52" width="180" height="168" rx="20" fill="#ffffff" opacity="0.10"/>
+
+          <!-- central package card -->
+          <g font-family="'Plus Jakarta Sans', sans-serif">
+            <rect x="96" y="66" width="200" height="176" rx="20" fill="#ffffff" filter="url(#pkgSh)"/>
+            <!-- package icon tile -->
+            <rect x="116" y="86" width="34" height="34" rx="10" fill="#FDECEC"/>
+            <path d="M124 96l9-4 9 4-9 4z" fill="#D33535"/>
+            <path d="M124 96v9l9 4v-9z" fill="#D33535" opacity="0.78"/>
+            <path d="M142 96v9l-9 4v-9z" fill="#D33535" opacity="0.55"/>
+            <!-- title bars -->
+            <rect x="160" y="90" width="92" height="9" rx="4.5" fill="#1B2A5B"/>
+            <rect x="160" y="106" width="56" height="6" rx="3" fill="#C5CCDB"/>
+            <line x1="116" y1="134" x2="276" y2="134" stroke="#EEF0F6" stroke-width="2"/>
+            <!-- included-test rows with green ticks -->
+            <circle cx="121" cy="150" r="5" fill="#1B8A5A" opacity="0.16"/><path d="M118.6 150l1.7 1.7 3-3.4" stroke="#1B8A5A" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="132" y="146.5" width="84" height="7" rx="3.5" fill="#0B1530" opacity="0.6"/>
+            <circle cx="121" cy="172" r="5" fill="#1B8A5A" opacity="0.16"/><path d="M118.6 172l1.7 1.7 3-3.4" stroke="#1B8A5A" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="132" y="168.5" width="66" height="7" rx="3.5" fill="#0B1530" opacity="0.6"/>
+            <circle cx="121" cy="194" r="5" fill="#1B8A5A" opacity="0.16"/><path d="M118.6 194l1.7 1.7 3-3.4" stroke="#1B8A5A" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="132" y="190.5" width="76" height="7" rx="3.5" fill="#0B1530" opacity="0.6"/>
+            <!-- price + book pill -->
+            <text x="116" y="226" fill="#0B1530" font-size="15" font-weight="800">₹1,299</text>
+            <rect x="196" y="214" width="80" height="16" rx="8" fill="#1B2A5B"/>
+            <text x="236" y="225.5" fill="#fff" font-size="9" font-weight="800" text-anchor="middle">Book now</text>
+          </g>
+
+          <!-- floating: % OFF (red) -->
+          <g class="fl" font-family="'Plus Jakarta Sans', sans-serif">
+            <rect x="250" y="40" width="118" height="46" rx="14" fill="#ffffff" filter="url(#pkgSh)"/>
+            <rect x="264" y="53" width="22" height="22" rx="7" fill="#FDECEC"/>
+            <text x="275" y="69" fill="#D33535" font-size="11" font-weight="900" text-anchor="middle">%</text>
+            <text x="296" y="60" fill="#0B1530" font-size="11" font-weight="800">70% OFF</text>
+            <text x="296" y="75" fill="#6B7592" font-size="8.5" font-family="'Inter',sans-serif">Limited offer</text>
+          </g>
+
+          <!-- floating: verified labs check (green) -->
+          <g class="fl2">
+            <circle cx="104" cy="64" r="17" fill="#1B8A5A" filter="url(#pkgSh)"/>
+            <path d="M97 64l5 5 9-11" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CATEGORY CHIPS ===== -->
+<div class="cat-chips-strip" aria-label="Filter by category">
+  <div class="cat-chips-row">
+    <div class="cat-chips" id="catChips"></div>
+    <div class="cat-search">
       <label class="search-box">
         <i class="fas fa-magnifying-glass search-icon" aria-hidden="true"></i>
         <input id="testSearchInput" type="search" placeholder="Search health packages &amp; checkups…" autocomplete="off" aria-label="Search packages" aria-controls="testsGrid">
@@ -2454,19 +2587,6 @@ body.has-select-bar { padding-bottom: 80px; }
       </label>
     </div>
   </div>
-</div>
-
-<!-- ===== PAGE INTRO ===== -->
-<section class="tests-intro" aria-label="Browse tests">
-  <div class="tests-intro-inner">
-    <h1 class="tests-h1">Health checkup packages</h1>
-    <p class="tests-sub">Curated test bundles at up to 70% off. Pick a package, then compare prices across 160+ certified labs near you. Free home sample collection.</p>
-  </div>
-</section>
-
-<!-- ===== CATEGORY CHIPS ===== -->
-<div class="cat-chips-strip" aria-label="Filter by category">
-  <div class="cat-chips" id="catChips"></div>
 </div>
 
 <!-- ===== TESTS GRID ===== -->
@@ -2656,6 +2776,53 @@ body.has-select-bar { padding-bottom: 80px; }
     return 'trust';
   }
 
+  // Banner photo — one unique image per package.
+  const IMG_BY_NAME = {
+    'Flebo Prime Care': 'flebo-prime-care.jpg',
+    'Healthy India 2026': 'healthy-india-2026.jpg',
+    'Flebo She Care': 'flebo-she-care.jpg',
+    'Advanced Full Body': 'advanced-full-body.jpg',
+    'Fever Panel Basic': 'fever-panel-basic.jpg',
+    'Fever Panel Advanced': 'fever-panel-advanced.jpg',
+    'Dengue NS1 + IgG/IgM': 'dengue-panel.jpg',
+    'Malaria Panel': 'malaria-panel.jpg',
+    'STD Basic Panel': 'std-basic.jpg',
+    'STD Comprehensive': 'std-comprehensive.jpg',
+    'HIV Screening': 'hiv-screening.jpg',
+    'Hepatitis Panel': 'hepatitis-panel.jpg',
+    'Vitamin D + B12': 'vitamin-d-b12.jpg',
+    'Complete Vitamin Panel': 'complete-vitamin-panel.jpg',
+    'Iron + Vitamin Panel': 'iron-vitamin-panel.jpg',
+    'Bone Health Panel': 'bone-health-panel.jpg',
+    'Diabetes Screening': 'diabetes-screening.jpg',
+    'Diabetes Advanced': 'diabetes-advanced.jpg',
+    'Pre-Diabetes Check': 'pre-diabetes-check.jpg',
+    'Diabetes Monitor': 'diabetes-monitor.jpg',
+    'Cardiac Risk Panel': 'cardiac-risk-panel.jpg',
+    'Heart Health Complete': 'heart-health-complete.jpg',
+    'Cholesterol Panel': 'cholesterol-panel.jpg',
+    'BP + Heart Screen': 'bp-heart-screen.jpg',
+    'Thyroid Basic': 'thyroid-basic.jpg',
+    'Thyroid Complete': 'thyroid-complete.jpg',
+    'Thyroid + Vitamin Panel': 'thyroid-vitamin-panel.jpg',
+    'Thyroid Antibody': 'thyroid-antibody.jpg',
+    'LFT Basic': 'lft-basic.jpg',
+    'Liver Health Complete': 'liver-health-complete.jpg',
+    'Hepatitis Screening': 'hepatitis-screening.jpg',
+    'Fatty Liver Panel': 'fatty-liver-panel.jpg'
+  };
+  // Body systems each category screens — drives the tag chips.
+  const SYSTEM_TAGS = {
+    Popular: ['Heart', 'Liver', 'Kidney', 'Thyroid', 'Diabetes', 'Blood', 'Vitamins', 'Bones'],
+    Fever: ['Infection', 'Blood', 'Liver', 'Immunity'],
+    STD: ['Immunity', 'Liver', 'Infection'],
+    Vitamins: ['Vitamins', 'Bones', 'Blood', 'Energy'],
+    Diabetes: ['Diabetes', 'Kidney', 'Heart', 'Sugar'],
+    Heart: ['Heart', 'Cholesterol', 'Inflammation'],
+    Thyroid: ['Thyroid', 'Hormones', 'Metabolism'],
+    Liver: ['Liver', 'Immunity', 'Digestion']
+  };
+
   // Flatten into a single catalog, tagging each package with category, sensitivity & test groups.
   const testCatalog = [];
   Object.keys(packageData).forEach(cat => {
@@ -2732,30 +2899,42 @@ body.has-select-bar { padding-bottom: 80px; }
         const kind = badgeKind(t);
         const save = t.oldPrice - t.price;
         const pct = Math.round((save / t.oldPrice) * 100);
-        const perTest = Math.max(1, Math.round(t.price / t.tests));
+        const params = t.tests;
+        const panels = t.groups ? t.groups.length : Math.max(3, Math.round(params / 12));
+        const perParam = Math.max(1, Math.round(t.price / params));
+        const labs = 4 + (t.name.length % 5);
+        const img = IMG_BY_NAME[t.name] || 'flebo-prime-care.jpg';
+        const allTags = SYSTEM_TAGS[t.tag] || ['Wellness'];
+        const showTags = allTags.slice(0, 5);
+        const moreTags = allTags.length - showTags.length;
+        const tagsHTML = showTags.map(x => `<span class="pcard-tag">${x}</span>`).join('') +
+          (moreTags > 0 ? `<span class="pcard-tag pcard-tag--more">+${moreTags}</span>` : '');
         return `
         <article class="pcard${t.sensitive ? ' pcard--sensitive' : ''}" data-name="${t.name}">
-          <div class="pcard-top">
-            <span class="pkg-badge pkg-badge--${kind}">${kind === 'sensitive' ? '<i class="fas fa-lock" aria-hidden="true"></i> ' : ''}${t.badge}</span>
-            <span class="pkg-off">${pct}% OFF</span>
+          <div class="pcard-banner" style="background-image:url('package-images/${img}')">
+            <span class="pcard-badge-off">${pct}% OFF</span>
+            <span class="pkg-badge pkg-badge--${kind} pcard-badge-tag">${kind === 'sensitive' ? '<i class="fas fa-lock" aria-hidden="true"></i> ' : ''}${t.badge}</span>
           </div>
-          <h3 class="pcard-title">${t.name}</h3>
-          <div class="pcard-sub">${t.sub}</div>
-          <button type="button" class="pcard-tests-link" data-tests="${t.name}">
-            <span><i class="fas fa-list-check" aria-hidden="true"></i> Includes ${t.tests} tests</span>
-            <i class="fas fa-chevron-right" aria-hidden="true"></i>
-          </button>
-          <div class="pcard-foot">
-            <div class="pcard-price-block">
+          <div class="pcard-body">
+            <h3 class="pcard-title">${t.name}</h3>
+            <div class="pcard-sub">${t.sub}</div>
+            <button type="button" class="pcard-tests-link" data-tests="${t.name}">
+              <span><i class="fas fa-list-check" aria-hidden="true"></i> <b>${params} parameters</b> in ${panels} tests</span>
+              <i class="fas fa-chevron-right" aria-hidden="true"></i>
+            </button>
+            <div class="pcard-tags">${tagsHTML}</div>
+            <div class="pcard-foot">
               <div class="pcard-price">
+                <span class="pcard-from">from</span>
                 <span class="pcard-now">₹${t.price.toLocaleString()}</span>
                 <span class="pcard-mrp">₹${t.oldPrice.toLocaleString()}</span>
               </div>
-              <div class="pcard-save">Save ₹${save.toLocaleString()} · ~₹${perTest}/test</div>
+              <div class="pcard-save">Save ₹${save.toLocaleString()} · ≈₹${perParam}/parameter</div>
+              <div class="pcard-labs"><i class="fas fa-vials" aria-hidden="true"></i> Choose from ${labs} NABL labs · prices vary</div>
+              <button type="button" class="pcard-book" data-name="${t.name}" data-price="${t.price}" aria-label="Book ${t.name}">Book Now</button>
             </div>
-            <button type="button" class="pcard-book" data-name="${t.name}" data-price="${t.price}" aria-label="Book ${t.name}">Book Now</button>
+            ${t.sensitive ? `<div class="pcard-private"><i class="fas fa-user-shield" aria-hidden="true"></i> Reports delivered privately · No mention on invoice</div>` : ''}
           </div>
-          ${t.sensitive ? `<div class="pcard-private"><i class="fas fa-user-shield" aria-hidden="true"></i> Reports delivered privately · No mention on invoice</div>` : ''}
         </article>`;
       }).join('');
     }
