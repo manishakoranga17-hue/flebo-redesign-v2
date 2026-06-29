@@ -2420,8 +2420,9 @@ body.has-select-bar { padding-bottom: 80px; }
   .pcard-title { font-size: 16px; }
   .pcard-sub { font-size: 12.5px; margin-top: 2px; }
   .pcard-tests-link { padding: 8px 0; margin-top: 9px; font-size: 12.5px; }
-  .pcard-tags { gap: 6px; margin-bottom: 10px; }
-  .pcard-tag { font-size: 11px; padding: 4px 9px; }
+  .pcard-tags { gap: 6px; margin-bottom: 10px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; }
+  .pcard-tags::-webkit-scrollbar { display: none; }
+  .pcard-tag { font-size: 11px; padding: 4px 9px; flex: 0 0 auto; }
   .pcard-foot { padding-top: 10px; }
   .pcard-now { font-size: 21px; }
   .pcard-labs { display: none; }
@@ -2909,7 +2910,8 @@ body.has-select-bar { padding-bottom: 80px; }
         const labs = 4 + (t.name.length % 5);
         const img = IMG_BY_NAME[t.name] || 'flebo-prime-care.jpg';
         const allTags = SYSTEM_TAGS[t.tag] || ['Wellness'];
-        const showTags = allTags.slice(0, 5);
+        const maxTags = window.matchMedia('(max-width: 768px)').matches ? 3 : 5;
+        const showTags = allTags.slice(0, maxTags);
         const moreTags = allTags.length - showTags.length;
         const tagsHTML = showTags.map(x => `<span class="pcard-tag">${x}</span>`).join('') +
           (moreTags > 0 ? `<span class="pcard-tag pcard-tag--more">+${moreTags}</span>` : '');
