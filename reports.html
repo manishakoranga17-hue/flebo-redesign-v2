@@ -952,13 +952,12 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   function flagged(r) { return allParams(r).filter(function (p) { return p.st !== 'normal'; }); }
   function byId(id) { for (var i = 0; i < REPORTS.length; i++) if (REPORTS[i].id === id) return REPORTS[i]; }
 
-  var state = { member: 'all', q: '', reviewOnly: false };
+  var state = { member: 'rahul', q: '', reviewOnly: false };
 
 
   /* ---- people chips ---- */
   function peopleHTML() {
-    var chips = '<button class="rep-chip' + (state.member === 'all' ? ' is-active' : '') + '" data-member="all"><span class="ic"><i class="fas fa-users" style="font-size:11px"></i></span> All members</button>';
-    chips += PATIENTS.map(function (p) {
+    var chips = PATIENTS.map(function (p) {
       var n = REPORTS.filter(function (r) { return r.pid === p.id; }).length;
       return '<button class="rep-chip' + (state.member === p.id ? ' is-active' : '') + '" data-member="' + p.id + '"><span class="av" style="background:' + p.color + '">' + p.initials + '</span>' + p.name.split(' ')[0] + ' <span class="ct">' + n + '</span></button>';
     }).join('');
