@@ -2258,13 +2258,13 @@ body.has-select-bar { padding-bottom: 80px; }
 .bottom-nav .nav-item.nav-chat.active .nav-label { color: #fff; }
 
 @media (max-width: 768px) {
-  .tests-hero { grid-template-columns: 1fr; gap: 20px; padding: 26px 22px; text-align: center; }
-  .tests-hero-text { display: flex; flex-direction: column; align-items: center; }
-  .tests-h1 { font-size: 32px; }
-  .tests-sub { font-size: 14px; }
-  .tests-hero-meta { justify-content: center; gap: 16px; }
-  .tests-hero-art { order: -1; width: 220px; transform: none; margin: 0 auto; }
-  .tests-intro-inner { padding: 12px 16px 4px; }
+  /* Phone: drop the blue banner — show just a plain heading, then pills, then packages */
+  .tests-intro-inner { padding: 12px 16px 2px; }
+  .tests-hero { display: block; background: none; box-shadow: none; border-radius: 0; padding: 0; color: inherit; }
+  .tests-hero::before, .tests-hero::after { display: none; }
+  .tests-eyebrow, .tests-sub, .tests-hero-meta, .tests-hero-art { display: none; }
+  .tests-hero-text { display: block; }
+  .tests-h1 { font-size: 22px; color: var(--primary); margin: 0; }
   .cat-chips-row, .tests-main, .select-bar-inner { padding-left: 16px; padding-right: 16px; }
   /* Stack search below the chips on mobile */
   .cat-chips-row { flex-direction: column; align-items: stretch; gap: 10px; padding-top: 8px; padding-bottom: 8px; }
@@ -2277,7 +2277,7 @@ body.has-select-bar { padding-bottom: 80px; }
   .tests-main { padding-top: 8px; }
   .tests-count { font-size: 11px; margin-bottom: 6px; }
   /* (package-card compaction lives in the block after the base .pcard rules) */
-  .tests-grid { grid-template-columns: 1fr; gap: 8px; }
+  .tests-grid { grid-template-columns: 1fr; gap: 18px; }
   .bottom-nav { display: flex; }
   body { padding-bottom: 72px; }
   body.has-select-bar { padding-bottom: 144px; }
@@ -2414,14 +2414,18 @@ body.has-select-bar { padding-bottom: 80px; }
 
 /* Mobile package-card compaction — MUST come after the base .pcard rules so it wins. */
 @media (max-width: 768px) {
-  .pcard-banner { height: 110px; }
-  .pcard-banner-ic { width: 54px; height: 54px; font-size: 22px; }
-  .pcard-body { padding: 13px 13px 12px; }
+  /* Compact cards so 1–2 fit in the first fold */
+  .pcard-banner { height: 92px; }
+  .pcard-body { padding: 11px 13px 12px; }
   .pcard-title { font-size: 16px; }
-  .pcard-tests-link { padding: 9px 0; font-size: 13px; }
-  .pcard-tags { gap: 6px; margin-bottom: 12px; }
-  .pcard-now { font-size: 22px; }
-  .pcard-book { padding: 11px; font-size: 14px; }
+  .pcard-sub { font-size: 12.5px; margin-top: 2px; }
+  .pcard-tests-link { padding: 8px 0; margin-top: 9px; font-size: 12.5px; }
+  .pcard-tags { gap: 6px; margin-bottom: 10px; }
+  .pcard-tag { font-size: 11px; padding: 4px 9px; }
+  .pcard-foot { padding-top: 10px; }
+  .pcard-now { font-size: 21px; }
+  .pcard-labs { display: none; }
+  .pcard-book { padding: 10px; font-size: 14px; margin-top: 10px; }
 }
 </style>
 </head>
