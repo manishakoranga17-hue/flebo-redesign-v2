@@ -355,9 +355,16 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   .rep-stat { flex: 1; min-width: 100px; }
 }
 @media (max-width: 760px) {
-  .rep-toolbar__right { margin-left: 0; width: 100%; }
-  .rep-search { flex: 1; }
+  .rep-toolbar__right { margin-left: 0; width: 100%; flex-wrap: wrap; }
+  .rep-filter { flex: 1 1 100%; }
+  .rep-filter__btn { width: 100%; min-width: 0; }
+  .rep-search { flex: 1 1 100%; }
   .rep-search input { width: 100%; }
+  /* Filter menu: full width, scrollable, with inline submenus (no hover flyout on touch) */
+  .rep-fmenu { width: 100%; min-width: 0; max-height: 64vh; overflow-y: auto; }
+  .rep-fsub { position: static; display: block; left: auto; top: auto; min-width: 0; max-height: none; overflow: visible; margin: 2px 0 2px 8px; padding: 2px 0 4px 8px; border: 0; border-left: 2px solid var(--border-soft, #E5E9F3); border-radius: 0; box-shadow: none; }
+  .rep-fgroup:hover > .rep-fitem--parent { background: none; color: var(--text-secondary, #4A5578); }
+  .rep-fgroup:hover > .rep-fitem--parent .fa-chevron-right { color: var(--text-muted, #6B7592); }
   /* Plain heading instead of the blue hero */
   .rep-hero { display: block; background: none; box-shadow: none; border-radius: 0; padding: 0; color: inherit; }
   .rep-hero::before, .rep-hero::after { display: none; }
@@ -1280,7 +1287,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
     var grp = e.target.closest('.rep-fgroup'); if (!grp || grp === lastGrp) return;
     lastGrp = grp;
     var sub = grp.querySelector('.rep-fsub'); if (!sub) return;
-    if (!flyMq.matches) { sub.style.maxHeight = ''; sub.style.top = ''; return; }
+    if (!flyMq.matches || window.innerWidth <= 760) { sub.style.maxHeight = ''; sub.style.top = ''; return; }
     var row = grp.querySelector('.rep-fitem--parent').getBoundingClientRect();
     var margin = 12, gap = 7;
     var below = window.innerHeight - row.top - margin;   // room from row top downward

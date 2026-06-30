@@ -427,6 +427,12 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   letter-spacing: 0.08em;
   color: rgba(255, 255, 255, 0.78);
 }
+.ctx-note { display: none; }
+body.pkg-flow .ctx-note {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 12px; font-weight: 500; color: rgba(255, 255, 255, 0.72); line-height: 1.3;
+}
+.ctx-note i { color: #FF8A8A; font-size: 12px; flex-shrink: 0; }
 .ctx-tests {
   display: flex;
   gap: 8px;
@@ -1728,6 +1734,33 @@ body.pkg-flow .lab-table tbody tr:first-child td { border-top: none; }
 .ptests-group-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 6px 16px; }
 .ptests-group-list li { font-size: 13px; color: var(--text-secondary, #4A5578); display: flex; align-items: center; gap: 7px; }
 .ptests-group-list li i { color: var(--green); font-size: 10px; }
+.ptests-note { display: flex; align-items: flex-start; gap: 9px; margin-top: 14px; padding: 12px 14px; background: var(--bg-soft); border-radius: 10px; font-size: 12.5px; color: var(--text-muted); line-height: 1.45; }
+.ptests-note i { color: var(--primary); font-size: 13px; margin-top: 1px; flex-shrink: 0; }
+
+/* Package: included-tests list — lives inside the navy context banner */
+.pkg-tests-strip { display: none; position: relative; z-index: 1; }
+body.pkg-flow .pkg-tests-strip { display: block; }
+body.pkg-flow .ctx-inner { display: none; }  /* drop the "Comparing labs for" row */
+.pkg-tests-inner { max-width: 1480px; margin: 0 auto; padding: 14px var(--site-inset); }
+.pkg-tests-toggle { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; background: none; border: 0; padding: 0; font: inherit; cursor: pointer; }
+.pkg-tests-left { display: inline-flex; align-items: center; gap: 8px 16px; flex-wrap: wrap; min-width: 0; }
+.pkg-tests-title { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 14px; color: #fff; display: inline-flex; align-items: center; gap: 9px; min-width: 0; }
+.pkg-tests-title i { color: #FF8A8A; font-size: 14px; }
+.pkg-tests-title #pkgTestsCount { color: rgba(255, 255, 255, 0.72); font-weight: 600; font-size: 13px; }
+.pkg-tests-cta { display: inline-flex; align-items: center; gap: 8px; flex-shrink: 0; font-size: 13px; font-weight: 700; color: #fff; }
+.pkg-tests-caret { font-size: 12px; transition: transform 0.18s; }
+.pkg-tests-strip.is-open .pkg-tests-caret { transform: rotate(180deg); }
+.pkg-tests-grid { display: none; grid-template-columns: repeat(3, 1fr); gap: 9px; margin-top: 12px; }
+.pkg-tests-strip.is-open .pkg-tests-grid { display: grid; }
+@media (max-width: 900px) { .pkg-tests-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .pkg-tests-grid { grid-template-columns: 1fr; } }
+.pkg-test-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; text-align: left; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.16); border-radius: 11px; padding: 11px 14px; cursor: pointer; font: inherit; transition: border-color 0.14s, background 0.14s; }
+.pkg-test-row:hover { border-color: rgba(255, 255, 255, 0.45); background: rgba(255, 255, 255, 0.16); }
+.pkg-test-row__name { font-size: 13.5px; font-weight: 700; color: #fff; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pkg-test-row__meta { display: inline-flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.pkg-test-row__count { font-size: 11.5px; font-weight: 700; color: #fff; background: rgba(255, 255, 255, 0.18); border-radius: 50px; padding: 2px 9px; white-space: nowrap; }
+.pkg-test-row__arrow { color: rgba(255, 255, 255, 0.7); font-size: 12px; }
+.pkg-test-row:hover .pkg-test-row__arrow { color: #fff; }
 @media (max-width: 480px) { .ptests-group-list { grid-template-columns: 1fr; } }
 
 .ltab-price { white-space: nowrap; }
@@ -2508,6 +2541,19 @@ body.has-cmp-bar { padding-bottom: 92px; }
   <div class="ctx-inner">
     <span class="ctx-label">Comparing labs for</span>
     <div class="ctx-tests" id="ctxTests"></div>
+  </div>
+  <!-- Package: included tests (per-panel parameter popups) -->
+  <div class="pkg-tests-strip" id="pkgTestsStrip" hidden>
+    <div class="pkg-tests-inner">
+      <button type="button" class="pkg-tests-toggle" id="pkgTestsToggle" aria-expanded="false" aria-controls="pkgTestsList">
+        <span class="pkg-tests-left">
+          <span class="pkg-tests-title"><i class="fas fa-vials" aria-hidden="true"></i> Tests included <span id="pkgTestsCount"></span></span>
+          <span class="ctx-note" id="ctxNote"><i class="fas fa-circle-info" aria-hidden="true"></i> <span>The exact parameters and their total count can vary from lab to lab.</span></span>
+        </span>
+        <span class="pkg-tests-cta">View tests <i class="fas fa-chevron-down pkg-tests-caret" aria-hidden="true"></i></span>
+      </button>
+      <div class="pkg-tests-grid" id="pkgTestsList"></div>
+    </div>
   </div>
 </div>
 
@@ -3456,19 +3502,27 @@ body.has-cmp-bar { padding-bottom: 92px; }
 
   // Test/parameter groups shown in the package comparison breakdown.
   const CMP_GROUPS = [
-    { name: 'Iron Profile (Iron Serum, TIBC, UIBC, Transferrin Saturation)', params: 4 },
-    { name: 'Vitamin D3 25-Hydroxy', params: 1 },
-    { name: 'Vitamin B12', params: 1 },
-    { name: 'Glycosylated Hemoglobin (HbA1c)', params: 2 },
-    { name: 'Thyroid Profile Total (T3, T4, TSH)', params: 3 },
-    { name: 'Lipid Profile (Heart Risk)', params: 9 },
-    { name: 'Liver Function Test (LFT)', params: 12 },
-    { name: 'Kidney Function Test (KFT) Basic', params: 11 },
-    { name: 'Blood Sugar Fasting (BSF)', params: 1 },
-    { name: 'Erythrocyte Sedimentation Rate (ESR)', params: 1 },
-    { name: 'Urine Routine (RU)', params: 21 },
-    { name: 'Complete Blood Count (CBC)', params: 26 },
-    { name: 'Calcium (Ca+)', params: 1 },
+    { name: 'Iron Profile (Iron Serum, TIBC, UIBC, Transferrin Saturation)', label: 'Iron Profile', params: 4,
+      items: ['Iron (Serum)', 'TIBC', 'UIBC', 'Transferrin Saturation'] },
+    { name: 'Vitamin D3 25-Hydroxy', label: 'Vitamin D3 (25-Hydroxy)', params: 1, items: ['Vitamin D3 (25-OH)'] },
+    { name: 'Vitamin B12', label: 'Vitamin B12', params: 1, items: ['Vitamin B12'] },
+    { name: 'Glycosylated Hemoglobin (HbA1c)', label: 'HbA1c (Glycosylated Hb)', params: 2,
+      items: ['HbA1c', 'Estimated Average Glucose'] },
+    { name: 'Thyroid Profile Total (T3, T4, TSH)', label: 'Thyroid Profile Total', params: 3,
+      items: ['T3 (Total)', 'T4 (Total)', 'TSH'] },
+    { name: 'Lipid Profile (Heart Risk)', label: 'Lipid Profile', params: 9,
+      items: ['Total Cholesterol', 'HDL Cholesterol', 'LDL Cholesterol', 'VLDL Cholesterol', 'Triglycerides', 'Non-HDL Cholesterol', 'Total / HDL Ratio', 'LDL / HDL Ratio', 'TG / HDL Ratio'] },
+    { name: 'Liver Function Test (LFT)', label: 'Liver Function Test (LFT)', params: 12,
+      items: ['Bilirubin Total', 'Bilirubin Direct', 'Bilirubin Indirect', 'SGOT (AST)', 'SGPT (ALT)', 'Alkaline Phosphatase', 'Total Protein', 'Albumin', 'Globulin', 'A/G Ratio', 'GGT', 'SGOT / SGPT Ratio'] },
+    { name: 'Kidney Function Test (KFT) Basic', label: 'Kidney Function Test (KFT)', params: 11,
+      items: ['Urea', 'BUN', 'Creatinine', 'Uric Acid', 'Calcium', 'Phosphorus', 'Sodium', 'Potassium', 'Chloride', 'BUN / Creatinine Ratio', 'eGFR'] },
+    { name: 'Blood Sugar Fasting (BSF)', label: 'Blood Sugar Fasting', params: 1, items: ['Glucose (Fasting)'] },
+    { name: 'Erythrocyte Sedimentation Rate (ESR)', label: 'ESR', params: 1, items: ['ESR'] },
+    { name: 'Urine Routine (RU)', label: 'Urine Routine', params: 21,
+      items: ['Colour', 'Appearance', 'Specific Gravity', 'pH', 'Protein', 'Glucose', 'Ketones', 'Bilirubin', 'Urobilinogen', 'Nitrite', 'Leukocyte Esterase', 'Blood', 'RBCs', 'Pus Cells (WBC)', 'Epithelial Cells', 'Casts', 'Crystals', 'Bacteria', 'Yeast', 'Mucus', 'Amorphous Deposits'] },
+    { name: 'Complete Blood Count (CBC)', label: 'Complete Blood Count (CBC)', params: 26,
+      items: ['Hemoglobin', 'RBC Count', 'PCV / Hematocrit', 'MCV', 'MCH', 'MCHC', 'RDW', 'Total WBC Count', 'Neutrophils', 'Lymphocytes', 'Monocytes', 'Eosinophils', 'Basophils', 'Absolute Neutrophils', 'Absolute Lymphocytes', 'Absolute Monocytes', 'Absolute Eosinophils', 'Absolute Basophils', 'Platelet Count', 'MPV', 'PDW', 'PCT', 'Nucleated RBC', 'ESR', 'Reticulocyte Count', 'Band Cells'] },
+    { name: 'Calcium (Ca+)', label: 'Calcium', params: 1, items: ['Calcium (Total)'] },
   ];
   // Deterministic per-package parameter coverage (0 => not included in that package).
   function cmpParams(lab, idx) {
@@ -3596,14 +3650,30 @@ body.has-cmp-bar { padding-bottom: 92px; }
     document.querySelectorAll('.fb-visit-only').forEach(el => { el.style.display = ''; });
   }
 
-  // Package flow: show the tests included in the chosen package under the search bar.
+  // Package flow: show the package name in the banner and the included tests
+  // as a list below (each with its parameter count + a popup of parameters).
   (function renderPkgCtx() {
     if (!isPkgFlow) return;
     const ctxLabel = document.querySelector('.ctx-label');
-    const ctxTests = document.getElementById('ctxTests');
-    if (!ctxTests) return;
-    if (ctxLabel) ctxLabel.textContent = 'Tests included in ' + (selectedTests[0] || 'this package');
-    ctxTests.innerHTML = CMP_GROUPS.map(g => `<span class="ctx-chip"><span class="ctx-chip-icon" aria-hidden="true">🧪</span> ${g.name}</span>`).join('');
+    const ctxTestsEl = document.getElementById('ctxTests');
+    const pkgName = selectedTests[0] || 'this package';
+    if (ctxLabel) ctxLabel.textContent = 'Comparing labs for';
+    if (ctxTestsEl) ctxTestsEl.innerHTML = `<span class="ctx-chip"><span class="ctx-chip-icon" aria-hidden="true">📦</span> ${pkgName}</span>`;
+    const list = document.getElementById('pkgTestsList');
+    const strip = document.getElementById('pkgTestsStrip');
+    const countEl = document.getElementById('pkgTestsCount');
+    if (!list) return;
+    const totalParams = CMP_GROUPS.reduce((s, g) => s + g.params, 0);
+    list.innerHTML = CMP_GROUPS.map((g, i) => `
+      <button type="button" class="pkg-test-row" data-pidx="${i}">
+        <span class="pkg-test-row__name">${g.label}</span>
+        <span class="pkg-test-row__meta">
+          <span class="pkg-test-row__count">${g.params} param${g.params > 1 ? 's' : ''}</span>
+          <i class="fas fa-chevron-right pkg-test-row__arrow" aria-hidden="true"></i>
+        </span>
+      </button>`).join('');
+    if (countEl) countEl.textContent = `· ${CMP_GROUPS.length} tests · ${totalParams} parameters`;
+    if (strip) strip.hidden = false;
   })();
 
   renderResults(sortLabs(currentSort.key, currentSort.dir));
@@ -3668,7 +3738,8 @@ body.has-cmp-bar { padding-bottom: 92px; }
       <div class="ptests-group">
         <div class="ptests-group-name">${g.name} <span class="ptests-group-count">${g.tests.length}</span></div>
         <ul class="ptests-group-list">${g.tests.map(tn => `<li><i class="fas fa-check" aria-hidden="true"></i> ${tn}</li>`).join('')}</ul>
-      </div>`).join('');
+      </div>`).join('') +
+      `<div class="ptests-note"><i class="fas fa-circle-info" aria-hidden="true"></i><span>This is a representative panel. The exact parameters and their total count can vary from lab to lab.</span></div>`;
     ptestsModal.classList.add('is-open');
     ptestsModal.setAttribute('aria-hidden', 'false');
   }
@@ -3683,6 +3754,33 @@ body.has-cmp-bar { padding-bottom: 92px; }
   }
   document.getElementById('labTableBody').addEventListener('click', onViewTests);
   document.getElementById('labCardsMobile').addEventListener('click', onViewTests);
+
+  // Single-panel parameter popup (from the "Tests included" list)
+  function openParamPopup(g) {
+    if (!g) return;
+    ptestsTitle.textContent = g.label;
+    ptestsSub.textContent = g.items.length + ' parameter' + (g.items.length > 1 ? 's' : '');
+    ptestsBody.innerHTML = `<div class="ptests-group"><ul class="ptests-group-list">${g.items.map(p => `<li><i class="fas fa-check" aria-hidden="true"></i> ${p}</li>`).join('')}</ul></div>` +
+      `<div class="ptests-note"><i class="fas fa-circle-info" aria-hidden="true"></i><span>Parameters &amp; their count can vary by lab.</span></div>`;
+    ptestsModal.classList.add('is-open');
+    ptestsModal.setAttribute('aria-hidden', 'false');
+  }
+  const pkgTestsListEl = document.getElementById('pkgTestsList');
+  if (pkgTestsListEl) {
+    pkgTestsListEl.addEventListener('click', (e) => {
+      const row = e.target.closest('.pkg-test-row');
+      if (!row) return;
+      openParamPopup(CMP_GROUPS[parseInt(row.dataset.pidx, 10)]);
+    });
+  }
+  const pkgTestsToggle = document.getElementById('pkgTestsToggle');
+  if (pkgTestsToggle) {
+    pkgTestsToggle.addEventListener('click', () => {
+      const strip = document.getElementById('pkgTestsStrip');
+      const open = strip.classList.toggle('is-open');
+      pkgTestsToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  }
 
   // ===== Sorting =====
   function applySort(key, dir) {
