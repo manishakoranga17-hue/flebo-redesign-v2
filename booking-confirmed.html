@@ -50,7 +50,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 /* TOP BAR + HEADER (identical to siblings) */
 .top-bar { background: #0B1530; position: sticky; top: 0; z-index: 200; }
 .top-bar-inner {
-  max-width: 1320px; margin: 0 auto;
+  max-width: 1480px; margin: 0 auto;
   padding: 10px var(--site-inset);
   display: flex; align-items: center; gap: 16px;
   color: #fff; font-size: 15px; font-weight: 500;
@@ -68,7 +68,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   position: sticky; top: 38px; z-index: 190;
 }
 .site-header-inner {
-  max-width: 1320px; margin: 0 auto;
+  max-width: 1480px; margin: 0 auto;
   padding: 14px var(--site-inset);
   display: flex; align-items: center; gap: 28px;
 }
@@ -150,7 +150,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 }
 .confirm-hero-inner {
   position: relative; z-index: 1;
-  max-width: 1320px; margin: 0 auto;
+  max-width: 1480px; margin: 0 auto;
   padding: 48px var(--site-inset);
   display: flex; align-items: center; gap: 28px;
 }
@@ -224,7 +224,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 
 /* ===== PAGE BODY ===== */
 .page-body {
-  max-width: 1320px;
+  max-width: 1480px;
   margin: 0 auto;
   padding: 24px var(--site-inset) 60px;
   display: grid;
@@ -313,6 +313,24 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   background: var(--border-soft);
   margin: 18px 0;
 }
+
+/* Per-patient confirmation cards */
+.cf-pt { border: 1px solid var(--border-soft); border-radius: var(--radius-md, 12px); padding: 15px 16px; }
+.cf-pt + .cf-pt { margin-top: 12px; }
+.cf-pt-head { display: flex; align-items: center; gap: 12px; }
+.cf-pt-av { width: 38px; height: 38px; flex-shrink: 0; border-radius: 50%; background: var(--green-soft); color: var(--green); display: grid; place-items: center; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 15px; }
+.cf-pt-name { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 14.5px; color: var(--text-primary); }
+.cf-pt-sub { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+.cf-pt-sub b { color: var(--primary); font-weight: 800; }
+.cf-pt-meta { font-size: 12.5px; color: var(--text-muted); margin-top: 10px; }
+.cf-chips { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; }
+.cf-chip { font-size: 12px; font-weight: 700; padding: 5px 11px; border-radius: 50px; }
+.cf-chip--cat { background: var(--green-soft); color: var(--green); }
+.cf-chip--test { background: var(--bg-soft, #F7F8FB); color: var(--text-secondary, #4A5578); }
+.cf-instr { margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--border-soft); }
+.cf-instr-t { display: flex; align-items: center; gap: 8px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 12.5px; color: var(--primary); margin-bottom: 6px; }
+.cf-instr ul { margin: 0; padding-left: 18px; }
+.cf-instr li { font-size: 12.5px; color: var(--text-secondary, #4A5578); line-height: 1.5; }
 
 .tests-list { display: flex; flex-direction: column; gap: 8px; }
 .tests-list-item {
@@ -975,6 +993,8 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   const dateLabel = params.get('date') || 'Tomorrow · 7:00 AM';
   const addressLabel = params.get('address') || 'Home · DLF Phase 4, Gurgaon';
   const patientLabel = params.get('patient') || 'Self · Adult';
+  let patientsData = [];
+  try { patientsData = JSON.parse(params.get('patients') || '[]'); } catch (e) { patientsData = []; }
   const bookingId = params.get('bookingId') || ('FB' + Date.now().toString().slice(-8));
   const paymentMethod = params.get('paymentMethod') || 'UPI';
   const paymentSub = params.get('paymentSub') || 'GPAY';
@@ -1036,12 +1056,32 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   document.getElementById('detailPatient').textContent = patientLabel;
   document.getElementById('timelineSlotSub').textContent = `A certified phlebotomist will visit at ${dateLabel}. Track them live from your dashboard.`;
 
-  // Tests list
-  document.getElementById('testsList').innerHTML = tests.map((t, i) => {
-    const p = testPrices[i];
-    const label = p > 0 ? `₹${p.toLocaleString()}` : '—';
-    return `<div class="tests-list-item"><span class="tests-list-item-name">${t}</span><span class="tests-list-item-price">${label}</span></div>`;
-  }).join('');
+  // Tests list — per-patient cards when structured data is present, else a flat list
+  const testsListEl = document.getElementById('testsList');
+  if (patientsData.length) {
+    const lbl = testsListEl.previousElementSibling;
+    if (lbl && lbl.classList.contains('detail-label')) lbl.textContent = 'Patients & packages';
+    testsListEl.innerHTML = patientsData.map(p => {
+      const chips = (p.catNames || []).map(c => `<span class="cf-chip cf-chip--cat">${c}</span>`).join('') +
+        (p.added || []).map(t => `<span class="cf-chip cf-chip--test">${t}</span>`).join('');
+      const meta = p.metaText || ((p.params || 0) + ' parameters');
+      const instr = (p.instr || []).map(s => `<li>${s}</li>`).join('');
+      return `<div class="cf-pt">
+        <div class="cf-pt-head"><span class="cf-pt-av">${((p.name || 'P')[0] || 'P').toUpperCase()}</span>
+          <div class="cf-pt-info"><div class="cf-pt-name">${p.name}${p.age ? ' · ' + p.age + ' yrs' : ''} · ${p.gender || ''}</div>
+          <div class="cf-pt-sub">${p.pkg} · <b>₹${(p.total || 0).toLocaleString()}</b></div></div></div>
+        <div class="cf-pt-meta">${meta}</div>
+        <div class="cf-chips">${chips}</div>
+        ${instr ? `<div class="cf-instr"><div class="cf-instr-t"><i class="fas fa-circle-info" aria-hidden="true"></i> Preparation for ${(p.name || '').split(' ')[0]}</div><ul>${instr}</ul></div>` : ''}
+      </div>`;
+    }).join('');
+  } else {
+    testsListEl.innerHTML = tests.map((t, i) => {
+      const p = testPrices[i];
+      const label = p > 0 ? `₹${p.toLocaleString()}` : '—';
+      return `<div class="tests-list-item"><span class="tests-list-item-name">${t}</span><span class="tests-list-item-price">${label}</span></div>`;
+    }).join('');
+  }
 
   // Receipt
   const labSave = Math.max(mrp - price - couponDiscount, mrp - price);

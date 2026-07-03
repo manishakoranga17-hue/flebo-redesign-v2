@@ -50,7 +50,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 /* TOP BAR + HEADER */
 .top-bar { background: #0B1530; position: sticky; top: 0; z-index: 200; }
 .top-bar-inner {
-  max-width: 1320px; margin: 0 auto;
+  max-width: 1480px; margin: 0 auto;
   padding: 10px var(--site-inset);
   display: flex; align-items: center; gap: 16px;
   color: #fff; font-size: 15px; font-weight: 500;
@@ -68,7 +68,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   position: sticky; top: 38px; z-index: 190;
 }
 .site-header-inner {
-  max-width: 1320px; margin: 0 auto;
+  max-width: 1480px; margin: 0 auto;
   padding: 14px var(--site-inset);
   display: flex; align-items: center; gap: 28px;
 }
@@ -163,7 +163,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 }
 .page-head-inner {
   position: relative; z-index: 1;
-  max-width: 1320px; margin: 0 auto;
+  max-width: 1480px; margin: 0 auto;
   padding: 20px var(--site-inset) 18px;
   display: flex; align-items: center; gap: 18px;
 }
@@ -199,7 +199,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 
 /* PAGE BODY */
 .page-body {
-  max-width: 1320px;
+  max-width: 1480px;
   margin: 0 auto;
   padding: 24px var(--site-inset) 60px;
   display: grid;
@@ -1312,6 +1312,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   const dateLabel = params.get('date') || 'Tomorrow · 7:00 AM';
   const addressLabel = params.get('address') || 'Home · DLF Phase 4, Gurgaon';
   const patientLabel = params.get('patient') || 'Self · Adult';
+  const patientsParam = params.get('patients') || '';
 
   // Split tests with paren-aware fallback
   function splitTests(str) {
@@ -1480,6 +1481,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
       url.searchParams.set('date', dateLabel);
       url.searchParams.set('address', addressLabel);
       url.searchParams.set('patient', patientLabel);
+      if (patientsParam) url.searchParams.set('patients', patientsParam);
       url.searchParams.set('bookingId', bookingId);
       url.searchParams.set('paymentMethod', methodLabel);
       url.searchParams.set('paymentSub', methodSub);

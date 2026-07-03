@@ -50,7 +50,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 /* TOP BAR + HEADER (cloned style, kept compact) */
 .top-bar { background: #0B1530; position: sticky; top: 0; z-index: 200; }
 .top-bar-inner {
-  max-width: 1320px; margin: 0 auto;
+  max-width: 1480px; margin: 0 auto;
   padding: 10px var(--site-inset);
   display: flex; align-items: center; gap: 16px;
   color: #fff; font-size: 15px; font-weight: 500;
@@ -68,7 +68,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   position: sticky; top: 38px; z-index: 190;
 }
 .site-header-inner {
-  max-width: 1320px; margin: 0 auto;
+  max-width: 1480px; margin: 0 auto;
   padding: 14px var(--site-inset);
   display: flex; align-items: center; gap: 28px;
 }
@@ -188,7 +188,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 .page-head-inner {
   position: relative;
   z-index: 1;
-  max-width: 1320px;
+  max-width: 1480px;
   margin: 0 auto;
   padding: 20px var(--site-inset) 18px;
   display: flex;
@@ -231,9 +231,53 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 .stepper-dot.is-active { background: var(--accent); color: #fff; }
 .stepper-line { width: 22px; height: 2px; background: rgba(255, 255, 255, 0.28); }
 
+/* ===== Step wizard header (segmented progress) ===== */
+.page-head-inner.wiz-head { gap: 16px; max-width: 1480px; }
+.wiz-back { width: 46px; height: 46px; flex-shrink: 0; border-radius: 50%; border: 1.5px solid rgba(255, 255, 255, 0.35); background: rgba(255, 255, 255, 0.10); color: #fff; font-size: 16px; cursor: pointer; display: grid; place-items: center; transition: border-color 0.14s, background 0.14s; }
+.wiz-back:hover { border-color: #fff; background: rgba(255, 255, 255, 0.20); }
+.wiz-head-text { min-width: 0; }
+.wiz-title { font-family: 'Instrument Serif', serif; font-size: 32px; font-weight: 400; color: #fff; letter-spacing: -0.01em; line-height: 1.1; }
+.wiz-meta { display: flex; align-items: center; gap: 14px; margin-top: 6px; flex-wrap: wrap; }
+.wiz-step { font-size: 14px; font-weight: 600; color: rgba(255, 255, 255, 0.8); }
+.wiz-progress { display: flex; gap: 7px; }
+.wiz-seg { width: 54px; height: 3px; border-radius: 50px; background: rgba(255, 255, 255, 0.22); transition: background 0.25s; }
+.wiz-seg.is-done { background: #fff; }
+@media (max-width: 768px) {
+  .wiz-title { font-size: 24px; }
+  .wiz-back { width: 40px; height: 40px; font-size: 15px; }
+  .wiz-seg { width: 38px; }
+}
+
+/* Review step */
+.rv-card { border: 1px solid var(--border-soft); border-radius: var(--radius-md); padding: 4px 16px; margin-bottom: 14px; }
+.rv-shared-t, .rv-instr-t { display: flex; align-items: center; gap: 8px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 13px; color: var(--primary); padding: 12px 0 4px; }
+.rv-row { display: flex; justify-content: space-between; gap: 16px; padding: 11px 0; border-bottom: 1px solid var(--border-soft); }
+.rv-row:last-of-type { border-bottom: 0; }
+.rv-k { font-size: 13px; font-weight: 700; color: var(--text-muted); flex-shrink: 0; }
+.rv-v { font-size: 14px; font-weight: 700; color: var(--text-primary); text-align: right; }
+.rv-tests .summary-test { display: flex; justify-content: space-between; padding: 5px 0; font-size: 14px; }
+/* Per-patient review cards */
+.rv-pt-label { font-size: 11px; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-muted); margin: 4px 0 10px; }
+.rv-pt-list { display: flex; flex-direction: column; gap: 12px; }
+.rv-pt { border: 1px solid var(--border-soft); border-radius: var(--radius-md); padding: 15px 16px; }
+.rv-pt-head { display: flex; align-items: center; gap: 12px; }
+.rv-pt-av { width: 38px; height: 38px; flex-shrink: 0; border-radius: 50%; background: var(--green-soft, #E1F5EA); color: var(--green); display: grid; place-items: center; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 15px; }
+.rv-pt-name { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 14.5px; color: var(--text-primary); }
+.rv-pt-sub { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+.rv-pt-sub b { color: var(--primary); font-weight: 800; }
+.rv-pt-meta { font-size: 12.5px; color: var(--text-muted); margin-top: 10px; }
+.rv-chips { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; }
+.rv-chip { font-size: 12px; font-weight: 700; padding: 5px 11px; border-radius: 50px; }
+.rv-chip--cat { background: var(--green-soft, #E1F5EA); color: var(--green); }
+.rv-chip--test { background: var(--bg-soft, #F7F8FB); color: var(--text-secondary, #4A5578); }
+.rv-instr { margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--border-soft); }
+.rv-instr-t { padding: 0 0 6px; }
+.rv-instr ul { margin: 0; padding-left: 18px; }
+.rv-instr li { font-size: 12.5px; color: var(--text-secondary, #4A5578); line-height: 1.5; }
+
 /* PAGE BODY */
 .page-body {
-  max-width: 1320px;
+  max-width: 1480px;
   margin: 0 auto;
   padding: 24px var(--site-inset) 60px;
   display: grid;
@@ -446,15 +490,6 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 }
 .add-addr-btn:hover { border-color: var(--primary); }
 
-/* Multiple patients */
-.patient-block + .patient-block { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border-soft); }
-.patient-block-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
-.patient-block-title { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 14px; color: var(--primary); }
-.patient-remove {
-  border: none; background: none; color: var(--text-muted); cursor: pointer;
-  font: inherit; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; gap: 5px;
-}
-.patient-remove:hover { color: var(--accent); }
 .add-patient-btn {
   margin-top: 14px;
   background: transparent; border: 1.5px dashed var(--border-mid); border-radius: var(--radius-md);
@@ -463,7 +498,67 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   transition: border-color 0.15s, background 0.15s;
 }
-.add-patient-btn:hover { border-color: var(--primary); background: var(--bg-soft, #F7F8FB); }
+.add-patient-btn { color: var(--green); }
+.add-patient-btn:hover { border-color: var(--green); background: var(--green-soft, #E1F5EA); }
+
+/* ===== Patient & package accordion ===== */
+.pp-banner { display: flex; gap: 10px; align-items: flex-start; background: var(--blue-soft, #EAEEF9); border: 1px solid #D6DEF5; border-radius: var(--radius-md); padding: 13px 15px; font-size: 13.5px; color: var(--primary); line-height: 1.45; margin-bottom: 16px; }
+.pp-banner i { margin-top: 2px; }
+.pp-banner b { font-weight: 800; }
+
+#patientsList { display: flex; flex-direction: column; gap: 12px; }
+.pp-card { border: 1.5px solid var(--border-soft); border-radius: var(--radius-lg, 16px); background: #fff; overflow: hidden; transition: border-color 0.15s, box-shadow 0.15s; }
+.pp-card.is-open { border-color: var(--primary); box-shadow: 0 0 0 1px var(--primary); }
+.pp-head { display: flex; align-items: center; gap: 14px; width: 100%; background: none; border: 0; padding: 15px 18px; cursor: pointer; font: inherit; text-align: left; }
+.pp-avatar { width: 46px; height: 46px; flex-shrink: 0; border-radius: 50%; background: var(--green-soft, #E1F5EA); color: var(--green); display: grid; place-items: center; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 17px; }
+.pp-head-info { flex: 1; min-width: 0; }
+.pp-name { display: block; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 16px; color: var(--text-primary); }
+.pp-sub { display: block; font-size: 13.5px; color: var(--text-muted); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pp-head-actions { display: inline-flex; align-items: center; gap: 14px; flex-shrink: 0; }
+.pp-del { color: var(--text-muted); font-size: 16px; cursor: pointer; display: inline-flex; }
+.pp-del:hover { color: var(--accent); }
+.pp-caret { color: var(--text-muted); font-size: 14px; transition: transform 0.18s; }
+.pp-card.is-open .pp-caret { transform: rotate(180deg); }
+.pp-body { display: none; padding: 0 18px 18px; }
+.pp-card.is-open .pp-body { display: block; }
+.pp-form { background: var(--bg-soft, #F7F8FB); border-radius: var(--radius-md); padding: 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.pp-field--full { grid-column: 1 / -1; }
+.pp-label { display: block; font-size: 11px; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
+.pp-input, .pp-select { width: 100%; border: 1.5px solid var(--border-mid); border-radius: var(--radius-md); background: #fff; padding: 12px 14px; font: inherit; font-size: 15px; color: var(--text-primary); }
+.pp-input:focus, .pp-select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(27,42,91,0.08); }
+.pp-select { appearance: none; -webkit-appearance: none; -moz-appearance: none; padding-right: 44px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%236B7592' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; }
+.pp-chip--cat .pp-chip-n { font-weight: 700; opacity: 0.7; margin-left: 5px; }
+.pp-pkg { border: 1px solid var(--border-soft); border-radius: var(--radius-md); padding: 16px; margin-top: 14px; }
+.pp-pkg-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.pp-pkg-name { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 15.5px; color: var(--text-primary); }
+.pp-pkg-price { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 18px; color: var(--text-primary); white-space: nowrap; }
+.pp-pkg-meta { display: inline-flex; align-items: center; gap: 7px; background: none; border: 0; padding: 4px 0 0; font: inherit; font-size: 12.5px; color: var(--text-muted); margin-top: 2px; cursor: pointer; text-align: left; }
+.pp-pkg-meta:hover { color: var(--primary); }
+.pp-pkg-meta .fa-chevron-right { font-size: 10px; }
+/* All-parameters popup */
+.pp-param-group { padding: 14px 0; border-bottom: 1px solid var(--border-soft); }
+.pp-param-group:last-child { border-bottom: 0; }
+.pp-param-head { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 14px; color: var(--text-primary); display: flex; align-items: center; gap: 8px; margin-bottom: 9px; }
+.pp-param-count { font-size: 11px; font-weight: 700; color: var(--green); background: var(--green-soft, #E1F5EA); border-radius: 50px; padding: 2px 8px; }
+.pp-param-items { display: grid; grid-template-columns: 1fr 1fr; gap: 7px 16px; }
+.pp-param-item { font-size: 13px; color: var(--text-secondary, #4A5578); display: flex; align-items: center; gap: 8px; }
+.pp-param-item i { color: var(--green); font-size: 10px; flex-shrink: 0; }
+@media (max-width: 560px) { .pp-param-items { grid-template-columns: 1fr; } }
+.pp-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.pp-chip { font-size: 12.5px; font-weight: 700; padding: 6px 12px; border-radius: 50px; }
+.pp-chip--cat { background: var(--green-soft, #E1F5EA); color: var(--green); }
+.pp-chip--test { background: var(--bg-soft, #F7F8FB); color: var(--text-secondary, #4A5578); display: inline-flex; align-items: center; gap: 7px; }
+.pp-chip-x { background: none; border: 0; color: var(--text-muted); cursor: pointer; font-size: 11px; padding: 0; line-height: 1; }
+.pp-chip-x:hover { color: var(--accent); }
+.pp-pkg-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+.pp-act { flex: 1; min-width: 130px; border: 1.5px solid var(--border-mid); background: #fff; border-radius: var(--radius-md); padding: 11px 14px; font: inherit; font-size: 13.5px; font-weight: 700; color: var(--primary); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: border-color 0.14s, background 0.14s; }
+.pp-act:hover, .pp-act.is-on { border-color: var(--primary); background: var(--bg-soft, #F7F8FB); }
+.summary-pt-name { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 12px; color: var(--text-primary); margin: 12px 0 4px; }
+.summary-pt-name:first-child { margin-top: 0; }
+@media (max-width: 560px) {
+  .pp-form { grid-template-columns: 1fr; }
+  .pp-act { flex-basis: 100%; }
+}
 
 /* Patient form */
 .who-toggle {
@@ -1183,43 +1278,58 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 }
 
 /* ===== CHOOSE CENTER (lab-visit flow) ===== */
-.center-list { display: flex; flex-direction: column; gap: 10px; }
+/* Center search */
+.center-search { position: relative; margin-bottom: 14px; }
+.center-search i { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 14px; }
+.center-search input { width: 100%; border: 1.5px solid var(--border-mid); background: var(--bg-soft, #F7F8FB); border-radius: var(--radius-md); padding: 13px 16px 13px 42px; font: inherit; font-size: 14px; color: var(--text-primary); }
+.center-search input::placeholder { color: var(--text-muted); }
+.center-search input:focus { outline: none; border-color: var(--primary); background: #fff; box-shadow: 0 0 0 3px rgba(27,42,91,0.08); }
+
+/* Center cards */
+.center-list { display: flex; flex-direction: column; gap: 12px; }
 .center-card {
+  position: relative;
   border: 1.5px solid var(--border-soft);
-  border-radius: var(--radius-md);
-  padding: 14px 16px;
+  border-radius: var(--radius-lg, 16px);
+  padding: 16px 18px;
+  background: #fff;
   cursor: pointer;
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  transition: border-color 0.15s, background 0.15s;
+  transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
 }
 .center-card:hover { border-color: var(--primary); }
-.center-card.is-active { border-color: var(--primary); background: #F3F6FB; }
+.center-card.is-active { border-color: var(--primary); background: #F3F6FB; box-shadow: 0 0 0 1px var(--primary); }
 .center-radio {
-  width: 18px; height: 18px;
-  border: 2px solid var(--border-mid);
-  border-radius: 50%;
+  position: absolute; top: 16px; right: 18px;
+  width: 20px; height: 20px;
+  border: 2px solid var(--border-mid); border-radius: 50%;
   display: inline-flex; align-items: center; justify-content: center;
-  flex-shrink: 0; margin-top: 2px;
 }
 .center-card.is-active .center-radio { border-color: var(--primary); }
-.center-card.is-active .center-radio::after {
-  content: ''; width: 10px; height: 10px; border-radius: 50%; background: var(--primary);
-}
-.center-info { min-width: 0; flex: 1; }
+.center-card.is-active .center-radio::after { content: ''; width: 11px; height: 11px; border-radius: 50%; background: var(--primary); }
 .center-name {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-weight: 700; font-size: 15px; color: var(--text-primary);
-  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  font-weight: 800; font-size: 16px; color: var(--text-primary);
+  line-height: 1.25; padding-right: 32px;
 }
-.center-dist {
-  font-size: 12px; font-weight: 700; color: var(--green);
-  background: var(--green-soft); padding: 2px 8px; border-radius: 50px;
+.center-rating { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 10px; margin-top: 8px; }
+.center-stars { font-size: 13px; font-weight: 800; color: var(--amber, #B45309); display: inline-flex; align-items: center; gap: 5px; }
+.center-stars i { color: #F5A623; }
+.center-reviews { font-size: 13px; color: var(--text-muted); }
+.center-cov { font-size: 10.5px; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; padding: 3px 9px; border-radius: 50px; }
+.center-cov--ext { background: var(--green-soft, #E1F5EA); color: var(--green); }
+.center-cov--std { background: #EEF1F6; color: #5B6472; }
+.center-addr { font-size: 14px; color: var(--text-secondary, #4A5578); margin-top: 10px; line-height: 1.45; }
+.center-hours { font-size: 13px; color: var(--text-muted); margin-top: 5px; }
+.center-hours i { color: var(--primary); margin-right: 6px; }
+.center-foot {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  margin-top: 13px; padding-top: 12px; border-top: 1px solid var(--border-soft);
 }
-.center-addr { font-size: 13px; color: var(--text-muted); margin-top: 4px; line-height: 1.4; }
-.center-meta { font-size: 12px; color: var(--text-secondary, #4A5578); margin-top: 6px; display: flex; flex-wrap: wrap; gap: 4px 14px; }
-.center-meta i { color: var(--primary); margin-right: 4px; }
+.center-card.is-active .center-foot { border-top-color: rgba(27,42,91,0.18); }
+.center-dist { font-size: 13.5px; font-weight: 700; color: var(--green); display: inline-flex; align-items: center; gap: 6px; }
+.center-dist i { color: var(--accent, #D33535); }
+.center-home { font-size: 13.5px; font-weight: 700; color: var(--green); display: inline-flex; align-items: center; gap: 6px; }
+.center-empty { font-size: 14px; color: var(--text-muted); padding: 16px 4px; }
 
 /* ===== WHAT'S INCLUDED (package flow) ===== */
 .pkg-incl-list { display: flex; flex-direction: column; }
@@ -1266,6 +1376,23 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 .replace-card-now { font-weight: 800; font-size: 16px; color: var(--primary); }
 .replace-card-mrp { font-size: 12px; color: var(--text-muted); text-decoration: line-through; display: block; }
 .replace-card-tag { font-size: 11px; font-weight: 700; color: var(--green); }
+/* selectable rows (change / add / customise) */
+.replace-card__box { width: 20px; height: 20px; flex-shrink: 0; border: 2px solid var(--border-mid); display: inline-grid; place-items: center; color: #fff; font-size: 11px; }
+.replace-card--radio .replace-card__box { border-radius: 50%; }
+.replace-card--check .replace-card__box { border-radius: 6px; }
+.replace-card.is-selected { border-color: var(--primary); background: #F3F6FB; }
+.replace-card.is-selected .replace-card__box { border-color: var(--primary); background: var(--primary); }
+.replace-card.is-disabled { opacity: 0.6; cursor: default; }
+.replace-card.is-disabled.is-selected .replace-card__box { background: var(--green); border-color: var(--green); }
+.replace-card__lead { display: flex; align-items: center; gap: 12px; min-width: 0; }
+/* modal footer */
+.modal-foot { padding: 14px 20px; border-top: 1px solid var(--border-soft); display: flex; flex-direction: column; gap: 12px; }
+.modal-note { display: flex; align-items: flex-start; gap: 9px; background: var(--amber-soft, #FEF3C7); color: #8A5A12; border-radius: 10px; padding: 11px 13px; font-size: 12.5px; line-height: 1.45; }
+.modal-note[hidden] { display: none; }
+.modal-note i { margin-top: 1px; }
+.modal-cta { width: 100%; border: 0; cursor: pointer; background: var(--accent, #D33535); color: #fff; font: inherit; font-size: 15px; font-weight: 800; padding: 13px; border-radius: 50px; transition: background 0.15s; }
+.modal-cta:hover { background: var(--accent-dark, #B82E2E); }
+.modal-cta:disabled { background: var(--border-mid, #C5CCDB); cursor: not-allowed; }
 .cz-add { display: flex; gap: 10px; }
 .cz-select {
   flex: 1; min-width: 0; height: 44px; padding: 0 40px 0 12px;
@@ -1377,16 +1504,14 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 
 <!-- PAGE HEAD -->
 <div class="page-head">
-  <div class="page-head-inner">
-    <button class="back-btn" onclick="history.back()">← Back to labs</button>
-    <h1 class="page-title" id="pageTitle">Confirm your home collection</h1>
-    <div class="page-stepper">
-      <span class="stepper-dot is-done">✓</span>
-      <span class="stepper-line"></span>
-      <span class="stepper-dot is-done">✓</span>
-      <span class="stepper-line"></span>
-      <span class="stepper-dot is-active">3</span>
-      <span style="margin-left:4px;">Slot &amp; details</span>
+  <div class="page-head-inner wiz-head">
+    <button class="wiz-back" id="wizBack" type="button" aria-label="Back"><i class="fas fa-arrow-left"></i></button>
+    <div class="wiz-head-text">
+      <h1 class="wiz-title" id="wizTitle">Select a center</h1>
+      <div class="wiz-meta">
+        <span class="wiz-step" id="wizStep">Step 1 of 5</span>
+        <div class="wiz-progress" id="wizProgress"></div>
+      </div>
     </div>
   </div>
 </div>
@@ -1402,8 +1527,12 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
     <section class="step-card" id="centerSection" hidden>
       <div class="step-card-head">
         <span class="step-num"><i class="fas fa-hospital"></i></span>
-        <h2 class="step-title">Choose a center</h2>
-        <span class="step-sub">Pick the nearest <span id="centerLabName">lab</span> center to visit</span>
+        <h2 class="step-title">Choose your test center</h2>
+        <span class="step-sub">Select a <span id="centerLabName">lab</span> center to visit for your sample collection</span>
+      </div>
+      <div class="center-search">
+        <i class="fas fa-magnifying-glass" aria-hidden="true"></i>
+        <input type="search" id="centerSearch" placeholder="Search by area, landmark or pincode" aria-label="Search centers">
       </div>
       <div class="center-list" id="centerList"></div>
     </section>
@@ -1449,44 +1578,11 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
     <section class="step-card" id="patientSection">
       <div class="step-card-head">
         <span class="step-num">1</span>
-        <h2 class="step-title">Who is the test for?</h2>
-        <span class="step-sub">Add everyone who needs to be tested</span>
+        <h2 class="step-title">Patient &amp; package details</h2>
+        <span class="step-sub">Add who this test is for. You can add multiple patients and customise tests for each.</span>
       </div>
-      <div id="patientsList">
-        <div class="patient-block">
-          <div class="patient-block-head"><span class="patient-block-title">Patient 1</span></div>
-          <div class="who-toggle">
-            <button class="who-tab is-active" data-who="self" type="button">Myself</button>
-            <button class="who-tab" data-who="other" type="button">Someone else</button>
-          </div>
-          <div class="form-grid">
-            <div class="field">
-              <label class="field-label">Full name</label>
-              <input class="field-input pt-name" type="text" value="Nilesh Sharma">
-            </div>
-            <div class="field">
-              <label class="field-label">Phone number</label>
-              <input class="field-input pt-phone" type="tel" value="+91 98765 43210">
-            </div>
-            <div class="field">
-              <label class="field-label">Age</label>
-              <input class="field-input pt-age" type="number" value="32" min="1" max="120">
-            </div>
-            <div class="field">
-              <label class="field-label">Gender</label>
-              <div class="gender-pills">
-                <button class="gender-pill is-active" data-gender="m" type="button">Male</button>
-                <button class="gender-pill" data-gender="f" type="button">Female</button>
-                <button class="gender-pill" data-gender="o" type="button">Other</button>
-              </div>
-            </div>
-            <div class="field field--full">
-              <label class="field-label">Email (for digital report)</label>
-              <input class="field-input pt-email" type="email" value="nilesh@example.com">
-            </div>
-          </div>
-        </div>
-      </div>
+      <div class="pp-banner" id="ppBanner" hidden></div>
+      <div id="patientsList"></div>
       <button type="button" class="add-patient-btn" id="addPatientBtn"><i class="fas fa-plus"></i> Add another patient</button>
     </section>
 
@@ -1518,7 +1614,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
     </section>
 
     <!-- STEP 3: DATE -->
-    <section class="step-card">
+    <section class="step-card" id="dateSection">
       <div class="step-card-head">
         <span class="step-num">3</span>
         <h2 class="step-title" id="dateTitle">Pick a collection date</h2>
@@ -1528,7 +1624,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
     </section>
 
     <!-- STEP 4: TIME -->
-    <section class="step-card">
+    <section class="step-card" id="timeSection">
       <div class="step-card-head">
         <span class="step-num">4</span>
         <h2 class="step-title">Choose a time slot</h2>
@@ -1573,6 +1669,16 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
           </div>
         </div>
       </div>
+    </section>
+
+    <!-- STEP: REVIEW -->
+    <section class="step-card" id="reviewSection" hidden>
+      <div class="step-card-head">
+        <span class="step-num"><i class="fas fa-clipboard-check"></i></span>
+        <h2 class="step-title">Review your booking</h2>
+        <span class="step-sub">Check the details, then proceed to pay</span>
+      </div>
+      <div id="reviewBody"></div>
     </section>
     </div>
 
@@ -1668,8 +1774,12 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
       <button type="button" class="modal-close" id="replaceModalClose" aria-label="Close"><i class="fas fa-xmark"></i></button>
     </div>
     <div class="modal-body">
-      <div class="available-label">Choose a different package</div>
+      <div class="available-label" id="replaceHint">Choose a different package</div>
       <div class="replace-list" id="replaceList"></div>
+    </div>
+    <div class="modal-foot" id="replaceFoot">
+      <div class="modal-note" id="replaceNote" hidden></div>
+      <button type="button" class="modal-cta" id="replaceConfirm">Confirm</button>
     </div>
   </div>
 </div>
@@ -1690,9 +1800,9 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   let selectedCenter = '';
   if (isVisit) {
     const centers = [
-      { name: 'Sector 14 Branch', addr: 'Shop 12, Main Market, Sector 14, Gurgaon, Haryana 122001', dist: '2.1 km', hours: 'Mon–Sun · 7 AM – 9 PM' },
-      { name: 'DLF Cyber Hub', addr: 'Tower B, Cyber Hub Road, DLF Phase 3, Gurgaon, Haryana 122002', dist: '4.6 km', hours: 'Mon–Sat · 8 AM – 8 PM' },
-      { name: 'Sector 56', addr: 'Plot 5, Near Hong Kong Bazaar, Sector 56, Gurgaon, Haryana 122011', dist: '6.3 km', hours: 'All Days · Open 24×7' },
+      { name: 'Sector 14 Branch', addr: 'Shop 12, Main Market, Sector 14, Gurgaon, Haryana 122001', dist: '2.1 km', hours: 'Mon–Sun · 7 AM – 9 PM', rating: 4.6, reviews: 312, coverage: 'ext', home: true },
+      { name: 'DLF Cyber Hub', addr: 'Tower B, Cyber Hub Road, DLF Phase 3, Gurgaon, Haryana 122002', dist: '4.6 km', hours: 'Mon–Sat · 8 AM – 8 PM', rating: 4.3, reviews: 188, coverage: 'std', home: true },
+      { name: 'Sector 56', addr: 'Plot 5, Near Hong Kong Bazaar, Sector 56, Gurgaon, Haryana 122011', dist: '6.3 km', hours: 'All Days · Open 24×7', rating: 4.5, reviews: 421, coverage: 'ext', home: false },
     ];
     selectedCenter = `${labName} — ${centers[0].name}`;
     const centerSection = document.getElementById('centerSection');
@@ -1707,20 +1817,42 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
     if (addrSection) addrSection.hidden = true;        // no home collection for a lab visit
     if (centerSection) centerSection.hidden = false;
     if (centerList) {
-      centerList.innerHTML = centers.map((c, i) => `
-        <div class="center-card${i === 0 ? ' is-active' : ''}" data-center="${labName} — ${c.name}">
+      const centerCard = (c, i) => `
+        <div class="center-card${i === 0 ? ' is-active' : ''}" data-center="${labName} — ${c.name}" data-search="${(labName + ' ' + c.name + ' ' + c.addr).toLowerCase()}">
           <span class="center-radio"></span>
-          <div class="center-info">
-            <div class="center-name">${labName} — ${c.name} <span class="center-dist">${c.dist}</span></div>
-            <div class="center-addr"><i class="fas fa-location-dot"></i> ${c.addr}</div>
-            <div class="center-meta"><span><i class="fas fa-clock"></i> ${c.hours}</span><span><i class="fas fa-vial"></i> Walk-in sample collection</span></div>
+          <div class="center-name">${labName} — ${c.name}</div>
+          <div class="center-rating">
+            <span class="center-stars"><i class="fas fa-star"></i> ${c.rating}</span>
+            <span class="center-reviews">(${c.reviews} reviews)</span>
           </div>
-        </div>`).join('');
+          <div class="center-addr">${c.addr}</div>
+          <div class="center-hours"><i class="fas fa-clock"></i> ${c.hours}</div>
+          <div class="center-foot">
+            <span class="center-dist"><i class="fas fa-location-dot"></i> ${c.dist} away</span>
+            ${c.home ? '<span class="center-home"><i class="fas fa-house-chimney-medical"></i> Home collection available</span>' : ''}
+          </div>
+        </div>`;
+      centerList.innerHTML = centers.map(centerCard).join('');
       centerList.addEventListener('click', (e) => {
         const card = e.target.closest('.center-card');
         if (!card) return;
         centerList.querySelectorAll('.center-card').forEach(c => c.classList.toggle('is-active', c === card));
         selectedCenter = card.dataset.center;
+      });
+      const centerSearch = document.getElementById('centerSearch');
+      if (centerSearch) centerSearch.addEventListener('input', () => {
+        const q = centerSearch.value.trim().toLowerCase();
+        let shown = 0;
+        centerList.querySelectorAll('.center-card').forEach(card => {
+          const match = !q || (card.dataset.search || '').indexOf(q) > -1;
+          card.style.display = match ? '' : 'none';
+          if (match) shown++;
+        });
+        let empty = centerList.querySelector('.center-empty');
+        if (!shown) {
+          if (!empty) { empty = document.createElement('div'); empty.className = 'center-empty'; centerList.appendChild(empty); }
+          empty.textContent = 'No centers match “' + centerSearch.value.trim() + '”.';
+        } else if (empty) { empty.remove(); }
       });
     }
   }
@@ -1862,61 +1994,8 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   });
 
   // Who toggle + gender
-  // ===== Patients (supports multiple) — delegated toggles scoped per block =====
+  // ===== Patients — rendered by the patient/package accordion (setupPatientPackages) =====
   const patientsList = document.getElementById('patientsList');
-  function renumberPatients() {
-    patientsList.querySelectorAll('.patient-block').forEach((b, i) => {
-      const t = b.querySelector('.patient-block-title');
-      if (t) t.textContent = 'Patient ' + (i + 1);
-    });
-  }
-  function patientTemplate(n) {
-    return `
-      <div class="patient-block">
-        <div class="patient-block-head">
-          <span class="patient-block-title">Patient ${n}</span>
-          <button type="button" class="patient-remove" aria-label="Remove patient"><i class="fas fa-xmark"></i> Remove</button>
-        </div>
-        <div class="form-grid">
-          <div class="field"><label class="field-label">Full name</label><input class="field-input pt-name" type="text" placeholder="Patient name"></div>
-          <div class="field"><label class="field-label">Phone number</label><input class="field-input pt-phone" type="tel" placeholder="+91 …"></div>
-          <div class="field"><label class="field-label">Age</label><input class="field-input pt-age" type="number" min="1" max="120" placeholder="Age"></div>
-          <div class="field"><label class="field-label">Gender</label>
-            <div class="gender-pills">
-              <button class="gender-pill is-active" data-gender="m" type="button">Male</button>
-              <button class="gender-pill" data-gender="f" type="button">Female</button>
-              <button class="gender-pill" data-gender="o" type="button">Other</button>
-            </div>
-          </div>
-          <div class="field field--full"><label class="field-label">Email (for digital report)</label><input class="field-input pt-email" type="email" placeholder="email@example.com"></div>
-        </div>
-      </div>`;
-  }
-  patientsList.addEventListener('click', (e) => {
-    const whoTab = e.target.closest('.who-tab');
-    if (whoTab) {
-      whoTab.parentElement.querySelectorAll('.who-tab').forEach(t => t.classList.remove('is-active'));
-      whoTab.classList.add('is-active');
-      if (whoTab.dataset.who === 'other') {
-        const block = whoTab.closest('.patient-block');
-        block.querySelector('.pt-name').value = '';
-        block.querySelector('.pt-age').value = '';
-      }
-      return;
-    }
-    const pill = e.target.closest('.gender-pill');
-    if (pill) {
-      pill.parentElement.querySelectorAll('.gender-pill').forEach(p => p.classList.remove('is-active'));
-      pill.classList.add('is-active');
-      return;
-    }
-    const rm = e.target.closest('.patient-remove');
-    if (rm) { rm.closest('.patient-block').remove(); renumberPatients(); }
-  });
-  document.getElementById('addPatientBtn').addEventListener('click', () => {
-    const n = patientsList.querySelectorAll('.patient-block').length + 1;
-    patientsList.insertAdjacentHTML('beforeend', patientTemplate(n));
-  });
 
   // ===== Coupons =====
   const coupons = [
@@ -1978,6 +2057,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   function renderIncludes() {
     const inclSection = document.getElementById('pkgIncludesSection');
     if (!inclSection) return;
+    inclSection.hidden = true; return;  // per-patient accordion shows what's included in both flows
     const inclList = document.getElementById('pkgInclList');
     const inclSummary = document.getElementById('pkgIncludesSummary');
     const instrBlock = document.querySelector('.pkg-incl-instr');
@@ -2014,6 +2094,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   (function setupCustomize() {
     const czSection = document.getElementById('customizeSection');
     if (!czSection) return;
+    czSection.hidden = true; return;  // per-patient accordion handles this in both flows
     const czPkgNameEl = document.getElementById('czPkgName');
     const czSelect = document.getElementById('czTestSelect');
     const czAddBtn = document.getElementById('czAddBtn');
@@ -2124,6 +2205,272 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
         showToast('✓ ' + pk.name + ' added');
       }
     });
+  })();
+
+  // ===== Per-patient packages (package flow only) =====
+  (function setupPatientPackages() {
+    const INIT_TESTS = tests.slice(), INIT_PRICES = testPrices.slice();
+
+    const PKG_CATALOG = [
+      { name: 'Comprehensive Full Body Checkup', params: 53, price: 1299, mrp: 2600 },
+      { name: 'Healthy India 2025', params: 80, price: 1046, mrp: 2180 },
+      { name: 'Flebo Prime Care', params: 71, price: 1179, mrp: 2040 },
+      { name: 'Advanced Full Body', params: 92, price: 1599, mrp: 3200 },
+      { name: 'Flebo She Care', params: 65, price: 1299, mrp: 2500 },
+      { name: 'Diabetes Advanced', params: 22, price: 999, mrp: 2200 },
+      { name: 'Heart Health Complete', params: 30, price: 1599, mrp: 3800 },
+    ];
+    const PKG_CATS = [
+      { name: 'Complete Blood Count (CBC)', params: 26, items: ['Hemoglobin', 'RBC Count', 'PCV / Hematocrit', 'MCV', 'MCH', 'MCHC', 'RDW', 'Total WBC Count', 'Neutrophils', 'Lymphocytes', 'Monocytes', 'Eosinophils', 'Basophils', 'Absolute Neutrophils', 'Absolute Lymphocytes', 'Absolute Monocytes', 'Absolute Eosinophils', 'Absolute Basophils', 'Platelet Count', 'MPV', 'PDW', 'PCT', 'Nucleated RBC', 'ESR', 'Reticulocyte Count', 'Band Cells'] },
+      { name: 'Lipid Profile', params: 9, items: ['Total Cholesterol', 'HDL Cholesterol', 'LDL Cholesterol', 'VLDL Cholesterol', 'Triglycerides', 'Non-HDL Cholesterol', 'Total / HDL Ratio', 'LDL / HDL Ratio', 'TG / HDL Ratio'] },
+      { name: 'Thyroid Panel', params: 3, items: ['T3 (Total)', 'T4 (Total)', 'TSH'] },
+      { name: 'Liver Function Test', params: 12, items: ['Bilirubin Total', 'Bilirubin Direct', 'Bilirubin Indirect', 'SGOT (AST)', 'SGPT (ALT)', 'Alkaline Phosphatase', 'Total Protein', 'Albumin', 'Globulin', 'A/G Ratio', 'GGT', 'SGOT / SGPT Ratio'] },
+      { name: 'Kidney Function Test', params: 11, items: ['Urea', 'BUN', 'Creatinine', 'Uric Acid', 'Calcium', 'Phosphorus', 'Sodium', 'Potassium', 'Chloride', 'BUN / Creatinine Ratio', 'eGFR'] },
+      { name: 'Blood Sugar (Fasting + HbA1c)', params: 3, items: ['Glucose (Fasting)', 'HbA1c', 'Estimated Average Glucose'] },
+    ];
+    const CAT_PARAMS = PKG_CATS.reduce((s, c) => s + c.params, 0);
+    const TEST_ADDONS = [
+      { name: 'Vitamin B12', price: 599, params: 1 }, { name: 'HbA1c', price: 399, params: 1 }, { name: 'C-Reactive Protein (CRP)', price: 449, params: 1 },
+      { name: 'Vitamin D (25-OH)', price: 799, params: 1 }, { name: 'Iron Studies', price: 699, params: 4 }, { name: 'Calcium Serum', price: 249, params: 1 },
+    ];
+
+    const baseName = isPackage ? (tests[0] || labName) : 'Your test selection';
+    function basePkg() {
+      return isPackage
+        ? { name: baseName, price: price, mrp: mrp, cats: PKG_CATS.slice(), added: [] }
+        : { name: baseName, price: 0, mrp: 0, cats: [], added: INIT_TESTS.map((t, i) => ({ name: t, price: INIT_PRICES[i] || 0, params: 1 })) };
+    }
+    function pkgParams(p) { return p.pkg.cats.reduce((s, c) => s + c.params, 0) + p.pkg.added.reduce((s, t) => s + (t.params || 1), 0); }
+
+    function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+    function initials(n) { n = (n || '').trim(); return n ? n[0].toUpperCase() : 'P'; }
+    function ptTotal(p) { return p.pkg.price + p.pkg.added.reduce((s, t) => s + t.price, 0); }
+
+    let seq = 0;
+    const patients = [];
+
+    // Collection-location banner
+    (function () {
+      const b = document.getElementById('ppBanner'); if (!b) return;
+      b.innerHTML = isVisit
+        ? '<i class="fas fa-circle-info" aria-hidden="true"></i><div>Selected at <b>' + esc(selectedCenter || labName) + '</b>. Each patient’s sample will be collected here.</div>'
+        : '<i class="fas fa-circle-info" aria-hidden="true"></i><div>Each patient’s sample will be collected from your home address.</div>';
+      b.hidden = false;
+    })();
+
+    function pkgCardHTML(p) {
+      const catChips = p.pkg.cats.map(c => '<span class="pp-chip pp-chip--cat">' + esc(c.name) + '<span class="pp-chip-n">' + c.params + '</span></span>').join('');
+      const testChips = p.pkg.added.map((t, i) => '<span class="pp-chip pp-chip--test">' + esc(t.name) + '</span>').join('');
+      const meta = p.pkg.cats.length
+        ? pkgParams(p) + ' parameters across ' + p.pkg.cats.length + ' categories' + (p.pkg.added.length ? ' · +' + p.pkg.added.length + ' individual test' + (p.pkg.added.length > 1 ? 's' : '') : '')
+        : p.pkg.added.length + ' test' + (p.pkg.added.length !== 1 ? 's' : '') + ' · ' + pkgParams(p) + ' parameter' + (pkgParams(p) !== 1 ? 's' : '');
+      return '<div class="pp-pkg">' +
+        '<div class="pp-pkg-top"><span class="pp-pkg-name">' + esc(p.pkg.name) + '</span><span class="pp-pkg-price">₹' + ptTotal(p).toLocaleString() + '</span></div>' +
+        '<button type="button" class="pp-pkg-meta" data-viewparams>' + meta + ' <i class="fas fa-chevron-right" aria-hidden="true"></i></button>' +
+        '<div class="pp-chips">' + catChips + testChips + '</div>' +
+        '<div class="pp-pkg-actions">' +
+          '<button type="button" class="pp-act" data-act="change"><i class="fas fa-' + (p.pkg.cats.length ? 'right-left' : 'box-open') + '"></i> ' + (p.pkg.cats.length ? 'Change package' : 'Add a package') + '</button>' +
+          '<button type="button" class="pp-act" data-act="addtest"><i class="fas fa-plus"></i> Add tests</button>' +
+          '<button type="button" class="pp-act" data-act="customise"><i class="fas fa-sliders"></i> Customise</button>' +
+        '</div></div>';
+    }
+
+    function cardHTML(p, idx) {
+      const genders = ['Male', 'Female', 'Other'];
+      const nm = (p.name || '').trim() || ('Patient ' + (idx + 1));
+      return '<div class="pp-card patient-block' + (p.open ? ' is-open' : '') + '" data-pid="' + p.id + '">' +
+        '<button type="button" class="pp-head" data-toggle>' +
+          '<span class="pp-avatar">' + initials(p.name) + '</span>' +
+          '<span class="pp-head-info"><span class="pp-name">' + esc(nm) + '</span>' +
+          '<span class="pp-sub">' + esc(p.pkg.name) + ' · ₹' + ptTotal(p).toLocaleString() + '</span></span>' +
+          '<span class="pp-head-actions">' +
+            (patients.length > 1 ? '<span class="pp-del" data-del role="button" aria-label="Remove patient"><i class="fas fa-trash-can"></i></span>' : '') +
+            '<i class="fas fa-chevron-down pp-caret" aria-hidden="true"></i>' +
+          '</span>' +
+        '</button>' +
+        '<div class="pp-body">' +
+          '<div class="pp-form">' +
+            '<div><label class="pp-label">Full name</label><input class="pp-input pt-name" type="text" value="' + esc(p.name) + '" placeholder="Patient name"></div>' +
+            '<div><label class="pp-label">Age</label><input class="pp-input pt-age" type="number" min="1" max="120" value="' + esc(p.age) + '" placeholder="Age"></div>' +
+            '<div class="pp-field--full"><label class="pp-label">Gender</label><select class="pp-select pt-gender">' + genders.map(g => '<option' + (g === p.gender ? ' selected' : '') + '>' + g + '</option>').join('') + '</select></div>' +
+          '</div>' +
+          pkgCardHTML(p) +
+        '</div>' +
+      '</div>';
+    }
+
+    function render() {
+      patientsList.innerHTML = patients.map(cardHTML).join('');
+      recompute();
+    }
+    function recompute() {
+      let pr = 0, m = 0;
+      tests.length = 0; testPrices.length = 0;
+      patients.forEach(p => {
+        pr += ptTotal(p); m += p.pkg.mrp + p.pkg.added.reduce((s, t) => s + t.price * 2, 0);
+        tests.push(p.pkg.name); testPrices.push(p.pkg.price);
+        p.pkg.added.forEach(t => { tests.push(t.name); testPrices.push(t.price); });
+      });
+      price = pr; mrp = m;
+      renderPriceRows(); renderSumTests();
+    }
+
+    renderSumTests = function () {
+      const el = document.getElementById('sumTests'); if (!el) return;
+      el.innerHTML = patients.map((p, idx) => {
+        const nm = (p.name || '').trim() || ('Patient ' + (idx + 1));
+        let rows = '<div class="summary-test"><span class="summary-test-name">' + esc(p.pkg.name) + '</span><span class="summary-test-price">₹' + p.pkg.price.toLocaleString() + '</span></div>';
+        rows += p.pkg.added.map(t => '<div class="summary-test"><span class="summary-test-name">' + esc(t.name) + '</span><span class="summary-test-price">₹' + t.price.toLocaleString() + '</span></div>').join('');
+        return '<div class="summary-pt-name">' + esc(nm) + '</div>' + rows;
+      }).join('');
+    };
+
+    // ----- Picker modal: change (radio) / addtest (checkbox) / customise (remove) -----
+    const modal = document.getElementById('replaceModal');
+    const list = document.getElementById('replaceList');
+    const title = document.getElementById('replaceModalTitle');
+    const hint = document.getElementById('replaceHint');
+    const note = document.getElementById('replaceNote');
+    const cta = document.getElementById('replaceConfirm');
+    const foot = document.getElementById('replaceFoot');
+    let activeP = null, mode = 'change', selChange = -1;
+    const selAdd = new Set(), selRemove = new Set();
+    function boxHTML(kind, on) { return '<span class="replace-card__box">' + (on ? '<i class="fas fa-' + (kind === 'radio' ? 'circle' : 'check') + '" style="font-size:' + (kind === 'radio' ? '8' : '11') + 'px"></i>' : '') + '</span>'; }
+    function renderPicker() {
+      if (mode === 'change') {
+        list.innerHTML = PKG_CATALOG.map((pk, i) => {
+          const off = Math.round((1 - pk.price / pk.mrp) * 100), sel = i === selChange;
+          return '<div class="replace-card replace-card--radio' + (sel ? ' is-selected' : '') + '" data-i="' + i + '"><div class="replace-card__lead">' + boxHTML('radio', sel) + '<div class="replace-card-info"><div class="replace-card-name">' + pk.name + '</div><div class="replace-card-meta">' + pk.params + ' parameters · ' + off + '% off</div></div></div><div class="replace-card-price"><span class="replace-card-now">₹' + pk.price.toLocaleString() + '</span><span class="replace-card-mrp">₹' + pk.mrp.toLocaleString() + '</span></div></div>';
+        }).join('');
+      } else if (mode === 'addtest') {
+        const have = activeP ? activeP.pkg.added.map(t => t.name) : [];
+        list.innerHTML = TEST_ADDONS.map((t, i) => {
+          const already = have.indexOf(t.name) > -1, sel = already || selAdd.has(i);
+          return '<div class="replace-card replace-card--check' + (sel ? ' is-selected' : '') + (already ? ' is-disabled' : '') + '" data-i="' + i + '"><div class="replace-card__lead">' + boxHTML('check', sel) + '<div class="replace-card-info"><div class="replace-card-name">' + t.name + (already ? ' · Added' : '') + '</div><div class="replace-card-meta">Individual test · ' + t.params + ' parameter' + (t.params > 1 ? 's' : '') + '</div></div></div><div class="replace-card-price"><span class="replace-card-now">₹' + t.price.toLocaleString() + '</span></div></div>';
+        }).join('');
+      } else if (mode === 'customise') {
+        const added = activeP ? activeP.pkg.added : [];
+        list.innerHTML = added.length
+          ? added.map((t, i) => { const sel = selRemove.has(i); return '<div class="replace-card replace-card--check' + (sel ? ' is-selected' : '') + '" data-i="' + i + '"><div class="replace-card__lead">' + boxHTML('check', sel) + '<div class="replace-card-info"><div class="replace-card-name">' + t.name + '</div><div class="replace-card-meta">Individual test</div></div></div><div class="replace-card-price"><span class="replace-card-now">₹' + t.price.toLocaleString() + '</span></div></div>'; }).join('')
+          : '<div class="available-label" style="text-transform:none;letter-spacing:0;font-weight:600;color:var(--text-muted)">No individual tests added yet — the package categories are always included.</div>';
+      } else { // params (read-only)
+        const groups = (activeP ? activeP.pkg.cats : []).map(c =>
+          '<div class="pp-param-group"><div class="pp-param-head">' + c.name + ' <span class="pp-param-count">' + c.params + '</span></div><div class="pp-param-items">' + (c.items || []).map(x => '<span class="pp-param-item"><i class="fas fa-check" aria-hidden="true"></i> ' + x + '</span>').join('') + '</div></div>');
+        if (activeP && activeP.pkg.added.length) groups.push('<div class="pp-param-group"><div class="pp-param-head">Individual tests <span class="pp-param-count">' + activeP.pkg.added.length + '</span></div><div class="pp-param-items">' + activeP.pkg.added.map(t => '<span class="pp-param-item"><i class="fas fa-check" aria-hidden="true"></i> ' + t.name + '</span>').join('') + '</div></div>');
+        list.innerHTML = groups.join('');
+      }
+      syncFoot();
+    }
+    function syncFoot() {
+      if (foot) foot.style.display = mode === 'params' ? 'none' : '';
+      if (mode === 'params') return;
+      if (mode === 'change') { var hasPkg = activeP && activeP.pkg.cats.length > 0; hint.textContent = hasPkg ? 'Choose a different package' : 'Add a package to this patient'; note.hidden = true; cta.textContent = hasPkg ? 'Change package' : 'Add package'; cta.disabled = selChange < 0; }
+      else if (mode === 'addtest') { hint.textContent = 'Select the tests you’d like to add'; note.hidden = true; cta.textContent = selAdd.size ? 'Add ' + selAdd.size + ' test' + (selAdd.size > 1 ? 's' : '') : 'Add tests'; cta.disabled = selAdd.size === 0; }
+      else { hint.textContent = 'Remove individual tests you don’t need'; note.hidden = false; note.innerHTML = '<i class="fas fa-triangle-exclamation" aria-hidden="true"></i><div>Only remove a test if it hasn’t been advised by your doctor. Package categories can’t be removed.</div>'; cta.textContent = selRemove.size ? 'Remove ' + selRemove.size + ' test' + (selRemove.size > 1 ? 's' : '') : 'Done'; cta.disabled = false; }
+    }
+    function openPicker(m) {
+      mode = m;
+      var hasPkg = activeP && activeP.pkg.cats.length > 0;
+      title.textContent = m === 'change' ? (hasPkg ? 'Change package' : 'Add a package') : m === 'addtest' ? 'Add individual tests' : m === 'customise' ? 'Customise tests' : 'All parameters';
+      if (hint) hint.textContent = m === 'params' ? ((activeP ? pkgParams(activeP) : 0) + ' parameters in this package') : '';
+      selChange = -1; selAdd.clear(); selRemove.clear();
+      renderPicker(); modal.classList.add('is-open');
+    }
+    function closePicker() { modal.classList.remove('is-open'); }
+    document.getElementById('replaceModalClose').addEventListener('click', closePicker);
+    modal.addEventListener('click', e => { if (e.target === modal) closePicker(); });
+    list.addEventListener('click', e => {
+      const card = e.target.closest('.replace-card'); if (!card || card.classList.contains('is-disabled')) return;
+      const i = parseInt(card.dataset.i, 10); if (isNaN(i)) return;
+      if (mode === 'change') selChange = i;
+      else if (mode === 'addtest') { selAdd.has(i) ? selAdd.delete(i) : selAdd.add(i); }
+      else { selRemove.has(i) ? selRemove.delete(i) : selRemove.add(i); }
+      renderPicker();
+    });
+    cta.addEventListener('click', () => {
+      if (!activeP) return;
+      if (mode === 'change') {
+        const pk = PKG_CATALOG[selChange]; if (!pk) return;
+        activeP.pkg.name = pk.name; activeP.pkg.price = pk.price; activeP.pkg.mrp = pk.mrp; activeP.pkg.cats = PKG_CATS.slice();
+        render(); closePicker(); showToast('✓ Switched to ' + pk.name);
+      } else if (mode === 'addtest') {
+        let n = 0;
+        [...selAdd].sort((a, b) => a - b).forEach(i => { const t = TEST_ADDONS[i]; if (t && !activeP.pkg.added.some(x => x.name === t.name)) { activeP.pkg.added.push({ name: t.name, price: t.price, params: t.params }); n++; } });
+        render(); closePicker(); if (n) showToast('✓ Added ' + n + ' test' + (n > 1 ? 's' : ''));
+      } else {
+        [...selRemove].sort((a, b) => b - a).forEach(i => activeP.pkg.added.splice(i, 1));
+        render(); closePicker();
+      }
+    });
+
+    // ----- Delegated clicks -----
+    patientsList.addEventListener('click', e => {
+      const card = e.target.closest('.pp-card'); if (!card) return;
+      const p = patients.find(x => x.id === card.dataset.pid); if (!p) return;
+      if (e.target.closest('[data-del]')) { e.stopPropagation(); const i = patients.indexOf(p); patients.splice(i, 1); if (patients.length && !patients.some(x => x.open)) patients[Math.max(0, i - 1)].open = true; render(); return; }
+      if (e.target.closest('[data-viewparams]')) { activeP = p; openPicker('params'); return; }
+      const act = e.target.closest('.pp-act');
+      if (act) {
+        activeP = p;
+        openPicker(act.dataset.act === 'change' ? 'change' : act.dataset.act === 'addtest' ? 'addtest' : 'customise');
+        return;
+      }
+      if (e.target.closest('[data-toggle]')) { p.open = !p.open; render(); }
+    });
+
+    // Live name/age/gender without re-rendering (keep input focus)
+    patientsList.addEventListener('input', e => {
+      const card = e.target.closest('.pp-card'); if (!card) return;
+      const p = patients.find(x => x.id === card.dataset.pid); if (!p) return;
+      if (e.target.classList.contains('pt-name')) {
+        p.name = e.target.value;
+        const nm = card.querySelector('.pp-name'); if (nm) nm.textContent = p.name.trim() || ('Patient ' + (patients.indexOf(p) + 1));
+        const av = card.querySelector('.pp-avatar'); if (av) av.textContent = initials(p.name);
+        renderSumTests();
+      } else if (e.target.classList.contains('pt-age')) { p.age = e.target.value; }
+    });
+    patientsList.addEventListener('change', e => {
+      const card = e.target.closest('.pp-card'); if (!card) return;
+      const p = patients.find(x => x.id === card.dataset.pid); if (!p) return;
+      if (e.target.classList.contains('pt-gender')) p.gender = e.target.value;
+    });
+
+    document.getElementById('addPatientBtn').addEventListener('click', () => {
+      patients.forEach(p => p.open = false);
+      patients.push({ id: 'p' + (++seq), name: '', age: '', gender: 'Male', open: true, customise: false, pkg: basePkg() });
+      render();
+    });
+
+    // Per-patient preparation instructions (vary with the chosen tests)
+    function patientInstr(p) {
+      const ins = ['10–12 hours fasting required before the sample', 'Stay hydrated — sip plain water freely'];
+      const names = p.pkg.added.map(t => t.name.toLowerCase());
+      if (names.some(n => /vitamin|iron/.test(n))) ins.push('Avoid vitamin & iron supplements for 24 hours before');
+      if (names.some(n => /crp|reactive/.test(n))) ins.push('Mention any recent illness or infection to the phlebotomist');
+      return ins;
+    }
+    // Expose structured booking data for the Review step and confirmation page
+    window.getBookingPatients = function () {
+      return patients.map((p, idx) => {
+        const nCat = p.pkg.cats.length, nAdd = p.pkg.added.length, pr = pkgParams(p);
+        const metaText = nCat
+          ? pr + ' parameters across ' + nCat + ' categories' + (nAdd ? ' · +' + nAdd + ' individual test' + (nAdd > 1 ? 's' : '') : '')
+          : nAdd + ' test' + (nAdd !== 1 ? 's' : '') + ' · ' + pr + ' parameter' + (pr !== 1 ? 's' : '');
+        return {
+          name: (p.name || '').trim() || ('Patient ' + (idx + 1)),
+          age: p.age, gender: p.gender,
+          pkg: p.pkg.name, total: ptTotal(p),
+          params: pr, cats: nCat, metaText: metaText,
+          catNames: p.pkg.cats.map(c => c.name),
+          added: p.pkg.added.map(t => t.name),
+          instr: patientInstr(p)
+        };
+      });
+    };
+
+    // Seed the first patient
+    patients.push({ id: 'p' + (++seq), name: 'Nilesh Sharma', age: '32', gender: 'Male', open: true, customise: false, pkg: basePkg() });
+    render();
   })();
 
   // Mobile bottom CTA mirrors the in-summary Proceed to Pay click
@@ -2253,8 +2600,8 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 
   // Proceed → payment.html with full booking state
   document.getElementById('proceedBtn').addEventListener('click', () => {
-    // On step 1 (package / center), this CTA advances to step 2 instead of paying.
-    if (window.bsStep === 1) { window.goToStep2 && window.goToStep2(); return; }
+    // Advance through the wizard; only the last step proceeds to payment.
+    if (window.wizAdvance && window.wizAdvance()) return;
     // Date chip
     const activeDateChip = document.querySelector('.date-chip.is-active');
     const dateLabel = activeDateChip
@@ -2281,8 +2628,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
     document.querySelectorAll('#patientsList .patient-block').forEach((b, i) => {
       const name = b.querySelector('.pt-name')?.value.trim() || (i === 0 ? 'Self' : 'Patient ' + (i + 1));
       const age = b.querySelector('.pt-age')?.value.trim();
-      const g = b.querySelector('.gender-pill.is-active')?.dataset.gender || 'm';
-      const gl = g === 'f' ? 'Female' : g === 'o' ? 'Other' : 'Male';
+      const gl = b.querySelector('.pt-gender')?.value || 'Male';
       patientNames.push(name + (age ? ` · ${age} yrs` : '') + ` · ${gl}`);
     });
     let patientLabel = patientNames[0] || 'Self';
@@ -2305,6 +2651,9 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
       url.searchParams.set('date', `${dateLabel} · ${slotLabel}`);
       url.searchParams.set('address', addressLabel);
       url.searchParams.set('patient', patientLabel);
+      if (typeof window.getBookingPatients === 'function') {
+        try { url.searchParams.set('patients', JSON.stringify(window.getBookingPatients())); } catch (e) {}
+      }
       location.href = url.toString();
     }, 350);
   });
@@ -2321,36 +2670,108 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 })();
 </script>
   <script>
-  /* Two-step booking: Step 1 = your package (center / included / customize), Step 2 = slot & details */
+  /* Multi-step booking wizard with a segmented progress bar */
   (function () {
     var s1 = document.getElementById('bsStep1'), s2 = document.getElementById('bsStep2');
-    if (!s1 || !s2) return;
-    function setLabels() {
-      var pl = document.getElementById('proceedLabel'), ml = document.getElementById('mabLabel');
-      if (window.bsStep === 1) {
-        if (pl) pl.textContent = 'Continue to slot & details';
-        if (ml) ml.textContent = 'Next: slot & details';
+    if (s1) s1.hidden = false;
+    if (s2) s2.hidden = false;
+    var oldBack = document.getElementById('backToStep1'); if (oldBack) oldBack.style.display = 'none';
+
+    var isVisit = new URLSearchParams(location.search).get('mode') === 'visit';
+    var isPackage = new URLSearchParams(location.search).get('pkg') === '1';
+    function nat(id) { var e = document.getElementById(id); return !!(e && !e.hidden); }
+    if (isVisit) {
+      var ah = document.querySelector('#addrSection .step-title'); if (ah) ah.textContent = 'Address for reports & invoice';
+    }
+    // Package flow: the per-patient packages cover this, so drop the generic "What's included".
+    { var piEl = document.getElementById('pkgIncludesSection'); if (piEl) piEl.hidden = true; }
+
+    // Steps and the sections each one shows. centerSection/customizeSection are
+    // kept only when naturally present; address & review are always their own step.
+    var rawSteps = [
+      { title: isVisit ? 'Select a center' : 'Your collection', ids: ['centerSection'] },
+      { title: 'Patients & packages', ids: ['patientSection'] },
+      { title: isVisit ? 'Contact details' : 'Your address', ids: ['addrSection'] },
+      { title: 'Date & time', ids: ['dateSection', 'timeSection', 'instrSection'] },
+      { title: 'Review & pay', ids: ['reviewSection'] },
+    ];
+    var FORCE = isPackage ? { reviewSection: 1 } : { addrSection: 1, reviewSection: 1 };
+    var steps = rawSteps.map(function (st) {
+      return { title: st.title, ids: st.ids.filter(function (id) {
+        if (isPackage && id === 'addrSection') return false;   // package flow: no address step
+        return document.getElementById(id) && (FORCE[id] || nat(id));
+      }) };
+    }).filter(function (st) { return st.ids.length; });
+
+    var allIds = [];
+    steps.forEach(function (st) { st.ids.forEach(function (id) { if (allIds.indexOf(id) < 0) allIds.push(id); }); });
+
+    var prog = document.getElementById('wizProgress');
+    if (prog) prog.innerHTML = steps.map(function () { return '<span class="wiz-seg"></span>'; }).join('');
+
+    var cur = 0;
+
+    function buildReview() {
+      var body = document.getElementById('reviewBody'); if (!body) return;
+      var dc = document.querySelector('.date-chip.is-active');
+      var dateLbl = dc ? (dc.querySelector('.date-chip-label').textContent + ' · ' + dc.querySelector('.date-chip-date').textContent) : '—';
+      var sl = document.querySelector('.time-slot.is-active');
+      var slotLbl = sl ? sl.textContent.replace(/[-*]$/, '').trim() : '—';
+      var labNm = (document.getElementById('sumLabName') || {}).textContent || 'Lab';
+      var where;
+      if (isVisit) { var cc = document.querySelector('.center-card.is-active'); where = cc ? (cc.dataset.center || labNm) : labNm; }
+      else { var a = document.querySelector('.addr-card.is-active'); where = a ? (((a.querySelector('.addr-name') || {}).textContent || 'Home') + ' — ' + ((a.querySelector('.addr-line') || {}).textContent || '').replace(/\s*·.*$/, '')) : 'Home'; }
+      // Shared for everyone: lab, center/collection, date & time
+      var shared = '<div class="rv-card rv-shared">' +
+        '<div class="rv-shared-t"><i class="fas fa-location-dot" aria-hidden="true"></i> Collection details</div>' +
+        '<div class="rv-row"><span class="rv-k">Lab</span><span class="rv-v">' + labNm + '</span></div>' +
+        '<div class="rv-row"><span class="rv-k">' + (isVisit ? 'Center' : 'Collection at') + '</span><span class="rv-v">' + where + '</span></div>' +
+        '<div class="rv-row"><span class="rv-k">Date &amp; time</span><span class="rv-v">' + dateLbl + ' · ' + slotLbl + '</span></div>' +
+        '</div>';
+      var pts = (typeof window.getBookingPatients === 'function') ? window.getBookingPatients() : [];
+      var cards;
+      if (pts.length) {
+        cards = pts.map(function (p) {
+          var chips = p.catNames.map(function (c) { return '<span class="rv-chip rv-chip--cat">' + c + '</span>'; }).join('') +
+            p.added.map(function (t) { return '<span class="rv-chip rv-chip--test">' + t + '</span>'; }).join('');
+          var meta = p.metaText || (p.params + ' parameters');
+          var instr = p.instr.map(function (s) { return '<li>' + s + '</li>'; }).join('');
+          return '<div class="rv-pt">' +
+            '<div class="rv-pt-head"><span class="rv-pt-av">' + (p.name[0] || 'P').toUpperCase() + '</span>' +
+            '<div class="rv-pt-info"><div class="rv-pt-name">' + p.name + (p.age ? ' · ' + p.age + ' yrs' : '') + ' · ' + p.gender + '</div>' +
+            '<div class="rv-pt-sub">' + p.pkg + ' · <b>₹' + p.total.toLocaleString() + '</b></div></div></div>' +
+            '<div class="rv-pt-meta">' + meta + '</div>' +
+            '<div class="rv-chips">' + chips + '</div>' +
+            '<div class="rv-instr"><div class="rv-instr-t"><i class="fas fa-circle-info" aria-hidden="true"></i> Preparation for ' + p.name.split(' ')[0] + '</div><ul>' + instr + '</ul></div>' +
+            '</div>';
+        }).join('');
       } else {
-        if (pl) pl.textContent = 'Proceed to Pay';
-        if (ml) ml.textContent = 'Proceed to Pay';
+        cards = '<div class="rv-card"><div class="rv-tests">' + ((document.getElementById('sumTests') || {}).innerHTML || '') + '</div></div>';
       }
+      body.innerHTML = shared + '<div class="rv-pt-label">Patients &amp; packages</div><div class="rv-pt-list">' + cards + '</div>';
     }
-    window.goToStep2 = function () {
-      window.bsStep = 2; s1.hidden = true; s2.hidden = false; setLabels();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
-    function backToStep1() {
-      window.bsStep = 1; s2.hidden = true; s1.hidden = false; setLabels();
+
+    function show(i) {
+      cur = Math.max(0, Math.min(i, steps.length - 1));
+      window.bsStep = cur + 1;
+      var st = steps[cur];
+      allIds.forEach(function (id) { var el = document.getElementById(id); if (el) el.hidden = st.ids.indexOf(id) < 0; });
+      var t = document.getElementById('wizTitle'); if (t) t.textContent = st.title;
+      var stp = document.getElementById('wizStep'); if (stp) stp.textContent = 'Step ' + (cur + 1) + ' of ' + steps.length;
+      if (prog) [].forEach.call(prog.children, function (seg, idx) { seg.classList.toggle('is-done', idx <= cur); });
+      var last = cur === steps.length - 1;
+      var pl = document.getElementById('proceedLabel'), ml = document.getElementById('mabLabel');
+      if (pl) pl.textContent = last ? 'Proceed to Pay' : 'Continue';
+      if (ml) ml.textContent = last ? 'Proceed to Pay' : 'Continue';
+      if (last) buildReview();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-    // Show step 1 only if it has content (package / lab-visit flow); otherwise skip the wizard.
-    var hasStep1 = ['centerSection', 'pkgIncludesSection', 'customizeSection'].some(function (id) {
-      var e = document.getElementById(id); return e && !e.hidden;
-    });
-    if (hasStep1) { window.bsStep = 1; s1.hidden = false; s2.hidden = true; }
-    else { window.bsStep = 2; s1.hidden = true; s2.hidden = false; }
-    setLabels();
-    var b = document.getElementById('backToStep1'); if (b) b.addEventListener('click', backToStep1);
+
+    window.wizAdvance = function () { if (cur < steps.length - 1) { show(cur + 1); return true; } return false; };
+    var back = document.getElementById('wizBack');
+    if (back) back.addEventListener('click', function () { if (cur > 0) show(cur - 1); else history.back(); });
+
+    show(0);
   })();
   </script>
 
