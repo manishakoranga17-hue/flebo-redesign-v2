@@ -106,6 +106,12 @@
   body.lm-locked{overflow:hidden;}\
   /* ----- logged-in profile dropdown ----- */\
   .lm-authed{cursor:pointer;}\
+  .lm-wallet{display:inline-flex;align-items:center;gap:8px;font:inherit;font-size:12.5px;font-weight:800;color:#fff;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.17);border-radius:12px;padding:3px 18px 3px 5px;margin-right:12px;cursor:pointer;line-height:1;white-space:nowrap;vertical-align:middle;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);transition:background .16s ease,border-color .16s ease;}\
+  .lm-wallet:hover{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.32);}\
+  .lm-wallet-coin{width:17px;height:17px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;background:radial-gradient(circle at 34% 30%,#FFF3C4 0%,#FFD75E 40%,#EFAE2C 72%,#D28F19 100%);border:1px solid #BE820E;box-shadow:0 1px 3px rgba(150,100,15,.55),inset 0 1px 1.5px rgba(255,255,255,.75),inset 0 -1.5px 1.5px rgba(140,90,10,.5);color:#8A5A0A;font-size:9px;font-weight:900;text-shadow:0 1px 0 rgba(255,255,255,.4);}\
+  .lm-wallet-lbl{color:rgba(255,255,255,.72);font-weight:600;}\
+  .lm-wallet b{color:#fff;font-weight:800;letter-spacing:.01em;}\
+  @media (max-width:560px){.lm-wallet{margin-right:8px;padding:3px 14px 3px 5px;gap:6px;}.lm-wallet-lbl{display:none;}}\
   .lm-menu{position:fixed;z-index:10001;min-width:238px;max-width:290px;background:#fff;border:1px solid var(--border-soft,#E5E9F3);\
     border-radius:14px;box-shadow:0 18px 50px rgba(11,21,48,.22);padding:6px;display:none;\
     font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;}\
@@ -446,13 +452,13 @@
   /* ---------- logged-in profile dropdown ---------- */
   var MENU_ITEMS = [
     { label: 'View Reports', icon: 'fa-file-lines', href: 'reports.html' },
-    { label: 'My Bookings', icon: 'fa-calendar-check' },
+    { label: 'My Bookings', icon: 'fa-calendar-check', href: 'bookings.html' },
     { label: 'Health Trend Graph', icon: 'fa-chart-line', href: 'health-trends.html' },
     { label: 'BMI Calculator', icon: 'fa-calculator', href: 'bmi.html' },
-    { label: 'Referral & Earning', icon: 'fa-gift' },
-    { label: 'Address Book', icon: 'fa-address-book' },
-    { label: 'My Profiles', icon: 'fa-id-card' },
-    { label: 'My Wallet', icon: 'fa-wallet' }
+    { label: 'Referral & Earning', icon: 'fa-gift', href: 'referral.html' },
+    { label: 'Address Book', icon: 'fa-address-book', href: 'address-book.html' },
+    { label: 'My Profiles', icon: 'fa-id-card', href: 'profiles.html' },
+    { label: 'My Wallet', icon: 'fa-wallet', href: 'wallet.html' }
   ];
   var menu = document.createElement('div');
   menu.id = 'lmMenu';
@@ -472,6 +478,10 @@
   function isLoggedIn() { try { return localStorage.getItem('flebo:loggedIn') === '1'; } catch (e) { return false; } }
   function loginTriggers() { return document.querySelectorAll('.top-bar-login, a[href$="login.html"], a[href*="login.html?"], [data-login-trigger]'); }
 
+  function walletBalance() {
+    try { return localStorage.getItem('flebo:wallet') || '250'; } catch (e) { return '250'; }
+  }
+
   function reflectLoggedIn() {
     var on = isLoggedIn(), phone;
     try { phone = localStorage.getItem('flebo:phone'); } catch (e) {}
@@ -485,6 +495,24 @@
         t.classList.remove('lm-authed');
         if (span) span.textContent = 'Login / Signup';
         if (ic) ic.className = 'fas fa-user';
+      }
+      // Wallet pill shown next to the user name once logged in
+      if (t.parentNode) {
+        var wallet = t.parentNode.querySelector('.lm-wallet');
+        if (on && phone) {
+          if (!wallet) {
+            wallet = document.createElement('button');
+            wallet.type = 'button';
+            wallet.className = 'lm-wallet';
+            wallet.addEventListener('click', function (ev) { ev.preventDefault(); ev.stopPropagation(); location.href = 'wallet.html'; });
+            t.parentNode.insertBefore(wallet, t);
+          }
+          wallet.innerHTML = '<span class="lm-wallet-coin" aria-hidden="true">₹</span> <span class="lm-wallet-lbl">Wallet</span> <b>₹' + walletBalance() + '</b>';
+          wallet.setAttribute('aria-label', 'Wallet balance ₹' + walletBalance());
+          wallet.style.display = '';
+        } else if (wallet) {
+          wallet.style.display = 'none';
+        }
       }
     });
   }

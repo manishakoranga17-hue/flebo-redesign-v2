@@ -190,14 +190,13 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 .ht-spark svg { display: block; width: 100%; height: 100%; }
 
 /* CTA */
-.ht-cta { position: relative; overflow: hidden; margin-top: 34px; background: #131D44 url('b-hero3.jpeg') center / cover no-repeat; border-radius: var(--radius-xl, 24px); padding: 32px 36px; display: flex; align-items: center; justify-content: space-between; gap: 22px; box-shadow: 0 20px 48px rgba(11,21,48,0.30); }
-.ht-cta::before { content: ''; position: absolute; inset: 0; background: linear-gradient(115deg, rgba(11,18,42,0.90) 0%, rgba(13,21,52,0.78) 70%); }
-.ht-cta::after { content: ''; position: absolute; right: -4%; top: -50%; width: 40%; height: 200%; pointer-events: none; background: radial-gradient(circle at 55% 50%, rgba(211,53,53,0.40), transparent 60%); }
+.ht-cta { position: relative; overflow: hidden; margin-top: 34px; background: #fff; border: 1px solid var(--border-soft, #E5E9F3); border-radius: var(--radius-xl, 24px); padding: 30px 36px; display: flex; align-items: center; justify-content: space-between; gap: 22px; box-shadow: 0 12px 34px rgba(11,21,48,0.09); }
+.ht-cta::before, .ht-cta::after { display: none; }
 .ht-cta > * { position: relative; z-index: 1; }
-.ht-cta-title { font-family: 'Instrument Serif', serif; font-size: 25px; font-weight: 400; color: #fff; line-height: 1.15; }
-.ht-cta-sub { font-size: 14px; color: rgba(255,255,255,0.78); margin-top: 5px; max-width: 540px; line-height: 1.5; }
-.ht-cta-btn { display: inline-flex; align-items: center; gap: 9px; background: #fff; color: var(--primary, #1B2A5B); border: 0; border-radius: 999px; padding: 14px 26px; font: inherit; font-size: 15px; font-weight: 800; text-decoration: none; white-space: nowrap; box-shadow: 0 10px 26px rgba(0,0,0,0.22); }
-.ht-cta-btn:hover { background: #F2F4FA; }
+.ht-cta-title { font-family: 'Instrument Serif', serif; font-size: 25px; font-weight: 400; color: var(--primary, #1B2A5B); line-height: 1.15; }
+.ht-cta-sub { font-size: 14px; color: var(--text-muted, #6B7592); margin-top: 5px; max-width: 540px; line-height: 1.5; }
+.ht-cta-btn { display: inline-flex; align-items: center; gap: 9px; background: var(--accent, #D33535); color: #fff; border: 0; border-radius: 999px; padding: 14px 26px; font: inherit; font-size: 15px; font-weight: 800; text-decoration: none; white-space: nowrap; box-shadow: 0 10px 24px rgba(211,53,53,0.28); transition: background 0.15s; }
+.ht-cta-btn:hover { background: var(--accent-dark, #B82E2E); }
 
 @media (max-width: 980px) { .ht-main { grid-template-columns: 1fr; } .ht-main-chart { position: static; } .ht-chart-card { margin-bottom: 4px; } }
 @media (max-width: 600px) {
@@ -345,6 +344,41 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   .help-card { padding: 14px 16px; gap: 12px; }
   .help-ico { width: 38px; height: 38px; font-size: 15px; }
 }
+
+/* ===== Full-width trend graph hero ===== */
+.ht-hero { position: relative; overflow: hidden; border-radius: 26px; color: #fff; background: #121A40 url('b-hero3.jpeg') center / cover no-repeat; box-shadow: 0 28px 66px -28px rgba(11,21,48,0.78); padding: 30px 40px 26px; margin-bottom: 30px; }
+.ht-hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(118deg, rgba(10,16,40,0.95) 0%, rgba(17,23,60,0.86) 52%, rgba(30,30,80,0.74) 100%); }
+.ht-hero::after { content: ''; position: absolute; right: -25%; top: -50%; width: 65%; height: 200%; background: radial-gradient(ellipse at 75% 50%, rgba(211,53,53,0.16), transparent 72%); pointer-events: none; }
+.ht-hero > * { position: relative; z-index: 1; }
+.ht-hero-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 28px; flex-wrap: wrap; margin-bottom: 16px; }
+.ht-hero-controls { display: flex; align-items: flex-end; gap: 14px; flex-wrap: wrap; }
+.tests-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.18); padding: 7px 13px; border-radius: 999px; font-size: 11.5px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #fff; }
+.tests-eyebrow i { color: #FF8A8A; }
+.tests-h1 { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: clamp(32px, 4vw, 46px); color: #fff; letter-spacing: -0.015em; line-height: 1.02; margin: 12px 0 4px; }
+.hero-latest { display: flex; align-items: baseline; gap: 12px; margin: 6px 0 2px; }
+.hero-latest-val { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 54px; line-height: 1; color: #fff; }
+.hero-latest-unit { font-size: 20px; color: rgba(255,255,255,0.7); }
+.hero-latest-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 13px; font-weight: 800; padding: 4px 10px; border-radius: 999px; }
+.hero-latest-badge--good { background: rgba(76,175,80,0.22); color: #B6E7B8; }
+.hero-latest-badge--down { background: rgba(255,138,138,0.18); color: #FFC9C9; }
+.hero-latest-sub { font-size: 12.5px; color: rgba(255,255,255,0.65); margin-bottom: 10px; }
+.tests-sub { font-size: 14px; color: rgba(255,255,255,0.78); line-height: 1.55; margin: 0; white-space: nowrap; }
+.tests-sub b { color: #fff; font-weight: 800; }
+.thg-sel { display: flex; gap: 14px; flex-wrap: wrap; }
+.thg-sel-item { display: flex; flex-direction: column; gap: 5px; }
+.thg-sel-l { font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.7); }
+.thg-sel-v { appearance: none; -webkit-appearance: none; min-width: 190px; border: 1px solid rgba(255,255,255,0.25); background: rgba(255,255,255,0.08); border-radius: 10px; padding: 9px 34px 9px 13px; font: inherit; font-size: 14px; font-weight: 700; color: #fff; cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; }
+.thg-sel-v:hover { background-color: rgba(255,255,255,0.14); }
+.thg-sel-v:focus { outline: none; border-color: rgba(255,255,255,0.5); }
+.thg-sel-v option { color: #0B1530; background: #fff; }
+.thg-actions { display: flex; gap: 8px; }
+.thg-act { width: 38px; height: 38px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.25); background: rgba(255,255,255,0.08); color: #fff; cursor: pointer; font-size: 15px; }
+.thg-act:hover { background: rgba(255,255,255,0.16); }
+.thg-chart-wrap { position: relative; width: 100%; height: 440px; margin-top: 6px; }
+.thg-legend { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; margin-top: 16px; }
+.thg-leg { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.85); }
+.thg-sw { width: 16px; height: 16px; border-radius: 4px; }
+@media (max-width: 760px) { .ht-hero { padding: 22px 18px; } .thg-chart-wrap { height: 320px; } .thg-sel-v { min-width: 150px; } .tests-sub { white-space: normal; } }
 </style>
 </head>
 <body>
@@ -414,42 +448,36 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 
 <!-- ===== HEALTH TRENDS ===== -->
 <main class="ht-page">
-  <div class="ht-head">
-    <div class="ht-eyebrow"><i class="fas fa-chart-line"></i> Health records</div>
-    <h1 class="ht-h1">Health trends</h1>
-    <p class="ht-sub">See how your key results move over time. Each marker is plotted against its healthy range, so you can tell at a glance whether things are heading the right way.</p>
-  </div>
-
-  <div class="ht-main">
-    <!-- Focal chart (sticky on desktop) -->
-    <div class="ht-main-chart">
-      <section class="ht-chart-card">
-        <div class="ht-chart-top">
-          <div>
-            <div class="ht-chart-name" id="htName">—</div>
-            <div class="ht-current"><span class="ht-current-val" id="htVal">—</span><span class="ht-current-unit" id="htUnit"></span></div>
-            <div class="ht-meta-row">
-              <span class="ht-delta" id="htDelta"></span>
-              <span class="ht-range-note" id="htRange"></span>
-            </div>
-          </div>
-          <span class="ht-status" id="htStatus"></span>
+  <section class="ht-hero">
+    <div class="ht-hero-top">
+      <div class="tests-hero-text">
+        <span class="tests-eyebrow"><i class="fas fa-heart-pulse"></i> Latest health trend</span>
+        <h1 class="tests-h1">Hemoglobin</h1>
+        <div class="hero-latest">
+          <span class="hero-latest-val">11.9<span class="hero-latest-unit"> g/dL</span></span>
+          <span class="hero-latest-badge hero-latest-badge--good"><i class="fas fa-arrow-trend-up"></i> +0.3</span>
         </div>
-        <div class="ht-chart-svg" id="htChart"></div>
-        <div class="ht-legend">
-          <span><span class="sw line"></span> Your results</span>
-          <span><span class="sw band"></span> Healthy range</span>
-          <span id="htLegendLatest"></span>
+        <div class="hero-latest-sub">Neha Gulati &middot; Latest 25 Apr 2025 &middot; Orange Health</div>
+        <p class="tests-sub">Neha's hemoglobin is <b>just below the normal range</b> (12&ndash;15 g/dL) but has been steadily improving since July 2024.</p>
+      </div>
+      <div class="ht-hero-controls">
+        <div class="thg-sel">
+          <label class="thg-sel-item"><span class="thg-sel-l">Customer</span><select class="thg-sel-v" id="thgCustomer" aria-label="Customer"></select></label>
+          <label class="thg-sel-item"><span class="thg-sel-l">Test</span><select class="thg-sel-v" id="thgTest" aria-label="Test"></select></label>
         </div>
-      </section>
+        <div class="thg-actions">
+          <button type="button" class="thg-act" aria-label="Download"><i class="fas fa-download"></i></button>
+          <button type="button" class="thg-act" aria-label="Share"><i class="fas fa-share-nodes"></i></button>
+        </div>
+      </div>
     </div>
-
-    <!-- Metric grid -->
-    <div class="ht-main-side">
-      <h2 class="ht-grid-title">All your markers</h2>
-      <div class="ht-grid" id="htGrid"></div>
+    <div class="thg-chart-wrap"><canvas id="hbTrendChart" aria-label="Trend chart"></canvas></div>
+    <div class="thg-legend">
+      <span class="thg-leg"><span class="thg-sw" style="background:#E24B4A"></span> Low Range</span>
+      <span class="thg-leg"><span class="thg-sw" style="background:#4CAF50"></span> Normal Range</span>
+      <span class="thg-leg"><span class="thg-sw" style="background:#E24B4A"></span> High Range</span>
     </div>
-  </div>
+  </section>
 
   <!-- CTA -->
   <section class="ht-cta">
@@ -460,135 +488,95 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
     <a class="ht-cta-btn" href="packages.html"><i class="fas fa-box-open"></i> Book a follow-up test</a>
   </section>
 </main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
 (function () {
-  'use strict';
-  var $ = function (id) { return document.getElementById(id); };
-  var ST = { normal: { c: '#1B8A5A', l: 'Normal' }, low: { c: '#2563EB', l: 'Low' }, high: { c: '#D33535', l: 'High' } };
-  function hexA(hex, a) { var n = parseInt(hex.slice(1), 16); return 'rgba(' + ((n >> 16) & 255) + ',' + ((n >> 8) & 255) + ',' + (n & 255) + ',' + a + ')'; }
-
-  var MARKERS = [
-    { id: 'ldl', name: 'LDL Cholesterol', unit: 'mg/dL', lo: 0, hi: 100, good: 'down', series: [['Sep 25', 158], ['Nov 25', 150], ['Jan 26', 144], ['Mar 26', 138], ['Jun 26', 132]] },
-    { id: 'tchol', name: 'Total Cholesterol', unit: 'mg/dL', lo: 125, hi: 200, good: 'down', series: [['Sep 25', 224], ['Nov 25', 214], ['Jan 26', 205], ['Mar 26', 196], ['Jun 26', 188]] },
-    { id: 'tg', name: 'Triglycerides', unit: 'mg/dL', lo: 0, hi: 150, good: 'down', series: [['Sep 25', 180], ['Nov 25', 168], ['Jan 26', 158], ['Mar 26', 146], ['Jun 26', 138]] },
-    { id: 'hba1c', name: 'HbA1c', unit: '%', lo: 4.0, hi: 5.6, good: 'down', series: [['Sep 25', 6.3], ['Nov 25', 6.2], ['Jan 26', 6.1], ['Mar 26', 6.0], ['Jun 26', 5.9]] },
-    { id: 'glucose', name: 'Fasting Glucose', unit: 'mg/dL', lo: 70, hi: 100, good: 'down', series: [['Sep 25', 104], ['Nov 25', 101], ['Jan 26', 99], ['Mar 26', 98], ['Jun 26', 96]] },
-    { id: 'hb', name: 'Hemoglobin', unit: 'g/dL', lo: 13, hi: 17, good: 'up', series: [['Sep 25', 11.8], ['Nov 25', 12.0], ['Jan 26', 12.3], ['Mar 26', 12.5], ['Jun 26', 12.6]] },
-    { id: 'vitd', name: 'Vitamin D (25-OH)', unit: 'ng/mL', lo: 30, hi: 100, good: 'up', series: [['Sep 25', 12], ['Nov 25', 14], ['Jan 26', 15], ['Mar 26', 17], ['Jun 26', 18]] },
-    { id: 'tsh', name: 'TSH', unit: 'µIU/mL', lo: 0.4, hi: 4.0, good: 'within', series: [['Sep 25', 3.0], ['Nov 25', 2.8], ['Jan 26', 2.6], ['Mar 26', 2.5], ['Jun 26', 2.4]] }
-  ];
-
-  function vals(m) { return m.series.map(function (s) { return s[1]; }); }
-  function last(m) { return m.series[m.series.length - 1][1]; }
-  function prev(m) { return m.series[m.series.length - 2][1]; }
-  function statusOf(m, v) { if (v < m.lo) return 'low'; if (v > m.hi) return 'high'; return 'normal'; }
-  function improving(m) {
-    var d = last(m) - prev(m);
-    if (m.good === 'down') return d < 0;
-    if (m.good === 'up') return d > 0;
-    var c = (m.lo + m.hi) / 2; return Math.abs(last(m) - c) < Math.abs(prev(m) - c);
-  }
-  function trendClass(m) { var d = last(m) - prev(m); if (d === 0) return 'flat'; return improving(m) ? 'good' : 'bad'; }
-  function fmtDelta(m) { return Math.round(Math.abs(last(m) - prev(m)) * 10) / 10; }
-
-  /* ---- main line chart ---- */
-  function buildChart(m) {
-    var W = 780, H = 420, padL = 46, padR = 18, padT = 20, padB = 40;
-    var pw = W - padL - padR, ph = H - padT - padB, n = m.series.length;
-    var v = vals(m), dMin = Math.min.apply(null, v.concat([m.lo])), dMax = Math.max.apply(null, v.concat([m.hi]));
-    var pad = (dMax - dMin) * 0.14 || 1, yMin = dMin - pad, yMax = dMax + pad;
-    if (m.lo === 0 && yMin < 0) yMin = 0;
-    function X(i) { return padL + (n <= 1 ? 0 : i / (n - 1) * pw); }
-    function Y(val) { return padT + (1 - (val - yMin) / (yMax - yMin)) * ph; }
-
-    // healthy band
-    var bandTop = Y(Math.min(m.hi, yMax)), bandBot = Y(Math.max(m.lo, yMin));
-    var band = '<rect x="' + padL + '" y="' + bandTop.toFixed(1) + '" width="' + pw + '" height="' + (bandBot - bandTop).toFixed(1) + '" fill="rgba(27,138,90,0.12)"/>' +
-      '<line x1="' + padL + '" x2="' + (W - padR) + '" y1="' + bandTop.toFixed(1) + '" y2="' + bandTop.toFixed(1) + '" stroke="rgba(27,138,90,0.45)" stroke-width="1" stroke-dasharray="4 4"/>' +
-      '<line x1="' + padL + '" x2="' + (W - padR) + '" y1="' + bandBot.toFixed(1) + '" y2="' + bandBot.toFixed(1) + '" stroke="rgba(27,138,90,0.45)" stroke-width="1" stroke-dasharray="4 4"/>';
-
-    // gridlines + y labels
-    var grid = '', i;
-    for (i = 0; i <= 3; i++) {
-      var gv = yMin + (yMax - yMin) * (i / 3), gy = Y(gv);
-      grid += '<line x1="' + padL + '" x2="' + (W - padR) + '" y1="' + gy.toFixed(1) + '" y2="' + gy.toFixed(1) + '" stroke="#EEF1F7" stroke-width="1"/>';
-      grid += '<text x="' + (padL - 10) + '" y="' + (gy + 4).toFixed(1) + '" text-anchor="end" font-size="11" fill="#9AA3B8" font-family="Plus Jakarta Sans,sans-serif">' + (Math.round(gv * 10) / 10) + '</text>';
+  var el = document.getElementById('hbTrendChart');
+  if (!el || !window.Chart) return;
+  var DATES = ['17 Apr 2022', '11 Mar 2023', '27 Mar 2024', '8 Jul 2024', '2 Sept 2024', '25 Apr 2025'];
+  var LABS  = ['Redcliffe', 'Augmentum Diagnostics', 'Redcliffe', 'Tata 1mg', 'Tata 1mg', 'Orange Health'];
+  var TESTS = {
+    'Hemoglobin':        { unit: 'g/dL',   low: 11.5, high: 15,  ymin: 5,  ymax: 19,  step: 2 },
+    'Vitamin D (25-OH)': { unit: 'ng/mL',  low: 30,   high: 100, ymin: 0,  ymax: 120, step: 20 },
+    'HbA1c':             { unit: '%',      low: 4,    high: 5.6, ymin: 3,  ymax: 9,   step: 1 },
+    'TSH':               { unit: 'uIU/mL', low: 0.4,  high: 4,   ymin: 0,  ymax: 10,  step: 2 }
+  };
+  var PATIENTS = {
+    'Neha Gulati':  { v: { 'Hemoglobin': [13.6, 11.5, 11.2, 10.6, 11.6, 11.9], 'Vitamin D (25-OH)': [18, 22, 26, 24, 31, 34], 'HbA1c': [5.4, 5.6, 5.8, 6.0, 5.9, 5.7], 'TSH': [2.4, 3.1, 4.6, 5.2, 3.8, 2.9] } },
+    'Rahul Verma':  { v: { 'Hemoglobin': [15.2, 14.8, 14.1, 13.9, 14.4, 14.6], 'Vitamin D (25-OH)': [12, 16, 20, 28, 33, 40], 'HbA1c': [5.9, 6.2, 6.5, 6.3, 6.0, 5.8], 'TSH': [1.8, 2.0, 2.3, 2.1, 1.9, 2.2] } },
+    'Priya Sharma': { v: { 'Hemoglobin': [12.1, 11.8, 12.4, 12.9, 13.2, 13.0], 'Vitamin D (25-OH)': [25, 29, 34, 38, 42, 45], 'HbA1c': [5.2, 5.3, 5.1, 5.4, 5.5, 5.3], 'TSH': [3.2, 3.6, 4.1, 3.9, 3.4, 3.1] } }
+  };
+  var vals = [], cfg = TESTS['Hemoglobin'];
+  function rr(c, x, y, w, h, r) { c.beginPath(); c.moveTo(x + r, y); c.arcTo(x + w, y, x + w, y + h, r); c.arcTo(x + w, y + h, x, y + h, r); c.arcTo(x, y + h, x, y, r); c.arcTo(x, y, x + w, y, r); c.closePath(); }
+  var overlay = {
+    id: 'hbOverlay',
+    afterDatasetsDraw: function (chart) {
+      var ctx = chart.ctx, x = chart.scales.x, y = chart.scales.y;
+      var pts = vals.map(function (v, i) { return { x: x.getPixelForValue(i), y: y.getPixelForValue(v) }; });
+      ctx.save();
+      ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 2.5; ctx.lineJoin = 'round';
+      ctx.beginPath(); pts.forEach(function (p, i) { i ? ctx.lineTo(p.x, p.y) : ctx.moveTo(p.x, p.y); }); ctx.stroke();
+      ctx.font = '600 12px "Plus Jakarta Sans", sans-serif'; ctx.fillStyle = 'rgba(255,255,255,0.82)'; ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+      LABS.forEach(function (nm, i) { ctx.fillText(nm, pts[i].x, y.top - 10); });
+      pts.forEach(function (p, i) {
+        var txt = String(vals[i]);
+        ctx.font = '800 13px "Plus Jakarta Sans", sans-serif';
+        var tw = ctx.measureText(txt).width, bw = tw + 16, bh = 24, bx = p.x - bw / 2, by = p.y - bh - 12;
+        ctx.fillStyle = '#fff'; rr(ctx, bx, by, bw, bh, 7); ctx.fill();
+        ctx.fillStyle = '#0B1530'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(txt, p.x, by + bh / 2);
+        ctx.beginPath(); ctx.arc(p.x, p.y, 5, 0, Math.PI * 2); ctx.fillStyle = '#fff'; ctx.fill();
+        ctx.lineWidth = 2.5; ctx.strokeStyle = '#1B2A5B'; ctx.stroke();
+      });
+      ctx.restore();
     }
-
-    // area + line
-    var pts = m.series.map(function (s, idx) { return [X(idx), Y(s[1])]; });
-    var poly = pts.map(function (p) { return p[0].toFixed(1) + ',' + p[1].toFixed(1); }).join(' ');
-    var area = 'M' + pts[0][0].toFixed(1) + ',' + Y(yMin).toFixed(1) + ' L' + pts.map(function (p) { return p[0].toFixed(1) + ',' + p[1].toFixed(1); }).join(' L') + ' L' + pts[n - 1][0].toFixed(1) + ',' + Y(yMin).toFixed(1) + ' Z';
-
-    // points + x labels
-    var dots = '', labels = '';
-    for (i = 0; i < n; i++) {
-      var isLast = i === n - 1;
-      if (!isLast) dots += '<circle cx="' + pts[i][0].toFixed(1) + '" cy="' + pts[i][1].toFixed(1) + '" r="3.5" fill="#fff" stroke="#1B2A5B" stroke-width="2"/>';
-      labels += '<text x="' + pts[i][0].toFixed(1) + '" y="' + (H - 12) + '" text-anchor="middle" font-size="11.5" fill="#6B7592" font-family="Inter,sans-serif">' + m.series[i][0] + '</text>';
+  };
+  var chart = new Chart(el, {
+    type: 'bar', plugins: [overlay],
+    data: { labels: DATES, datasets: [
+      { label: 'Low Range', data: [], backgroundColor: '#E24B4A', stack: 'r', categoryPercentage: 0.62, barPercentage: 0.9 },
+      { label: 'Normal Range', data: [], backgroundColor: '#4CAF50', stack: 'r', categoryPercentage: 0.62, barPercentage: 0.9 },
+      { label: 'High Range', data: [], backgroundColor: '#E24B4A', stack: 'r', categoryPercentage: 0.62, barPercentage: 0.9 }
+    ] },
+    options: {
+      responsive: true, maintainAspectRatio: false, layout: { padding: { top: 34 } },
+      plugins: { legend: { display: false }, tooltip: { enabled: false } },
+      scales: {
+        x: { stacked: true, grid: { color: 'rgba(255,255,255,0.12)' }, ticks: { font: { size: 12, weight: '700' }, color: 'rgba(255,255,255,0.85)' } },
+        y: { stacked: true, min: 5, max: 19, grid: { color: 'rgba(255,255,255,0.12)' }, title: { display: true, text: 'Hemoglobin', color: 'rgba(255,255,255,0.7)', font: { size: 12, weight: '600' } }, ticks: { stepSize: 2, color: 'rgba(255,255,255,0.7)', font: { size: 12 } } }
+      }
     }
-    // latest emphasized
-    var lx = pts[n - 1][0], ly = pts[n - 1][1], lc = ST[statusOf(m, last(m))].c;
-    var bubbleX = Math.max(padL + 26, Math.min(W - padR - 26, lx)), bubbleY = ly - 16 < padT + 12 ? ly + 26 : ly - 16;
-    var latest = '<circle cx="' + lx.toFixed(1) + '" cy="' + ly.toFixed(1) + '" r="6.5" fill="' + lc + '" stroke="#fff" stroke-width="2.5"/>' +
-      '<g><rect x="' + (bubbleX - 24) + '" y="' + (bubbleY - 13) + '" width="48" height="22" rx="6" fill="' + lc + '"/>' +
-      '<text x="' + bubbleX + '" y="' + (bubbleY + 2) + '" text-anchor="middle" font-size="12" font-weight="700" fill="#fff" font-family="Plus Jakarta Sans,sans-serif">' + last(m) + '</text></g>';
-
-    return '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + m.name + ' trend">' +
-      '<defs><linearGradient id="htArea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(27,42,91,0.16)"/><stop offset="1" stop-color="rgba(27,42,91,0)"/></linearGradient></defs>' +
-      grid + band +
-      '<path d="' + area + '" fill="url(#htArea)"/>' +
-      '<polyline points="' + poly + '" fill="none" stroke="#1B2A5B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>' +
-      dots + latest + labels + '</svg>';
-  }
-
-  /* ---- sparkline ---- */
-  function buildSpark(m) {
-    var v = vals(m), n = v.length, mn = Math.min.apply(null, v), mx = Math.max.apply(null, v), pad = (mx - mn) * 0.18 || 1;
-    mn -= pad; mx += pad;
-    var col = { good: '#1B8A5A', bad: '#D33535', flat: '#9AA3B8' }[trendClass(m)];
-    function X(i) { return 4 + (n <= 1 ? 0 : i / (n - 1) * 84); }
-    function Y(val) { return 4 + (1 - (val - mn) / (mx - mn)) * 22; }
-    var poly = v.map(function (val, i) { return X(i).toFixed(1) + ',' + Y(val).toFixed(1); }).join(' ');
-    return '<svg viewBox="0 0 92 30" preserveAspectRatio="none"><polyline points="' + poly + '" fill="none" stroke="' + col + '" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>' +
-      '<circle cx="' + X(n - 1).toFixed(1) + '" cy="' + Y(v[n - 1]).toFixed(1) + '" r="2.6" fill="' + col + '"/></svg>';
-  }
-
-  /* ---- render ---- */
-  function select(m) {
-    var s = statusOf(m, last(m)), meta = ST[s];
-    $('htName').textContent = m.name;
-    $('htVal').textContent = last(m); $('htVal').style.color = meta.c;
-    $('htUnit').textContent = m.unit;
-    $('htStatus').textContent = meta.l; $('htStatus').style.background = hexA(meta.c, 0.14); $('htStatus').style.color = meta.c;
-    var tc = trendClass(m), d = last(m) - prev(m);
-    var arrow = d < 0 ? 'fa-arrow-down' : (d > 0 ? 'fa-arrow-up' : 'fa-minus');
-    var word = tc === 'flat' ? 'no change' : (tc === 'good' ? 'improving' : 'needs attention');
-    $('htDelta').className = 'ht-delta ' + tc;
-    $('htDelta').innerHTML = '<i class="fas ' + arrow + '"></i> ' + fmtDelta(m) + ' ' + m.unit + ' · ' + word;
-    $('htRange').innerHTML = 'Healthy range <b>' + m.lo + '–' + m.hi + ' ' + m.unit + '</b>';
-    $('htLegendLatest').innerHTML = '<span class="sw" style="width:10px;height:10px;border-radius:50%;background:' + meta.c + '"></span> Latest · ' + m.series[m.series.length - 1][0];
-    $('htChart').innerHTML = buildChart(m);
-    document.querySelectorAll('.ht-mcard').forEach(function (c) { c.classList.toggle('is-active', c.getAttribute('data-id') === m.id); });
-  }
-
-  $('htGrid').innerHTML = MARKERS.map(function (m) {
-    var s = statusOf(m, last(m)), tc = trendClass(m), d = last(m) - prev(m);
-    var arrow = d < 0 ? 'fa-arrow-down' : (d > 0 ? 'fa-arrow-up' : 'fa-minus');
-    return '<button class="ht-mcard" data-id="' + m.id + '">' +
-      '<div class="ht-mcard-head"><span class="ht-mcard-name">' + m.name + '</span><span class="ht-mdot" style="background:' + ST[s].c + '"></span></div>' +
-      '<div class="ht-mcard-val">' + last(m) + ' <span class="ht-mcard-unit">' + m.unit + '</span></div>' +
-      '<div class="ht-mcard-foot"><span class="ht-mtrend ' + tc + '"><i class="fas ' + arrow + '"></i> ' + fmtDelta(m) + '</span><span class="ht-spark">' + buildSpark(m) + '</span></div>' +
-      '</button>';
-  }).join('');
-
-  $('htGrid').addEventListener('click', function (e) {
-    var b = e.target.closest('.ht-mcard'); if (!b) return;
-    var m = MARKERS.filter(function (x) { return x.id === b.getAttribute('data-id'); })[0];
-    if (m) { select(m); $('htChart').scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
   });
-
-  select(MARKERS[0]);
+  function setText(sel, txt) { var e = document.querySelector(sel); if (e) e.textContent = txt; }
+  function render(patient, test) {
+    cfg = TESTS[test];
+    vals = PATIENTS[patient].v[test].slice();
+    var n = vals.length;
+    chart.data.datasets[0].data = new Array(n).fill(cfg.low);
+    chart.data.datasets[1].data = new Array(n).fill(cfg.high - cfg.low);
+    chart.data.datasets[2].data = new Array(n).fill(cfg.ymax - cfg.high);
+    chart.options.scales.y.min = cfg.ymin;
+    chart.options.scales.y.max = cfg.ymax;
+    chart.options.scales.y.ticks.stepSize = cfg.step;
+    chart.options.scales.y.title.text = test.replace(/\s*\(.*$/, '');
+    chart.update();
+    var last = vals[n - 1], prev = vals[n - 2], delta = +(last - prev).toFixed(1);
+    var status = last < cfg.low ? 'below' : last > cfg.high ? 'above' : 'within';
+    var firstName = patient.split(' ')[0];
+    setText('.tests-h1', test.replace(/\s*\(.*$/, ''));
+    var valEl = document.querySelector('.hero-latest-val');
+    if (valEl) valEl.innerHTML = last + '<span class="hero-latest-unit"> ' + cfg.unit + '</span>';
+    var badge = document.querySelector('.hero-latest-badge');
+    if (badge) { var up = delta >= 0; badge.className = 'hero-latest-badge ' + (up ? 'hero-latest-badge--good' : 'hero-latest-badge--down'); badge.innerHTML = '<i class="fas fa-arrow-trend-' + (up ? 'up' : 'down') + '"></i> ' + (up ? '+' : '') + delta; }
+    setText('.hero-latest-sub', patient + ' · Latest ' + DATES[n - 1] + ' · ' + LABS[n - 1]);
+    var sub = document.querySelector('.tests-hero-text .tests-sub');
+    if (sub) sub.innerHTML = firstName + '’s ' + test.replace(/\s*\(.*$/, '') + ' is <b>' + status + ' the normal range</b> (' + cfg.low + '–' + cfg.high + ' ' + cfg.unit + '). Book a follow-up to keep tracking the trend.';
+  }
+  var cSel = document.getElementById('thgCustomer'), tSel = document.getElementById('thgTest');
+  if (cSel) cSel.innerHTML = Object.keys(PATIENTS).map(function (p) { return '<option>' + p + '</option>'; }).join('');
+  if (tSel) tSel.innerHTML = Object.keys(TESTS).map(function (t) { return '<option>' + t + '</option>'; }).join('');
+  if (cSel) cSel.addEventListener('change', function () { render(cSel.value, tSel.value); });
+  if (tSel) tSel.addEventListener('change', function () { render(cSel.value, tSel.value); });
+  render('Neha Gulati', 'Hemoglobin');
 })();
 </script>
 

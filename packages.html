@@ -2003,7 +2003,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   background: #121A40 url('b-hero3.jpeg') center / cover no-repeat;
   box-shadow: 0 28px 66px -28px rgba(11,21,48,0.78);
   padding: 30px 44px;
-  display: grid; grid-template-columns: 1fr auto; gap: 36px; align-items: center;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(360px, 600px); gap: 40px; align-items: center;
 }
 .tests-hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(118deg, rgba(10,16,40,0.95) 0%, rgba(17,23,60,0.86) 52%, rgba(30,30,80,0.74) 100%); }
 .tests-hero::after { content: ''; position: absolute; right: -8%; top: -60%; width: 48%; height: 230%; background: radial-gradient(circle at 60% 50%, rgba(211,53,53,0.42), transparent 62%); pointer-events: none; }
@@ -2027,6 +2027,15 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 .tests-hero-art .fl2 { animation: pkgHeroFloat 5s ease-in-out infinite 0.7s; transform-box: fill-box; transform-origin: center; }
 @keyframes pkgHeroFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
 @media (prefers-reduced-motion: reduce) { .tests-hero-art .fl, .tests-hero-art .fl2 { animation: none; } }
+/* Health-package banner carousel in the hero (right) */
+.pkg-hero-carousel { position: relative; width: 100%; border-radius: 18px; overflow: hidden; box-shadow: 0 22px 48px -18px rgba(0,0,0,0.65); }
+.pkg-hero-track { display: flex; transition: transform 0.5s ease; }
+.pkg-hero-slide { flex: 0 0 100%; min-width: 0; }
+.pkg-hero-slide img { width: 100%; height: auto; display: block; }
+.pkg-hero-dots { position: absolute; bottom: 10px; left: 0; right: 0; display: flex; gap: 6px; justify-content: center; }
+.pkg-hero-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.55); border: 0; padding: 0; cursor: pointer; transition: width 0.2s, background 0.2s; }
+.pkg-hero-dot.is-active { width: 18px; border-radius: 4px; background: #fff; }
+@media (max-width: 1024px) { .tests-hero { grid-template-columns: 1fr; } .pkg-hero-carousel { max-width: 600px; } }
 
 /* Category chips */
 .cat-chips-strip {
@@ -2262,7 +2271,7 @@ body.has-select-bar { padding-bottom: 80px; }
   .tests-intro-inner { padding: 12px 16px 2px; }
   .tests-hero { display: block; background: none; box-shadow: none; border-radius: 0; padding: 0; color: inherit; }
   .tests-hero::before, .tests-hero::after { display: none; }
-  .tests-eyebrow, .tests-sub, .tests-hero-meta, .tests-hero-art { display: none; }
+  .tests-eyebrow, .tests-sub, .tests-hero-meta, .tests-hero-art, .pkg-hero-carousel { display: none; }
   .tests-hero-text { display: block; }
   .tests-h1 { font-size: 22px; color: var(--primary); margin: 0; }
   .cat-chips-row, .tests-main, .select-bar-inner { padding-left: 16px; padding-right: 16px; }
@@ -2524,57 +2533,13 @@ body.has-select-bar { padding-bottom: 80px; }
           <span class="tests-hero-stat"><b>Free</b><span>Home collection</span></span>
         </div>
       </div>
-      <div class="tests-hero-art" aria-hidden="true">
-        <svg viewBox="0 0 384 320" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Packages illustration">
-          <defs>
-            <filter id="pkgSh" x="-40%" y="-40%" width="180%" height="180%">
-              <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#060a1c" flood-opacity="0.40"/>
-            </filter>
-          </defs>
-
-          <!-- back card (depth) -->
-          <rect x="112" y="52" width="180" height="168" rx="20" fill="#ffffff" opacity="0.10"/>
-
-          <!-- central package card -->
-          <g font-family="'Plus Jakarta Sans', sans-serif">
-            <rect x="96" y="66" width="200" height="176" rx="20" fill="#ffffff" filter="url(#pkgSh)"/>
-            <!-- package icon tile -->
-            <rect x="116" y="86" width="34" height="34" rx="10" fill="#FDECEC"/>
-            <path d="M124 96l9-4 9 4-9 4z" fill="#D33535"/>
-            <path d="M124 96v9l9 4v-9z" fill="#D33535" opacity="0.78"/>
-            <path d="M142 96v9l-9 4v-9z" fill="#D33535" opacity="0.55"/>
-            <!-- title bars -->
-            <rect x="160" y="90" width="92" height="9" rx="4.5" fill="#1B2A5B"/>
-            <rect x="160" y="106" width="56" height="6" rx="3" fill="#C5CCDB"/>
-            <line x1="116" y1="134" x2="276" y2="134" stroke="#EEF0F6" stroke-width="2"/>
-            <!-- included-test rows with green ticks -->
-            <circle cx="121" cy="150" r="5" fill="#1B8A5A" opacity="0.16"/><path d="M118.6 150l1.7 1.7 3-3.4" stroke="#1B8A5A" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-            <rect x="132" y="146.5" width="84" height="7" rx="3.5" fill="#0B1530" opacity="0.6"/>
-            <circle cx="121" cy="172" r="5" fill="#1B8A5A" opacity="0.16"/><path d="M118.6 172l1.7 1.7 3-3.4" stroke="#1B8A5A" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-            <rect x="132" y="168.5" width="66" height="7" rx="3.5" fill="#0B1530" opacity="0.6"/>
-            <circle cx="121" cy="194" r="5" fill="#1B8A5A" opacity="0.16"/><path d="M118.6 194l1.7 1.7 3-3.4" stroke="#1B8A5A" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-            <rect x="132" y="190.5" width="76" height="7" rx="3.5" fill="#0B1530" opacity="0.6"/>
-            <!-- price + book pill -->
-            <text x="116" y="226" fill="#0B1530" font-size="15" font-weight="800">₹1,299</text>
-            <rect x="196" y="214" width="80" height="16" rx="8" fill="#1B2A5B"/>
-            <text x="236" y="225.5" fill="#fff" font-size="9" font-weight="800" text-anchor="middle">Book now</text>
-          </g>
-
-          <!-- floating: % OFF (red) -->
-          <g class="fl" font-family="'Plus Jakarta Sans', sans-serif">
-            <rect x="250" y="40" width="118" height="46" rx="14" fill="#ffffff" filter="url(#pkgSh)"/>
-            <rect x="264" y="53" width="22" height="22" rx="7" fill="#FDECEC"/>
-            <text x="275" y="69" fill="#D33535" font-size="11" font-weight="900" text-anchor="middle">%</text>
-            <text x="296" y="60" fill="#0B1530" font-size="11" font-weight="800">70% OFF</text>
-            <text x="296" y="75" fill="#6B7592" font-size="8.5" font-family="'Inter',sans-serif">Limited offer</text>
-          </g>
-
-          <!-- floating: verified labs check (green) -->
-          <g class="fl2">
-            <circle cx="104" cy="64" r="17" fill="#1B8A5A" filter="url(#pkgSh)"/>
-            <path d="M97 64l5 5 9-11" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-          </g>
-        </svg>
+      <div class="pkg-hero-carousel" aria-label="Health package offers">
+        <div class="pkg-hero-track" id="pkgHeroTrack">
+          <a href="#" class="pkg-hero-slide"><img src="banners/banner-1.avif" alt="Health package offer" loading="lazy"></a>
+          <a href="#" class="pkg-hero-slide"><img src="banners/banner-2.avif" alt="Health package offer" loading="lazy"></a>
+          <a href="#" class="pkg-hero-slide"><img src="banners/banner-3.avif" alt="Health package offer" loading="lazy"></a>
+        </div>
+        <div class="pkg-hero-dots" id="pkgHeroDots"></div>
       </div>
     </div>
   </div>
@@ -2928,7 +2893,6 @@ body.has-select-bar { padding-bottom: 80px; }
               <span><i class="fas fa-list-check" aria-hidden="true"></i> <b>${params} parameters</b> in ${panels} tests</span>
               <i class="fas fa-chevron-right" aria-hidden="true"></i>
             </button>
-            <div class="pcard-tags">${tagsHTML}</div>
             <div class="pcard-foot">
               <div class="pcard-price">
                 <span class="pcard-from">from</span>
@@ -2936,7 +2900,7 @@ body.has-select-bar { padding-bottom: 80px; }
                 <span class="pcard-mrp">₹${t.oldPrice.toLocaleString()}</span>
               </div>
               <div class="pcard-save">Save ₹${save.toLocaleString()} · ≈₹${perParam}/parameter</div>
-              <div class="pcard-labs">${labs} NABL labs · price &amp; parameters vary</div>
+              <div class="pcard-labs">The labs’ prices and parameters vary</div>
               <button type="button" class="pcard-book" data-name="${t.name}" data-price="${t.price}" aria-label="Book ${t.name}">Book Now</button>
             </div>
             ${t.sensitive ? `<div class="pcard-private"><i class="fas fa-user-shield" aria-hidden="true"></i> Reports delivered privately · No mention on invoice</div>` : ''}
@@ -3037,5 +3001,33 @@ body.has-select-bar { padding-bottom: 80px; }
 })();
 </script>
   <script src="login-modal.js" defer></script>
+
+  <!-- Hero banner auto-rotating carousel -->
+  <script>
+  function initHeroCarousel() {
+    var track = document.getElementById('pkgHeroTrack');
+    var car = document.querySelector('.pkg-hero-carousel');
+    if (!track || !car) return;
+    var n = track.children.length, dotsEl = document.getElementById('pkgHeroDots'), i = 0, timer = null;
+    if (dotsEl && !dotsEl.children.length) {
+      for (var k = 0; k < n; k++) { var b = document.createElement('button'); b.type = 'button'; b.className = 'pkg-hero-dot' + (k === 0 ? ' is-active' : ''); b.setAttribute('data-i', k); b.setAttribute('aria-label', 'Show offer ' + (k + 1)); dotsEl.appendChild(b); }
+    }
+    function go(x) {
+      i = (x % n + n) % n;
+      track.style.transform = 'translateX(' + (-i * car.clientWidth) + 'px)';
+      if (dotsEl) [].forEach.call(dotsEl.children, function (d, idx) { d.classList.toggle('is-active', idx === i); });
+    }
+    function stop() { if (timer) { clearInterval(timer); timer = null; } }
+    function start() { stop(); timer = setInterval(function () { go(i + 1); }, 3500); }
+    if (dotsEl) dotsEl.addEventListener('click', function (e) { var d = e.target.closest('.pkg-hero-dot'); if (!d) return; go(+d.getAttribute('data-i')); start(); });
+    car.addEventListener('mouseenter', stop);
+    car.addEventListener('mouseleave', start);
+    window.addEventListener('resize', function () { go(i); });
+    go(0);
+    start();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initHeroCarousel);
+  else initHeroCarousel();
+  </script>
 </body>
 </html>

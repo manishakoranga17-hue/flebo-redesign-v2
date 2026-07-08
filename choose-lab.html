@@ -1704,8 +1704,10 @@ body.pkg-flow .lab-table tbody tr:first-child td { border-top: none; }
 
 .ltab-pkg-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 700; color: var(--text-primary); margin-bottom: 5px; }
 .ltab-pkg-tags { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 12px; font-weight: 600; }
-.ltab-pkg-tests { color: var(--text-secondary, #4A5578); display: inline-flex; align-items: center; gap: 5px; }
+.ltab-pkg-tests { color: var(--primary, #1B2A5B); display: inline-flex; align-items: center; gap: 5px; background: none; border: 0; padding: 0; font: inherit; font-weight: 700; cursor: pointer; }
+.ltab-pkg-tests:hover { text-decoration: underline; }
 .ltab-pkg-tests i { color: var(--primary); }
+.ltab-pkg-tests .ltab-pkg-tests-caret { font-size: 10px; opacity: 0.7; }
 .ltab-pkg-fast { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
 .ltab-pkg-fast.is-fasting { color: var(--amber); }
 .ltab-pkg-fast.no-fasting { color: var(--green); }
@@ -1766,7 +1768,7 @@ body.pkg-flow .ctx-inner { display: none; }  /* drop the "Comparing labs for" ro
 .ltab-price { white-space: nowrap; }
 .ltab-now { display: block; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 17px; font-weight: 800; color: var(--primary); }
 .ltab-mrp { font-size: 12px; color: var(--text-muted); text-decoration: line-through; }
-.ltab-save { display: block; font-size: 11px; font-weight: 700; color: var(--green); margin-top: 2px; }
+.ltab-save { display: inline; font-size: 11px; font-weight: 700; color: var(--green); margin-left: 8px; }
 
 .ltab-act { white-space: nowrap; text-align: center; }
 .ltab-book { border: none; background: var(--accent); color: #fff; font-size: 13px; font-weight: 700; padding: 8px 18px; border-radius: 50px; cursor: pointer; transition: background 0.15s; }
@@ -3165,10 +3167,9 @@ body.has-cmp-bar { padding-bottom: 92px; }
             <td class="ltab-pkg">
               <div class="ltab-pkg-name">${p.name}</div>
               <div class="ltab-pkg-tags">
-                <span class="ltab-pkg-tests"><i class="fas fa-vial"></i> ${p.tests} tests</span>
+                <button type="button" class="ltab-pkg-tests" data-pkg-name="${p.name}" data-pkg-tests="${p.tests}"><i class="fas fa-vial"></i> ${p.tests} tests <i class="fas fa-chevron-right ltab-pkg-tests-caret"></i></button>
                 <span class="ltab-pkg-fast ${p.fasting ? 'is-fasting' : 'no-fasting'}"><i class="fas fa-${p.fasting ? 'mug-saucer' : 'circle-check'}"></i> ${p.fasting ? 'Fasting required' : 'No fasting'}</span>
               </div>
-              <button type="button" class="ltab-viewtests" data-pkg-name="${p.name}" data-pkg-tests="${p.tests}"><i class="fas fa-list-check"></i> View all tests</button>
             </td>
             <td class="ltab-price">
               <span class="ltab-now">₹${r.price.toLocaleString()}</span>
@@ -3205,7 +3206,7 @@ body.has-cmp-bar { padding-bottom: 92px; }
     const pct = Math.round((save / r.mrp) * 100);
     return `
       <div class="plab-tags">
-        <span class="ltab-pkg-tests"><i class="fas fa-vial"></i> ${p.tests} tests</span>
+        <button type="button" class="ltab-pkg-tests" data-pkg-name="${p.name}" data-pkg-tests="${p.tests}"><i class="fas fa-vial"></i> ${p.tests} tests <i class="fas fa-chevron-right ltab-pkg-tests-caret"></i></button>
         <span class="ltab-pkg-fast ${p.fasting ? 'is-fasting' : 'no-fasting'}"><i class="fas fa-${p.fasting ? 'mug-saucer' : 'circle-check'}"></i> ${p.fasting ? 'Fasting' : 'No fasting'}</span>
       </div>
       <div class="plab-detail-foot">
@@ -3217,7 +3218,6 @@ body.has-cmp-bar { padding-bottom: 92px; }
         <button type="button" class="ltab-book plab-book" data-action="select" data-name="${lab.name}">Book Now</button>
       </div>
       <div class="plab-subrow">
-        <button type="button" class="ltab-viewtests" data-pkg-name="${p.name}" data-pkg-tests="${p.tests}"><i class="fas fa-list-check"></i> View all tests</button>
         <label class="cmp-check plab-cmp"><input type="checkbox" class="cmp-checkbox" data-cmp="${r.rowId}" ${compareSet.has(r.rowId) ? 'checked' : ''}><span>Compare</span></label>
       </div>`;
   }
@@ -3748,7 +3748,7 @@ body.has-cmp-bar { padding-bottom: 92px; }
   ptestsModal.addEventListener('click', (e) => { if (e.target === ptestsModal) closePkgTests(); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closePkgTests(); });
   function onViewTests(e) {
-    const vt = e.target.closest('.ltab-viewtests');
+    const vt = e.target.closest('.ltab-pkg-tests');
     if (!vt) return;
     openPkgTests(vt.dataset.pkgName, vt.dataset.pkgTests);
   }

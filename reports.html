@@ -140,10 +140,49 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 .rep-num { font-family: 'Plus Jakarta Sans', sans-serif; font-variant-numeric: tabular-nums; }
 
 /* Hero */
-.rep-hero { position: relative; overflow: hidden; border-radius: 26px; color: #fff; background: #121A40 url('b-hero3.jpeg') center / cover no-repeat; box-shadow: 0 28px 66px -28px rgba(11,21,48,0.78); padding: 28px 40px; display: grid; grid-template-columns: 1fr auto; gap: 36px; align-items: center; }
+.rep-hero { position: relative; overflow: hidden; border-radius: 26px; color: #fff; background: #121A40 url('b-hero3.jpeg') center / cover no-repeat; box-shadow: 0 28px 66px -28px rgba(11,21,48,0.78); padding: 30px 40px; display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: 40px; align-items: center; }
 .rep-hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(118deg, rgba(10,16,40,0.95) 0%, rgba(17,23,60,0.86) 52%, rgba(30,30,80,0.74) 100%); }
 .rep-hero::after { content: ''; position: absolute; right: -8%; top: -60%; width: 48%; height: 230%; background: radial-gradient(circle at 60% 50%, rgba(211,53,53,0.42), transparent 62%); pointer-events: none; }
 .rep-hero > * { position: relative; z-index: 1; }
+.rep-mobile-h1 { display: none; }
+
+/* Latest-test hero text (left) */
+.tests-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.18); padding: 7px 13px; border-radius: 999px; font-size: 11.5px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #fff; }
+.tests-eyebrow i { color: #FF8A8A; }
+.tests-h1 { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: clamp(30px, 4vw, 44px); color: #fff; letter-spacing: -0.015em; line-height: 1.02; margin: 12px 0 4px; }
+.hero-latest { display: flex; align-items: baseline; gap: 12px; margin: 6px 0 2px; }
+.hero-latest-val { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 52px; line-height: 1; color: #fff; }
+.hero-latest-unit { font-size: 20px; color: rgba(255,255,255,0.7); }
+.hero-latest-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 13px; font-weight: 800; padding: 4px 10px; border-radius: 999px; }
+.hero-latest-badge--good { background: rgba(76,175,80,0.22); color: #B6E7B8; }
+.hero-latest-badge--down { background: rgba(255,138,138,0.18); color: #FFC9C9; }
+.hero-latest-sub { font-size: 12.5px; color: rgba(255,255,255,0.65); margin-bottom: 12px; }
+.tests-sub { font-size: 14px; color: rgba(255,255,255,0.78); line-height: 1.55; margin: 0; }
+.tests-sub b { color: #fff; font-weight: 800; }
+.tests-hero-meta { display: flex; align-items: center; gap: 20px; margin-top: 20px; flex-wrap: wrap; }
+.tests-hero-stat { display: flex; flex-direction: column; line-height: 1.1; }
+.tests-hero-stat b { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 24px; color: #fff; }
+.tests-hero-stat span { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 3px; }
+.tests-hero-sep { width: 1px; height: 30px; background: rgba(255,255,255,0.18); }
+
+/* Frosted-glass graph panel (right) */
+.tests-hero-graph { background: rgba(255,255,255,0.09); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.18); border-radius: 18px; padding: 18px 20px 16px; color: #fff; box-shadow: 0 24px 50px -22px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.12); }
+.thg-top { display: flex; justify-content: space-between; align-items: flex-end; gap: 14px; flex-wrap: wrap; margin-bottom: 14px; }
+.thg-sel { display: flex; gap: 14px; flex-wrap: wrap; }
+.thg-sel-item { display: flex; flex-direction: column; gap: 5px; }
+.thg-sel-l { font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.7); }
+.thg-sel-v { appearance: none; -webkit-appearance: none; min-width: 180px; border: 1px solid rgba(255,255,255,0.25); background: rgba(255,255,255,0.08); border-radius: 10px; padding: 9px 34px 9px 13px; font: inherit; font-size: 14px; font-weight: 700; color: #fff; cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; }
+.thg-sel-v:hover { background-color: rgba(255,255,255,0.14); }
+.thg-sel-v:focus { outline: none; border-color: rgba(255,255,255,0.5); }
+.thg-sel-v option { color: #0B1530; background: #fff; }
+.thg-actions { display: flex; gap: 8px; }
+.thg-act { width: 38px; height: 38px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.25); background: rgba(255,255,255,0.08); color: #fff; cursor: pointer; font-size: 15px; }
+.thg-act:hover { background: rgba(255,255,255,0.16); }
+.thg-chart-wrap { position: relative; width: 100%; height: 340px; margin-top: 4px; }
+.thg-legend { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; margin-top: 14px; }
+.thg-leg { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.85); }
+.thg-sw { width: 16px; height: 16px; border-radius: 4px; }
+@media (max-width: 980px) { .rep-hero { grid-template-columns: 1fr; } .thg-chart-wrap { height: 300px; } }
 .rep-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.18); padding: 7px 13px; border-radius: 999px; font-size: 11.5px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #fff; }
 .rep-eyebrow i { color: #FF8A8A; }
 .rep-hero h1 { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: clamp(34px, 4.6vw, 50px); line-height: 1.02; letter-spacing: -0.015em; margin: 12px 0 10px; }
@@ -365,11 +404,9 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   .rep-fsub { position: static; display: block; left: auto; top: auto; min-width: 0; max-height: none; overflow: visible; margin: 2px 0 2px 8px; padding: 2px 0 4px 8px; border: 0; border-left: 2px solid var(--border-soft, #E5E9F3); border-radius: 0; box-shadow: none; }
   .rep-fgroup:hover > .rep-fitem--parent { background: none; color: var(--text-secondary, #4A5578); }
   .rep-fgroup:hover > .rep-fitem--parent .fa-chevron-right { color: var(--text-muted, #6B7592); }
-  /* Plain heading instead of the blue hero */
-  .rep-hero { display: block; background: none; box-shadow: none; border-radius: 0; padding: 0; color: inherit; }
-  .rep-hero::before, .rep-hero::after { display: none; }
-  .rep-eyebrow, .rep-hero p, .rep-hero-meta, .rep-hero-art { display: none; }
-  .rep-hero h1 { font-size: 24px; color: var(--primary, #1B2A5B); margin: 0; }
+  /* Phone: drop the blue hero + graph — plain heading */
+  .rep-hero { display: none; }
+  .rep-mobile-h1 { display: block; font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 24px; color: var(--primary, #1B2A5B); letter-spacing: -0.01em; margin: 0 0 4px; }
 
   /* Each report as its own spaced card */
   .rep-thead { display: none; }
@@ -852,93 +889,42 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 <!-- ===== REPORTS ===== -->
 <main class="rep-page">
   <!-- Hero -->
+  <h1 class="rep-mobile-h1">Your reports</h1>
   <section class="rep-hero">
-    <div class="rep-hero-text">
-      <span class="rep-eyebrow"><i class="fas fa-heart-pulse"></i> Health records</span>
-      <h1>Your reports</h1>
-      <p>Every family member's lab reports in one place — check what needs attention, track trends, and download anytime.</p>
-      <div class="rep-hero-meta">
-        <span class="rep-avstack">
-          <span style="background:#1B2A5B">RS</span>
-          <span style="background:#1B8A5A">PS</span>
-          <span style="background:#B45309">AS</span>
-        </span>
-        <span class="rep-hero-updated"><b>3 members</b> · last updated 20 Jun 2026</span>
+    <div class="tests-hero-text">
+      <span class="tests-eyebrow"><i class="fas fa-heart-pulse"></i> Latest health trend</span>
+      <h1 class="tests-h1">Hemoglobin</h1>
+      <div class="hero-latest">
+        <span class="hero-latest-val">11.9<span class="hero-latest-unit"> g/dL</span></span>
+        <span class="hero-latest-badge hero-latest-badge--good"><i class="fas fa-arrow-trend-up"></i> +0.3</span>
+      </div>
+      <div class="hero-latest-sub">Neha Gulati · Latest 25 Apr 2025 · Orange Health</div>
+      <p class="tests-sub">Neha's hemoglobin is <b>just below the normal range</b> (12\u201315 g/dL) but has been steadily improving since July 2024.</p>
+      <div class="tests-hero-meta">
+        <span class="tests-hero-stat"><b>+1.3</b><span>Since 2022</span></span>
+        <span class="tests-hero-sep"></span>
+        <span class="tests-hero-stat"><b>6</b><span>Readings</span></span>
+        <span class="tests-hero-sep"></span>
+        <span class="tests-hero-stat"><b>3 yrs</b><span>Tracked</span></span>
       </div>
     </div>
-    <div class="rep-hero-art" aria-hidden="true">
-      <svg viewBox="0 0 384 320" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Reports illustration">
-        <defs>
-          <filter id="repSh" x="-40%" y="-40%" width="180%" height="180%">
-            <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#060a1c" flood-opacity="0.40"/>
-          </filter>
-        </defs>
-
-        <!-- back card (depth) -->
-        <rect x="112" y="52" width="180" height="168" rx="20" fill="#ffffff" opacity="0.10"/>
-
-        <!-- central abstract report card -->
-        <g font-family="'Plus Jakarta Sans', sans-serif">
-          <rect x="96" y="66" width="200" height="176" rx="20" fill="#ffffff" filter="url(#repSh)"/>
-          <rect x="116" y="86" width="30" height="30" rx="9" fill="#EAEEF9"/>
-          <path d="M124 101h3l2-5 3 9 2-4h3" stroke="#1B2A5B" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-          <rect x="156" y="90" width="86" height="8" rx="4" fill="#1B2A5B"/>
-          <rect x="156" y="104" width="52" height="6" rx="3" fill="#C5CCDB"/>
-          <line x1="116" y1="130" x2="276" y2="130" stroke="#EEF0F6" stroke-width="2"/>
-          <!-- abstract result rows -->
-          <rect x="116" y="146" width="66" height="7" rx="3.5" fill="#0B1530" opacity="0.6"/>
-          <rect x="206" y="146.5" width="16" height="6" rx="3" fill="#1B8A5A" opacity="0.45"/>
-          <rect x="226" y="146.5" width="16" height="6" rx="3" fill="#1B8A5A" opacity="0.45"/>
-          <rect x="246" y="146.5" width="16" height="6" rx="3" fill="#1B8A5A" opacity="0.45"/>
-          <rect x="116" y="170" width="50" height="7" rx="3.5" fill="#0B1530" opacity="0.6"/>
-          <rect x="206" y="170.5" width="16" height="6" rx="3" fill="#1B8A5A" opacity="0.45"/>
-          <rect x="226" y="170.5" width="16" height="6" rx="3" fill="#1B8A5A" opacity="0.45"/>
-          <circle cx="254" cy="173.5" r="5" fill="#D33535"/>
-          <rect x="116" y="194" width="60" height="7" rx="3.5" fill="#0B1530" opacity="0.6"/>
-          <rect x="206" y="194.5" width="16" height="6" rx="3" fill="#1B8A5A" opacity="0.45"/>
-          <rect x="226" y="194.5" width="16" height="6" rx="3" fill="#1B8A5A" opacity="0.45"/>
-          <rect x="246" y="194.5" width="16" height="6" rx="3" fill="#1B8A5A" opacity="0.45"/>
-          <rect x="266" y="194.5" width="16" height="6" rx="3" fill="#1B8A5A" opacity="0.45"/>
-          <!-- generic view pill -->
-          <rect x="116" y="214" width="78" height="14" rx="7" fill="#1B2A5B"/>
-        </g>
-
-        <!-- floating: verified check badge -->
-        <g class="fl2">
-          <circle cx="104" cy="64" r="17" fill="#1B8A5A" filter="url(#repSh)"/>
-          <path d="M97 64l5 5 9-11" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        </g>
-
-        <!-- floating: Out of range (red) -->
-        <g class="fl" font-family="'Plus Jakarta Sans', sans-serif">
-          <rect x="244" y="38" width="132" height="46" rx="14" fill="#ffffff" filter="url(#repSh)"/>
-          <rect x="258" y="51" width="22" height="22" rx="7" fill="#FDECEC"/>
-          <path d="M269 56l6 11h-12z" fill="#D33535"/>
-          <rect x="268.2" y="60" width="1.6" height="4.4" rx="0.8" fill="#fff"/>
-          <circle cx="269" cy="65.6" r="1" fill="#fff"/>
-          <text x="290" y="58" fill="#0B1530" font-size="11" font-weight="800">Out of range</text>
-          <text x="290" y="73" fill="#6B7592" font-size="8.5" font-family="'Inter',sans-serif">1 value flagged</text>
-        </g>
-
-        <!-- floating: In progress (amber) -->
-        <g class="fl3" font-family="'Plus Jakarta Sans', sans-serif">
-          <rect x="6" y="138" width="134" height="46" rx="14" fill="#ffffff" filter="url(#repSh)"/>
-          <rect x="20" y="151" width="22" height="22" rx="7" fill="#FEF3C7"/>
-          <circle cx="31" cy="162" r="7" stroke="#B45309" stroke-width="2" fill="none"/>
-          <path d="M31 162v-4M31 162l3 2" stroke="#B45309" stroke-width="1.8" stroke-linecap="round"/>
-          <text x="52" y="158" fill="#0B1530" font-size="11" font-weight="800">In progress</text>
-          <text x="52" y="173" fill="#6B7592" font-size="8.5" font-family="'Inter',sans-serif">Results in ~24h</text>
-        </g>
-
-        <!-- floating: trend chip -->
-        <g class="fl" font-family="'Plus Jakarta Sans', sans-serif">
-          <rect x="250" y="196" width="126" height="66" rx="14" fill="#ffffff" filter="url(#repSh)"/>
-          <text x="266" y="216" fill="#9AA3B8" font-size="8" font-weight="800" letter-spacing="1" font-family="'Inter',sans-serif">TREND · 6 MO</text>
-          <polyline points="266,238 286,232 306,234 326,224 346,214 362,210" fill="none" stroke="#1B8A5A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-          <circle cx="362" cy="210" r="3" fill="#1B8A5A"/>
-          <text x="266" y="254" fill="#1B8A5A" font-size="9.5" font-weight="700">▼ Improving</text>
-        </g>
-      </svg>
+    <div class="tests-hero-graph">
+      <div class="thg-top">
+        <div class="thg-sel">
+          <label class="thg-sel-item"><span class="thg-sel-l">Customer</span><select class="thg-sel-v" id="thgCustomer" aria-label="Customer"></select></label>
+          <label class="thg-sel-item"><span class="thg-sel-l">Test</span><select class="thg-sel-v" id="thgTest" aria-label="Test"></select></label>
+        </div>
+        <div class="thg-actions">
+          <button type="button" class="thg-act" aria-label="Download"><i class="fas fa-download"></i></button>
+          <button type="button" class="thg-act" aria-label="Share"><i class="fas fa-share-nodes"></i></button>
+        </div>
+      </div>
+      <div class="thg-chart-wrap"><canvas id="hbTrendChart" aria-label="Hemoglobin trend chart"></canvas></div>
+      <div class="thg-legend">
+        <span class="thg-leg"><span class="thg-sw" style="background:#E24B4A"></span> Low Range</span>
+        <span class="thg-leg"><span class="thg-sw" style="background:#4CAF50"></span> Normal Range</span>
+        <span class="thg-leg"><span class="thg-sw" style="background:#E24B4A"></span> High Range</span>
+      </div>
     </div>
   </section>
 
@@ -1555,6 +1541,116 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
     ov.addEventListener('click', function (e) { if (e.target === ov) closeAI(); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && ov.classList.contains('open')) closeAI(); });
   })();
+</script>
+
+<!-- Hemoglobin trend chart (hero) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+(function () {
+  var el = document.getElementById('hbTrendChart');
+  if (!el || !window.Chart) return;
+
+  var DATES = ['17 Apr 2022', '11 Mar 2023', '27 Mar 2024', '8 Jul 2024', '2 Sept 2024', '25 Apr 2025'];
+  var LABS  = ['Redcliffe', 'Augmentum Diagnostics', 'Redcliffe', 'Tata 1mg', 'Tata 1mg', 'Orange Health'];
+  var TESTS = {
+    'Hemoglobin':        { unit: 'g/dL',   low: 11.5, high: 15,  ymin: 5,  ymax: 19,  step: 2 },
+    'Vitamin D (25-OH)': { unit: 'ng/mL',  low: 30,   high: 100, ymin: 0,  ymax: 120, step: 20 },
+    'HbA1c':             { unit: '%',      low: 4,    high: 5.6, ymin: 3,  ymax: 9,   step: 1 },
+    'TSH':               { unit: 'µIU/mL', low: 0.4,  high: 4,   ymin: 0,  ymax: 10,  step: 2 }
+  };
+  var PATIENTS = {
+    'Neha Gulati':  { meta: '39 yrs · Female', v: { 'Hemoglobin': [13.6, 11.5, 11.2, 10.6, 11.6, 11.9], 'Vitamin D (25-OH)': [18, 22, 26, 24, 31, 34], 'HbA1c': [5.4, 5.6, 5.8, 6.0, 5.9, 5.7], 'TSH': [2.4, 3.1, 4.6, 5.2, 3.8, 2.9] } },
+    'Rahul Verma':  { meta: '44 yrs · Male',   v: { 'Hemoglobin': [15.2, 14.8, 14.1, 13.9, 14.4, 14.6], 'Vitamin D (25-OH)': [12, 16, 20, 28, 33, 40], 'HbA1c': [5.9, 6.2, 6.5, 6.3, 6.0, 5.8], 'TSH': [1.8, 2.0, 2.3, 2.1, 1.9, 2.2] } },
+    'Priya Sharma': { meta: '33 yrs · Female', v: { 'Hemoglobin': [12.1, 11.8, 12.4, 12.9, 13.2, 13.0], 'Vitamin D (25-OH)': [25, 29, 34, 38, 42, 45], 'HbA1c': [5.2, 5.3, 5.1, 5.4, 5.5, 5.3], 'TSH': [3.2, 3.6, 4.1, 3.9, 3.4, 3.1] } }
+  };
+
+  var vals = [], cfg = TESTS['Hemoglobin'];
+
+  function rr(c, x, y, w, h, r) { c.beginPath(); c.moveTo(x + r, y); c.arcTo(x + w, y, x + w, y + h, r); c.arcTo(x + w, y + h, x, y + h, r); c.arcTo(x, y + h, x, y, r); c.arcTo(x, y, x + w, y, r); c.closePath(); }
+
+  var overlay = {
+    id: 'hbOverlay',
+    afterDatasetsDraw: function (chart) {
+      var ctx = chart.ctx, x = chart.scales.x, y = chart.scales.y;
+      var pts = vals.map(function (v, i) { return { x: x.getPixelForValue(i), y: y.getPixelForValue(v) }; });
+      ctx.save();
+      ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 2.5; ctx.lineJoin = 'round';
+      ctx.beginPath(); pts.forEach(function (p, i) { i ? ctx.lineTo(p.x, p.y) : ctx.moveTo(p.x, p.y); }); ctx.stroke();
+      ctx.font = '600 12px "Plus Jakarta Sans", sans-serif'; ctx.fillStyle = 'rgba(255,255,255,0.82)'; ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+      LABS.forEach(function (n, i) { ctx.fillText(n, pts[i].x, y.top - 10); });
+      pts.forEach(function (p, i) {
+        var txt = String(vals[i]);
+        ctx.font = '800 13px "Plus Jakarta Sans", sans-serif';
+        var tw = ctx.measureText(txt).width, bw = tw + 16, bh = 24, bx = p.x - bw / 2, by = p.y - bh - 12;
+        ctx.fillStyle = '#fff'; rr(ctx, bx, by, bw, bh, 7); ctx.fill();
+        ctx.fillStyle = '#0B1530'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(txt, p.x, by + bh / 2);
+        ctx.beginPath(); ctx.arc(p.x, p.y, 5, 0, Math.PI * 2); ctx.fillStyle = '#fff'; ctx.fill();
+        ctx.lineWidth = 2.5; ctx.strokeStyle = '#1B2A5B'; ctx.stroke();
+      });
+      ctx.restore();
+    }
+  };
+
+  var chart = new Chart(el, {
+    type: 'bar',
+    plugins: [overlay],
+    data: { labels: DATES, datasets: [
+      { label: 'Low Range', data: [], backgroundColor: '#E24B4A', stack: 'r', categoryPercentage: 0.62, barPercentage: 0.9 },
+      { label: 'Normal Range', data: [], backgroundColor: '#4CAF50', stack: 'r', categoryPercentage: 0.62, barPercentage: 0.9 },
+      { label: 'High Range', data: [], backgroundColor: '#E24B4A', stack: 'r', categoryPercentage: 0.62, barPercentage: 0.9 }
+    ] },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      layout: { padding: { top: 34 } },
+      plugins: { legend: { display: false }, tooltip: { enabled: false } },
+      scales: {
+        x: { stacked: true, grid: { color: 'rgba(255,255,255,0.12)' }, ticks: { font: { size: 12, weight: '700' }, color: 'rgba(255,255,255,0.85)' } },
+        y: { stacked: true, min: 5, max: 19, grid: { color: 'rgba(255,255,255,0.12)' }, title: { display: true, text: 'Hemoglobin', color: 'rgba(255,255,255,0.7)', font: { size: 12, weight: '600' } }, ticks: { stepSize: 2, color: 'rgba(255,255,255,0.7)', font: { size: 12 } } }
+      }
+    }
+  });
+
+  function setText(sel, txt) { var e = document.querySelector(sel); if (e) e.textContent = txt; }
+
+  function render(patient, test) {
+    cfg = TESTS[test];
+    vals = PATIENTS[patient].v[test].slice();
+    var n = vals.length;
+    chart.data.datasets[0].data = new Array(n).fill(cfg.low);
+    chart.data.datasets[1].data = new Array(n).fill(cfg.high - cfg.low);
+    chart.data.datasets[2].data = new Array(n).fill(cfg.ymax - cfg.high);
+    chart.options.scales.y.min = cfg.ymin;
+    chart.options.scales.y.max = cfg.ymax;
+    chart.options.scales.y.ticks.stepSize = cfg.step;
+    chart.options.scales.y.title.text = test.replace(/\s*\(.*$/, '');
+    chart.update();
+
+    var last = vals[n - 1], prev = vals[n - 2];
+    var delta = +(last - prev).toFixed(1);
+    var status = last < cfg.low ? 'below' : last > cfg.high ? 'above' : 'within';
+    var firstName = patient.split(' ')[0];
+    setText('.tests-h1', test.replace(/\s*\(.*$/, ''));
+    var valEl = document.querySelector('.hero-latest-val');
+    if (valEl) valEl.innerHTML = last + '<span class="hero-latest-unit"> ' + cfg.unit + '</span>';
+    var badge = document.querySelector('.hero-latest-badge');
+    if (badge) { var up = delta >= 0; badge.className = 'hero-latest-badge ' + (up ? 'hero-latest-badge--good' : 'hero-latest-badge--down'); badge.innerHTML = '<i class="fas fa-arrow-trend-' + (up ? 'up' : 'down') + '"></i> ' + (up ? '+' : '') + delta; }
+    setText('.hero-latest-sub', patient + ' · Latest ' + DATES[n - 1] + ' · ' + LABS[n - 1]);
+    var sub = document.querySelector('.tests-hero-text .tests-sub');
+    if (sub) sub.innerHTML = firstName + '’s ' + test.replace(/\s*\(.*$/, '') + ' is <b>' + status + ' the normal range</b> (' + cfg.low + '–' + cfg.high + ' ' + cfg.unit + '). Book a follow-up to keep tracking the trend.';
+    var stats = document.querySelectorAll('.tests-hero-stat b');
+    if (stats.length >= 3) { stats[0].textContent = (last - vals[0] >= 0 ? '+' : '') + (+(last - vals[0]).toFixed(1)); stats[1].textContent = n; stats[2].textContent = '3 yrs'; }
+    var statsSpan = document.querySelectorAll('.tests-hero-stat span');
+    if (statsSpan.length >= 3) { statsSpan[0].textContent = 'Since 2022'; statsSpan[1].textContent = 'Readings'; statsSpan[2].textContent = 'Tracked'; }
+  }
+
+  var cSel = document.getElementById('thgCustomer'), tSel = document.getElementById('thgTest');
+  if (cSel) cSel.innerHTML = Object.keys(PATIENTS).map(function (p) { return '<option>' + p + '</option>'; }).join('');
+  if (tSel) tSel.innerHTML = Object.keys(TESTS).map(function (t) { return '<option>' + t + '</option>'; }).join('');
+  if (cSel) cSel.addEventListener('change', function () { render(cSel.value, tSel.value); });
+  if (tSel) tSel.addEventListener('change', function () { render(cSel.value, tSel.value); });
+
+  render('Neha Gulati', 'Hemoglobin');
+})();
 </script>
 </body>
 </html>

@@ -1990,19 +1990,37 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 .main-nav-link.is-active i { color: var(--accent); }
 
 /* Page intro */
-.tests-intro {
-  background: linear-gradient(180deg, #ffffff 0%, var(--bg-page) 100%);
+.tests-intro { background: var(--bg-page); }
+.tests-intro-inner { max-width: 1480px; margin: 0 auto; padding: 22px var(--site-inset) 8px; }
+.tests-mobile-h1 { display: none; }
+/* Navy hero (matches packages page) */
+.tests-hero {
+  position: relative; overflow: hidden; border-radius: 26px; color: #fff;
+  background: #121A40 url('b-hero3.jpeg') center / cover no-repeat;
+  box-shadow: 0 28px 66px -28px rgba(11,21,48,0.78);
+  padding: 30px 44px;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(360px, 600px); gap: 40px; align-items: center;
 }
-.tests-intro-inner {
-  max-width: 1480px; margin: 0 auto;
-  padding: 24px var(--site-inset) 20px;
-}
-.tests-h1 {
-  font-family: 'Instrument Serif', serif;
-  font-size: 34px; font-weight: 400; color: var(--primary);
-  letter-spacing: -0.01em; line-height: 1.1; margin-bottom: 6px;
-}
-.tests-sub { font-size: 15px; color: var(--text-muted); max-width: 640px; }
+.tests-hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(118deg, rgba(10,16,40,0.95) 0%, rgba(17,23,60,0.86) 52%, rgba(30,30,80,0.74) 100%); }
+.tests-hero::after { content: ''; position: absolute; right: -8%; top: -60%; width: 48%; height: 230%; background: radial-gradient(circle at 60% 50%, rgba(211,53,53,0.42), transparent 62%); pointer-events: none; }
+.tests-hero > * { position: relative; z-index: 1; }
+.tests-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.18); padding: 7px 13px; border-radius: 999px; font-size: 11.5px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #fff; }
+.tests-eyebrow i { color: #FF8A8A; }
+.tests-h1 { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: clamp(34px, 4.6vw, 50px); color: #fff; letter-spacing: -0.015em; line-height: 1.02; margin: 12px 0 10px; }
+.tests-sub { font-size: 15px; color: rgba(255,255,255,0.78); line-height: 1.55; max-width: 52ch; margin: 0; }
+.tests-hero-meta { display: flex; align-items: center; gap: 22px; margin-top: 22px; flex-wrap: wrap; }
+.tests-hero-stat { display: flex; flex-direction: column; line-height: 1.1; }
+.tests-hero-stat b { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 24px; color: #fff; }
+.tests-hero-stat span { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 3px; }
+.tests-hero-sep { width: 1px; height: 30px; background: rgba(255,255,255,0.18); }
+.pkg-hero-carousel { position: relative; width: 100%; border-radius: 18px; overflow: hidden; box-shadow: 0 22px 48px -18px rgba(0,0,0,0.65); }
+.pkg-hero-track { display: flex; transition: transform 0.5s ease; }
+.pkg-hero-slide { flex: 0 0 100%; min-width: 0; }
+.pkg-hero-slide img { width: 100%; height: auto; display: block; }
+.pkg-hero-dots { position: absolute; bottom: 10px; left: 0; right: 0; display: flex; gap: 6px; justify-content: center; }
+.pkg-hero-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.55); border: 0; padding: 0; cursor: pointer; transition: width 0.2s, background 0.2s; }
+.pkg-hero-dot.is-active { width: 18px; border-radius: 4px; background: #fff; }
+@media (max-width: 1024px) { .tests-hero { grid-template-columns: 1fr; } .pkg-hero-carousel { max-width: 600px; } }
 
 /* Category circles (home-style: picture + circle + label) */
 .cat-chips-strip {
@@ -2043,6 +2061,12 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   max-width: 1480px; margin: 0 auto;
   padding: 22px var(--site-inset) 44px;
 }
+.ts-sect { margin-bottom: 40px; }
+.ts-sect:last-child { margin-bottom: 0; }
+.ts-sect-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+.ts-sect-head h2 { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 27px; color: var(--primary); letter-spacing: -0.01em; }
+#secCat .cat-chips-strip { margin: 0 0 6px; }
+#secCat .cat-chips { max-width: none; margin: 0; padding: 4px 0 14px; gap: 22px; }
 .tests-count {
   font-size: 12px; font-weight: 700; color: var(--text-muted);
   text-transform: uppercase; letter-spacing: 0.05em;
@@ -2054,37 +2078,33 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   gap: 16px;
 }
 
-/* Test card */
-/* Compact horizontal row card: icon · name+meta · price/Add */
+/* Radiology-style test card: photo header · name · desc · price/Add */
 .test-card {
   background: #fff; border: 1px solid var(--border-soft);
-  border-radius: var(--radius-lg);
-  padding: 18px;
+  border-radius: var(--radius-lg); overflow: hidden;
   display: flex; flex-direction: column;
   box-shadow: 0 1px 3px rgba(11,21,48,0.04);
   transition: box-shadow 0.18s, border-color 0.18s, transform 0.18s;
 }
-.test-card:hover { box-shadow: 0 8px 24px rgba(11,21,48,0.10); transform: translateY(-2px); }
+.test-card:hover { box-shadow: 0 12px 28px rgba(11,21,48,0.13); transform: translateY(-3px); }
 .test-card.is-selected { border-color: var(--primary); box-shadow: 0 0 0 1.5px var(--primary); }
-.test-icon {
-  width: 42px; height: 42px; border-radius: 12px; flex-shrink: 0;
-  background: var(--accent-soft); color: var(--accent);
-  display: inline-flex; align-items: center; justify-content: center;
-  font-size: 19px; margin-bottom: 12px;
-}
-.test-info { flex: 1 1 auto; min-width: 0; margin-bottom: 16px; }
+.test-img-wrap { position: relative; width: 100%; height: 128px; overflow: hidden; background: #E8EEF4; }
+.test-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.test-badge { position: absolute; top: 12px; left: 12px; padding: 5px 12px; border-radius: 999px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: #fff; background: rgba(11,21,48,0.72); -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px); }
+.test-body { padding: 15px 17px 16px; display: flex; flex-direction: column; flex: 1; }
 .test-name {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 16px; font-weight: 700; color: var(--text-primary);
-  line-height: 1.3; margin-bottom: 10px;
+  font-size: 16px; font-weight: 800; color: var(--text-primary);
+  line-height: 1.28; margin-bottom: 4px;
 }
+.test-desc { font-size: 13px; color: var(--text-secondary, #4A5578); line-height: 1.4; margin-bottom: 10px; }
 .test-meta {
-  display: flex; flex-direction: column; gap: 5px;
-  font-size: 12px; color: var(--text-muted);
+  display: flex; flex-wrap: wrap; gap: 4px 14px;
+  font-size: 12px; color: var(--text-muted); margin-bottom: 14px;
 }
-.test-meta span { display: inline-flex; align-items: center; gap: 7px; }
-.test-meta i { color: var(--primary); font-size: 12px; width: 13px; text-align: center; }
-.test-cta {
+.test-meta span { display: inline-flex; align-items: center; gap: 6px; }
+.test-meta i { color: var(--primary); font-size: 12px; }
+.test-bottom {
   display: flex; align-items: center; justify-content: space-between;
   margin-top: auto; gap: 10px;
 }
@@ -2204,7 +2224,9 @@ body.has-select-bar { padding-bottom: 80px; }
 @media (max-width: 768px) {
   .tests-h1 { font-size: 19px; }
   .tests-sub { display: none; }
-  .tests-intro-inner { padding: 12px 16px 4px; }
+  .tests-intro-inner { padding: 12px 16px 2px; }
+  .tests-hero { display: none; }
+  .tests-mobile-h1 { display: block; font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 24px; color: var(--primary); letter-spacing: -0.01em; margin: 0; }
   .cat-chips, .tests-main, .select-bar-inner { padding-left: 16px; padding-right: 16px; }
   /* Smaller category circles */
   .cat-chips { gap: 14px; padding-top: 8px; padding-bottom: 8px; }
@@ -2213,20 +2235,17 @@ body.has-select-bar { padding-bottom: 80px; }
   .cat-circle-label { font-size: 10px; }
   .tests-main { padding-top: 10px; }
   .tests-count { margin-bottom: 8px; }
-  /* Single column of compact horizontal row cards — several visible at a glance */
-  .tests-grid { grid-template-columns: 1fr; gap: 8px; }
-  .test-card { flex-direction: row; align-items: center; gap: 12px; padding: 12px 14px; }
-  .test-icon { width: 38px; height: 38px; font-size: 16px; margin-bottom: 0; }
-  .test-info { margin-bottom: 0; }
-  .test-name { font-size: 15px; line-height: 1.25; margin-bottom: 4px; }
-  .test-meta { flex-direction: row; flex-wrap: wrap; gap: 2px 12px; }
-  .test-meta span { gap: 5px; }
-  .test-meta i { font-size: 11px; width: auto; }
-  .test-cta { flex-direction: column; align-items: flex-end; justify-content: center; margin-top: 0; gap: 6px; flex-shrink: 0; }
-  .test-price { gap: 6px; }
-  .test-price-now { font-size: 17px; }
+  /* Compact photo cards, 2-up on phones */
+  .tests-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .test-img-wrap { height: 100px; }
+  .test-body { padding: 12px 13px 13px; }
+  .test-name { font-size: 14px; line-height: 1.25; }
+  .test-desc { display: none; }
+  .test-meta { flex-direction: column; gap: 3px; margin-bottom: 10px; }
+  .test-bottom { flex-direction: column; align-items: stretch; gap: 8px; }
+  .test-price-now { font-size: 16px; }
   .test-price-mrp { font-size: 12px; }
-  .test-add { font-size: 13px; padding: 6px 16px; }
+  .test-add { font-size: 13px; padding: 7px 14px; text-align: center; }
   .bottom-nav { display: flex; }
   body { padding-bottom: 72px; }
   body.has-select-bar { padding-bottom: 144px; }
@@ -2328,26 +2347,57 @@ body.has-select-bar { padding-bottom: 80px; }
 <!-- ===== PAGE INTRO ===== -->
 <section class="tests-intro" aria-label="Browse tests">
   <div class="tests-intro-inner">
-    <h1 class="tests-h1">Book lab tests &amp; health checkups</h1>
-    <p class="tests-sub">Pick the tests you need, then compare prices across 160+ certified labs near you. Free home sample collection.</p>
+    <h1 class="tests-mobile-h1">Book lab tests &amp; health checkups</h1>
+    <div class="tests-hero">
+      <div class="tests-hero-text">
+        <span class="tests-eyebrow"><i class="fas fa-flask-vial"></i> Lab tests</span>
+        <h1 class="tests-h1">Book lab tests &amp; health checkups</h1>
+        <p class="tests-sub">Pick the tests you need, then compare prices across 160+ certified labs near you. Free home sample collection.</p>
+        <div class="tests-hero-meta">
+          <span class="tests-hero-stat"><b>3000+</b><span>Tests &amp; panels</span></span>
+          <span class="tests-hero-sep"></span>
+          <span class="tests-hero-stat"><b>160+</b><span>Certified labs</span></span>
+          <span class="tests-hero-sep"></span>
+          <span class="tests-hero-stat"><b>Free</b><span>Home collection</span></span>
+        </div>
+      </div>
+      <div class="pkg-hero-carousel" aria-label="Health offers">
+        <div class="pkg-hero-track" id="pkgHeroTrack">
+          <a href="#" class="pkg-hero-slide"><img src="banners/banner-1.avif" alt="Health offer" loading="lazy"></a>
+          <a href="#" class="pkg-hero-slide"><img src="banners/banner-2.avif" alt="Health offer" loading="lazy"></a>
+          <a href="#" class="pkg-hero-slide"><img src="banners/banner-3.avif" alt="Health offer" loading="lazy"></a>
+        </div>
+        <div class="pkg-hero-dots" id="pkgHeroDots"></div>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- ===== CATEGORY CHIPS ===== -->
-<div class="cat-chips-strip" aria-label="Filter by category">
-  <div class="cat-chips" id="catChips"></div>
-</div>
-
-<!-- ===== TESTS GRID ===== -->
+<!-- ===== SECTIONS ===== -->
 <main class="tests-main" id="testsMain">
-  <div class="tests-count" id="testsCount" aria-live="polite"></div>
-  <div class="tests-grid" id="testsGrid"></div>
+  <section class="ts-sect" id="secPopPath">
+    <div class="ts-sect-head"><h2>Popular pathology tests</h2></div>
+    <div class="tests-grid" id="popPathGrid"></div>
+  </section>
 
-  <div class="tests-empty" id="testsEmpty" hidden>
-    <div class="tests-empty-emoji" aria-hidden="true">🔬</div>
-    <div class="tests-empty-title">No tests found</div>
-    <div class="tests-empty-sub">Try a different category or search term — or let us add the test you need.</div>
-  </div>
+  <section class="ts-sect" id="secPopRadio">
+    <div class="ts-sect-head"><h2>Popular radiology tests</h2></div>
+    <div class="tests-grid" id="popRadioGrid"></div>
+  </section>
+
+  <section class="ts-sect" id="secCat">
+    <div class="ts-sect-head"><h2 id="catSectTitle">Tests by category</h2></div>
+    <div class="cat-chips-strip" id="catChipsStrip" aria-label="Filter by category">
+      <div class="cat-chips" id="catChips"></div>
+    </div>
+    <div class="tests-count" id="testsCount" aria-live="polite"></div>
+    <div class="tests-grid" id="testsGrid"></div>
+    <div class="tests-empty" id="testsEmpty" hidden>
+      <div class="tests-empty-emoji" aria-hidden="true">🔬</div>
+      <div class="tests-empty-title">No tests found</div>
+      <div class="tests-empty-sub">Try a different category or search term — or let us add the test you need.</div>
+    </div>
+  </section>
 </main>
 
 <!-- ===== TRUST STRIP ===== -->
@@ -2405,6 +2455,29 @@ body.has-select-bar { padding-bottom: 80px; }
 <script>
 (function () {
   // ===== Test catalog (mirrors index.html / choose-lab.html) =====
+  const CAT_IMG = {
+    Bone: 'package-images/bone-health-panel.jpg',
+    Diabetes: 'package-images/diabetes-screening.jpg',
+    Gastro: 'package-images/healthy-india-2026.jpg',
+    Gynae: 'package-images/flebo-she-care.jpg',
+    Heart: 'package-images/cardiac-risk-panel.jpg',
+    Kidney: 'package-images/complete-vitamin-panel.jpg',
+    Liver: 'package-images/liver-health-complete.jpg',
+    Prostate: 'package-images/flebo-prime-care.jpg',
+    Thyroid: 'package-images/thyroid-basic.jpg',
+    _default: 'package-images/std-basic.jpg'
+  };
+  const CAT_DESC = {
+    Bone: 'Calcium, vitamin D and bone-strength markers.',
+    Diabetes: 'Blood sugar and long-term glucose control.',
+    Gastro: 'Digestive enzymes, gut health and infections.',
+    Gynae: "Women's hormones, fertility and wellness.",
+    Heart: 'Cholesterol, cardiac risk and heart markers.',
+    Kidney: 'Kidney function, electrolytes and filtration.',
+    Liver: 'Liver enzymes, function and screening.',
+    Prostate: 'Prostate health and PSA screening for men.',
+    Thyroid: 'Thyroid hormones (T3, T4, TSH) and metabolism.'
+  };
   const testCatalog = [
     // Bone
     { name: 'Vitamin D 25-Hydroxy', tag: 'Bone', icon: 'fa-bone', price: 799 },
@@ -2490,6 +2563,7 @@ body.has-select-bar { padding-bottom: 80px; }
 
   const catChips = document.getElementById('catChips');
   const grid = document.getElementById('testsGrid');
+  const testsMain = document.getElementById('testsMain');
   const emptyEl = document.getElementById('testsEmpty');
   const countEl = document.getElementById('testsCount');
   const searchInput = document.getElementById('testSearchInput');
@@ -2544,6 +2618,51 @@ body.has-select-bar { padding-bottom: 80px; }
     });
   }
 
+  // Radiology tests (own photos + descriptions)
+  const RADIOLOGY = [
+    { name: 'Digital X-ray', tag: 'Radiology', desc: 'Precision imaging for bone health and chest scans.', sample: 'In-clinic imaging', report: 'Same-day report', price: 200, mrp: 400, img: 'https://images.unsplash.com/photo-1516069677018-378515003435?w=520&h=360&fit=crop' },
+    { name: 'Ultrasound Whole Abdomen', tag: 'Radiology', desc: 'Non-invasive sound-wave imaging of internal organs.', sample: 'In-clinic scan', report: 'Same-day report', price: 800, mrp: 1400, img: 'https://images.unsplash.com/photo-1579154204601-01588f351e67?w=520&h=360&fit=crop' },
+    { name: 'CT Scan', tag: 'Radiology', desc: 'Detailed cross-sectional imaging of the body.', sample: 'In-clinic imaging', report: 'Within 24 hrs', price: 3499, mrp: 6000, img: 'https://images.unsplash.com/photo-1530497610245-94d3c16cda28?w=520&h=360&fit=crop' },
+    { name: 'MRI Brain', tag: 'Radiology', desc: 'High-resolution imaging with no radiation.', sample: 'In-clinic imaging', report: 'Within 24 hrs', price: 4499, mrp: 8000, img: 'https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=520&h=360&fit=crop' }
+  ];
+  // One popular test per category
+  const POPULAR_PATH = categories.slice(1).map(cat => testCatalog.find(t => t.tag === cat)).filter(Boolean);
+
+  function cardHTML(t) {
+    const isSel = selected.has(t.name);
+    const img = t.img || CAT_IMG[t.tag] || CAT_IMG._default;
+    const desc = t.desc || CAT_DESC[t.tag] || 'Routine diagnostic test with lab-accurate results.';
+    return `
+        <article class="test-card${isSel ? ' is-selected' : ''}" data-name="${t.name}">
+          <div class="test-img-wrap">
+            <img src="${img}" alt="${t.tag} tests" loading="lazy">
+            <span class="test-badge">${t.tag}</span>
+          </div>
+          <div class="test-body">
+            <h3 class="test-name">${t.name}</h3>
+            <p class="test-desc">${desc}</p>
+            <div class="test-meta">
+              <span><i class="fas fa-vial" aria-hidden="true"></i> ${t.sample}</span>
+              <span><i class="fas fa-clock" aria-hidden="true"></i> ${t.report}</span>
+            </div>
+            <div class="test-bottom">
+              <div class="test-price">
+                <span class="test-price-now">₹${t.price}</span>
+                <span class="test-price-mrp">₹${t.mrp}</span>
+              </div>
+              <button type="button" class="test-add${isSel ? ' is-added' : ''}" data-name="${t.name}" data-price="${t.price}">
+                ${isSel ? '<i class="fas fa-check" aria-hidden="true"></i> Added' : '+ Add'}
+              </button>
+            </div>
+          </div>
+        </article>`;
+  }
+
+  function renderPopular() {
+    document.getElementById('popPathGrid').innerHTML = POPULAR_PATH.map(cardHTML).join('');
+    document.getElementById('popRadioGrid').innerHTML = RADIOLOGY.map(cardHTML).join('');
+  }
+
   function render() {
     const list = visibleTests();
     if (!list.length) {
@@ -2553,52 +2672,45 @@ body.has-select-bar { padding-bottom: 80px; }
     } else {
       emptyEl.hidden = true;
       countEl.textContent = `${list.length} test${list.length > 1 ? 's' : ''}${activeCat !== 'All' ? ' in ' + activeCat : ''}`;
-      grid.innerHTML = list.map(t => {
-        const isSel = selected.has(t.name);
-        return `
-        <article class="test-card${isSel ? ' is-selected' : ''}" data-name="${t.name}">
-          <span class="test-icon"><i class="fas ${t.icon}" aria-hidden="true"></i></span>
-          <div class="test-info">
-            <h3 class="test-name">${t.name}</h3>
-            <div class="test-meta">
-              <span><i class="fas fa-vial" aria-hidden="true"></i> ${t.sample}</span>
-              <span><i class="fas fa-clock" aria-hidden="true"></i> ${t.report}</span>
-            </div>
-          </div>
-          <div class="test-cta">
-            <div class="test-price">
-              <span class="test-price-now">₹${t.price}</span>
-              <span class="test-price-mrp">₹${t.mrp}</span>
-            </div>
-            <button type="button" class="test-add${isSel ? ' is-added' : ''}" data-name="${t.name}" data-price="${t.price}">
-              ${isSel ? '<i class="fas fa-check" aria-hidden="true"></i> Added' : '+ Add'}
-            </button>
-          </div>
-        </article>`;
-      }).join('');
+      grid.innerHTML = list.map(cardHTML).join('');
     }
   }
 
-  grid.addEventListener('click', (e) => {
+  function renderAll() { renderPopular(); render(); }
+
+  testsMain.addEventListener('click', (e) => {
     const btn = e.target.closest('.test-add');
     if (!btn) return;
     const name = btn.dataset.name;
     const price = parseInt(btn.dataset.price, 10);
     if (selected.has(name)) selected.delete(name);
     else selected.set(name, price);
-    render();
+    renderAll();
     updateBar();
   });
 
   // ===== Search =====
+  const secPopPath = document.getElementById('secPopPath');
+  const secPopRadio = document.getElementById('secPopRadio');
+  const catChipsStrip = document.getElementById('catChipsStrip');
+  const catSectTitle = document.getElementById('catSectTitle');
+  function applySearchLayout() {
+    const searching = !!query.trim();
+    secPopPath.hidden = searching;
+    secPopRadio.hidden = searching;
+    catChipsStrip.hidden = searching;
+    catSectTitle.textContent = searching ? 'Search results' : 'Tests by category';
+  }
   searchInput.addEventListener('input', () => {
     query = searchInput.value;
     searchClear.hidden = !query;
+    applySearchLayout();
     render();
   });
   searchClear.addEventListener('click', () => {
     query = ''; searchInput.value = ''; searchClear.hidden = true;
     searchInput.focus();
+    applySearchLayout();
     render();
   });
 
@@ -2635,10 +2747,33 @@ body.has-select-bar { padding-bottom: 80px; }
     location.href = 'choose-lab.html?tests=' + names.join('|') + '&prices=' + prices.join('|');
   });
 
-  render();
+  renderAll();
   updateBar();
 })();
 </script>
   <script src="login-modal.js" defer></script>
+
+  <!-- Hero banner auto-rotating carousel -->
+  <script>
+  function initHeroCarousel() {
+    var track = document.getElementById('pkgHeroTrack');
+    var car = document.querySelector('.pkg-hero-carousel');
+    if (!track || !car) return;
+    var n = track.children.length, dotsEl = document.getElementById('pkgHeroDots'), i = 0, timer = null;
+    if (dotsEl && !dotsEl.children.length) {
+      for (var k = 0; k < n; k++) { var b = document.createElement('button'); b.type = 'button'; b.className = 'pkg-hero-dot' + (k === 0 ? ' is-active' : ''); b.setAttribute('data-i', k); b.setAttribute('aria-label', 'Show offer ' + (k + 1)); dotsEl.appendChild(b); }
+    }
+    function go(x) { i = (x % n + n) % n; track.style.transform = 'translateX(' + (-i * car.clientWidth) + 'px)'; if (dotsEl) [].forEach.call(dotsEl.children, function (d, idx) { d.classList.toggle('is-active', idx === i); }); }
+    function stop() { if (timer) { clearInterval(timer); timer = null; } }
+    function start() { stop(); timer = setInterval(function () { go(i + 1); }, 3500); }
+    if (dotsEl) dotsEl.addEventListener('click', function (e) { var d = e.target.closest('.pkg-hero-dot'); if (!d) return; go(+d.getAttribute('data-i')); start(); });
+    car.addEventListener('mouseenter', stop);
+    car.addEventListener('mouseleave', start);
+    window.addEventListener('resize', function () { go(i); });
+    go(0); start();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initHeroCarousel);
+  else initHeroCarousel();
+  </script>
 </body>
 </html>
