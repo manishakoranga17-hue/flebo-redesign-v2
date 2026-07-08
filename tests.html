@@ -2023,16 +2023,31 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 @media (max-width: 1024px) { .tests-hero { grid-template-columns: 1fr; } .pkg-hero-carousel { max-width: 600px; } }
 
 /* Category circles (home-style: picture + circle + label) */
-.cat-chips-strip {
-  background: transparent;
+.cat-chips-strip { background: transparent; }
+.cat-chips-row {
+  max-width: 1480px; margin: 0 auto;
+  padding: 16px var(--site-inset) 6px;
+  display: flex; align-items: center; gap: 18px;
 }
 .cat-chips {
-  max-width: 1480px; margin: 0 auto;
-  display: flex; gap: 22px; overflow-x: auto;
-  padding: 18px var(--site-inset);
+  flex: 1; min-width: 0;
+  display: flex; gap: 8px; overflow-x: auto;
   scrollbar-width: none; -ms-overflow-style: none;
 }
 .cat-chips::-webkit-scrollbar { display: none; }
+.cat-search { flex: 0 0 340px; }
+.cat-search .search-box { width: 100%; }
+.cat-chip {
+  flex: 0 0 auto;
+  border: 1.5px solid var(--border-soft);
+  background: #fff; color: var(--text-primary);
+  font-size: 14px; font-weight: 600;
+  padding: 8px 16px; border-radius: 50px;
+  cursor: pointer; white-space: nowrap;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.cat-chip:hover { border-color: var(--primary); }
+.cat-chip.is-active { background: var(--primary); color: #fff; border-color: var(--primary); }
 .cat-circle {
   flex: 0 0 auto;
   display: flex; flex-direction: column; align-items: center; gap: 10px;
@@ -2065,8 +2080,6 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 .ts-sect:last-child { margin-bottom: 0; }
 .ts-sect-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
 .ts-sect-head h2 { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 27px; color: var(--primary); letter-spacing: -0.01em; }
-#secCat .cat-chips-strip { margin: 0 0 6px; }
-#secCat .cat-chips { max-width: none; margin: 0; padding: 4px 0 14px; gap: 22px; }
 .tests-count {
   font-size: 12px; font-weight: 700; color: var(--text-muted);
   text-transform: uppercase; letter-spacing: 0.05em;
@@ -2227,9 +2240,10 @@ body.has-select-bar { padding-bottom: 80px; }
   .tests-intro-inner { padding: 12px 16px 2px; }
   .tests-hero { display: none; }
   .tests-mobile-h1 { display: block; font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 24px; color: var(--primary); letter-spacing: -0.01em; margin: 0; }
-  .cat-chips, .tests-main, .select-bar-inner { padding-left: 16px; padding-right: 16px; }
-  /* Smaller category circles */
-  .cat-chips { gap: 14px; padding-top: 8px; padding-bottom: 8px; }
+  .cat-chips-row, .tests-main, .select-bar-inner { padding-left: 16px; padding-right: 16px; }
+  .cat-chips-row { flex-direction: column; align-items: stretch; gap: 10px; padding-top: 10px; padding-bottom: 6px; }
+  .cat-search { flex: none; width: 100%; }
+  .cat-chips { gap: 8px; }
   .cat-icon { width: 48px; height: 48px; }
   .cat-icon-fa { font-size: 20px; }
   .cat-circle-label { font-size: 10px; }
@@ -2331,19 +2345,6 @@ body.has-select-bar { padding-bottom: 80px; }
   </div>
 </header>
 
-<!-- ===== SEARCH STRIP ===== -->
-<div class="search-strip">
-  <div class="search-strip-inner">
-    <div class="search-box-wrap">
-      <label class="search-box">
-        <i class="fas fa-magnifying-glass search-icon" aria-hidden="true"></i>
-        <input id="testSearchInput" type="search" placeholder="Search blood tests, scans &amp; health packages…" autocomplete="off" aria-label="Search tests" aria-controls="testsGrid">
-        <button type="button" class="search-clear" id="searchClear" aria-label="Clear search" hidden><i class="fas fa-xmark"></i></button>
-      </label>
-    </div>
-  </div>
-</div>
-
 <!-- ===== PAGE INTRO ===== -->
 <section class="tests-intro" aria-label="Browse tests">
   <div class="tests-intro-inner">
@@ -2373,6 +2374,20 @@ body.has-select-bar { padding-bottom: 80px; }
   </div>
 </section>
 
+<!-- ===== CATEGORY CHIPS + SEARCH (below banner) ===== -->
+<div class="cat-chips-strip" id="catChipsStrip" aria-label="Filter by category">
+  <div class="cat-chips-row">
+    <div class="cat-chips" id="catChips"></div>
+    <div class="cat-search">
+      <label class="search-box">
+        <i class="fas fa-magnifying-glass search-icon" aria-hidden="true"></i>
+        <input id="testSearchInput" type="search" placeholder="Search blood tests, scans &amp; health packages…" autocomplete="off" aria-label="Search tests" aria-controls="testsGrid">
+        <button type="button" class="search-clear" id="searchClear" aria-label="Clear search" hidden><i class="fas fa-xmark"></i></button>
+      </label>
+    </div>
+  </div>
+</div>
+
 <!-- ===== SECTIONS ===== -->
 <main class="tests-main" id="testsMain">
   <section class="ts-sect" id="secPopPath">
@@ -2387,9 +2402,6 @@ body.has-select-bar { padding-bottom: 80px; }
 
   <section class="ts-sect" id="secCat">
     <div class="ts-sect-head"><h2 id="catSectTitle">Tests by category</h2></div>
-    <div class="cat-chips-strip" id="catChipsStrip" aria-label="Filter by category">
-      <div class="cat-chips" id="catChips"></div>
-    </div>
     <div class="tests-count" id="testsCount" aria-live="polite"></div>
     <div class="tests-grid" id="testsGrid"></div>
     <div class="tests-empty" id="testsEmpty" hidden>
@@ -2574,37 +2586,15 @@ body.has-select-bar { padding-bottom: 80px; }
   const selectTotal = document.getElementById('selectTotal');
   const continueBtn = document.getElementById('continueBtn');
 
-  // Category → icon (picture where we have one, else a Font Awesome glyph)
-  const CAT_ICON = {
-    All: { fa: 'fa-border-all' },
-    Bone: { svg: 'popular-tests/bone.svg' },
-    Diabetes: { svg: 'popular-tests/diabetes.svg' },
-    Gastro: { svg: 'popular-tests/gastro.svg' },
-    Gynae: { svg: 'popular-tests/gynae.svg' },
-    Heart: { svg: 'popular-tests/heart.svg' },
-    Kidney: { svg: 'popular-tests/kidney.svg' },
-    Liver: { svg: 'popular-tests/liver.svg' },
-    Prostate: { svg: 'popular-tests/prostate.svg' },
-    Thyroid: { svg: 'popular-tests/thyroid.svg' },
-  };
-  function catIconHtml(c) {
-    const m = CAT_ICON[c] || { fa: 'fa-vial' };
-    return m.svg
-      ? `<span class="cat-icon" style="background-image:url('${m.svg}')"></span>`
-      : `<span class="cat-icon cat-icon-fa"><i class="fas ${m.fa}" aria-hidden="true"></i></span>`;
-  }
   catChips.innerHTML = categories.map((c, i) =>
-    `<button type="button" class="cat-circle${i === 0 ? ' is-active' : ''}" data-cat="${c}" aria-label="${c} tests">
-      ${catIconHtml(c)}
-      <span class="cat-circle-label">${c}</span>
-    </button>`
+    `<button type="button" class="cat-chip${i === 0 ? ' is-active' : ''}" data-cat="${c}">${c}</button>`
   ).join('');
 
   catChips.addEventListener('click', (e) => {
-    const chip = e.target.closest('.cat-circle');
+    const chip = e.target.closest('.cat-chip');
     if (!chip) return;
     activeCat = chip.dataset.cat;
-    catChips.querySelectorAll('.cat-circle').forEach(c => c.classList.toggle('is-active', c === chip));
+    catChips.querySelectorAll('.cat-chip').forEach(c => c.classList.toggle('is-active', c === chip));
     render();
   });
 
@@ -2698,7 +2688,6 @@ body.has-select-bar { padding-bottom: 80px; }
     const searching = !!query.trim();
     secPopPath.hidden = searching;
     secPopRadio.hidden = searching;
-    catChipsStrip.hidden = searching;
     catSectTitle.textContent = searching ? 'Search results' : 'Tests by category';
   }
   searchInput.addEventListener('input', () => {

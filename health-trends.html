@@ -346,23 +346,32 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 }
 
 /* ===== Full-width trend graph hero ===== */
-.ht-hero { position: relative; overflow: hidden; border-radius: 26px; color: #fff; background: #121A40 url('b-hero3.jpeg') center / cover no-repeat; box-shadow: 0 28px 66px -28px rgba(11,21,48,0.78); padding: 30px 40px 26px; margin-bottom: 30px; }
+.ht-hero { position: relative; overflow: hidden; border-radius: 26px; color: #fff; background: #121A40 url('b-hero3.jpeg') center / cover no-repeat; box-shadow: 0 28px 66px -28px rgba(11,21,48,0.78); padding: 30px 40px; margin-bottom: 30px; display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: 40px; align-items: start; }
 .ht-hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(118deg, rgba(10,16,40,0.95) 0%, rgba(17,23,60,0.86) 52%, rgba(30,30,80,0.74) 100%); }
 .ht-hero::after { content: ''; position: absolute; right: -25%; top: -50%; width: 65%; height: 200%; background: radial-gradient(ellipse at 75% 50%, rgba(211,53,53,0.16), transparent 72%); pointer-events: none; }
 .ht-hero > * { position: relative; z-index: 1; }
-.ht-hero-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 28px; flex-wrap: wrap; margin-bottom: 16px; }
-.ht-hero-controls { display: flex; align-items: flex-end; gap: 14px; flex-wrap: wrap; }
+.tests-hero-graph { background: rgba(255,255,255,0.09); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.18); border-radius: 18px; padding: 18px 20px 16px; color: #fff; box-shadow: 0 24px 50px -22px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.12); }
+.thg-top { display: flex; justify-content: space-between; align-items: flex-end; gap: 14px; flex-wrap: wrap; margin-bottom: 14px; }
+.tests-hero-meta { display: flex; align-items: center; gap: 22px; margin-top: 26px; flex-wrap: wrap; }
+.tests-hero-stat { display: flex; flex-direction: column; line-height: 1.1; }
+.tests-hero-stat b { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 24px; color: #fff; }
+.tests-hero-stat span { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 3px; }
+.tests-hero-sep { width: 1px; height: 30px; background: rgba(255,255,255,0.18); }
 .tests-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.18); padding: 7px 13px; border-radius: 999px; font-size: 11.5px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #fff; }
 .tests-eyebrow i { color: #FF8A8A; }
-.tests-h1 { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: clamp(32px, 4vw, 46px); color: #fff; letter-spacing: -0.015em; line-height: 1.02; margin: 12px 0 4px; }
-.hero-latest { display: flex; align-items: baseline; gap: 12px; margin: 6px 0 2px; }
+.tests-h1 { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: clamp(32px, 4vw, 46px); color: #fff; letter-spacing: -0.015em; line-height: 1.02; margin: 20px 0 0; }
+.hero-latest { display: flex; align-items: baseline; gap: 12px; margin: 8px 0 0; }
 .hero-latest-val { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 54px; line-height: 1; color: #fff; }
 .hero-latest-unit { font-size: 20px; color: rgba(255,255,255,0.7); }
 .hero-latest-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 13px; font-weight: 800; padding: 4px 10px; border-radius: 999px; }
 .hero-latest-badge--good { background: rgba(76,175,80,0.22); color: #B6E7B8; }
 .hero-latest-badge--down { background: rgba(255,138,138,0.18); color: #FFC9C9; }
-.hero-latest-sub { font-size: 12.5px; color: rgba(255,255,255,0.65); margin-bottom: 10px; }
-.tests-sub { font-size: 14px; color: rgba(255,255,255,0.78); line-height: 1.55; margin: 0; white-space: nowrap; }
+.hero-facts { display: flex; align-items: stretch; gap: 18px; flex-wrap: wrap; margin: 16px 0 0; }
+.hero-fact { display: flex; flex-direction: column; gap: 3px; }
+.hero-fact-l { font-size: 10px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+.hero-fact-v { font-size: 14px; font-weight: 800; color: #fff; }
+.hero-fact-sep { width: 1px; background: rgba(255,255,255,0.16); align-self: stretch; }
+.tests-sub { font-size: 14px; color: rgba(255,255,255,0.75); line-height: 1.6; margin: 18px 0 0; }
 .tests-sub b { color: #fff; font-weight: 800; }
 .thg-sel { display: flex; gap: 14px; flex-wrap: wrap; }
 .thg-sel-item { display: flex; flex-direction: column; gap: 5px; }
@@ -374,11 +383,12 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 .thg-actions { display: flex; gap: 8px; }
 .thg-act { width: 38px; height: 38px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.25); background: rgba(255,255,255,0.08); color: #fff; cursor: pointer; font-size: 15px; }
 .thg-act:hover { background: rgba(255,255,255,0.16); }
-.thg-chart-wrap { position: relative; width: 100%; height: 440px; margin-top: 6px; }
+.thg-chart-wrap { position: relative; width: 100%; height: 340px; margin-top: 4px; }
 .thg-legend { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; margin-top: 16px; }
 .thg-leg { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.85); }
 .thg-sw { width: 16px; height: 16px; border-radius: 4px; }
-@media (max-width: 760px) { .ht-hero { padding: 22px 18px; } .thg-chart-wrap { height: 320px; } .thg-sel-v { min-width: 150px; } .tests-sub { white-space: normal; } }
+@media (max-width: 980px) { .ht-hero { grid-template-columns: 1fr; } .thg-chart-wrap { height: 300px; } }
+@media (max-width: 760px) { .ht-hero { padding: 22px 18px; } .thg-sel-v { min-width: 150px; } }
 </style>
 </head>
 <body>
@@ -449,18 +459,31 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 <!-- ===== HEALTH TRENDS ===== -->
 <main class="ht-page">
   <section class="ht-hero">
-    <div class="ht-hero-top">
-      <div class="tests-hero-text">
-        <span class="tests-eyebrow"><i class="fas fa-heart-pulse"></i> Latest health trend</span>
-        <h1 class="tests-h1">Hemoglobin</h1>
-        <div class="hero-latest">
-          <span class="hero-latest-val">11.9<span class="hero-latest-unit"> g/dL</span></span>
-          <span class="hero-latest-badge hero-latest-badge--good"><i class="fas fa-arrow-trend-up"></i> +0.3</span>
-        </div>
-        <div class="hero-latest-sub">Neha Gulati &middot; Latest 25 Apr 2025 &middot; Orange Health</div>
-        <p class="tests-sub">Neha's hemoglobin is <b>just below the normal range</b> (12&ndash;15 g/dL) but has been steadily improving since July 2024.</p>
+    <div class="tests-hero-text">
+      <span class="tests-eyebrow"><i class="fas fa-heart-pulse"></i> Latest health trend</span>
+      <div class="hero-facts">
+        <div class="hero-fact"><span class="hero-fact-l">Patient</span><span class="hero-fact-v" id="hf-patient">Neha Gulati</span></div>
+        <span class="hero-fact-sep"></span>
+        <div class="hero-fact"><span class="hero-fact-l">Latest test</span><span class="hero-fact-v" id="hf-date">25 Apr 2025</span></div>
+        <span class="hero-fact-sep"></span>
+        <div class="hero-fact"><span class="hero-fact-l">Lab</span><span class="hero-fact-v" id="hf-lab">Orange Health</span></div>
       </div>
-      <div class="ht-hero-controls">
+      <h1 class="tests-h1">Hemoglobin</h1>
+      <div class="hero-latest">
+        <span class="hero-latest-val">11.9<span class="hero-latest-unit"> g/dL</span></span>
+        <span class="hero-latest-badge hero-latest-badge--good"><i class="fas fa-arrow-trend-up"></i> +0.3</span>
+      </div>
+      <p class="tests-sub">Neha's hemoglobin is <b>just below the normal range</b> (12&ndash;15 g/dL) but has been steadily improving since July 2024.</p>
+      <div class="tests-hero-meta">
+        <span class="tests-hero-stat"><b>+1.3</b><span>Since 2022</span></span>
+        <span class="tests-hero-sep"></span>
+        <span class="tests-hero-stat"><b>6</b><span>Readings</span></span>
+        <span class="tests-hero-sep"></span>
+        <span class="tests-hero-stat"><b>3 yrs</b><span>Tracked</span></span>
+      </div>
+    </div>
+    <div class="tests-hero-graph">
+      <div class="thg-top">
         <div class="thg-sel">
           <label class="thg-sel-item"><span class="thg-sel-l">Customer</span><select class="thg-sel-v" id="thgCustomer" aria-label="Customer"></select></label>
           <label class="thg-sel-item"><span class="thg-sel-l">Test</span><select class="thg-sel-v" id="thgTest" aria-label="Test"></select></label>
@@ -470,12 +493,12 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
           <button type="button" class="thg-act" aria-label="Share"><i class="fas fa-share-nodes"></i></button>
         </div>
       </div>
-    </div>
-    <div class="thg-chart-wrap"><canvas id="hbTrendChart" aria-label="Trend chart"></canvas></div>
-    <div class="thg-legend">
-      <span class="thg-leg"><span class="thg-sw" style="background:#E24B4A"></span> Low Range</span>
-      <span class="thg-leg"><span class="thg-sw" style="background:#4CAF50"></span> Normal Range</span>
-      <span class="thg-leg"><span class="thg-sw" style="background:#E24B4A"></span> High Range</span>
+      <div class="thg-chart-wrap"><canvas id="hbTrendChart" aria-label="Hemoglobin trend chart"></canvas></div>
+      <div class="thg-legend">
+        <span class="thg-leg"><span class="thg-sw" style="background:#E24B4A"></span> Low Range</span>
+        <span class="thg-leg"><span class="thg-sw" style="background:#4CAF50"></span> Normal Range</span>
+        <span class="thg-leg"><span class="thg-sw" style="background:#E24B4A"></span> High Range</span>
+      </div>
     </div>
   </section>
 
@@ -567,7 +590,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
     if (valEl) valEl.innerHTML = last + '<span class="hero-latest-unit"> ' + cfg.unit + '</span>';
     var badge = document.querySelector('.hero-latest-badge');
     if (badge) { var up = delta >= 0; badge.className = 'hero-latest-badge ' + (up ? 'hero-latest-badge--good' : 'hero-latest-badge--down'); badge.innerHTML = '<i class="fas fa-arrow-trend-' + (up ? 'up' : 'down') + '"></i> ' + (up ? '+' : '') + delta; }
-    setText('.hero-latest-sub', patient + ' · Latest ' + DATES[n - 1] + ' · ' + LABS[n - 1]);
+    setText('#hf-patient', patient); setText('#hf-date', DATES[n - 1]); setText('#hf-lab', LABS[n - 1]);
     var sub = document.querySelector('.tests-hero-text .tests-sub');
     if (sub) sub.innerHTML = firstName + '’s ' + test.replace(/\s*\(.*$/, '') + ' is <b>' + status + ' the normal range</b> (' + cfg.low + '–' + cfg.high + ' ' + cfg.unit + '). Book a follow-up to keep tracking the trend.';
   }

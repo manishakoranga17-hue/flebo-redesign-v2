@@ -140,7 +140,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 .rep-num { font-family: 'Plus Jakarta Sans', sans-serif; font-variant-numeric: tabular-nums; }
 
 /* Hero */
-.rep-hero { position: relative; overflow: hidden; border-radius: 26px; color: #fff; background: #121A40 url('b-hero3.jpeg') center / cover no-repeat; box-shadow: 0 28px 66px -28px rgba(11,21,48,0.78); padding: 30px 40px; display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: 40px; align-items: center; }
+.rep-hero { position: relative; overflow: hidden; border-radius: 26px; color: #fff; background: #121A40 url('b-hero3.jpeg') center / cover no-repeat; box-shadow: 0 28px 66px -28px rgba(11,21,48,0.78); padding: 30px 40px; display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: 40px; align-items: start; }
 .rep-hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(118deg, rgba(10,16,40,0.95) 0%, rgba(17,23,60,0.86) 52%, rgba(30,30,80,0.74) 100%); }
 .rep-hero::after { content: ''; position: absolute; right: -8%; top: -60%; width: 48%; height: 230%; background: radial-gradient(circle at 60% 50%, rgba(211,53,53,0.42), transparent 62%); pointer-events: none; }
 .rep-hero > * { position: relative; z-index: 1; }
@@ -149,17 +149,21 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 /* Latest-test hero text (left) */
 .tests-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.18); padding: 7px 13px; border-radius: 999px; font-size: 11.5px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #fff; }
 .tests-eyebrow i { color: #FF8A8A; }
-.tests-h1 { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: clamp(30px, 4vw, 44px); color: #fff; letter-spacing: -0.015em; line-height: 1.02; margin: 12px 0 4px; }
-.hero-latest { display: flex; align-items: baseline; gap: 12px; margin: 6px 0 2px; }
+.tests-h1 { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: clamp(30px, 4vw, 44px); color: #fff; letter-spacing: -0.015em; line-height: 1.02; margin: 20px 0 0; }
+.hero-latest { display: flex; align-items: baseline; gap: 12px; margin: 8px 0 0; }
 .hero-latest-val { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 52px; line-height: 1; color: #fff; }
 .hero-latest-unit { font-size: 20px; color: rgba(255,255,255,0.7); }
 .hero-latest-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 13px; font-weight: 800; padding: 4px 10px; border-radius: 999px; }
 .hero-latest-badge--good { background: rgba(76,175,80,0.22); color: #B6E7B8; }
 .hero-latest-badge--down { background: rgba(255,138,138,0.18); color: #FFC9C9; }
-.hero-latest-sub { font-size: 12.5px; color: rgba(255,255,255,0.65); margin-bottom: 12px; }
-.tests-sub { font-size: 14px; color: rgba(255,255,255,0.78); line-height: 1.55; margin: 0; }
+.hero-facts { display: flex; align-items: stretch; gap: 18px; flex-wrap: wrap; margin: 16px 0 0; }
+.hero-fact { display: flex; flex-direction: column; gap: 3px; }
+.hero-fact-l { font-size: 10px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+.hero-fact-v { font-size: 14px; font-weight: 800; color: #fff; }
+.hero-fact-sep { width: 1px; background: rgba(255,255,255,0.16); align-self: stretch; }
+.tests-sub { font-size: 14px; color: rgba(255,255,255,0.75); line-height: 1.6; margin: 18px 0 0; }
 .tests-sub b { color: #fff; font-weight: 800; }
-.tests-hero-meta { display: flex; align-items: center; gap: 20px; margin-top: 20px; flex-wrap: wrap; }
+.tests-hero-meta { display: flex; align-items: center; gap: 22px; margin-top: 26px; flex-wrap: wrap; }
 .tests-hero-stat { display: flex; flex-direction: column; line-height: 1.1; }
 .tests-hero-stat b { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 24px; color: #fff; }
 .tests-hero-stat span { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 3px; }
@@ -893,12 +897,18 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   <section class="rep-hero">
     <div class="tests-hero-text">
       <span class="tests-eyebrow"><i class="fas fa-heart-pulse"></i> Latest health trend</span>
+      <div class="hero-facts">
+        <div class="hero-fact"><span class="hero-fact-l">Patient</span><span class="hero-fact-v" id="hf-patient">Neha Gulati</span></div>
+        <span class="hero-fact-sep"></span>
+        <div class="hero-fact"><span class="hero-fact-l">Latest test</span><span class="hero-fact-v" id="hf-date">25 Apr 2025</span></div>
+        <span class="hero-fact-sep"></span>
+        <div class="hero-fact"><span class="hero-fact-l">Lab</span><span class="hero-fact-v" id="hf-lab">Orange Health</span></div>
+      </div>
       <h1 class="tests-h1">Hemoglobin</h1>
       <div class="hero-latest">
         <span class="hero-latest-val">11.9<span class="hero-latest-unit"> g/dL</span></span>
         <span class="hero-latest-badge hero-latest-badge--good"><i class="fas fa-arrow-trend-up"></i> +0.3</span>
       </div>
-      <div class="hero-latest-sub">Neha Gulati · Latest 25 Apr 2025 · Orange Health</div>
       <p class="tests-sub">Neha's hemoglobin is <b>just below the normal range</b> (12\u201315 g/dL) but has been steadily improving since July 2024.</p>
       <div class="tests-hero-meta">
         <span class="tests-hero-stat"><b>+1.3</b><span>Since 2022</span></span>
@@ -1634,7 +1644,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
     if (valEl) valEl.innerHTML = last + '<span class="hero-latest-unit"> ' + cfg.unit + '</span>';
     var badge = document.querySelector('.hero-latest-badge');
     if (badge) { var up = delta >= 0; badge.className = 'hero-latest-badge ' + (up ? 'hero-latest-badge--good' : 'hero-latest-badge--down'); badge.innerHTML = '<i class="fas fa-arrow-trend-' + (up ? 'up' : 'down') + '"></i> ' + (up ? '+' : '') + delta; }
-    setText('.hero-latest-sub', patient + ' · Latest ' + DATES[n - 1] + ' · ' + LABS[n - 1]);
+    setText('#hf-patient', patient); setText('#hf-date', DATES[n - 1]); setText('#hf-lab', LABS[n - 1]);
     var sub = document.querySelector('.tests-hero-text .tests-sub');
     if (sub) sub.innerHTML = firstName + '’s ' + test.replace(/\s*\(.*$/, '') + ' is <b>' + status + ' the normal range</b> (' + cfg.low + '–' + cfg.high + ' ' + cfg.unit + '). Book a follow-up to keep tracking the trend.';
     var stats = document.querySelectorAll('.tests-hero-stat b');
