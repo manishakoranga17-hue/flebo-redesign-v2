@@ -2091,7 +2091,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   gap: 16px;
 }
 
-/* Radiology-style test card: photo header · name · desc · price/Add */
+/* Test card: tinted header band · name · desc · meta chips · price/Add */
 .test-card {
   background: #fff; border: 1px solid var(--border-soft);
   border-radius: var(--radius-lg); overflow: hidden;
@@ -2101,36 +2101,42 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 }
 .test-card:hover { box-shadow: 0 12px 28px rgba(11,21,48,0.13); transform: translateY(-3px); }
 .test-card.is-selected { border-color: var(--primary); box-shadow: 0 0 0 1.5px var(--primary); }
-.test-img-wrap { position: relative; width: 100%; height: 128px; overflow: hidden; background: #E8EEF4; }
-.test-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.test-badge { position: absolute; top: 12px; left: 12px; padding: 5px 12px; border-radius: 999px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: #fff; background: rgba(11,21,48,0.72); -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px); }
-.test-body { padding: 15px 17px 16px; display: flex; flex-direction: column; flex: 1; }
+
+/* Header band */
+.test-head { position: relative; height: 86px; overflow: hidden; padding: 14px 16px; }
+.test-waves { position: absolute; left: 0; right: 0; bottom: -2px; width: 100%; height: 40px; display: block; }
+.thead-badge { position: relative; z-index: 1; display: inline-flex; align-items: center; background: rgba(255,255,255,0.72); color: currentColor; font-size: 11px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; padding: 5px 11px; border-radius: 8px; }
+.thead-ico { position: absolute; z-index: 1; top: 14px; right: 16px; width: 40px; height: 40px; border-radius: 11px; background: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: 18px; color: currentColor; box-shadow: 0 3px 8px rgba(11,21,48,0.1); }
+
+/* Body */
+.test-body { padding: 16px 18px 18px; display: flex; flex-direction: column; flex: 1; }
+.test-name-row { display: flex; align-items: flex-start; gap: 10px; justify-content: space-between; margin-bottom: 6px; }
 .test-name {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 16px; font-weight: 800; color: var(--text-primary);
-  line-height: 1.28; margin-bottom: 4px;
+  font-size: 17px; font-weight: 800; color: var(--text-primary); line-height: 1.25;
 }
-.test-desc { font-size: 13px; color: var(--text-secondary, #4A5578); line-height: 1.4; margin-bottom: 10px; }
-.test-meta {
-  display: flex; flex-wrap: wrap; gap: 4px 14px;
-  font-size: 12px; color: var(--text-muted); margin-bottom: 14px;
-}
-.test-meta span { display: inline-flex; align-items: center; gap: 6px; }
-.test-meta i { color: var(--primary); font-size: 12px; }
-.test-bottom {
-  display: flex; align-items: center; justify-content: space-between;
-  margin-top: auto; gap: 10px;
-}
-.test-price { display: flex; align-items: baseline; gap: 7px; }
-.test-price-now { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 19px; font-weight: 800; color: var(--text-primary); }
-.test-price-mrp { font-size: 13px; color: var(--text-muted); text-decoration: line-through; }
+.test-best { flex-shrink: 0; font-size: 10.5px; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent); background: var(--accent-soft, #FDECEC); padding: 4px 9px; border-radius: 999px; white-space: nowrap; margin-top: 2px; }
+.test-desc { font-size: 13.5px; color: var(--text-secondary, #4A5578); line-height: 1.5; margin-bottom: 14px; }
+.test-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.test-chip { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; color: var(--text-secondary, #4A5578); border: 1px solid var(--border-mid, #C5CCDB); border-radius: 8px; padding: 6px 10px; white-space: nowrap; }
+.test-chip i { font-size: 12px; color: var(--text-muted); }
+.test-chip i.chip-blood { color: var(--accent, #D33535); }
+.test-divider { border-top: 1px dashed var(--border-mid, #C5CCDB); margin: 0 0 14px; }
+.test-foot { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; margin-top: auto; }
+.test-price { display: flex; align-items: baseline; gap: 8px; }
+.test-price-now { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 22px; font-weight: 800; color: var(--text-primary); }
+.test-price-mrp { font-size: 14px; color: var(--text-muted); text-decoration: line-through; }
+.test-save { font-size: 12.5px; font-weight: 700; color: var(--green, #1B8A5A); margin-top: 5px; }
+.test-save .dot { color: var(--border-mid, #C5CCDB); margin: 0 4px; }
 .test-add {
   border: 1.5px solid var(--accent); background: #fff; color: var(--accent);
-  font-size: 14px; font-weight: 700;
-  padding: 8px 18px; border-radius: 50px; cursor: pointer;
-  transition: background 0.15s, color 0.15s; white-space: nowrap;
+  font-size: 14.5px; font-weight: 800;
+  padding: 10px 20px; border-radius: 12px; cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s; white-space: nowrap; flex-shrink: 0;
 }
 .test-add:hover { background: var(--accent-soft); }
+.test-add.is-solid { background: var(--accent); color: #fff; }
+.test-add.is-solid:hover { background: var(--accent-dark, #B82E2E); }
 .test-add.is-added { background: var(--accent); color: #fff; border-color: var(--accent); }
 .test-add.is-added:hover { background: var(--accent-dark); border-color: var(--accent-dark); }
 
@@ -2249,17 +2255,12 @@ body.has-select-bar { padding-bottom: 80px; }
   .cat-circle-label { font-size: 10px; }
   .tests-main { padding-top: 10px; }
   .tests-count { margin-bottom: 8px; }
-  /* Compact photo cards, 2-up on phones */
-  .tests-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
-  .test-img-wrap { height: 100px; }
-  .test-body { padding: 12px 13px 13px; }
-  .test-name { font-size: 14px; line-height: 1.25; }
-  .test-desc { display: none; }
-  .test-meta { flex-direction: column; gap: 3px; margin-bottom: 10px; }
-  .test-bottom { flex-direction: column; align-items: stretch; gap: 8px; }
-  .test-price-now { font-size: 16px; }
-  .test-price-mrp { font-size: 12px; }
-  .test-add { font-size: 13px; padding: 7px 14px; text-align: center; }
+  /* Single-column detailed cards on phones */
+  .tests-grid { grid-template-columns: 1fr; gap: 12px; }
+  .test-head { height: 76px; padding: 12px 14px; }
+  .test-body { padding: 14px 15px 15px; }
+  .test-price-now { font-size: 20px; }
+  .test-add { padding: 9px 18px; }
   .bottom-nav { display: flex; }
   body { padding-bottom: 72px; }
   body.has-select-bar { padding-bottom: 144px; }
@@ -2610,37 +2611,66 @@ body.has-select-bar { padding-bottom: 80px; }
 
   // Radiology tests (own photos + descriptions)
   const RADIOLOGY = [
-    { name: 'Digital X-ray', tag: 'Radiology', desc: 'Precision imaging for bone health and chest scans.', sample: 'In-clinic imaging', report: 'Same-day report', price: 200, mrp: 400, img: 'https://images.unsplash.com/photo-1516069677018-378515003435?w=520&h=360&fit=crop' },
-    { name: 'Ultrasound Whole Abdomen', tag: 'Radiology', desc: 'Non-invasive sound-wave imaging of internal organs.', sample: 'In-clinic scan', report: 'Same-day report', price: 800, mrp: 1400, img: 'https://images.unsplash.com/photo-1579154204601-01588f351e67?w=520&h=360&fit=crop' },
-    { name: 'CT Scan', tag: 'Radiology', desc: 'Detailed cross-sectional imaging of the body.', sample: 'In-clinic imaging', report: 'Within 24 hrs', price: 3499, mrp: 6000, img: 'https://images.unsplash.com/photo-1530497610245-94d3c16cda28?w=520&h=360&fit=crop' },
-    { name: 'MRI Brain', tag: 'Radiology', desc: 'High-resolution imaging with no radiation.', sample: 'In-clinic imaging', report: 'Within 24 hrs', price: 4499, mrp: 8000, img: 'https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=520&h=360&fit=crop' }
+    { name: 'Digital X-ray', tag: 'Radiology', icon: 'fa-x-ray', desc: 'Precision imaging for bone health and chest scans.', sample: 'In-clinic imaging', report: 'Same-day report', price: 200, mrp: 400 },
+    { name: 'Ultrasound Whole Abdomen', tag: 'Radiology', icon: 'fa-wave-square', desc: 'Non-invasive sound-wave imaging of internal organs.', sample: 'In-clinic scan', report: 'Same-day report', price: 800, mrp: 1400 },
+    { name: 'CT Scan', tag: 'Radiology', icon: 'fa-circle-radiation', desc: 'Detailed cross-sectional imaging of the body.', sample: 'In-clinic imaging', report: 'Within 24 hrs', price: 3499, mrp: 6000 },
+    { name: 'MRI Brain', tag: 'Radiology', icon: 'fa-brain', desc: 'High-resolution imaging with no radiation.', sample: 'In-clinic imaging', report: 'Within 24 hrs', price: 4499, mrp: 8000 }
   ];
   // One popular test per category
   const POPULAR_PATH = categories.slice(1).map(cat => testCatalog.find(t => t.tag === cat)).filter(Boolean);
 
+  // Soft header tint + ink colour per category
+  const CAT_THEME = {
+    Bone:      { bg: '#F4EAD6', ink: '#A9762B' },
+    Diabetes:  { bg: '#FBE6E6', ink: '#C6342F' },
+    Gastro:    { bg: '#DCEFEF', ink: '#0A8F8F' },
+    Gynae:     { bg: '#F7E4EC', ink: '#BE3D6B' },
+    Heart:     { bg: '#FBE3E3', ink: '#C0354D' },
+    Kidney:    { bg: '#E2EAFB', ink: '#2563EB' },
+    Liver:     { bg: '#F6E7D2', ink: '#B45309' },
+    Prostate:  { bg: '#E4E8F2', ink: '#334680' },
+    Thyroid:   { bg: '#DEF1E7', ink: '#1B8A5A' },
+    Radiology: { bg: '#ECE5FA', ink: '#7C3AED' },
+    _default:  { bg: '#E9EDF5', ink: '#334680' }
+  };
+  function sampleLabel(s) { s = (s || '').toLowerCase(); if (s.indexOf('urine') > -1) return 'Urine'; if (s.indexOf('stool') > -1) return 'Stool'; if (/scan|imaging|clinic|recording/.test(s)) return 'In-clinic'; return 'Blood'; }
+  function turnaroundLabel(r) { if (!r) return '12–24 hrs'; return r.replace(/reports?\s*(within|in)\s*/i, '').replace(/\s*report$/i, '').trim() || '12–24 hrs'; }
+  function fastingLabel(name) { return /fasting|lipid/i.test(name) ? 'Fasting reqd' : 'No fasting'; }
+  function isBestValue(name) { return /panel|profile|complete|advanced|comprehensive|full/i.test(name); }
+
+  const WAVES = '<svg class="test-waves" viewBox="0 0 300 40" preserveAspectRatio="none" aria-hidden="true"><path d="M0,22 C40,8 60,34 100,22 C140,10 160,34 200,22 C240,10 260,34 300,22" fill="none" stroke="currentColor" stroke-width="2" opacity="0.32"/><path d="M0,30 C40,16 60,42 100,30 C140,18 160,42 200,30 C240,18 260,42 300,30" fill="none" stroke="currentColor" stroke-width="2" opacity="0.18"/></svg>';
+
   function cardHTML(t) {
     const isSel = selected.has(t.name);
-    const img = t.img || CAT_IMG[t.tag] || CAT_IMG._default;
+    const theme = CAT_THEME[t.tag] || CAT_THEME._default;
     const desc = t.desc || CAT_DESC[t.tag] || 'Routine diagnostic test with lab-accurate results.';
+    const icon = t.icon || 'fa-vial';
+    const mrp = t.mrp || Math.round((t.price * 1.85) / 10) * 10;
+    const off = Math.round((mrp - t.price) / mrp * 100);
+    const save = mrp - t.price;
+    const best = isBestValue(t.name);
     return `
         <article class="test-card${isSel ? ' is-selected' : ''}" data-name="${t.name}">
-          <div class="test-img-wrap">
-            <img src="${img}" alt="${t.tag} tests" loading="lazy">
-            <span class="test-badge">${t.tag}</span>
+          <div class="test-head" style="background:${theme.bg};color:${theme.ink}">
+            ${WAVES}
+            <span class="thead-badge">${t.tag}</span>
+            <span class="thead-ico"><i class="fas ${icon}" aria-hidden="true"></i></span>
           </div>
           <div class="test-body">
-            <h3 class="test-name">${t.name}</h3>
+            <div class="test-name-row"><h3 class="test-name">${t.name}</h3>${best ? '<span class="test-best">Best value</span>' : ''}</div>
             <p class="test-desc">${desc}</p>
-            <div class="test-meta">
-              <span><i class="fas fa-vial" aria-hidden="true"></i> ${t.sample}</span>
-              <span><i class="fas fa-clock" aria-hidden="true"></i> ${t.report}</span>
+            <div class="test-chips">
+              <span class="test-chip"><i class="fas fa-droplet chip-blood" aria-hidden="true"></i> ${sampleLabel(t.sample)}</span>
+              <span class="test-chip"><i class="fas fa-clock" aria-hidden="true"></i> ${turnaroundLabel(t.report)}</span>
+              <span class="test-chip">${fastingLabel(t.name)}</span>
             </div>
-            <div class="test-bottom">
-              <div class="test-price">
-                <span class="test-price-now">₹${t.price}</span>
-                <span class="test-price-mrp">₹${t.mrp}</span>
+            <div class="test-divider"></div>
+            <div class="test-foot">
+              <div class="test-price-block">
+                <div class="test-price"><span class="test-price-now">₹${t.price}</span><span class="test-price-mrp">₹${mrp}</span></div>
+                <div class="test-save">${off}% OFF <span class="dot">·</span> Save ₹${save}</div>
               </div>
-              <button type="button" class="test-add${isSel ? ' is-added' : ''}" data-name="${t.name}" data-price="${t.price}">
+              <button type="button" class="test-add${best ? ' is-solid' : ''}${isSel ? ' is-added' : ''}" data-name="${t.name}" data-price="${t.price}">
                 ${isSel ? '<i class="fas fa-check" aria-hidden="true"></i> Added' : '+ Add'}
               </button>
             </div>
