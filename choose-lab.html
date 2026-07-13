@@ -572,7 +572,8 @@ body.pkg-flow .ctx-chip { flex-shrink: 0; white-space: nowrap; }
   border-bottom: 1px solid #F1F3F8;
 }
 .fb-section:last-of-type { border-bottom: 0; }
-.fb-label {
+.fb-label,
+.filters-sort-title {
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -1159,6 +1160,48 @@ body.pkg-flow .ctx-chip { flex-shrink: 0; white-space: nowrap; }
   max-width: 220px;
 }
 .tbl-lab-loc i { font-size: 11px; color: var(--text-muted); flex-shrink: 0; }
+/* Package block (packages flow) inside the lab cell + mobile card */
+.tbl-lab-pkg { margin-top: 9px; padding-top: 9px; border-top: 1px dashed var(--border-mid, #C5CCDB); }
+.tbl-lab-pkg-name { display: block; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 800; color: var(--primary); line-height: 1.3; margin-bottom: 5px; }
+.tbl-lab-pkg-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; font-size: 12px; font-weight: 600; }
+.mlab-pkg { margin: 2px 0 12px; padding: 11px 13px; background: var(--bg-soft, #F7F8FB); border: 1px solid var(--border-soft); border-radius: 12px; }
+.mlab-pkg .tbl-lab-pkg-name { font-size: 15px; margin-bottom: 6px; }
+/* Package column (packages flow) */
+.tbl-pkg-col { vertical-align: top; max-width: 250px; }
+.tbl-pkg-col .tbl-lab-pkg-name { margin-bottom: 6px; }
+.tbl-pkg-col .tbl-lab-pkg-meta { flex-direction: column; align-items: flex-start; gap: 6px; }
+.tbl-pkg-select { max-width: 240px; width: 100%; height: 36px; padding: 0 32px 0 11px; margin-bottom: 8px; border: 1.5px solid var(--border-mid, #C5CCDB); border-radius: 9px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 800; color: var(--primary); cursor: pointer; appearance: none; -webkit-appearance: none; background-color: #fff; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%231B2A5B' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; transition: border-color 0.15s; }
+.tbl-pkg-select:hover { border-color: var(--primary); }
+.tbl-pkg-select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(27,42,91,0.1); }
+.mlab-pkg .tbl-pkg-select { max-width: none; }
+/* "+N more packages" accordion */
+.pkg-more-toggle { display: inline-flex; align-items: center; gap: 6px; margin-top: 9px; background: var(--accent-soft, #FDECEC); color: var(--accent, #D33535); border: 0; border-radius: 999px; padding: 6px 13px; font: inherit; font-size: 12.5px; font-weight: 800; cursor: pointer; transition: background 0.15s; }
+.pkg-more-toggle:hover { background: #F9D9D9; }
+.pkg-more-toggle i { font-size: 10px; }
+.pkg-lab-expanded > td { border-bottom: 0 !important; }
+/* Expanded packages as aligned sub-rows (package under Package, price under Price) */
+.pkg-sub-row > td { background: var(--bg-soft, #F7F8FB); border-top: 0 !important; padding-top: 10px; padding-bottom: 10px; vertical-align: top; }
+.pkg-sub-row.pkg-sub-last > td { border-bottom: 1px solid var(--border-mid, #C5CCDB); }
+.pkg-sub-lab { border-left: 3px solid var(--accent, #D33535); }
+.pkg-sub-row .tbl-lab-pkg-name { font-size: 13.5px; }
+/* (legacy card-panel styles kept for the mobile expand list) */
+.pkg-expand { display: flex; flex-direction: column; gap: 10px; padding: 14px 18px 16px 20px; border-left: 3px solid var(--accent, #D33535); }
+.pkg-ex-card { display: flex; align-items: center; gap: 18px; background: #fff; border: 1px solid var(--border-soft); border-radius: 12px; padding: 14px 16px; box-shadow: 0 1px 3px rgba(11,21,48,0.04); }
+.pkg-ex-info { flex: 1; min-width: 0; }
+.pkg-ex-info .tbl-lab-pkg-name { margin-bottom: 6px; }
+.pkg-ex-info .tbl-lab-pkg-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px; }
+.pkg-ex-price { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; white-space: nowrap; }
+.pkg-ex-price .tbl-price { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 18px; font-weight: 800; color: var(--text-primary); }
+.pkg-ex-price .tbl-price-mrp { font-size: 12px; color: var(--text-muted); text-decoration: line-through; }
+.pkg-ex-price .tbl-save { font-size: 11.5px; font-weight: 700; color: var(--green, #1B8A5A); }
+.pkg-ex-book { flex-shrink: 0; }
+.mlab-ex { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--border-mid, #C5CCDB); }
+.mlab-ex .pkg-ex-card { background: var(--bg-soft, #F7F8FB); }
+@media (max-width: 700px) {
+  .pkg-ex-card { flex-wrap: wrap; gap: 10px; }
+  .pkg-ex-price { align-items: flex-start; }
+  .pkg-ex-book { width: 100%; }
+}
 /* Timing cell — day on top, time below */
 .tbl-timing-day {
   display: block;
@@ -1648,6 +1691,14 @@ body.pkg-flow .ctx-chip { flex-shrink: 0; white-space: nowrap; }
 }
 /* Mobile filter icon (sits next to Home/Lab-Visit tabs); hidden on desktop */
 .mobile-filter-icon { display: none; }
+/* Both flows on desktop: collapse the filter sidebar into a popup; full-width table */
+@media (min-width: 769px) {
+  .page-body { grid-template-columns: 1fr; }
+  .filters { display: none; }
+  .mobile-filter-icon { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: auto; height: 40px; padding: 0 16px; border: 1.5px solid var(--border-mid, #C5CCDB); border-radius: 10px; background: #fff; color: var(--text-primary); font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; flex-shrink: 0; }
+  .mobile-filter-icon::after { content: 'Filters & sort'; }
+  .mobile-filter-icon:hover { border-color: var(--primary); background: var(--bg-soft); }
+}
 .mobile-control-pill {
   flex: 1;
   display: inline-flex;
@@ -1697,10 +1748,7 @@ body.pkg-flow .ctx-chip { flex-shrink: 0; white-space: nowrap; }
 .ltab-rating i { color: #F5A623; margin: 0; }
 .ltab-rating-new { background: var(--blue-soft); color: var(--blue); }
 
-/* Rows of the same lab: lighter divider; new lab: stronger top divider (package flow) */
-body.pkg-flow .lab-table tbody tr td { border-bottom: 1px dashed var(--border-soft); }
-body.pkg-flow .lab-table tbody tr.ltab-lab-start td { border-top: 2px solid var(--border-mid); }
-body.pkg-flow .lab-table tbody tr:first-child td { border-top: none; }
+/* Package flow uses the same lab-list UI as the test flow (no ltab overrides) */
 
 .ltab-pkg-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 700; color: var(--text-primary); margin-bottom: 5px; }
 .ltab-pkg-tags { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 12px; font-weight: 600; }
@@ -1938,6 +1986,12 @@ body.pkg-flow .ctx-inner { display: none; }  /* drop the "Comparing labs for" ro
 }
 .sheet-overlay.is-open { display: flex; animation: sheetFade 0.2s ease both; }
 @keyframes sheetFade { from { opacity: 0; } to { opacity: 1; } }
+/* Desktop: center the filters popup instead of a bottom sheet */
+@media (min-width: 769px) {
+  #filtersSheet { align-items: center; }
+  #filtersSheet .sheet { border-radius: 18px; height: auto; max-height: 84vh; animation: sheetPop 0.22s ease both; }
+}
+@keyframes sheetPop { from { opacity: 0; transform: translateY(12px) scale(0.98); } to { opacity: 1; transform: none; } }
 .sheet {
   width: 100%;
   max-width: 560px;
@@ -2181,14 +2235,6 @@ body.pkg-flow .ctx-inner { display: none; }  /* drop the "Comparing labs for" ro
     margin-bottom: 14px;
     padding-bottom: 14px;
     border-bottom: 1px solid var(--border-soft);
-  }
-  .filters-sort-title {
-    font-size: 12px;
-    font-weight: 800;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: 8px;
   }
 
   /* Suggestion dropdown fits mobile width */
@@ -2570,10 +2616,6 @@ body.has-cmp-bar { padding-bottom: 92px; }
       <button class="filters-clear" id="clearFiltersBtn">Clear all</button>
     </div>
 
-    <div class="fb-section">
-      <div class="fb-label">Search lab</div>
-      <input class="fb-search" type="text" placeholder="Type lab name…">
-    </div>
 
     <div class="fb-section">
       <div class="fb-label">Certification</div>
@@ -2627,12 +2669,6 @@ body.has-cmp-bar { padding-bottom: 92px; }
       </div>
     </div>
 
-    <div class="suggest-card">
-      <span class="suggest-emoji" aria-hidden="true">🔬</span>
-      <div class="suggest-title">Can't find your lab?</div>
-      <div class="suggest-sub">We'll add your preferred lab to our platform</div>
-      <button class="suggest-btn">Specify your preferred lab</button>
-    </div>
   </aside>
 
   <!-- MAIN -->
@@ -2940,6 +2976,8 @@ body.has-cmp-bar { padding-bottom: 92px; }
     });
   });
   const rowById = Object.fromEntries(labRows.map(r => [r.rowId, r]));
+  const pkgSelDesktop = {};   // lab id -> selected package index (package flow)
+  let lastPkgList = [];       // last rendered list, for re-render on package switch
 
   // Entry flow: package "Book Now" (pkgflow=1) → package-grouped view;
   // otherwise (Tests / home search) → original test-based lab list.
@@ -3106,13 +3144,9 @@ body.has-cmp-bar { padding-bottom: 92px; }
     document.getElementById('labTableWrap').hidden = !list.length;
     document.getElementById('emptyBanner').hidden = !!list.length;
     if (list.length) {
-      if (isPkgFlow) {
-        renderLabTable(list);        // desktop
-        renderPkgMobileCards(list);  // mobile
-      } else {
-        renderTable(list);
-        renderMobileCards(list);
-      }
+      // Same lab-list UI for both flows (test + packages)
+      renderTable(list);
+      renderMobileCards(list);
     } else {
       document.getElementById('labTableBody').innerHTML = '';
       document.getElementById('labCardsMobile').innerHTML = '';
@@ -3273,8 +3307,15 @@ body.has-cmp-bar { padding-bottom: 92px; }
   function renderMobileCards(list) {
     const isVisit = mode === 'visit';
     document.getElementById('labCardsMobile').innerHTML = list.map(l => {
-      const save = l.mrp - l.price;
-      const pct = Math.round((save / l.mrp) * 100);
+      const pkgs = (l.packages && l.packages.length) ? l.packages : [{ name: 'Standard Health Package', tests: 40, fasting: false }];
+      const expanded = isPkgFlow && expandedLabs.has(l.id);
+      const moreN = pkgs.length - 1;
+      const pr = isPkgFlow ? (rowById[l.id + '__0'] || { rowId: l.id + '__0', price: l.price, mrp: l.mrp }) : null;
+      const price = pr ? pr.price : l.price;
+      const mrp = pr ? pr.mrp : l.mrp;
+      const rowId = pr ? pr.rowId : l.id;
+      const save = mrp - price;
+      const pct = Math.round((save / mrp) * 100);
       const ratingHtml = l.ratingType === 'new'
         ? `<span class="mlab-meta-rating"><span class="new-tag">No rating</span></span>`
         : `<span class="mlab-meta-rating">${l.rating.toFixed(1)} <span class="stars">★</span></span>`;
@@ -3289,8 +3330,36 @@ body.has-cmp-bar { padding-bottom: 92px; }
       }
       const badgeHtml = l.badges.slice(0, 3).map(b => `<span class="badge ${badgeClass(b[1])}">${b[0]}</span>`).join('');
       const ctaLabel = isVisit ? 'Book slot' : 'Select Lab';
+      const pkg = isPkgFlow ? pkgs[0] : null;
+      const pkgBlock = pkg ? `
+          <div class="mlab-pkg">
+            <span class="tbl-lab-pkg-name">${pkg.name}</span>
+            <span class="tbl-lab-pkg-meta">
+              <button type="button" class="ltab-pkg-tests" data-pkg-name="${pkg.name}" data-pkg-tests="${pkg.tests}"><i class="fas fa-vial"></i> ${pkg.tests} tests <i class="fas fa-chevron-right ltab-pkg-tests-caret"></i></button>
+              <span class="ltab-pkg-fast ${pkg.fasting ? 'is-fasting' : 'no-fasting'}"><i class="fas fa-${pkg.fasting ? 'mug-saucer' : 'circle-check'}"></i> ${pkg.fasting ? 'Fasting required' : 'No fasting'}</span>
+            </span>
+            ${moreN > 0 ? `<button type="button" class="pkg-more-toggle" data-lab-toggle="${l.id}">${expanded ? '<i class="fas fa-chevron-up"></i> Show fewer' : '<i class="fas fa-chevron-down"></i> +' + moreN + ' more package' + (moreN > 1 ? 's' : '')}</button>` : ''}
+          </div>` : '';
+      const exBlock = (isPkgFlow && expanded && moreN > 0) ? `
+          <div class="mlab-ex">${pkgs.slice(1).map((pp, k) => {
+            const j = k + 1;
+            const rr = rowById[l.id + '__' + j] || { rowId: l.id + '__' + j, price: l.price, mrp: l.mrp };
+            const sv = rr.mrp - rr.price;
+            const pc = Math.round((sv / rr.mrp) * 100);
+            return `<div class="pkg-ex-card" data-id="${rr.rowId}">
+              <div class="pkg-ex-info">
+                <div class="tbl-lab-pkg-name">${pp.name}</div>
+                <div class="tbl-lab-pkg-meta">
+                  <button type="button" class="ltab-pkg-tests" data-pkg-name="${pp.name}" data-pkg-tests="${pp.tests}"><i class="fas fa-vial"></i> ${pp.tests} tests <i class="fas fa-chevron-right ltab-pkg-tests-caret"></i></button>
+                  <span class="ltab-pkg-fast ${pp.fasting ? 'is-fasting' : 'no-fasting'}"><i class="fas fa-${pp.fasting ? 'mug-saucer' : 'circle-check'}"></i> ${pp.fasting ? 'Fasting required' : 'No fasting'}</span>
+                </div>
+              </div>
+              <div class="pkg-ex-price"><span class="tbl-price">₹${rr.price.toLocaleString()}</span><span class="tbl-price-mrp">₹${rr.mrp.toLocaleString()}</span><span class="tbl-save">Save ₹${sv.toLocaleString()} · ${pc}% off</span></div>
+              <button type="button" class="tbl-select pkg-ex-book" data-action="select" data-name="${l.name}">${ctaLabel}</button>
+            </div>`;
+          }).join('')}</div>` : '';
       return `
-        <article class="mlab-card" data-id="${l.id}">
+        <article class="mlab-card" data-id="${rowId}">
           <div class="mlab-head">
             <div class="mlab-logo"><img src="${l.logo}" alt=""></div>
             <div class="mlab-head-text">
@@ -3298,6 +3367,7 @@ body.has-cmp-bar { padding-bottom: 92px; }
               <div class="mlab-badges">${badgeHtml}</div>
             </div>
           </div>
+          ${pkgBlock}
           <div class="mlab-meta">
             ${ratingHtml}
             <span class="mlab-meta-item"><i class="fas fa-route"></i>${l.distanceKm.toFixed(1)} km</span>
@@ -3306,11 +3376,11 @@ body.has-cmp-bar { padding-bottom: 92px; }
           </div>
           <div class="mlab-price-row">
             <div class="mlab-price-block">
-              <span class="mlab-price-mrp">₹${l.mrp.toLocaleString()}</span>
+              <span class="mlab-price-mrp">₹${mrp.toLocaleString()}</span>
               <span class="mlab-price">
-                ₹${l.price.toLocaleString()}
+                ₹${price.toLocaleString()}
                 <button type="button" class="price-info" aria-label="Price details"
-                  data-mrp="${l.mrp}" data-price="${l.price}"
+                  data-mrp="${mrp}" data-price="${price}"
                   data-discount="${save}" data-discount-pct="${pct}">
                   <i class="fas fa-circle-info"></i>
                 </button>
@@ -3319,6 +3389,7 @@ body.has-cmp-bar { padding-bottom: 92px; }
             </div>
             <button class="mlab-select" data-action="select" data-name="${l.name}">${ctaLabel}</button>
           </div>
+          ${exBlock}
         </article>
       `;
     }).join('');
@@ -3326,10 +3397,12 @@ body.has-cmp-bar { padding-bottom: 92px; }
 
   // ===== Table renderer =====
   function renderTable(list) {
+    lastPkgList = list;
     const isVisit = mode === 'visit';
     // Build header columns
     const cols = [
       { key: 'name', label: 'Lab' },
+      ...(isPkgFlow ? [{ key: 'package', label: 'Package', sortable: false }] : []),
       { key: 'distance', label: 'Distance' },
       { key: 'rating', label: 'Rating' },
       { key: 'speed', label: 'Proc. Time' },
@@ -3346,8 +3419,14 @@ body.has-cmp-bar { padding-bottom: 92px; }
     }).join('');
 
     document.getElementById('labTableBody').innerHTML = list.map(l => {
-      const save = l.mrp - l.price;
-      const pct = Math.round((save / l.mrp) * 100);
+      const pkgs = (l.packages && l.packages.length) ? l.packages : [{ name: 'Standard Health Package', tests: 40, fasting: false }];
+      const expanded = isPkgFlow && expandedLabs.has(l.id);
+      const pr = isPkgFlow ? (rowById[l.id + '__0'] || { rowId: l.id + '__0', price: l.price, mrp: l.mrp }) : null;
+      const price = pr ? pr.price : l.price;
+      const mrp = pr ? pr.mrp : l.mrp;
+      const rowId = pr ? pr.rowId : l.id;
+      const save = mrp - price;
+      const pct = Math.round((save / mrp) * 100);
       // Rating cell
       let ratingCell;
       if (l.ratingType === 'new') {
@@ -3384,8 +3463,19 @@ body.has-cmp-bar { padding-bottom: 92px; }
       // Badges (max 3 to keep row tidy)
       const badgeHtml = l.badges.slice(0, 3).map(b => `<span class="badge ${badgeClass(b[1])}">${b[0]}</span>`).join('');
       const ctaLabel = isVisit ? 'Book slot' : 'Select';
-      return `
-        <tr data-id="${l.id}">
+      const pkg = isPkgFlow ? pkgs[0] : null;
+      const moreN = pkgs.length - 1;
+      const pkgCell = pkg ? `
+          <td class="tbl-pkg-col">
+            <div class="tbl-lab-pkg-name">${pkg.name}</div>
+            <div class="tbl-lab-pkg-meta">
+              <button type="button" class="ltab-pkg-tests" data-pkg-name="${pkg.name}" data-pkg-tests="${pkg.tests}"><i class="fas fa-vial"></i> ${pkg.tests} tests <i class="fas fa-chevron-right ltab-pkg-tests-caret"></i></button>
+              <span class="ltab-pkg-fast ${pkg.fasting ? 'is-fasting' : 'no-fasting'}"><i class="fas fa-${pkg.fasting ? 'mug-saucer' : 'circle-check'}"></i> ${pkg.fasting ? 'Fasting required' : 'No fasting'}</span>
+            </div>
+            ${moreN > 0 ? `<button type="button" class="pkg-more-toggle" data-lab-toggle="${l.id}">${expanded ? '<i class="fas fa-chevron-up"></i> Show fewer' : '<i class="fas fa-chevron-down"></i> +' + moreN + ' more package' + (moreN > 1 ? 's' : '')}</button>` : ''}
+          </td>` : '';
+      const mainRow = `
+        <tr data-id="${rowId}"${expanded ? ' class="pkg-lab-expanded"' : ''}>
           <td>
             <div class="tbl-lab-cell">
               <div class="tbl-lab-logo"><img src="${l.logo}" alt=""></div>
@@ -3396,17 +3486,18 @@ body.has-cmp-bar { padding-bottom: 92px; }
               </div>
             </div>
           </td>
+          ${pkgCell}
           ${distCell}
           <td>${ratingCell}</td>
           <td>${tatCell}</td>
           ${timingCell}
           <td>
             <div class="tbl-price-wrap">
-              <span class="tbl-price-mrp">₹${l.mrp.toLocaleString()}</span>
+              <span class="tbl-price-mrp">₹${mrp.toLocaleString()}</span>
               <span class="tbl-price-row">
-                <span class="tbl-price">₹${l.price.toLocaleString()}</span>
+                <span class="tbl-price">₹${price.toLocaleString()}</span>
                 <button type="button" class="price-info" aria-label="Price details"
-                  data-mrp="${l.mrp}" data-price="${l.price}"
+                  data-mrp="${mrp}" data-price="${price}"
                   data-discount="${save}" data-discount-pct="${pct}">
                   <i class="fas fa-circle-info"></i>
                 </button>
@@ -3416,8 +3507,45 @@ body.has-cmp-bar { padding-bottom: 92px; }
             </div>
           </td>
           <td><button class="tbl-select" data-action="select" data-name="${l.name}">${ctaLabel}</button></td>
-        </tr>
-      `;
+        </tr>`;
+      let expandRows = '';
+      if (isPkgFlow && expanded && moreN > 0) {
+        expandRows = pkgs.slice(1).map((pp, k) => {
+          const j = k + 1;
+          const rr = rowById[l.id + '__' + j] || { rowId: l.id + '__' + j, price: l.price, mrp: l.mrp };
+          const sv = rr.mrp - rr.price;
+          const pc = Math.round((sv / rr.mrp) * 100);
+          const last = j === pkgs.length - 1;
+          return `
+        <tr class="pkg-sub-row${last ? ' pkg-sub-last' : ''}" data-id="${rr.rowId}">
+          <td class="pkg-sub-lab"></td>
+          <td class="tbl-pkg-col">
+            <div class="tbl-lab-pkg-name">${pp.name}</div>
+            <div class="tbl-lab-pkg-meta">
+              <button type="button" class="ltab-pkg-tests" data-pkg-name="${pp.name}" data-pkg-tests="${pp.tests}"><i class="fas fa-vial"></i> ${pp.tests} tests <i class="fas fa-chevron-right ltab-pkg-tests-caret"></i></button>
+              <span class="ltab-pkg-fast ${pp.fasting ? 'is-fasting' : 'no-fasting'}"><i class="fas fa-${pp.fasting ? 'mug-saucer' : 'circle-check'}"></i> ${pp.fasting ? 'Fasting required' : 'No fasting'}</span>
+            </div>
+          </td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>
+            <div class="tbl-price-wrap">
+              <span class="tbl-price-mrp">₹${rr.mrp.toLocaleString()}</span>
+              <span class="tbl-price-row">
+                <span class="tbl-price">₹${rr.price.toLocaleString()}</span>
+                <button type="button" class="price-info" aria-label="Price details" data-mrp="${rr.mrp}" data-price="${rr.price}" data-discount="${sv}" data-discount-pct="${pc}"><i class="fas fa-circle-info"></i></button>
+              </span>
+              <span class="tbl-save">💚 Save ₹${sv.toLocaleString()} · ${pc}% off</span>
+              <span class="tbl-price-note">incl. cashback &amp; discount</span>
+            </div>
+          </td>
+          <td><button class="tbl-select" data-action="select" data-name="${l.name}">${ctaLabel}</button></td>
+        </tr>`;
+        }).join('');
+      }
+      return mainRow + expandRows;
     }).join('');
   }
 
@@ -3755,6 +3883,18 @@ body.has-cmp-bar { padding-bottom: 92px; }
   document.getElementById('labTableBody').addEventListener('click', onViewTests);
   document.getElementById('labCardsMobile').addEventListener('click', onViewTests);
 
+  // Package flow: switch the lab's shown package (updates tests, params & price)
+  function onPkgSwitch(e) {
+    const sel = e.target.closest('.tbl-pkg-select');
+    if (!sel) return;
+    pkgSelDesktop[sel.dataset.lab] = parseInt(sel.value, 10) || 0;
+    renderTable(lastPkgList);
+    renderMobileCards(lastPkgList);
+    if (typeof applyCompareState === 'function') applyCompareState();
+  }
+  document.getElementById('labTableBody').addEventListener('change', onPkgSwitch);
+  document.getElementById('labCardsMobile').addEventListener('change', onPkgSwitch);
+
   // Single-panel parameter popup (from the "Tests included" list)
   function openParamPopup(g) {
     if (!g) return;
@@ -3940,7 +4080,7 @@ body.has-cmp-bar { padding-bottom: 92px; }
   let filtersMoved = false;
   function ensureFiltersInSheet() {
     if (filtersMoved) return;
-    if (window.innerWidth <= 768 && filtersEl && filtersBody) {
+    if (filtersEl && filtersBody) {
       filtersBody.appendChild(filtersEl);
       // CSS uses `.filters { display: none !important }` on mobile to clear the empty sidebar
       // slot — beat it with setProperty(... 'important') now that the element lives in the sheet.

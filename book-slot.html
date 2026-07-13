@@ -1362,6 +1362,9 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 
 /* Replace-package modal list */
 .replace-list { display: flex; flex-direction: column; gap: 10px; }
+.pp-picker-sec { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-muted); margin: 18px 2px 9px; }
+.pp-picker-sec:first-child { margin-top: 0; }
+.pp-picker-sec i { color: var(--primary); font-size: 12px; }
 .replace-card {
   display: flex; align-items: center; justify-content: space-between; gap: 12px;
   border: 1.5px solid var(--border-soft); border-radius: var(--radius-md);
@@ -2270,7 +2273,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
         '<div class="pp-chips">' + catChips + testChips + '</div>' +
         '<div class="pp-pkg-actions">' +
           '<button type="button" class="pp-act" data-act="change"><i class="fas fa-' + (p.pkg.cats.length ? 'right-left' : 'box-open') + '"></i> ' + (p.pkg.cats.length ? 'Change package' : 'Add a package') + '</button>' +
-          '<button type="button" class="pp-act" data-act="customise"><i class="fas fa-sliders"></i> Customise</button>' +
+          '<button type="button" class="pp-act" data-act="customise"><i class="fas fa-plus"></i> Add test or package</button>' +
         '</div></div>';
     }
 
@@ -2333,7 +2336,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
     const cta = document.getElementById('replaceConfirm');
     const foot = document.getElementById('replaceFoot');
     let activeP = null, mode = 'change', selChange = -1;
-    const selAdd = new Set(), selRemove = new Set();
+    const selAdd = new Set(), selRemove = new Set(), selAddPkg = new Set();
     function boxHTML(kind, on) { return '<span class="replace-card__box">' + (on ? '<i class="fas fa-' + (kind === 'radio' ? 'circle' : 'check') + '" style="font-size:' + (kind === 'radio' ? '8' : '11') + 'px"></i>' : '') + '</span>'; }
     function renderPicker() {
       if (mode === 'change') {
@@ -2343,10 +2346,17 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
         }).join('');
       } else if (mode === 'customise') {
         const have = activeP ? activeP.pkg.added.map(t => t.name) : [];
-        list.innerHTML = TEST_ADDONS.map((t, i) => {
+        const testCards = TEST_ADDONS.map((t, i) => {
           const already = have.indexOf(t.name) > -1, sel = already || selAdd.has(i);
           return '<div class="replace-card replace-card--check' + (sel ? ' is-selected' : '') + (already ? ' is-disabled' : '') + '" data-i="' + i + '"><div class="replace-card__lead">' + boxHTML('check', sel) + '<div class="replace-card-info"><div class="replace-card-name">' + t.name + (already ? ' · Added' : '') + '</div><div class="replace-card-meta">Individual test · ' + t.params + ' parameter' + (t.params > 1 ? 's' : '') + '</div></div></div><div class="replace-card-price"><span class="replace-card-now">₹' + t.price.toLocaleString() + '</span></div></div>';
         }).join('');
+        const pkgCards = PKG_CATALOG.map((pk, i) => {
+          const already = have.indexOf(pk.name) > -1, sel = already || selAddPkg.has(i);
+          const off = Math.round((1 - pk.price / pk.mrp) * 100);
+          return '<div class="replace-card replace-card--check' + (sel ? ' is-selected' : '') + (already ? ' is-disabled' : '') + '" data-pi="' + i + '"><div class="replace-card__lead">' + boxHTML('check', sel) + '<div class="replace-card-info"><div class="replace-card-name">' + pk.name + (already ? ' · Added' : '') + '</div><div class="replace-card-meta">Package · ' + pk.params + ' parameters · ' + off + '% off</div></div></div><div class="replace-card-price"><span class="replace-card-now">₹' + pk.price.toLocaleString() + '</span><span class="replace-card-mrp">₹' + pk.mrp.toLocaleString() + '</span></div></div>';
+        }).join('');
+        list.innerHTML = '<div class="pp-picker-sec"><i class="fas fa-vial" aria-hidden="true"></i> Add-on tests</div>' + testCards +
+          '<div class="pp-picker-sec"><i class="fas fa-box-open" aria-hidden="true"></i> Health packages available at this lab</div>' + pkgCards;
       } else { // params (read-only)
         const groups = (activeP ? activeP.pkg.cats : []).map(c =>
           '<div class="pp-param-group"><div class="pp-param-head">' + c.name + ' <span class="pp-param-count">' + c.params + '</span></div><div class="pp-param-items">' + (c.items || []).map(x => '<span class="pp-param-item"><i class="fas fa-check" aria-hidden="true"></i> ' + x + '</span>').join('') + '</div></div>');
@@ -2359,14 +2369,14 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
       if (foot) foot.style.display = mode === 'params' ? 'none' : '';
       if (mode === 'params') return;
       if (mode === 'change') { var hasPkg = activeP && activeP.pkg.cats.length > 0; hint.textContent = hasPkg ? 'Choose a different package' : 'Add a package to this patient'; note.hidden = true; cta.textContent = hasPkg ? 'Change package' : 'Add package'; cta.disabled = selChange < 0; }
-      else { hint.textContent = 'Add individual tests to this package'; note.hidden = false; note.innerHTML = '<i class="fas fa-circle-info" aria-hidden="true"></i><div>Add only the tests advised by your doctor. Remove any added test anytime using the ✕ on its chip.</div>'; cta.textContent = selAdd.size ? 'Add ' + selAdd.size + ' test' + (selAdd.size > 1 ? 's' : '') : 'Done'; cta.disabled = false; }
+      else { const total = selAdd.size + selAddPkg.size; hint.textContent = 'Add individual tests or a package for this patient'; note.hidden = false; note.innerHTML = '<i class="fas fa-circle-info" aria-hidden="true"></i><div>Add only what your doctor advises. Remove anything added anytime using the ✕ on its chip.</div>'; cta.textContent = total ? 'Add ' + total + ' item' + (total > 1 ? 's' : '') : 'Done'; cta.disabled = false; }
     }
     function openPicker(m) {
       mode = m;
       var hasPkg = activeP && activeP.pkg.cats.length > 0;
-      title.textContent = m === 'change' ? (hasPkg ? 'Change package' : 'Add a package') : m === 'customise' ? 'Customise tests' : 'All parameters';
+      title.textContent = m === 'change' ? (hasPkg ? 'Change package' : 'Add a package') : m === 'customise' ? 'Add tests or packages' : 'All parameters';
       if (hint) hint.textContent = m === 'params' ? ((activeP ? pkgParams(activeP) : 0) + ' parameters in this package') : '';
-      selChange = -1; selAdd.clear(); selRemove.clear();
+      selChange = -1; selAdd.clear(); selRemove.clear(); selAddPkg.clear();
       renderPicker(); modal.classList.add('is-open');
     }
     function closePicker() { modal.classList.remove('is-open'); }
@@ -2374,6 +2384,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
     modal.addEventListener('click', e => { if (e.target === modal) closePicker(); });
     list.addEventListener('click', e => {
       const card = e.target.closest('.replace-card'); if (!card || card.classList.contains('is-disabled')) return;
+      if (card.dataset.pi != null) { const pi = parseInt(card.dataset.pi, 10); selAddPkg.has(pi) ? selAddPkg.delete(pi) : selAddPkg.add(pi); renderPicker(); return; }
       const i = parseInt(card.dataset.i, 10); if (isNaN(i)) return;
       if (mode === 'change') selChange = i;
       else { selAdd.has(i) ? selAdd.delete(i) : selAdd.add(i); }
@@ -2388,7 +2399,8 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
       } else {
         let n = 0;
         [...selAdd].sort((a, b) => a - b).forEach(i => { const t = TEST_ADDONS[i]; if (t && !activeP.pkg.added.some(x => x.name === t.name)) { activeP.pkg.added.push({ name: t.name, price: t.price, params: t.params }); n++; } });
-        render(); closePicker(); if (n) showToast('✓ Added ' + n + ' test' + (n > 1 ? 's' : ''));
+        [...selAddPkg].sort((a, b) => a - b).forEach(i => { const pk = PKG_CATALOG[i]; if (pk && !activeP.pkg.added.some(x => x.name === pk.name)) { activeP.pkg.added.push({ name: pk.name, price: pk.price, params: pk.params }); n++; } });
+        render(); closePicker(); if (n) showToast('✓ Added ' + n + ' item' + (n > 1 ? 's' : ''));
       }
     });
 
