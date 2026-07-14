@@ -399,7 +399,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 
 /* ===== CONTEXT BANNER ===== */
 .ctx-banner {
-  display: none;   /* context banner removed on web + mobile (kept in DOM for JS refs) */
+  display: none !important;   /* context banner removed on web + mobile (kept in DOM for JS refs) */
   background: #1F2A5F url('b-hero3.jpeg') center / cover no-repeat;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   position: relative;
@@ -2154,7 +2154,8 @@ body.pkg-flow .ctx-inner { display: none; }  /* drop the "Comparing labs for" ro
   .cat-select { min-width: 0; flex: 0 0 110px; padding: 0 30px 0 12px; background-position: right 10px center; }
   .search-box-wrap { flex: 1; min-width: 0; }
 
-  /* Context banner — chip row scrolls horizontally instead of wrapping */
+  /* Context banner removed on mobile too */
+  .ctx-banner { display: none !important; }
   .ctx-inner {
     padding: 0 16px 8px;
     gap: 8px;
