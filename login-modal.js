@@ -167,6 +167,8 @@
   .lm-sb-label{padding:12px 20px 4px;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted,#6B7592);}\
   .lm-sb-login{margin:14px 18px 6px;padding:12px;border-radius:12px;background:var(--accent,#D33535);color:#fff;font-weight:800;font-size:14px;text-align:center;cursor:pointer;border:0;width:calc(100% - 36px);}\
   .lm-sb-login:hover{background:var(--accent-dark,#B82E2E);}\
+  /* Blue strip: once logged in, show only the profile icon (phone would overflow on mobile) */\
+  @media (max-width:768px){.top-bar-login.lm-authed span{display:none;}.top-bar-login.lm-authed{gap:0;}}\
   @media (max-width:820px){.lm-card{grid-template-columns:1fr;max-width:440px;}.lm-left{display:none;}.lm-right{max-height:92vh;}}\
   @media (max-width:520px){.lm-right{padding:32px 20px 24px;}.lm-title{font-size:26px;}.lm-social{grid-template-columns:1fr;}}';
 
