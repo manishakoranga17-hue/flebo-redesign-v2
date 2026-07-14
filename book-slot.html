@@ -2821,12 +2821,21 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 
     // Steps and the sections each one shows. centerSection/customizeSection are
     // kept only when naturally present; address & review are always their own step.
-    var rawSteps = isPackage ? [
-      { title: 'Patients & packages', ids: ['patientSection'] },
-      { title: isVisit ? 'Select a center' : 'Your collection', ids: ['centerSection'] },
-      { title: 'Date & time', ids: ['dateSection', 'timeSection'] },
-      { title: 'Review & pay', ids: ['reviewSection'] },
-    ] : isVisit ? [
+    var rawSteps = isPackage
+      ? (isVisit ? [
+          // Package + lab visit: patients & packages -> center -> date & slot -> review
+          { title: 'Patients & packages', ids: ['patientSection'] },
+          { title: 'Select a center', ids: ['centerSection'] },
+          { title: 'Date & time', ids: ['dateSection', 'timeSection'] },
+          { title: 'Review & pay', ids: ['reviewSection'] },
+        ] : [
+          // Package + home collection: patients & packages -> address -> date & slot -> review
+          { title: 'Patients & packages', ids: ['patientSection'] },
+          { title: 'Your address', ids: ['addrSection'] },
+          { title: 'Date & time', ids: ['dateSection', 'timeSection'] },
+          { title: 'Review & pay', ids: ['reviewSection'] },
+        ])
+      : isVisit ? [
       // Lab visit: customer details -> center address -> date & slot -> review
       { title: 'Patient & test details', ids: ['patientSection'] },
       { title: 'Select a center', ids: ['centerSection'] },
@@ -2839,10 +2848,10 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
       { title: 'Date & time', ids: ['dateSection', 'timeSection'] },
       { title: 'Review & pay', ids: ['reviewSection'] },
     ];
-    var FORCE = isPackage ? { reviewSection: 1 } : isVisit ? { reviewSection: 1 } : { addrSection: 1, reviewSection: 1 };
+    var FORCE = isVisit ? { reviewSection: 1 } : { addrSection: 1, reviewSection: 1 };
     var steps = rawSteps.map(function (st) {
       return { title: st.title, ids: st.ids.filter(function (id) {
-        if ((isPackage || isVisit) && id === 'addrSection') return false;   // no home-address step for package/visit
+        if (isVisit && id === 'addrSection') return false;   // no home-address step for a lab visit
         return document.getElementById(id) && (FORCE[id] || nat(id));
       }) };
     }).filter(function (st) { return st.ids.length; });
