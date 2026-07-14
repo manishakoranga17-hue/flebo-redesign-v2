@@ -2825,17 +2825,23 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
       { title: isVisit ? 'Select a center' : 'Your collection', ids: ['centerSection'] },
       { title: 'Date & time', ids: ['dateSection', 'timeSection'] },
       { title: 'Review & pay', ids: ['reviewSection'] },
+    ] : isVisit ? [
+      // Lab visit: customer details -> center address -> date & slot -> review
+      { title: 'Patient & test details', ids: ['patientSection'] },
+      { title: 'Select a center', ids: ['centerSection'] },
+      { title: 'Date & time', ids: ['dateSection', 'timeSection'] },
+      { title: 'Review & pay', ids: ['reviewSection'] },
     ] : [
-      { title: isVisit ? 'Select a center' : 'Your collection', ids: ['centerSection'] },
+      { title: 'Your collection', ids: ['centerSection'] },
       { title: 'Patients & tests', ids: ['patientSection'] },
-      { title: isVisit ? 'Contact details' : 'Your address', ids: ['addrSection'] },
+      { title: 'Your address', ids: ['addrSection'] },
       { title: 'Date & time', ids: ['dateSection', 'timeSection'] },
       { title: 'Review & pay', ids: ['reviewSection'] },
     ];
-    var FORCE = isPackage ? { reviewSection: 1 } : { addrSection: 1, reviewSection: 1 };
+    var FORCE = isPackage ? { reviewSection: 1 } : isVisit ? { reviewSection: 1 } : { addrSection: 1, reviewSection: 1 };
     var steps = rawSteps.map(function (st) {
       return { title: st.title, ids: st.ids.filter(function (id) {
-        if (isPackage && id === 'addrSection') return false;   // package flow: no address step
+        if ((isPackage || isVisit) && id === 'addrSection') return false;   // no home-address step for package/visit
         return document.getElementById(id) && (FORCE[id] || nat(id));
       }) };
     }).filter(function (st) { return st.ids.length; });
