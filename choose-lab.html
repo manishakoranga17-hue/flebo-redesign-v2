@@ -2628,6 +2628,12 @@ body.has-cmp-bar { padding-bottom: 92px; }
       <label class="cb-row"><input type="checkbox"><span class="cb-label">NABL / NABH <i class="cb-info">i</i></span></label>
     </div>
 
+    <div class="fb-section">
+      <div class="fb-label">Fasting</div>
+      <label class="cb-row"><input type="checkbox" data-fasting="no"><span class="cb-label">No fasting required</span></label>
+      <label class="cb-row"><input type="checkbox" data-fasting="yes"><span class="cb-label">Fasting required</span></label>
+    </div>
+
     <!-- Visit-only filters -->
     <div class="fb-section fb-visit-only" style="display:none;">
       <div class="fb-label">Max distance</div>
@@ -3127,9 +3133,18 @@ body.has-cmp-bar { padding-bottom: 92px; }
   let currentSort = { key: 'distance', dir: 'asc' };
   const defaultDir = { best: 'desc', price: 'asc', mrp: 'asc', distance: 'asc', speed: 'asc', rating: 'desc', name: 'asc', location: 'asc', timing: 'asc' };
 
+  function fastingPass(lab) {
+    const noCb = document.querySelector('.fb-section input[data-fasting="no"]');
+    const yesCb = document.querySelector('.fb-section input[data-fasting="yes"]');
+    const wantNo = !!(noCb && noCb.checked);
+    const wantYes = !!(yesCb && yesCb.checked);
+    if (!wantNo && !wantYes) return true;           // no fasting filter applied
+    const pkgs = (lab.packages && lab.packages.length) ? lab.packages : [{ fasting: false }];
+    return pkgs.some(p => (wantNo && !p.fasting) || (wantYes && p.fasting));
+  }
   function sortLabs(key, dir) {
     const mul = dir === 'asc' ? 1 : -1;
-    const sorted = labs.slice();
+    const sorted = labs.filter(fastingPass);
     const tatOrder = ['Reports in 6 hours', 'Reports in 12 hours', 'Reports in 18 hours', 'Reports in 24 hours', 'Reports next morning'];
     if (key === 'name') sorted.sort((a, b) => a.name.localeCompare(b.name) * mul);
     else if (key === 'location') sorted.sort((a, b) => (a.location || '').localeCompare(b.location || '') * mul);
@@ -4012,6 +4027,13 @@ body.has-cmp-bar { padding-bottom: 92px; }
     document.getElementById('ratingVal').textContent = v === 0 ? 'Any' : `${v.toFixed(1)} ★ +`;
   });
 
+  // ===== Fasting filter — re-render the list on change =====
+  document.querySelectorAll('.fb-section input[data-fasting]').forEach(cb => {
+    cb.addEventListener('change', () => {
+      renderResults(sortLabs(currentSort.key, currentSort.dir));
+    });
+  });
+
   // ===== Distance slider (visit mode) =====
   const distSlider = document.getElementById('distSlider');
   if (distSlider) {
@@ -4035,6 +4057,7 @@ body.has-cmp-bar { padding-bottom: 92px; }
     document.querySelectorAll('.fb-section input[type="text"]').forEach(i => { i.value = ''; });
     slider.value = 0;
     document.getElementById('ratingVal').textContent = 'Any';
+    renderResults(sortLabs(currentSort.key, currentSort.dir));
     showToast('↺ All filters cleared');
   });
 
