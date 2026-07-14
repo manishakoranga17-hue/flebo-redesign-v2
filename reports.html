@@ -142,7 +142,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 /* Hero */
 .rep-hero { position: relative; overflow: hidden; border-radius: 26px; color: #fff; background: #121A40 url('b-hero3.jpeg') center / cover no-repeat; box-shadow: 0 28px 66px -28px rgba(11,21,48,0.78); padding: 30px 40px; display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: 40px; align-items: start; }
 .rep-hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(118deg, rgba(10,16,40,0.95) 0%, rgba(17,23,60,0.86) 52%, rgba(30,30,80,0.74) 100%); }
-.rep-hero::after { content: ''; position: absolute; right: -8%; top: -60%; width: 48%; height: 230%; background: radial-gradient(circle at 60% 50%, rgba(211,53,53,0.42), transparent 62%); pointer-events: none; }
+.rep-hero::after { content: ''; position: absolute; right: -20%; top: -60%; width: 70%; height: 230%; background: radial-gradient(circle at 70% 50%, rgba(211,53,53,0.30) 0%, rgba(211,53,53,0.12) 38%, transparent 74%); pointer-events: none; }
 .rep-hero > * { position: relative; z-index: 1; }
 .rep-mobile-h1 { display: none; }
 
@@ -411,6 +411,10 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   /* Phone: show the full trend hero (text panel + graph) stacked */
   .rep-hero { display: grid; grid-template-columns: 1fr; gap: 18px; padding: 20px 16px; border-radius: 18px; margin-bottom: 18px; }
   .tests-hero-text { display: block; }
+  /* Patient · Latest test · Lab stay on one line */
+  .hero-facts { flex-wrap: nowrap; gap: 10px; }
+  .hero-fact { min-width: 0; }
+  .hero-fact-v { font-size: 12.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .tests-h1 { font-size: 30px; margin-top: 16px; }
   .hero-latest-val { font-size: 42px; }
   .tests-hero-meta { gap: 16px; margin-top: 18px; }
