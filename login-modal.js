@@ -488,19 +488,40 @@
     try { return localStorage.getItem('flebo:wallet') || '250'; } catch (e) { return '250'; }
   }
 
-  // Mirror the profile-dropdown items into the mobile hamburger drawer when logged in
+  // Mirror the profile-dropdown items into the mobile hamburger menu(s) when logged in
   function syncNavAccount() {
+    var loggedIn = isLoggedIn();
+
+    // (A) Standard top-nav drawer (non-home pages)
     var list = document.querySelector('.main-nav .main-nav-list');
-    if (!list) return;
-    Array.prototype.slice.call(list.querySelectorAll('.lmnav-acct')).forEach(function (el) { el.remove(); });
-    if (!isLoggedIn()) return;
-    var html = '<li class="lmnav-acct lmnav-acct-sep" aria-hidden="true"></li>' +
-      '<li class="lmnav-acct lmnav-acct-head">My account</li>' +
-      MENU_ITEMS.map(function (m) {
-        return '<li class="lmnav-acct"><a class="main-nav-link" href="' + m.href + '"><i class="fas ' + m.icon + '"></i><span>' + m.label + '</span></a></li>';
-      }).join('') +
-      '<li class="lmnav-acct"><a class="main-nav-link is-logout" href="#" data-action="logout"><i class="fas fa-right-from-bracket"></i><span>Logout</span></a></li>';
-    list.insertAdjacentHTML('beforeend', html);
+    if (list) {
+      Array.prototype.slice.call(list.querySelectorAll('.lmnav-acct')).forEach(function (el) { el.remove(); });
+      if (loggedIn) {
+        list.insertAdjacentHTML('beforeend',
+          '<li class="lmnav-acct lmnav-acct-sep" aria-hidden="true"></li>' +
+          '<li class="lmnav-acct lmnav-acct-head">My account</li>' +
+          MENU_ITEMS.map(function (m) {
+            return '<li class="lmnav-acct"><a class="main-nav-link" href="' + m.href + '"><i class="fas ' + m.icon + '"></i><span>' + m.label + '</span></a></li>';
+          }).join('') +
+          '<li class="lmnav-acct"><a class="main-nav-link is-logout" href="#" data-action="logout"><i class="fas fa-right-from-bracket"></i><span>Logout</span></a></li>');
+      }
+    }
+
+    // (B) Home page hamburger sidebar
+    var sb = document.querySelector('.sidebar-nav');
+    if (sb) {
+      Array.prototype.slice.call(sb.querySelectorAll('.lmnav-sb')).forEach(function (el) { el.remove(); });
+      var loginLink = sb.querySelector('[data-menu="login"]');
+      if (loginLink) loginLink.style.display = loggedIn ? 'none' : '';
+      if (loggedIn) {
+        sb.insertAdjacentHTML('beforeend',
+          '<div class="sidebar-divider lmnav-sb"></div>' +
+          MENU_ITEMS.map(function (m) {
+            return '<a class="sidebar-link lmnav-sb" href="' + m.href + '"><i class="fas ' + m.icon + '"></i> ' + m.label + '</a>';
+          }).join('') +
+          '<a class="sidebar-link lmnav-sb is-logout" href="#" data-action="logout" style="color:var(--accent,#D33535)"><i class="fas fa-right-from-bracket"></i> Logout</a>');
+      }
+    }
   }
 
   function reflectLoggedIn() {
@@ -593,14 +614,30 @@
       ham.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
     document.addEventListener('click', function (e) {
-      // Logout from the account items injected into the drawer
-      var lo = e.target.closest('.main-nav .lmnav-acct a[data-action="logout"]');
-      if (lo) { e.preventDefault(); logout(); closeNav(); return; }
       if (siteNav.classList.contains('lmnav-open') && !e.target.closest('.main-nav') && !e.target.closest('.hamburger-btn')) closeNav();
     });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeNav(); });
     window.addEventListener('resize', closeNav);
   }
+
+  // Handle clicks on the injected account items in either hamburger menu (main-nav drawer or home sidebar)
+  document.addEventListener('click', function (e) {
+    var acct = e.target.closest('.main-nav .lmnav-acct a, .sidebar-nav a.lmnav-sb');
+    if (!acct) return;
+    if (acct.getAttribute('data-action') === 'logout') {
+      e.preventDefault();
+      logout();
+      var openDrawer = document.querySelector('.main-nav.lmnav-open');
+      if (openDrawer) {
+        openDrawer.classList.remove('lmnav-open');
+        var hb = document.querySelector('.hamburger-btn'); if (hb) hb.classList.remove('lmnav-active');
+      }
+      return;
+    }
+    // Navigate reliably even if the host page prevents default on its nav links
+    var href = acct.getAttribute('href');
+    if (href && href !== '#') { e.preventDefault(); location.href = href; }
+  });
 
   reflectLoggedIn();
 })();
