@@ -524,9 +524,13 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 .pp-form { background: var(--bg-soft, #F7F8FB); border-radius: var(--radius-md); padding: 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .pp-field--full { grid-column: 1 / -1; }
 .pp-label { display: block; font-size: 11px; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
-.pp-input, .pp-select { width: 100%; border: 1.5px solid var(--border-mid); border-radius: var(--radius-md); background: #fff; padding: 12px 14px; font: inherit; font-size: 15px; color: var(--text-primary); }
+.pp-input, .pp-select { box-sizing: border-box; width: 100%; height: 48px; border: 1.5px solid var(--border-mid); border-radius: var(--radius-md); background: #fff; padding: 12px 14px; font: inherit; font-size: 15px; line-height: 1.2; color: var(--text-primary); -webkit-appearance: none; appearance: none; }
 .pp-input:focus, .pp-select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(27,42,91,0.08); }
-.pp-select { appearance: none; -webkit-appearance: none; -moz-appearance: none; padding-right: 44px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%236B7592' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; }
+.pp-select { -moz-appearance: none; padding-right: 44px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%236B7592' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; }
+/* Date field: match the other inputs exactly + show a calendar icon that opens the native picker */
+.pp-input.pt-dob { position: relative; padding-right: 44px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236B7592' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='18' rx='2'/%3E%3Cline x1='16' y1='2' x2='16' y2='6'/%3E%3Cline x1='8' y1='2' x2='8' y2='6'/%3E%3Cline x1='3' y1='10' x2='21' y2='10'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; }
+.pp-input.pt-dob::-webkit-date-and-time-value { text-align: left; margin: 0; }
+.pp-input.pt-dob::-webkit-calendar-picker-indicator { position: absolute; top: 0; right: 0; width: 44px; height: 100%; margin: 0; padding: 0; opacity: 0; cursor: pointer; }
 .pp-chip--cat .pp-chip-n { font-weight: 700; opacity: 0.7; margin-left: 5px; }
 .pp-pkg { border: 1px solid var(--border-soft); border-radius: var(--radius-md); padding: 16px; margin-top: 14px; }
 .pp-pkg-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
