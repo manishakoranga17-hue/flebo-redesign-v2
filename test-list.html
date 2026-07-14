@@ -452,17 +452,28 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 .tl-h1 { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 38px; color: var(--primary); letter-spacing: -0.01em; line-height: 1.05; }
 .tl-sub { font-size: 15px; color: var(--text-muted); margin-top: 6px; }
 .tl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 16px; }
-.tl-card { display: flex; align-items: center; gap: 16px; background: #fff; border: 1px solid var(--border-soft); border-radius: 16px; padding: 18px 20px; box-shadow: 0 2px 8px rgba(11,21,48,0.05); transition: box-shadow .16s, transform .16s; }
+.tl-card { display: grid; grid-template-columns: auto 1fr auto; grid-template-areas: "ico name name" "price price btn"; align-items: center; column-gap: 14px; row-gap: 12px; background: #fff; border: 1px solid var(--border-soft); border-radius: 16px; padding: 18px 20px; box-shadow: 0 2px 8px rgba(11,21,48,0.05); transition: box-shadow .16s, transform .16s; }
 .tl-card:hover { box-shadow: 0 10px 26px rgba(11,21,48,0.1); transform: translateY(-2px); }
-.tl-ico { width: 48px; height: 48px; border-radius: 13px; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; font-size: 20px; background: var(--accent-soft, #FDECEC); color: var(--accent, #D33535); }
-.tl-body { flex: 1; min-width: 0; }
-.tl-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 16px; font-weight: 800; color: var(--text-primary); line-height: 1.3; margin-bottom: 6px; }
-.tl-price { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.tl-ico { grid-area: ico; width: 48px; height: 48px; border-radius: 13px; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; font-size: 20px; background: var(--accent-soft, #FDECEC); color: var(--accent, #D33535); }
+.tl-name { grid-area: name; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 16px; font-weight: 800; color: var(--text-primary); line-height: 1.3; }
+.tl-price { grid-area: price; display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
 .tl-now { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 18px; font-weight: 800; color: var(--text-primary); }
 .tl-mrp { font-size: 13px; color: var(--text-muted); text-decoration: line-through; }
 .tl-off { font-size: 12px; font-weight: 800; color: var(--green, #1B8A5A); }
-.tl-book { flex-shrink: 0; border: 0; background: var(--accent, #D33535); color: #fff; font-size: 14px; font-weight: 800; padding: 11px 20px; border-radius: 11px; cursor: pointer; white-space: nowrap; transition: background .15s; text-decoration: none; }
-.tl-book:hover { background: var(--accent-dark, #B82E2E); }
+.tl-book { grid-area: btn; justify-self: end; flex-shrink: 0; display: inline-flex; align-items: center; gap: 6px; border: 1.5px solid var(--accent, #D33535); background: #fff; color: var(--accent, #D33535); font-size: 14px; font-weight: 800; padding: 10px 18px; border-radius: 11px; cursor: pointer; white-space: nowrap; transition: background .15s, color .15s; }
+.tl-book:hover { background: var(--accent-soft, #FDECEC); }
+.tl-book.is-added { background: var(--accent, #D33535); color: #fff; }
+.tl-book.is-added:hover { background: var(--accent-dark, #B82E2E); }
+/* Sticky selection bar */
+.tl-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 60; background: #fff; border-top: 1px solid var(--border-soft); box-shadow: 0 -6px 24px rgba(11,21,48,0.1); }
+.tl-bar-inner { max-width: 1480px; margin: 0 auto; padding: 14px var(--site-inset, 32px); display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.tl-bar-info { display: flex; flex-direction: column; }
+.tl-bar-count { font-size: 14px; font-weight: 800; color: var(--text-primary); }
+.tl-bar-total { font-size: 13px; color: var(--text-muted); }
+.tl-bar-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--accent, #D33535); color: #fff; border: 0; border-radius: 12px; padding: 13px 26px; font: inherit; font-size: 15px; font-weight: 800; cursor: pointer; }
+.tl-bar-btn:hover { background: var(--accent-dark, #B82E2E); }
+body.has-tl-bar { padding-bottom: 92px; }
+@media (max-width: 700px) { .tl-bar-inner { padding: 12px 16px; } .tl-bar-btn { padding: 12px 18px; } }
 .tl-empty { text-align: center; padding: 60px 20px; color: var(--text-muted); font-size: 15px; }
 @media (max-width: 700px) { .tl-h1 { font-size: 30px; } .tl-grid { grid-template-columns: 1fr; } .tl-card { padding: 14px 15px; gap: 12px; } .tl-book { padding: 10px 16px; } }
 </style>
@@ -541,6 +552,16 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   </div>
   <div class="tl-grid" id="tlGrid"></div>
 </main>
+
+<div class="tl-bar" id="tlBar" hidden>
+  <div class="tl-bar-inner">
+    <div class="tl-bar-info">
+      <span class="tl-bar-count" id="tlBarCount">0 tests added</span>
+      <span class="tl-bar-total" id="tlBarTotal">₹0</span>
+    </div>
+    <button type="button" class="tl-bar-btn" id="tlContinue">Continue <i class="fas fa-arrow-right" aria-hidden="true"></i></button>
+  </div>
+</div>
 <script>
 (function () {
   var CAT = {
@@ -649,15 +670,43 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   document.getElementById('tlTitle').textContent = title;
   document.getElementById('tlCrumb').textContent = title;
   document.getElementById('tlSub').textContent = tests.length + ' test' + (tests.length !== 1 ? 's' : '') + ' available';
-  document.getElementById('tlGrid').innerHTML = tests.length ? tests.map(function (t) {
+  var grid = document.getElementById('tlGrid');
+  grid.innerHTML = tests.length ? tests.map(function (t) {
     var off = (t.mrp && t.mrp > t.price) ? Math.round((1 - t.price / t.mrp) * 100) : 0;
-    var book = 'choose-lab.html?tests=' + encodeURIComponent(t.name) + '&prices=' + t.price;
     return '<article class="tl-card"><span class="tl-ico"><i class="fas ' + (t.icon || 'fa-vial') + '"></i></span>' +
-      '<div class="tl-body"><div class="tl-name">' + t.name + '</div>' +
+      '<div class="tl-name">' + t.name + '</div>' +
       '<div class="tl-price"><span class="tl-now">₹' + t.price.toLocaleString() + '</span>' +
       (off ? '<span class="tl-mrp">₹' + t.mrp.toLocaleString() + '</span><span class="tl-off">' + off + '% off</span>' : '') +
-      '</div></div><a class="tl-book" href="' + book + '">Book now</a></article>';
+      '</div>' +
+      '<button type="button" class="tl-book" data-test="' + t.name.replace(/"/g, '&quot;') + '" data-price="' + t.price + '"><i class="fas fa-plus"></i> Add</button></article>';
   }).join('') : '<div class="tl-empty">No tests found for this selection.</div>';
+
+  // ----- Multi-add selection + sticky bar -----
+  var selected = new Map();
+  var bar = document.getElementById('tlBar');
+  var barCount = document.getElementById('tlBarCount');
+  var barTotal = document.getElementById('tlBarTotal');
+  function refresh() {
+    var n = selected.size, total = 0;
+    selected.forEach(function (p) { total += p; });
+    barCount.textContent = n + ' test' + (n !== 1 ? 's' : '') + ' added';
+    barTotal.textContent = '₹' + total.toLocaleString('en-IN');
+    bar.hidden = n === 0;
+    document.body.classList.toggle('has-tl-bar', n > 0);
+  }
+  grid.addEventListener('click', function (e) {
+    var b = e.target.closest('.tl-book'); if (!b) return;
+    var name = b.dataset.test, price = parseInt(b.dataset.price, 10);
+    if (selected.has(name)) { selected.delete(name); b.classList.remove('is-added'); b.innerHTML = '<i class="fas fa-plus"></i> Add'; }
+    else { selected.set(name, price); b.classList.add('is-added'); b.innerHTML = '<i class="fas fa-check"></i> Added'; }
+    refresh();
+  });
+  document.getElementById('tlContinue').addEventListener('click', function () {
+    if (!selected.size) return;
+    var names = [], prices = [];
+    selected.forEach(function (p, n) { names.push(encodeURIComponent(n)); prices.push(p); });
+    location.href = 'choose-lab.html?tests=' + names.join('|') + '&prices=' + prices.join('|');
+  });
 })();
 </script>
 
