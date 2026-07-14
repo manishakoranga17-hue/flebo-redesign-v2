@@ -451,8 +451,8 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 
 /* Balance hero */
 .wal-hero { position: relative; overflow: hidden; border-radius: 24px; color: #fff; background: #121A40 url('b-hero3.jpeg') center / cover no-repeat; box-shadow: 0 26px 60px -26px rgba(11,21,48,0.7); padding: 30px 36px; display: flex; align-items: center; justify-content: space-between; gap: 26px; flex-wrap: wrap; }
-.wal-hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(118deg, rgba(10,16,40,0.95) 0%, rgba(17,23,60,0.85) 55%, rgba(30,30,80,0.72) 100%); }
-.wal-hero::after { content: ''; position: absolute; right: -10%; top: -60%; width: 46%; height: 230%; background: radial-gradient(circle at 60% 50%, rgba(211,53,53,0.34), transparent 64%); pointer-events: none; }
+.wal-hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(105deg, rgba(11,17,42,0.97) 0%, rgba(24,25,66,0.95) 34%, rgba(52,32,74,0.92) 62%, rgba(96,40,62,0.9) 84%, rgba(120,44,60,0.88) 100%); }
+.wal-hero::after { content: none; }
 .wal-hero > * { position: relative; z-index: 1; }
 .wal-balance-label { font-size: 12px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.66); }
 .wal-balance-amt { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 56px; line-height: 1.02; color: #fff; margin: 6px 0 6px; }
@@ -462,6 +462,9 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 .wal-btn:hover { transform: translateY(-1px); }
 .wal-btn-primary { background: var(--accent, #D33535); color: #fff; box-shadow: 0 10px 24px rgba(211,53,53,0.4); }
 .wal-btn-primary:hover { background: var(--accent-dark, #B82E2E); }
+/* Hero sits on a dark gradient — make its primary CTA white so it stands out */
+.wal-hero .wal-btn-primary { background: #fff; color: var(--primary, #1B2A5B); box-shadow: 0 10px 24px rgba(0,0,0,0.28); }
+.wal-hero .wal-btn-primary:hover { background: #EEF1F8; }
 .wal-btn-ghost { background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.28); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
 .wal-btn-ghost:hover { background: rgba(255,255,255,0.2); }
 .wal-coin-badge { width: 15px; height: 15px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; background: radial-gradient(circle at 34% 30%, #FFF3C4 0%, #FFD75E 40%, #EFAE2C 72%, #D28F19 100%); border: 1px solid #BE820E; color: #8A5A0A; font-size: 8px; font-weight: 900; }
