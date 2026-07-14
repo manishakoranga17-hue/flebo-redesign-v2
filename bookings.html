@@ -502,6 +502,43 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   .bk-card-foot { flex-direction: column; align-items: stretch; }
   .bk-card-actions { justify-content: space-between; }
 }
+
+/* ===== Booking action modals ===== */
+.bk-modal-ov { position: fixed; inset: 0; z-index: 1500; display: none; align-items: center; justify-content: center; padding: 20px; background: rgba(11,21,48,0.55); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); }
+.bk-modal-ov.is-open { display: flex; }
+.bk-modal { position: relative; width: 100%; max-width: 420px; background: #fff; border-radius: 20px; padding: 26px 24px 22px; box-shadow: 0 24px 60px rgba(11,21,48,0.3); animation: bkPop 0.22s cubic-bezier(0.34,1.56,0.64,1) both; }
+.bk-modal--wide { max-width: 480px; }
+@keyframes bkPop { from { transform: translateY(14px) scale(0.96); opacity: 0; } to { transform: none; opacity: 1; } }
+.bk-modal-x { position: absolute; top: 14px; right: 14px; width: 32px; height: 32px; border: 0; border-radius: 50%; background: var(--bg-soft); color: var(--text-muted); font-size: 18px; line-height: 1; cursor: pointer; }
+.bk-modal-x:hover { background: #e6e9f0; }
+.bk-modal-ic { width: 54px; height: 54px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 14px; }
+.bk-modal-ic--warn { background: var(--accent-soft, #FDECEC); color: var(--accent, #D33535); }
+.bk-modal-ic--track { background: var(--blue-soft, #EFF6FF); color: var(--primary, #1B2A5B); }
+.bk-modal h3 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 19px; font-weight: 800; color: var(--text-primary); margin-bottom: 6px; }
+.bk-modal p { font-size: 14px; color: var(--text-secondary, #4A5578); line-height: 1.55; margin-bottom: 18px; }
+.bk-modal-actions { display: flex; gap: 10px; margin-top: 20px; }
+.bk-modal-actions .bk-btn { flex: 1; justify-content: center; }
+.bk-resched-label { font-size: 12px; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-muted); margin: 18px 0 9px; }
+.bk-resched-dates { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+.bk-resched-dates::-webkit-scrollbar { display: none; }
+.bk-date-chip { flex: 0 0 auto; min-width: 58px; text-align: center; border: 1.5px solid var(--border-mid, #C5CCDB); border-radius: 12px; padding: 9px 8px; cursor: pointer; background: #fff; transition: border-color 0.14s, background 0.14s; }
+.bk-date-chip.is-active { border-color: var(--accent, #D33535); background: var(--accent-soft, #FDECEC); }
+.bk-date-chip .d-dow { font-size: 11px; font-weight: 700; color: var(--text-muted); }
+.bk-date-chip .d-day { font-size: 17px; font-weight: 800; color: var(--text-primary); line-height: 1.1; }
+.bk-date-chip .d-mon { font-size: 10px; color: var(--text-muted); }
+.bk-resched-slots { display: flex; flex-wrap: wrap; gap: 8px; }
+.bk-slot { border: 1.5px solid var(--border-mid, #C5CCDB); border-radius: 999px; padding: 8px 15px; font-size: 13px; font-weight: 700; color: var(--text-primary); background: #fff; cursor: pointer; transition: border-color 0.14s, background 0.14s, color 0.14s; }
+.bk-slot.is-active { border-color: var(--accent, #D33535); background: var(--accent, #D33535); color: #fff; }
+.bk-track { list-style: none; padding: 6px 0 0; margin: 0; position: relative; }
+.bk-track li { position: relative; padding: 0 0 20px 30px; }
+.bk-track li:last-child { padding-bottom: 0; }
+.bk-track li::before { content: ''; position: absolute; left: 8px; top: 20px; bottom: 0; width: 2px; background: var(--border-soft); }
+.bk-track li:last-child::before { display: none; }
+.bk-track-dot { position: absolute; left: 0; top: 2px; width: 18px; height: 18px; border-radius: 50%; background: #fff; border: 2px solid var(--border-mid, #C5CCDB); display: flex; align-items: center; justify-content: center; font-size: 9px; color: #fff; }
+.bk-track li.done .bk-track-dot { background: var(--green, #1B8A5A); border-color: var(--green, #1B8A5A); }
+.bk-track li.active .bk-track-dot { background: var(--accent, #D33535); border-color: var(--accent, #D33535); }
+.bk-track-t { font-size: 14px; font-weight: 700; color: var(--text-primary); }
+.bk-track-s { font-size: 12.5px; color: var(--text-muted); margin-top: 1px; }
 </style>
 </head>
 <body>
@@ -589,7 +626,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
       <div class="bk-card-meta"><span><i class="fas fa-calendar" aria-hidden="true"></i> Sat, 12 Jul 2026</span><span><i class="fas fa-clock" aria-hidden="true"></i> 7:00 – 7:30 AM</span><span><i class="fas fa-house" aria-hidden="true"></i> Home collection</span><span><i class="fas fa-user-group" aria-hidden="true"></i> 2 members</span></div>
       <div class="bk-card-foot">
         <div class="bk-card-id">Booking #FL2098 &middot; 84 parameters</div>
-        <div class="bk-card-actions"><span class="bk-price">&#8377;1,599</span><div class="bk-cta-group"><button type="button" class="bk-btn bk-btn-cancel" data-cancel>Cancel</button><button type="button" class="bk-btn bk-btn-ghost">Reschedule</button></div></div>
+        <div class="bk-card-actions"><span class="bk-price">&#8377;1,599</span><div class="bk-cta-group"><button type="button" class="bk-btn bk-btn-cancel" data-cancel>Cancel</button><button type="button" class="bk-btn bk-btn-ghost" data-reschedule>Reschedule</button></div></div>
       </div>
     </div>
   </article>
@@ -599,7 +636,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
       <div class="bk-card-meta"><span><i class="fas fa-calendar" aria-hidden="true"></i> Wed, 9 Jul 2026</span><span><i class="fas fa-clock" aria-hidden="true"></i> 8:30 AM</span><span><i class="fas fa-flask-vial" aria-hidden="true"></i> Orange Health Labs</span><span><i class="fas fa-user" aria-hidden="true"></i> Neha Gulati</span></div>
       <div class="bk-card-foot">
         <div class="bk-card-id">Booking #FL2091 &middot; 3 parameters</div>
-        <div class="bk-card-actions"><span class="bk-price">&#8377;499</span><div class="bk-cta-group"><button type="button" class="bk-btn bk-btn-cancel" data-cancel>Cancel</button><button type="button" class="bk-btn bk-btn-ghost">Track sample</button></div></div>
+        <div class="bk-card-actions"><span class="bk-price">&#8377;499</span><div class="bk-cta-group"><button type="button" class="bk-btn bk-btn-cancel" data-cancel>Cancel</button><button type="button" class="bk-btn bk-btn-ghost" data-track>Track sample</button></div></div>
       </div>
     </div>
   </article>
@@ -640,6 +677,55 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
     </div>
   </div>
 </main>
+
+<!-- Cancel confirm -->
+<div class="bk-modal-ov" id="bkCancelOv" role="dialog" aria-modal="true">
+  <div class="bk-modal">
+    <div class="bk-modal-ic bk-modal-ic--warn"><i class="fas fa-triangle-exclamation"></i></div>
+    <h3>Cancel this booking?</h3>
+    <p>Any amount paid will be refunded to your Flebo wallet within 5–7 days. This can't be undone.</p>
+    <div class="bk-modal-actions">
+      <button type="button" class="bk-btn bk-btn-ghost" data-close>Keep booking</button>
+      <button type="button" class="bk-btn bk-btn-primary" id="bkCancelConfirm">Yes, cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Reschedule -->
+<div class="bk-modal-ov" id="bkReschedOv" role="dialog" aria-modal="true">
+  <div class="bk-modal bk-modal--wide">
+    <button type="button" class="bk-modal-x" data-close aria-label="Close">&times;</button>
+    <h3>Reschedule collection</h3>
+    <p>Pick a new date and time slot for this booking.</p>
+    <div class="bk-resched-label">Choose date</div>
+    <div class="bk-resched-dates" id="bkReschedDates"></div>
+    <div class="bk-resched-label">Time slot</div>
+    <div class="bk-resched-slots" id="bkReschedSlots"></div>
+    <div class="bk-modal-actions">
+      <button type="button" class="bk-btn bk-btn-ghost" data-close>Cancel</button>
+      <button type="button" class="bk-btn bk-btn-primary" id="bkReschedConfirm">Confirm new slot</button>
+    </div>
+  </div>
+</div>
+
+<!-- Track sample -->
+<div class="bk-modal-ov" id="bkTrackOv" role="dialog" aria-modal="true">
+  <div class="bk-modal bk-modal--wide">
+    <button type="button" class="bk-modal-x" data-close aria-label="Close">&times;</button>
+    <div class="bk-modal-ic bk-modal-ic--track"><i class="fas fa-vial-circle-check"></i></div>
+    <h3>Track your sample</h3>
+    <p id="bkTrackSub">Live status of your sample on the way to the lab.</p>
+    <ul class="bk-track">
+      <li class="done"><span class="bk-track-dot"><i class="fas fa-check"></i></span><div class="bk-track-t">Sample collected</div><div class="bk-track-s">Collected at your home · 8:34 AM</div></li>
+      <li class="done"><span class="bk-track-dot"><i class="fas fa-check"></i></span><div class="bk-track-t">Picked up by field agent</div><div class="bk-track-s">Sealed &amp; temperature-controlled · 9:05 AM</div></li>
+      <li class="active"><span class="bk-track-dot"></span><div class="bk-track-t">In transit to lab</div><div class="bk-track-s">Orange Health Labs, Gurgaon · ETA 11:30 AM</div></li>
+      <li><span class="bk-track-dot"></span><div class="bk-track-t">Processing at lab</div><div class="bk-track-s">Analysis begins on arrival</div></li>
+      <li><span class="bk-track-dot"></span><div class="bk-track-t">Report ready</div><div class="bk-track-s">Delivered to app, email &amp; WhatsApp</div></li>
+    </ul>
+    <div class="bk-modal-actions"><button type="button" class="bk-btn bk-btn-primary" data-close>Got it</button></div>
+  </div>
+</div>
+
 <script>
 (function () {
   var tabs = document.getElementById('bkTabs');
@@ -678,18 +764,81 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
     apply(b.dataset.f);
   });
 
+  // ===== Modals =====
+  var targetCard = null;
+  function openModal(id) { document.getElementById(id).classList.add('is-open'); document.body.style.overflow = 'hidden'; }
+  function closeModals() { document.querySelectorAll('.bk-modal-ov.is-open').forEach(function (m) { m.classList.remove('is-open'); }); document.body.style.overflow = ''; }
+  document.querySelectorAll('.bk-modal-ov').forEach(function (ov) {
+    ov.addEventListener('click', function (e) { if (e.target === ov || e.target.closest('[data-close]')) closeModals(); });
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModals(); });
+
+  // ---- Booking card actions ----
   list.addEventListener('click', function (e) {
-    var btn = e.target.closest('[data-cancel]'); if (!btn) return;
-    var card = btn.closest('.bk-card');
-    if (!window.confirm('Cancel this booking? Any amount paid will be refunded to your Flebo wallet.')) return;
-    card.dataset.status = 'cancelled';
-    var badge = card.querySelector('.bk-status');
-    if (badge) { badge.className = 'bk-status bk-status--cancelled'; badge.innerHTML = 'Cancelled · Refunded'; }
-    var actions = card.querySelector('.bk-card-actions');
+    var card = e.target.closest('.bk-card'); if (!card) return;
+    if (e.target.closest('[data-cancel]')) { targetCard = card; openModal('bkCancelOv'); return; }
+    if (e.target.closest('[data-reschedule]')) { targetCard = card; buildReschedule(); openModal('bkReschedOv'); return; }
+    if (e.target.closest('[data-track]')) {
+      targetCard = card;
+      var nm = card.querySelector('.bk-card-name');
+      var sub = document.getElementById('bkTrackSub');
+      if (sub && nm) sub.textContent = 'Live status for “' + nm.textContent.trim() + '”.';
+      openModal('bkTrackOv');
+      return;
+    }
+  });
+
+  // ---- Cancel ----
+  document.getElementById('bkCancelConfirm').addEventListener('click', function () {
+    if (!targetCard) return;
+    targetCard.dataset.status = 'cancelled';
+    var badge = targetCard.querySelector('.bk-status');
+    if (badge) { badge.className = 'bk-status bk-status--cancelled'; badge.innerHTML = 'Cancelled &middot; Refunded'; }
+    var actions = targetCard.querySelector('.bk-card-actions');
     var price = actions.querySelector('.bk-price');
-    actions.innerHTML = (price ? price.outerHTML : '') + '<a href="packages.html" class="bk-btn bk-btn-primary">Book again</a>';
-    updateCounts();
-    apply(current);
+    actions.innerHTML = (price ? price.outerHTML : '') + '<div class="bk-cta-group"><a href="tests.html" class="bk-btn bk-btn-primary">Book again</a></div>';
+    updateCounts(); apply(current); closeModals();
+  });
+
+  // ---- Reschedule ----
+  var selDate = null, selSlot = null;
+  var SLOTS = ['7:00 AM', '8:00 AM', '9:00 AM', '10:00 AM', '11:00 AM', '4:00 PM', '5:00 PM', '6:00 PM'];
+  var DOW = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  var MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  function buildReschedule() {
+    selDate = null; selSlot = null;
+    var dwrap = document.getElementById('bkReschedDates');
+    var swrap = document.getElementById('bkReschedSlots');
+    var html = '';
+    var base = new Date();
+    for (var i = 1; i <= 7; i++) {
+      var d = new Date(base.getTime() + i * 86400000);
+      html += '<button type="button" class="bk-date-chip" data-date="' + DOW[d.getDay()] + ', ' + d.getDate() + ' ' + MON[d.getMonth()] + ' ' + d.getFullYear() + '">' +
+        '<div class="d-dow">' + DOW[d.getDay()] + '</div><div class="d-day">' + d.getDate() + '</div><div class="d-mon">' + MON[d.getMonth()] + '</div></button>';
+    }
+    dwrap.innerHTML = html;
+    swrap.innerHTML = SLOTS.map(function (s) { return '<button type="button" class="bk-slot" data-slot="' + s + '">' + s + '</button>'; }).join('');
+    document.getElementById('bkReschedConfirm').disabled = false;
+  }
+  document.getElementById('bkReschedDates').addEventListener('click', function (e) {
+    var c = e.target.closest('.bk-date-chip'); if (!c) return;
+    this.querySelectorAll('.bk-date-chip').forEach(function (x) { x.classList.toggle('is-active', x === c); });
+    selDate = c.dataset.date;
+  });
+  document.getElementById('bkReschedSlots').addEventListener('click', function (e) {
+    var c = e.target.closest('.bk-slot'); if (!c) return;
+    this.querySelectorAll('.bk-slot').forEach(function (x) { x.classList.toggle('is-active', x === c); });
+    selSlot = c.dataset.slot;
+  });
+  document.getElementById('bkReschedConfirm').addEventListener('click', function () {
+    if (!targetCard) return;
+    if (!selDate || !selSlot) { alert('Please pick a date and a time slot.'); return; }
+    var meta = targetCard.querySelectorAll('.bk-card-meta span');
+    if (meta[0]) meta[0].innerHTML = '<i class="fas fa-calendar" aria-hidden="true"></i> ' + selDate;
+    if (meta[1]) meta[1].innerHTML = '<i class="fas fa-clock" aria-hidden="true"></i> ' + selSlot;
+    var badge = targetCard.querySelector('.bk-status');
+    if (badge && targetCard.dataset.status === 'upcoming') { badge.className = 'bk-status bk-status--confirmed'; badge.innerHTML = 'Rescheduled'; }
+    closeModals();
   });
 })();
 </script>
