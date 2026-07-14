@@ -7,6 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -489,13 +491,23 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   transition: border-color 0.15s, color 0.15s;
 }
 .add-addr-btn:hover { border-color: var(--primary); }
-.add-addr-form { margin-top: 12px; border: 1.5px solid var(--border-soft); border-radius: var(--radius-md); background: var(--bg-soft, #F7F8FB); padding: 16px; }
+/* Add-address modal */
+.aaddr-search-row { display: flex; gap: 10px; margin-bottom: 12px; }
+.aaddr-search-row .pp-input { flex: 1; }
+.aaddr-search-btn { flex: 0 0 48px; height: 48px; border: 1.5px solid var(--border-mid); border-radius: var(--radius-md); background: #fff; color: var(--primary); font-size: 16px; cursor: pointer; }
+.aaddr-search-btn:hover { border-color: var(--primary); background: var(--bg-soft, #F7F8FB); }
+.aaddr-map-wrap { position: relative; border-radius: var(--radius-md); overflow: hidden; border: 1.5px solid var(--border-soft); }
+.aaddr-map { width: 100%; height: 240px; background: var(--bg-soft, #F7F8FB); z-index: 0; }
+.aaddr-locate { position: absolute; left: 12px; bottom: 12px; z-index: 500; display: inline-flex; align-items: center; gap: 8px; background: #fff; border: 1.5px solid var(--border-mid); border-radius: 50px; padding: 9px 14px; font: inherit; font-size: 13px; font-weight: 700; color: var(--primary); cursor: pointer; box-shadow: 0 3px 10px rgba(0,0,0,0.12); }
+.aaddr-locate:hover { border-color: var(--primary); }
+.aaddr-map-hint { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--text-muted); margin: 10px 2px 16px; }
+.aaddr-map-hint i { color: var(--accent); }
 .aaf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.aaf-actions { display: flex; gap: 10px; margin-top: 14px; }
+.aaf-actions { display: flex; gap: 10px; margin-top: 18px; }
 .aaf-actions .pp-act { flex: 0 0 auto; min-width: 110px; }
 .add-addr-save { flex: 1; border: 0; border-radius: var(--radius-md); background: var(--accent); color: #fff; font: inherit; font-size: 14px; font-weight: 800; padding: 12px 16px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: background 0.14s; }
 .add-addr-save:hover { background: var(--accent-dark); }
-@media (max-width: 560px) { .aaf-grid { grid-template-columns: 1fr; } }
+@media (max-width: 560px) { .aaf-grid { grid-template-columns: 1fr; } .aaddr-map { height: 220px; } }
 
 .add-patient-btn {
   margin-top: 14px;
@@ -1625,18 +1637,6 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
         </div>
       </div>
       <button type="button" class="add-addr-btn" id="addAddrBtn"><i class="fas fa-plus"></i> Add a new address</button>
-      <div class="add-addr-form" id="addAddrForm" hidden>
-        <div class="aaf-grid">
-          <div><label class="pp-label">Full name</label><input class="pp-input" id="aafName" type="text" placeholder="Recipient name"></div>
-          <div><label class="pp-label">Phone</label><input class="pp-input" id="aafPhone" type="tel" placeholder="+91 98765 43210"></div>
-          <div class="pp-field--full"><label class="pp-label">Address</label><input class="pp-input" id="aafLine" type="text" placeholder="House / flat, area, city, pincode"></div>
-          <div class="pp-field--full"><label class="pp-label">Label</label><select class="pp-select" id="aafTag"><option>Home</option><option>Office</option><option>Other</option></select></div>
-        </div>
-        <div class="aaf-actions">
-          <button type="button" class="pp-act" id="aafCancel">Cancel</button>
-          <button type="button" class="add-addr-save" id="aafSave"><i class="fas fa-check"></i> Save address</button>
-        </div>
-      </div>
     </section>
 
     <!-- STEP 3: DATE -->
@@ -1740,6 +1740,37 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
     <span id="mabLabel">Proceed to Pay</span>
     <i class="fas fa-arrow-right"></i>
   </button>
+</div>
+
+<!-- ===== ADD ADDRESS MODAL ===== -->
+<div class="modal-overlay" id="addAddrModal" role="dialog" aria-modal="true" aria-labelledby="addAddrTitle">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div class="modal-title" id="addAddrTitle">Add a new address</div>
+      <button type="button" class="modal-close" id="addAddrClose" aria-label="Close"><i class="fas fa-xmark"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="aaddr-search-row">
+        <input class="pp-input" id="aaddrSearch" type="text" placeholder="Search area, landmark or pincode" autocomplete="off">
+        <button type="button" class="aaddr-search-btn" id="aaddrSearchBtn" aria-label="Search"><i class="fas fa-magnifying-glass"></i></button>
+      </div>
+      <div class="aaddr-map-wrap">
+        <div id="aaddrMap" class="aaddr-map"></div>
+        <button type="button" class="aaddr-locate" id="aaddrLocate"><i class="fas fa-location-crosshairs"></i> Use my current location</button>
+      </div>
+      <div class="aaddr-map-hint"><i class="fas fa-map-pin"></i> Drag the pin or tap the map to set your exact location</div>
+      <div class="aaf-grid">
+        <div><label class="pp-label">Full name</label><input class="pp-input" id="aafName" type="text" placeholder="Recipient name"></div>
+        <div><label class="pp-label">Phone</label><input class="pp-input" id="aafPhone" type="tel" placeholder="+91 98765 43210"></div>
+        <div class="pp-field--full"><label class="pp-label">Address</label><input class="pp-input" id="aafLine" type="text" placeholder="House / flat, area, city, pincode"></div>
+        <div class="pp-field--full"><label class="pp-label">Label</label><select class="pp-select" id="aafTag"><option>Home</option><option>Office</option><option>Other</option></select></div>
+      </div>
+      <div class="aaf-actions">
+        <button type="button" class="pp-act" id="aafCancel">Cancel</button>
+        <button type="button" class="add-addr-save" id="aafSave"><i class="fas fa-check"></i> Save address</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- ===== COUPONS MODAL ===== -->
@@ -1987,24 +2018,78 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
     card.classList.add('is-active');
   });
 
-  // Add a new address (inline form)
+  // Add a new address (popup + map picker)
   (function setupAddAddress() {
     const btn = document.getElementById('addAddrBtn');
-    const form = document.getElementById('addAddrForm');
+    const modal = document.getElementById('addAddrModal');
     const list = document.querySelector('.addr-list');
-    if (!btn || !form || !list) return;
+    if (!btn || !modal || !list) return;
     const nameEl = document.getElementById('aafName');
     const phoneEl = document.getElementById('aafPhone');
     const lineEl = document.getElementById('aafLine');
     const tagEl = document.getElementById('aafTag');
+    const searchEl = document.getElementById('aaddrSearch');
     const escHtml = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
     const tagIcon = { Home: 'fa-house', Office: 'fa-briefcase', Other: 'fa-location-dot' };
+    const GURGAON = [28.4595, 77.0266];
+    let map = null, marker = null;
 
-    function openForm() { form.hidden = false; btn.hidden = true; nameEl.focus(); }
-    function closeForm() { form.hidden = true; btn.hidden = false; [nameEl, phoneEl, lineEl].forEach(i => i.value = ''); tagEl.value = 'Home'; }
+    function reverseGeocode(lat, lng) {
+      fetch('https://nominatim.openstreetmap.org/reverse?format=json&zoom=18&addressdetails=1&lat=' + lat + '&lon=' + lng, { headers: { 'Accept-Language': 'en' } })
+        .then(r => r.ok ? r.json() : null)
+        .then(d => { if (d && d.display_name) lineEl.value = d.display_name; })
+        .catch(() => {});
+    }
+    function setPin(lat, lng, doGeocode) {
+      if (!map) return;
+      if (marker) marker.setLatLng([lat, lng]); else {
+        marker = L.marker([lat, lng], { draggable: true }).addTo(map);
+        marker.on('dragend', () => { const p = marker.getLatLng(); reverseGeocode(p.lat, p.lng); });
+      }
+      if (doGeocode) reverseGeocode(lat, lng);
+    }
+    function initMap() {
+      if (map || typeof L === 'undefined') return;
+      map = L.map('aaddrMap', { zoomControl: true }).setView(GURGAON, 12);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '© OpenStreetMap' }).addTo(map);
+      map.on('click', (e) => { setPin(e.latlng.lat, e.latlng.lng, true); });
+    }
+    function geocodeSearch() {
+      const q = searchEl.value.trim(); if (!q || !map) return;
+      fetch('https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=in&q=' + encodeURIComponent(q), { headers: { 'Accept-Language': 'en' } })
+        .then(r => r.ok ? r.json() : []).then(d => {
+          if (d && d[0]) { const lat = +d[0].lat, lng = +d[0].lon; map.setView([lat, lng], 16); setPin(lat, lng, false); lineEl.value = d[0].display_name; }
+          else if (typeof showToast === 'function') showToast('No match found');
+        }).catch(() => {});
+    }
 
-    btn.addEventListener('click', openForm);
-    document.getElementById('aafCancel').addEventListener('click', closeForm);
+    function openModal() {
+      modal.classList.add('is-open');
+      // Leaflet needs a visible, sized container — init/refresh after paint
+      requestAnimationFrame(() => { initMap(); if (map) setTimeout(() => map.invalidateSize(), 60); });
+    }
+    function closeModal() {
+      modal.classList.remove('is-open');
+      [nameEl, phoneEl, lineEl, searchEl].forEach(i => i.value = ''); tagEl.value = 'Home';
+    }
+
+    btn.addEventListener('click', openModal);
+    document.getElementById('addAddrClose').addEventListener('click', closeModal);
+    document.getElementById('aafCancel').addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal(); });
+
+    document.getElementById('aaddrSearchBtn').addEventListener('click', geocodeSearch);
+    searchEl.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); geocodeSearch(); } });
+
+    document.getElementById('aaddrLocate').addEventListener('click', () => {
+      if (!navigator.geolocation) { if (typeof showToast === 'function') showToast('Location not supported'); return; }
+      navigator.geolocation.getCurrentPosition((pos) => {
+        const lat = pos.coords.latitude, lng = pos.coords.longitude;
+        if (map) map.setView([lat, lng], 16); setPin(lat, lng, true);
+      }, () => { if (typeof showToast === 'function') showToast('Could not get your location'); });
+    });
+
     document.getElementById('aafSave').addEventListener('click', () => {
       const name = nameEl.value.trim(), line = lineEl.value.trim();
       if (!name || !line) { [!name && nameEl, !line && lineEl].filter(Boolean).forEach(i => { i.style.borderColor = 'var(--accent)'; i.addEventListener('input', () => { i.style.borderColor = ''; }, { once: true }); }); return; }
@@ -2020,7 +2105,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
       list.appendChild(card);
       document.querySelectorAll('.addr-card').forEach(c => c.classList.remove('is-active'));
       card.classList.add('is-active');
-      closeForm();
+      closeModal();
       if (typeof showToast === 'function') showToast('✓ Address added');
     });
   })();
