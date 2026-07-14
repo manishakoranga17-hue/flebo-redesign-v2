@@ -673,6 +673,18 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   .ai-tk { flex: 1; min-width: 0; }
   .ai-tk i { display: block; font-style: normal; font-size: 10px; font-weight: 700; color: var(--text-muted, #6B7592); }
   .ai-tk b { display: block; font-size: 11.5px; font-weight: 700; color: var(--text-secondary, #4A5578); line-height: 1.25; margin-top: 2px; }
+  /* Simple range bar (matches the reference design) */
+  .ai-scale-track2 { position: relative; height: 22px; display: flex; align-items: center; margin-top: 6px; }
+  .ai-scale-bar2 { flex: 1; display: flex; height: 9px; border-radius: 999px; overflow: hidden; }
+  .ai-seg2 { height: 100%; }
+  .ai-seg2.good { background: #57C15E; }
+  .ai-seg2.warn { background: #EFA23D; }
+  .ai-seg2.bad { background: #E15241; }
+  .ai-thumb { position: absolute; top: 50%; transform: translate(-50%, -50%); width: 22px; height: 22px; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 2px 6px rgba(11,21,48,0.28); z-index: 2; }
+  .ai-thumb.good { background: #57C15E; }
+  .ai-thumb.warn { background: #EFA23D; }
+  .ai-thumb.bad { background: #E15241; }
+  .ai-scale-label { margin-top: 11px; font-size: 15px; color: var(--text-primary, #0B1530); }
 
   /* normal findings */
   .ai-normal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
@@ -1508,13 +1520,19 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
         AI.findings.map(function (f) {
           function scaleHTML(sc) {
             if (!sc) return '';
-            var segs = sc.zones.map(function (z) { return '<div class="ai-seg ' + z.c + '" style="flex:' + z.w + '"></div>'; }).join('');
-            var ticks = sc.zones.map(function (z) { return '<div class="ai-tk" style="flex:' + z.w + '"><i>' + (z.num || '') + '</i><b>' + z.label + '</b></div>'; }).join('');
-            return '<div class="ai-scale"><div class="ai-scale-track">' +
-              '<div class="ai-scale-bar">' + segs + '</div>' +
-              '<span class="ai-scale-badge" style="left:' + sc.vpos + '%">' + sc.value + '</span></div>' +
-              '<div class="ai-scale-unit">' + sc.unit + '</div>' +
-              '<div class="ai-scale-ticks">' + ticks + '</div></div>';
+            var segs = sc.zones.map(function (z) { return '<div class="ai-seg2 ' + z.c + '" style="flex:' + z.w + '"></div>'; }).join('');
+            // which zone does the value fall in (by its position along the bar)
+            var total = sc.zones.reduce(function (a, z) { return a + z.w; }, 0);
+            var acc = 0, zLabel = sc.zones[0].label, zClass = sc.zones[0].c;
+            for (var i = 0; i < sc.zones.length; i++) {
+              acc += (sc.zones[i].w / total) * 100;
+              zLabel = sc.zones[i].label; zClass = sc.zones[i].c;
+              if (sc.vpos <= acc) break;
+            }
+            return '<div class="ai-scale">' +
+              '<div class="ai-scale-track2"><div class="ai-scale-bar2">' + segs + '</div>' +
+              '<span class="ai-thumb ' + zClass + '" style="left:' + sc.vpos + '%"></span></div>' +
+              '<div class="ai-scale-label">' + zLabel + ': ' + sc.value + '</div></div>';
           }
           return '<div class="ai-finding ' + f.sev + '"><div class="ai-finding-top"><div>' +
             '<div class="ai-finding-name">' + f.name + '</div>' +
