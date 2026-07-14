@@ -1606,12 +1606,12 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
       var isMobile = window.innerWidth <= 768;
       ctx.fillStyle = 'rgba(255,255,255,0.85)';
       if (isMobile) {
-        ctx.font = '700 10px "Plus Jakarta Sans", sans-serif'; ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+        ctx.font = '700 10px "Plus Jakarta Sans", sans-serif'; ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
         LABS.forEach(function (n, i) {
           ctx.save();
           ctx.translate(pts[i].x, y.top - 4);
-          ctx.rotate(0.7);           // ~40°, matching the rotated date labels
-          ctx.fillText(n, -4, 0);
+          ctx.rotate(-0.7);          // ~40°, tilting up to the right
+          ctx.fillText(n, 4, 0);
           ctx.restore();
         });
       } else {
