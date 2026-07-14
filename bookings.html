@@ -483,8 +483,8 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 .bk-card-foot { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 14px; padding-top: 14px; border-top: 1px dashed var(--border-soft); flex-wrap: wrap; }
 .bk-card-id { font-size: 12px; color: var(--text-muted); }
 .bk-card-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-.bk-card-foot-l { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
-.bk-view { display: inline-flex; align-items: center; gap: 7px; align-self: flex-start; color: var(--primary, #1B2A5B); font-size: 13px; font-weight: 700; text-decoration: none; }
+.bk-card-top-r { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; flex-shrink: 0; }
+.bk-view { display: inline-flex; align-items: center; gap: 7px; color: var(--primary, #1B2A5B); font-size: 13px; font-weight: 700; text-decoration: none; white-space: nowrap; }
 .bk-view:hover { text-decoration: underline; color: var(--accent, #D33535); }
 .bk-view i { color: var(--accent, #D33535); font-size: 13px; }
 .bk-price { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 17px; font-weight: 800; color: var(--text-primary); margin-right: 4px; }
@@ -589,13 +589,10 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   <article class="bk-card" data-status="upcoming">
     <div class="bk-card-ic pkg"><i class="fas fa-box-open" aria-hidden="true"></i></div>
     <div class="bk-card-main">
-      <div class="bk-card-top"><h3 class="bk-card-name">Advanced Full Body Checkup</h3><span class="bk-status bk-status--confirmed">Confirmed</span></div>
+      <div class="bk-card-top"><h3 class="bk-card-name">Advanced Full Body Checkup</h3><div class="bk-card-top-r"><span class="bk-status bk-status--confirmed">Confirmed</span><a href="booking-confirmed.html" class="bk-view"><i class="fas fa-circle-info" aria-hidden="true"></i> View details</a></div></div>
       <div class="bk-card-meta"><span><i class="fas fa-calendar" aria-hidden="true"></i> Sat, 12 Jul 2026</span><span><i class="fas fa-clock" aria-hidden="true"></i> 7:00 – 7:30 AM</span><span><i class="fas fa-house" aria-hidden="true"></i> Home collection</span><span><i class="fas fa-user-group" aria-hidden="true"></i> 2 members</span></div>
       <div class="bk-card-foot">
-        <div class="bk-card-foot-l">
-          <div class="bk-card-id">Booking #FL2098 &middot; 84 parameters</div>
-          <a href="booking-confirmed.html" class="bk-view"><i class="fas fa-circle-info" aria-hidden="true"></i> View details</a>
-        </div>
+        <div class="bk-card-id">Booking #FL2098 &middot; 84 parameters</div>
         <div class="bk-card-actions"><span class="bk-price">&#8377;1,599</span><button type="button" class="bk-btn bk-btn-cancel" data-cancel>Cancel</button><button type="button" class="bk-btn bk-btn-ghost">Reschedule</button></div>
       </div>
     </div>
@@ -603,13 +600,10 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   <article class="bk-card" data-status="upcoming">
     <div class="bk-card-ic "><i class="fas fa-droplet" aria-hidden="true"></i></div>
     <div class="bk-card-main">
-      <div class="bk-card-top"><h3 class="bk-card-name">Thyroid Profile — Total (T3, T4, TSH)</h3><span class="bk-status bk-status--progress">Sample collected</span></div>
+      <div class="bk-card-top"><h3 class="bk-card-name">Thyroid Profile — Total (T3, T4, TSH)</h3><div class="bk-card-top-r"><span class="bk-status bk-status--progress">Sample collected</span><a href="booking-confirmed.html" class="bk-view"><i class="fas fa-circle-info" aria-hidden="true"></i> View details</a></div></div>
       <div class="bk-card-meta"><span><i class="fas fa-calendar" aria-hidden="true"></i> Wed, 9 Jul 2026</span><span><i class="fas fa-clock" aria-hidden="true"></i> 8:30 AM</span><span><i class="fas fa-flask-vial" aria-hidden="true"></i> Orange Health Labs</span><span><i class="fas fa-user" aria-hidden="true"></i> Neha Gulati</span></div>
       <div class="bk-card-foot">
-        <div class="bk-card-foot-l">
-          <div class="bk-card-id">Booking #FL2091 &middot; 3 parameters</div>
-          <a href="booking-confirmed.html" class="bk-view"><i class="fas fa-circle-info" aria-hidden="true"></i> View details</a>
-        </div>
+        <div class="bk-card-id">Booking #FL2091 &middot; 3 parameters</div>
         <div class="bk-card-actions"><span class="bk-price">&#8377;499</span><button type="button" class="bk-btn bk-btn-cancel" data-cancel>Cancel</button><button type="button" class="bk-btn bk-btn-ghost">Track sample</button></div>
       </div>
     </div>
