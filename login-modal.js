@@ -128,7 +128,7 @@
   .lm-menu-item.is-logout,.lm-menu-item.is-logout i{color:var(--accent,#D33535);}\
   /* ----- mobile nav drawer (hamburger) ----- */\
   .main-nav.lmnav-open{display:flex !important;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;\
-    background:#fff;border-top:1px solid var(--border-soft,#E5E9F3);box-shadow:0 18px 36px rgba(11,21,48,.16);padding:8px;z-index:250;max-height:74vh;overflow-y:auto;}\
+    background:#fff;border-top:1px solid var(--border-soft,#E5E9F3);box-shadow:0 18px 36px rgba(11,21,48,.16);padding:8px;z-index:250;max-height:calc(100vh - 100px);overflow-y:auto;}\
   .main-nav.lmnav-open .main-nav-list{flex-direction:column;width:100%;gap:2px;}\
   .main-nav.lmnav-open .main-nav-list li{width:100%;}\
   .main-nav.lmnav-open .main-nav-link{width:100%;padding:13px 14px;border-radius:10px;font-size:15px;}\
@@ -138,6 +138,9 @@
   /* account items injected into the mobile drawer (logged in) */\
   .lmnav-acct{display:none;}\
   .main-nav.lmnav-open .lmnav-acct{display:block;width:100%;}\
+  /* when logged in, the account menu replaces the repetitive top nav links */\
+  .main-nav.lmnav-open .main-nav-list.lmnav-has-acct>li:not(.lmnav-acct){display:none;}\
+  .main-nav.lmnav-open .main-nav-list.lmnav-has-acct .lmnav-acct-sep{display:none;}\
   .main-nav.lmnav-open .lmnav-acct-head{padding:12px 14px 4px;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted,#6B7592);}\
   .main-nav.lmnav-open .lmnav-acct-sep{height:1px;background:var(--border-soft,#E5E9F3);margin:8px 6px;padding:0;}\
   .main-nav.lmnav-open .lmnav-acct .main-nav-link.is-logout,.main-nav.lmnav-open .lmnav-acct .main-nav-link.is-logout i{color:var(--accent,#D33535);}\
@@ -496,6 +499,7 @@
     var list = document.querySelector('.main-nav .main-nav-list');
     if (list) {
       Array.prototype.slice.call(list.querySelectorAll('.lmnav-acct')).forEach(function (el) { el.remove(); });
+      list.classList.toggle('lmnav-has-acct', loggedIn);
       if (loggedIn) {
         list.insertAdjacentHTML('beforeend',
           '<li class="lmnav-acct lmnav-acct-sep" aria-hidden="true"></li>' +
