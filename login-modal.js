@@ -144,6 +144,29 @@
   .main-nav.lmnav-open .lmnav-acct-head{padding:12px 14px 4px;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted,#6B7592);}\
   .main-nav.lmnav-open .lmnav-acct-sep{height:1px;background:var(--border-soft,#E5E9F3);margin:8px 6px;padding:0;}\
   .main-nav.lmnav-open .lmnav-acct .main-nav-link.is-logout,.main-nav.lmnav-open .lmnav-acct .main-nav-link.is-logout i{color:var(--accent,#D33535);}\
+  /* ----- unified slide-in sidebar (all pages, incl. home) ----- */\
+  #sidebar,#sidebarOverlay{display:none !important;}\
+  .lm-sb-ov{position:fixed;inset:0;background:rgba(11,21,48,.5);z-index:1400;opacity:0;visibility:hidden;transition:opacity .3s;}\
+  .lm-sb-ov.open{opacity:1;visibility:visible;}\
+  .lm-sb{position:fixed;top:0;left:-340px;width:300px;max-width:84vw;height:100%;background:#fff;z-index:1401;display:flex;flex-direction:column;box-shadow:8px 0 30px rgba(0,0,0,.15);transition:left .32s cubic-bezier(.4,0,.2,1);}\
+  .lm-sb.open{left:0;}\
+  .lm-sb-head{display:flex;align-items:center;gap:13px;padding:22px 18px 20px;background:var(--bg-soft,#F7F8FB);border-bottom:1px solid var(--border-soft,#E5E9F3);position:relative;}\
+  .lm-sb-av{width:48px;height:48px;border-radius:50%;background:var(--primary,#1B2A5B);color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}\
+  .lm-sb-user{flex:1;min-width:0;}\
+  .lm-sb-name{font-family:"Plus Jakarta Sans",sans-serif;font-size:15px;font-weight:800;color:var(--text-primary,#0B1530);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}\
+  .lm-sb-phone{font-size:12.5px;color:var(--text-muted,#6B7592);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}\
+  .lm-sb-close{position:absolute;top:14px;right:12px;width:32px;height:32px;border:0;border-radius:50%;background:transparent;color:var(--text-muted,#6B7592);font-size:20px;line-height:1;cursor:pointer;}\
+  .lm-sb-close:hover{background:rgba(0,0,0,.06);}\
+  .lm-sb-nav{flex:1;overflow-y:auto;padding:8px 0;}\
+  .lm-sb-link{display:flex;align-items:center;gap:13px;padding:13px 20px;font-size:15px;font-weight:600;color:var(--text-primary,#0B1530);text-decoration:none;cursor:pointer;border-left:3px solid transparent;}\
+  .lm-sb-link:hover{background:var(--bg-soft,#F7F8FB);color:var(--primary,#1B2A5B);border-left-color:var(--accent,#D33535);}\
+  .lm-sb-link i{width:22px;text-align:center;font-size:16px;color:var(--text-muted,#6B7592);}\
+  .lm-sb-link:hover i{color:var(--primary,#1B2A5B);}\
+  .lm-sb-link.is-logout,.lm-sb-link.is-logout i{color:var(--accent,#D33535);}\
+  .lm-sb-sep{height:1px;background:var(--border-soft,#E5E9F3);margin:8px 20px;}\
+  .lm-sb-label{padding:12px 20px 4px;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted,#6B7592);}\
+  .lm-sb-login{margin:14px 18px 6px;padding:12px;border-radius:12px;background:var(--accent,#D33535);color:#fff;font-weight:800;font-size:14px;text-align:center;cursor:pointer;border:0;width:calc(100% - 36px);}\
+  .lm-sb-login:hover{background:var(--accent-dark,#B82E2E);}\
   @media (max-width:820px){.lm-card{grid-template-columns:1fr;max-width:440px;}.lm-left{display:none;}.lm-right{max-height:92vh;}}\
   @media (max-width:520px){.lm-right{padding:32px 20px 24px;}.lm-title{font-size:26px;}.lm-social{grid-template-columns:1fr;}}';
 
@@ -561,7 +584,7 @@
         }
       }
     });
-    syncNavAccount();
+    if (typeof renderSidebar === 'function') renderSidebar();
   }
 
   function openMenu(trigger) {
@@ -605,42 +628,67 @@
   window.addEventListener('scroll', function () { if (menuOpen) closeMenu(); }, true);
   window.addEventListener('resize', function () { if (menuOpen) closeMenu(); });
 
-  /* ---------- mobile nav: make the hamburger open the main nav ---------- */
-  // Skip the home page, which ships its own sidebar menu.
-  var ham = document.querySelector('.hamburger-btn');
-  var siteNav = document.querySelector('.main-nav');
-  if (ham && siteNav && !document.getElementById('sidebarOverlay')) {
-    function closeNav() { siteNav.classList.remove('lmnav-open'); ham.classList.remove('lmnav-active'); ham.setAttribute('aria-expanded', 'false'); }
-    ham.addEventListener('click', function (e) {
-      e.preventDefault(); e.stopPropagation();
-      var open = siteNav.classList.toggle('lmnav-open');
-      ham.classList.toggle('lmnav-active', open);
-      ham.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-    document.addEventListener('click', function (e) {
-      if (siteNav.classList.contains('lmnav-open') && !e.target.closest('.main-nav') && !e.target.closest('.hamburger-btn')) closeNav();
-    });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeNav(); });
-    window.addEventListener('resize', closeNav);
+  /* ---------- unified slide-in sidebar (all pages, incl. home) ---------- */
+  var sbWrap = document.createElement('div');
+  sbWrap.innerHTML =
+    '<div class="lm-sb-ov" id="lmSbOv"></div>' +
+    '<aside class="lm-sb" id="lmSb" role="dialog" aria-modal="true" aria-label="Menu">' +
+      '<div class="lm-sb-head">' +
+        '<span class="lm-sb-av" id="lmSbAv"><i class="fas fa-user"></i></span>' +
+        '<div class="lm-sb-user"><div class="lm-sb-name" id="lmSbName">Guest</div><div class="lm-sb-phone" id="lmSbPhone">Login to your account</div></div>' +
+        '<button class="lm-sb-close" id="lmSbClose" aria-label="Close menu">&times;</button>' +
+      '</div>' +
+      '<nav class="lm-sb-nav" id="lmSbNav"></nav>' +
+    '</aside>';
+  while (sbWrap.firstChild) document.body.appendChild(sbWrap.firstChild);
+
+  function renderSidebar() {
+    var nav = document.getElementById('lmSbNav');
+    if (!nav) return;
+    var on = isLoggedIn(), phone, nm;
+    try { phone = localStorage.getItem('flebo:phone'); } catch (e) {}
+    try { nm = localStorage.getItem('flebo:name'); } catch (e) {}
+    var nameEl = document.getElementById('lmSbName'), phEl = document.getElementById('lmSbPhone'), avEl = document.getElementById('lmSbAv');
+    if (on) {
+      if (nameEl) nameEl.textContent = nm || 'Flebo User';
+      if (phEl) phEl.textContent = phone ? '+91 ' + formatPhone(phone) : 'Logged in';
+      if (avEl) avEl.innerHTML = '<i class="fas fa-circle-user"></i>';
+    } else {
+      if (nameEl) nameEl.textContent = 'Guest';
+      if (phEl) phEl.textContent = 'Login to book & track tests';
+      if (avEl) avEl.innerHTML = '<i class="fas fa-user"></i>';
+    }
+    var html = '<a class="lm-sb-link" href="tests.html"><i class="fas fa-flask-vial"></i> Tests</a>' +
+      '<a class="lm-sb-link" href="packages.html"><i class="fas fa-box-open"></i> Packages</a>';
+    if (on) {
+      html += '<div class="lm-sb-sep"></div><div class="lm-sb-label">My account</div>' +
+        MENU_ITEMS.map(function (m) { return '<a class="lm-sb-link" href="' + m.href + '"><i class="fas ' + m.icon + '"></i> ' + m.label + '</a>'; }).join('') +
+        '<div class="lm-sb-sep"></div><a class="lm-sb-link is-logout" href="#" data-action="logout"><i class="fas fa-right-from-bracket"></i> Logout</a>';
+    } else {
+      html += '<a class="lm-sb-link" href="reports.html"><i class="fas fa-folder-open"></i> Reports</a>' +
+        '<a class="lm-sb-link" href="health-trends.html"><i class="fas fa-chart-line"></i> Health Trend Graph</a>' +
+        '<a class="lm-sb-link" href="bmi.html"><i class="fas fa-calculator"></i> BMI Calculator</a>' +
+        '<div class="lm-sb-sep"></div><button type="button" class="lm-sb-login" data-login-trigger>Login / Signup</button>';
+    }
+    nav.innerHTML = html;
   }
 
-  // Handle clicks on the injected account items in either hamburger menu (main-nav drawer or home sidebar)
-  document.addEventListener('click', function (e) {
-    var acct = e.target.closest('.main-nav .lmnav-acct a, .sidebar-nav a.lmnav-sb');
-    if (!acct) return;
-    if (acct.getAttribute('data-action') === 'logout') {
-      e.preventDefault();
-      logout();
-      var openDrawer = document.querySelector('.main-nav.lmnav-open');
-      if (openDrawer) {
-        openDrawer.classList.remove('lmnav-open');
-        var hb = document.querySelector('.hamburger-btn'); if (hb) hb.classList.remove('lmnav-active');
-      }
-      return;
-    }
-    // Navigate reliably even if the host page prevents default on its nav links
-    var href = acct.getAttribute('href');
-    if (href && href !== '#') { e.preventDefault(); location.href = href; }
+  function openSb() { renderSidebar(); document.getElementById('lmSb').classList.add('open'); document.getElementById('lmSbOv').classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function closeSb() { document.getElementById('lmSb').classList.remove('open'); document.getElementById('lmSbOv').classList.remove('open'); document.body.style.overflow = ''; }
+
+  // Every hamburger button on any page opens this shared sidebar
+  Array.prototype.slice.call(document.querySelectorAll('.hamburger-btn')).forEach(function (h) {
+    h.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); openSb(); });
+  });
+  document.getElementById('lmSbClose').addEventListener('click', closeSb);
+  document.getElementById('lmSbOv').addEventListener('click', closeSb);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeSb(); });
+
+  document.getElementById('lmSbNav').addEventListener('click', function (e) {
+    var lo = e.target.closest('[data-action="logout"]');
+    if (lo) { e.preventDefault(); logout(); closeSb(); return; }
+    if (e.target.closest('[data-login-trigger]')) { closeSb(); return; }   // global handler opens the login modal
+    if (e.target.closest('a[href]')) closeSb();                            // let the link navigate
   });
 
   reflectLoggedIn();
