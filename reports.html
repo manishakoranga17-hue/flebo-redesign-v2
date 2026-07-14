@@ -780,10 +780,10 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 
   .aid-group-h { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid #F0F2F8; font-family: 'Plus Jakarta Sans',sans-serif; font-weight: 800; font-size: 14.5px; color: var(--text-primary,#0B1530); }
   .aid-group-h i { color: var(--text-muted,#6B7592); font-size: 12px; }
-  .aid-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #F0F2F8; border-radius: 0 0 20px 20px; max-height: 300px; overflow: hidden auto; scrollbar-width: thin; scrollbar-color: #C5CCDB transparent; }
-  .aid-tiles::-webkit-scrollbar { width: 8px; }
-  .aid-tiles::-webkit-scrollbar-thumb { background: #C5CCDB; border-radius: 999px; }
-  .aid-tiles::-webkit-scrollbar-track { background: transparent; }
+  .aid-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #F0F2F8; border-radius: 0 0 20px 20px; max-height: 290px; overflow-x: hidden; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #C5CCDB #F0F2F8; }
+  .aid-tiles::-webkit-scrollbar { width: 9px; -webkit-appearance: none; }
+  .aid-tiles::-webkit-scrollbar-thumb { background: #B4BCCE; border-radius: 999px; border: 2px solid #F0F2F8; }
+  .aid-tiles::-webkit-scrollbar-track { background: #F0F2F8; }
   .aid-tile { background: #fff; padding: 18px 18px 16px; }
   .aid-tile-top { display: flex; align-items: center; justify-content: space-between; }
   .aid-tile-ic { width: 38px; height: 38px; border-radius: 11px; display: grid; place-items: center; font-size: 15px; background: #F4F6FB; color: var(--text-secondary,#4A5578); }
@@ -1472,7 +1472,11 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
         { ic: 'fa-droplet', val: '5.7', unit: '%', lbl: 'HbA1c \u00b7 Blood sugar', st: 'warn' },
         { ic: 'fa-gauge-high', val: '8.27', unit: '\u00b5IU/ml', lbl: 'TSH \u00b7 Thyroid', st: 'bad' },
         { ic: 'fa-vial', val: '150', unit: 'mg/dL', lbl: 'Triglycerides \u00b7 Lipids', st: 'warn' },
-        { ic: 'fa-wave-square', val: '27', unit: 'mm/hr', lbl: 'ESR \u00b7 Inflammation', st: 'warn' }
+        { ic: 'fa-wave-square', val: '27', unit: 'mm/hr', lbl: 'ESR \u00b7 Inflammation', st: 'warn' },
+        { ic: 'fa-sun', val: '18', unit: 'ng/mL', lbl: 'Vitamin D \u00b7 Deficient', st: 'bad' },
+        { ic: 'fa-dna', val: '78.5', unit: 'fL', lbl: 'MCV \u00b7 Microcytic', st: 'bad' },
+        { ic: 'fa-heart-pulse', val: '162', unit: 'mg/dL', lbl: 'LDL \u00b7 Cholesterol', st: 'warn' },
+        { ic: 'fa-flask-vial', val: '22', unit: 'ng/mL', lbl: 'Ferritin \u00b7 Iron stores', st: 'warn' }
       ].map(function (t) {
         return '<div class="aid-tile"><div class="aid-tile-top"><span class="aid-tile-ic ' + t.st + '"><i class="fas ' + t.ic + '"></i></span></div>' +
           '<div class="aid-tile-val">' + t.val + '<span>' + t.unit + '</span></div><div class="aid-tile-lbl">' + t.lbl + '</div></div>';
