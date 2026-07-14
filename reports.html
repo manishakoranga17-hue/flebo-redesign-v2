@@ -1612,7 +1612,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
         LABS.forEach(function (n, i) {
           ctx.save();
           ctx.translate(pts[i].x, y.top - 3);
-          ctx.rotate(-0.82);         // tilt up-right
+          ctx.rotate(-0.9);          // steeper tilt -> narrower footprint -> wider stacks
           ctx.fillText(n, 4, 0);
           ctx.restore();
         });
@@ -1643,7 +1643,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
     ] },
     options: {
       responsive: true, maintainAspectRatio: false,
-      layout: { padding: window.innerWidth <= 768 ? { top: 88, right: 44 } : { top: 34 } },
+      layout: { padding: window.innerWidth <= 768 ? { top: 94, right: 30 } : { top: 34 } },
       plugins: { legend: { display: false }, tooltip: { enabled: false } },
       scales: {
         x: { stacked: true, grid: { color: 'rgba(255,255,255,0.12)' }, ticks: { font: { size: window.innerWidth <= 768 ? 10 : 12, weight: '700' }, color: 'rgba(255,255,255,0.85)' } },
@@ -1655,7 +1655,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   // Keep the top padding + date-tick size in step with the mobile/desktop label layout
   window.addEventListener('resize', function () {
     var mob = window.innerWidth <= 768;
-    var pad = mob ? { top: 88, right: 44 } : { top: 34 };
+    var pad = mob ? { top: 94, right: 30 } : { top: 34 };
     var tick = mob ? 10 : 12;
     if (chart.options.layout.padding.top !== pad.top || chart.options.scales.x.ticks.font.size !== tick) {
       chart.options.layout.padding = pad;
