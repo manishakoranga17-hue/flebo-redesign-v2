@@ -1064,6 +1064,33 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   document.getElementById('detailPatient').textContent = patientLabel;
   document.getElementById('timelineSlotSub').textContent = `A certified phlebotomist will visit at ${dateLabel}. Track them live from your dashboard.`;
 
+  // Report turnaround time (TAT) — show the LONGEST turnaround among the booked tests
+  const TAT_HOURS = {
+    'CBC (Complete Blood Count)': 12, 'Thyroid Profile (T3, T4, TSH)': 18, 'Lipid Profile': 18,
+    'HbA1c (Diabetes)': 18, 'Blood Sugar Fasting': 6, 'Blood Sugar Random (BSR)': 6,
+    'Vitamin D 25-Hydroxy': 24, 'Vitamin B12': 24, 'Iron Studies': 24,
+    'Liver Function Test (LFT)': 18, 'Kidney Function Test (KFT)': 18, 'Urine Routine (RU)': 12,
+    'Dengue NS1 Antigen': 12, 'Malaria Panel': 6, 'Typhoid (Widal Test)': 24, 'COVID RT-PCR': 24,
+    'CRP (C-Reactive Protein)': 12, 'Electrolytes': 6, 'Calcium Serum': 12,
+    'X-Ray Chest PA View': 4, 'MRI Brain': 24, 'CT Scan Abdomen': 24,
+    'Ultrasound Whole Abdomen': 4, 'ECG': 2, '2D Echo': 4,
+  };
+  function tatFor(name) {
+    if (TAT_HOURS[name] != null) return TAT_HOURS[name];
+    const n = (name || '').toLowerCase();
+    if (/mri|ct scan|covid|rt-pcr|culture|vitamin|iron|widal|typhoid/.test(n)) return 24;
+    if (/x-ray|ecg|echo|ultrasound|usg|scan|doppler/.test(n)) return 6;   // imaging: usually same-day
+    return 18;  // default pathology turnaround
+  }
+  let tatNames = tests.slice();
+  patientsData.forEach(p => { if (p.added) tatNames = tatNames.concat(p.added); });
+  const maxTat = tatNames.length ? Math.max.apply(null, tatNames.map(tatFor)) : 18;
+  const allImaging = tatNames.length && tatNames.every(t => /x-ray|ecg|echo|ultrasound|usg|mri|ct scan|scan|doppler/i.test(t));
+  const tatEl = document.getElementById('detailTat');
+  if (tatEl) tatEl.textContent = maxTat <= 6
+    ? `Same day — within ${maxTat} hours of your ${allImaging ? 'scan' : 'sample pickup'}`
+    : `Within ${maxTat} hours of your ${allImaging ? 'scan' : 'sample pickup'}`;
+
   // Tests list — per-patient cards when structured data is present, else a flat list
   const testsListEl = document.getElementById('testsList');
   if (patientsData.length) {
