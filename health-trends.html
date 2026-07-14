@@ -539,8 +539,13 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
       ctx.save();
       ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 2.5; ctx.lineJoin = 'round';
       ctx.beginPath(); pts.forEach(function (p, i) { i ? ctx.lineTo(p.x, p.y) : ctx.moveTo(p.x, p.y); }); ctx.stroke();
-      ctx.font = '600 12px "Plus Jakarta Sans", sans-serif'; ctx.fillStyle = 'rgba(255,255,255,0.82)'; ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
-      LABS.forEach(function (nm, i) { ctx.fillText(nm, pts[i].x, y.top - 10); });
+      // Lab name per reading — staggered into two rows + shortened so long names don't overlap
+      ctx.font = '700 11px "Plus Jakarta Sans", sans-serif'; ctx.fillStyle = 'rgba(255,255,255,0.82)'; ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+      LABS.forEach(function (nm, i) {
+        var label = nm.length > 12 ? nm.split(' ')[0] : nm;
+        var yy = (i % 2 === 0) ? (y.top - 26) : (y.top - 10);
+        ctx.fillText(label, pts[i].x, yy);
+      });
       pts.forEach(function (p, i) {
         var txt = String(vals[i]);
         ctx.font = '800 13px "Plus Jakarta Sans", sans-serif';
@@ -561,7 +566,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
       { label: 'High Range', data: [], backgroundColor: '#E24B4A', stack: 'r', categoryPercentage: 0.62, barPercentage: 0.9 }
     ] },
     options: {
-      responsive: true, maintainAspectRatio: false, layout: { padding: { top: 34 } },
+      responsive: true, maintainAspectRatio: false, layout: { padding: { top: 46 } },
       plugins: { legend: { display: false }, tooltip: { enabled: false } },
       scales: {
         x: { stacked: true, grid: { color: 'rgba(255,255,255,0.12)' }, ticks: { font: { size: 12, weight: '700' }, color: 'rgba(255,255,255,0.85)' } },
