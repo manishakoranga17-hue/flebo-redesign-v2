@@ -2666,6 +2666,11 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
     }
     // Package flow: the per-patient packages cover this, so drop the generic "What's included".
     { var piEl = document.getElementById('pkgIncludesSection'); if (piEl) piEl.hidden = true; }
+    // Test flow: tests are primary, packages are the secondary add-on.
+    if (!isPackage) {
+      var pth = document.querySelector('#patientSection .step-title'); if (pth) pth.textContent = 'Patient & test details';
+      var pts2 = document.querySelector('#patientSection .step-sub'); if (pts2) pts2.textContent = 'Add who this is for. You can add multiple patients and customise tests or packages for each.';
+    }
 
     // Steps and the sections each one shows. centerSection/customizeSection are
     // kept only when naturally present; address & review are always their own step.
@@ -2676,7 +2681,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
       { title: 'Review & pay', ids: ['reviewSection'] },
     ] : [
       { title: isVisit ? 'Select a center' : 'Your collection', ids: ['centerSection'] },
-      { title: 'Patients & packages', ids: ['patientSection'] },
+      { title: 'Patients & tests', ids: ['patientSection'] },
       { title: isVisit ? 'Contact details' : 'Your address', ids: ['addrSection'] },
       { title: 'Date & time', ids: ['dateSection', 'timeSection'] },
       { title: 'Review & pay', ids: ['reviewSection'] },
@@ -2734,7 +2739,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
       } else {
         cards = '<div class="rv-card"><div class="rv-tests">' + ((document.getElementById('sumTests') || {}).innerHTML || '') + '</div></div>';
       }
-      body.innerHTML = shared + '<div class="rv-pt-label">Patients &amp; packages</div><div class="rv-pt-list">' + cards + '</div>';
+      body.innerHTML = shared + '<div class="rv-pt-label">' + (isPackage ? 'Patients &amp; packages' : 'Patients &amp; tests') + '</div><div class="rv-pt-list">' + cards + '</div>';
     }
 
     function show(i) {
