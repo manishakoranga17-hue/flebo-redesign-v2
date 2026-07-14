@@ -2935,7 +2935,7 @@ body.has-select-bar { padding-bottom: 80px; }
     if (!p) return;
     ptestsCurrent = p;
     ptestsTitle.textContent = p.name;
-    ptestsSub.textContent = `${p.tests} tests across ${p.groups.length} panel${p.groups.length > 1 ? 's' : ''}`;
+    ptestsSub.textContent = `${p.tests} parameters across ${p.groups.length} test${p.groups.length > 1 ? 's' : ''}`;
     ptestsBody.innerHTML = p.groups.map(g => `
       <div class="ptests-group">
         <div class="ptests-group-name">${g.name} <span class="ptests-group-count">${g.tests.length}</span></div>

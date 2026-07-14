@@ -3861,7 +3861,7 @@ body.has-cmp-bar { padding-bottom: 92px; }
   function openPkgTests(name, count) {
     const groups = pkgGroupsFor(name);
     ptestsTitle.textContent = name;
-    ptestsSub.textContent = `${count} tests across ${groups.length} panels`;
+    ptestsSub.textContent = `${count} parameters across ${groups.length} test${groups.length > 1 ? 's' : ''}`;
     ptestsBody.innerHTML = groups.map(g => `
       <div class="ptests-group">
         <div class="ptests-group-name">${g.name} <span class="ptests-group-count">${g.tests.length}</span></div>

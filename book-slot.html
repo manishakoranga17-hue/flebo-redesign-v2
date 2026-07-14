@@ -1642,38 +1642,6 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
       <div class="time-grid" id="timeGrid"></div>
     </section>
 
-    <!-- STEP 5: INSTRUCTIONS -->
-    <section class="step-card" id="instrSection">
-      <div class="step-card-head">
-        <span class="step-num">5</span>
-        <h2 class="step-title">Pre-test instructions</h2>
-        <span class="step-sub">Please follow these for accurate results</span>
-      </div>
-      <div class="instr-list">
-        <div class="instr-item">
-          <span class="instr-icon">🍽️</span>
-          <div class="instr-text">
-            <div class="instr-title">10–12 hour fasting required</div>
-            <div class="instr-sub">No food or drinks (except water) before the collection. Sip water freely.</div>
-          </div>
-        </div>
-        <div class="instr-item">
-          <span class="instr-icon"><i class="fas fa-droplet"></i></span>
-          <div class="instr-text">
-            <div class="instr-title">Stay hydrated</div>
-            <div class="instr-sub">Drink 2–3 glasses of water 30 minutes before collection.</div>
-          </div>
-        </div>
-        <div class="instr-item">
-          <span class="instr-icon"><i class="fas fa-prescription-bottle-medical"></i></span>
-          <div class="instr-text">
-            <div class="instr-title">Keep prescriptions handy</div>
-            <div class="instr-sub">If applicable — for any ongoing medications you'd like to share with the lab.</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- STEP: REVIEW -->
     <section class="step-card" id="reviewSection" hidden>
       <div class="step-card-head">
@@ -2293,7 +2261,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
         '<div class="pp-body">' +
           '<div class="pp-form">' +
             '<div><label class="pp-label">Full name</label><input class="pp-input pt-name" type="text" value="' + esc(p.name) + '" placeholder="Patient name"></div>' +
-            '<div><label class="pp-label">Age</label><input class="pp-input pt-age" type="number" min="1" max="120" value="' + esc(p.age) + '" placeholder="Age"></div>' +
+            '<div><label class="pp-label">Date of birth</label><input class="pp-input pt-dob" type="date" max="' + new Date().toISOString().slice(0, 10) + '" value="' + esc(p.dob || '') + '"></div>' +
             '<div class="pp-field--full"><label class="pp-label">Gender</label><select class="pp-select pt-gender">' + genders.map(g => '<option' + (g === p.gender ? ' selected' : '') + '>' + g + '</option>').join('') + '</select></div>' +
           '</div>' +
           pkgCardHTML(p) +
@@ -2369,7 +2337,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
       if (foot) foot.style.display = mode === 'params' ? 'none' : '';
       if (mode === 'params') return;
       if (mode === 'change') { var hasPkg = activeP && activeP.pkg.cats.length > 0; hint.textContent = hasPkg ? 'Choose a different package' : 'Add a package to this patient'; note.hidden = true; cta.textContent = hasPkg ? 'Change package' : 'Add package'; cta.disabled = selChange < 0; }
-      else { const total = selAdd.size + selAddPkg.size; hint.textContent = 'Add individual tests or a package for this patient'; note.hidden = false; note.innerHTML = '<i class="fas fa-circle-info" aria-hidden="true"></i><div>Add only what your doctor advises. Remove anything added anytime using the ✕ on its chip.</div>'; cta.textContent = total ? 'Add ' + total + ' item' + (total > 1 ? 's' : '') : 'Done'; cta.disabled = false; }
+      else { const total = selAdd.size + selAddPkg.size; hint.textContent = ''; note.hidden = false; note.innerHTML = '<i class="fas fa-circle-info" aria-hidden="true"></i><div>Add only what your doctor advises. Remove anything added anytime using the ✕ on its chip.</div>'; cta.textContent = total ? 'Add ' + total + ' item' + (total > 1 ? 's' : '') : 'Done'; cta.disabled = false; }
     }
     function openPicker(m) {
       mode = m;
@@ -2436,11 +2404,21 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
       const card = e.target.closest('.pp-card'); if (!card) return;
       const p = patients.find(x => x.id === card.dataset.pid); if (!p) return;
       if (e.target.classList.contains('pt-gender')) p.gender = e.target.value;
+      else if (e.target.classList.contains('pt-dob')) {
+        p.dob = e.target.value;
+        if (p.dob) {
+          const d = new Date(p.dob), now = new Date();
+          let age = now.getFullYear() - d.getFullYear();
+          const m = now.getMonth() - d.getMonth();
+          if (m < 0 || (m === 0 && now.getDate() < d.getDate())) age--;
+          if (age >= 0 && age <= 120) { p.age = String(age); const ai = card.querySelector('.pt-age'); if (ai) ai.value = p.age; }
+        }
+      }
     });
 
     document.getElementById('addPatientBtn').addEventListener('click', () => {
       patients.forEach(p => p.open = false);
-      patients.push({ id: 'p' + (++seq), name: '', age: '', gender: 'Male', open: true, customise: false, pkg: basePkg() });
+      patients.push({ id: 'p' + (++seq), name: '', age: '', dob: '', gender: 'Male', open: true, customise: false, pkg: basePkg() });
       render();
     });
 
@@ -2472,7 +2450,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
     };
 
     // Seed the first patient
-    patients.push({ id: 'p' + (++seq), name: 'Nilesh Sharma', age: '32', gender: 'Male', open: true, customise: false, pkg: basePkg() });
+    patients.push({ id: 'p' + (++seq), name: 'Nilesh Sharma', age: '32', dob: '', gender: 'Male', open: true, customise: false, pkg: basePkg() });
     render();
   })();
 
@@ -2691,11 +2669,16 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 
     // Steps and the sections each one shows. centerSection/customizeSection are
     // kept only when naturally present; address & review are always their own step.
-    var rawSteps = [
+    var rawSteps = isPackage ? [
+      { title: 'Patients & packages', ids: ['patientSection'] },
+      { title: isVisit ? 'Select a center' : 'Your collection', ids: ['centerSection'] },
+      { title: 'Date & time', ids: ['dateSection', 'timeSection'] },
+      { title: 'Review & pay', ids: ['reviewSection'] },
+    ] : [
       { title: isVisit ? 'Select a center' : 'Your collection', ids: ['centerSection'] },
       { title: 'Patients & packages', ids: ['patientSection'] },
       { title: isVisit ? 'Contact details' : 'Your address', ids: ['addrSection'] },
-      { title: 'Date & time', ids: ['dateSection', 'timeSection', 'instrSection'] },
+      { title: 'Date & time', ids: ['dateSection', 'timeSection'] },
       { title: 'Review & pay', ids: ['reviewSection'] },
     ];
     var FORCE = isPackage ? { reviewSection: 1 } : { addrSection: 1, reviewSection: 1 };

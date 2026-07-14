@@ -2035,7 +2035,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   scrollbar-width: none; -ms-overflow-style: none;
 }
 .cat-chips::-webkit-scrollbar { display: none; }
-.cat-search { flex: 0 0 340px; }
+.cat-search { flex: 1; min-width: 0; }
 .cat-search .search-box { width: 100%; }
 .cat-chip {
   flex: 0 0 auto;
@@ -2267,6 +2267,68 @@ body.has-select-bar { padding-bottom: 80px; }
   .select-bar { bottom: 72px; }
   .select-bar-btn { padding: 12px 20px; font-size: 14px; }
 }
+
+/* ===== HOME-PAGE SECTIONS (Tests by Category / Radiology / Vitals / Habits) ===== */
+.tests-main .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; margin-top: 24px; }
+.section-header h2, .tests-main .section-header h2 { font-family: 'Instrument Serif', serif; font-size: 24px; font-weight: 400; color: var(--text-primary); }
+.tests-main .test-cat-item, .tests-main .concern-card, .tests-main .see-all { cursor: pointer; }
+.see-all { display: inline-flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 600; color: var(--accent); cursor: pointer; padding: 6px 12px; border-radius: var(--radius-full, 999px); background: none; border: 0; transition: background 0.2s; }
+.see-all:hover { background: var(--accent-soft, #FDECEC); }
+
+/* Tests by Category — single-row horizontal scroll, spread across width */
+.tests-category-section { margin: 24px 0; }
+.tests-category-section h2 { font-family: 'Instrument Serif', serif; font-size: 24px; font-weight: 400; text-align: left; color: var(--text-primary); margin-bottom: 18px; }
+.tests-category-scroll { display: flex; flex-direction: row; flex-wrap: nowrap; gap: 28px; overflow-x: auto; overflow-y: visible; justify-content: space-between; scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none; padding: 4px 2px 14px; }
+.tests-category-scroll::-webkit-scrollbar { display: none; height: 0; width: 0; }
+.test-cat-item { flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; scroll-snap-align: start; transition: transform 0.3s; }
+.test-cat-item:hover { transform: translateY(-3px); }
+.test-cat-circle .cat-icon { position: relative; z-index: 2; width: 72px; height: 72px; border-radius: 50%; background-size: cover; background-position: center; background-color: #f0e8e0; }
+.test-cat-label { font-family: var(--font-primary, 'Plus Jakarta Sans', sans-serif); font-size: 12px; font-weight: 600; color: var(--text-primary); text-align: center; white-space: nowrap; }
+@media (min-width: 1024px) { .tests-category-scroll { gap: 36px; } }
+
+/* Radiology Tests — 4-up grid on desktop, horizontal scroll on mobile */
+.radiology-scroll { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; padding-bottom: 0; }
+.radio-card { border-radius: var(--radius-xl, 24px); overflow: hidden; cursor: pointer; transition: box-shadow 0.3s, transform 0.3s; background: var(--glass-bg, #fff); backdrop-filter: var(--glass-blur, none); -webkit-backdrop-filter: var(--glass-blur, none); border: var(--glass-border, 1px solid var(--border-soft)); box-shadow: var(--glass-shadow, 0 2px 10px rgba(11,21,48,0.06)); }
+.radio-card:hover { box-shadow: var(--shadow-lg, 0 12px 30px rgba(11,21,48,0.14)); transform: translateY(-2px); }
+.radio-img-wrap { width: 100%; height: 180px; position: relative; overflow: hidden; background: #E8EEF4; }
+.radio-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+.radio-info { padding: 16px 18px 18px; }
+.radio-info h4 { font-family: var(--font-primary, 'Plus Jakarta Sans', sans-serif); font-size: 18px; font-weight: 800; color: var(--text-primary); margin-bottom: 4px; }
+.radio-desc { font-size: 13px; color: var(--text-secondary, #4A5578); line-height: 1.4; margin-bottom: 12px; }
+.radio-bottom { display: flex; align-items: center; justify-content: space-between; }
+.radio-price-block .radio-price-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); }
+.radio-price-block .radio-price-value { font-family: var(--font-primary, 'Plus Jakarta Sans', sans-serif); font-size: 20px; font-weight: 800; color: var(--text-primary); }
+.radio-book-btn { padding: 10px 22px; border-radius: var(--radius-sm, 8px); background: var(--accent); color: #fff; font-size: 13px; font-weight: 700; border: 0; cursor: pointer; transition: background 0.25s, box-shadow 0.25s; white-space: nowrap; }
+.radio-book-btn:hover { background: var(--accent-dark, #B52A2A); box-shadow: 0 4px 16px rgba(211,53,53,0.3); }
+
+/* Check Your Vitals — bento */
+.concerns-bento { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-bottom: 20px; }
+.concern-card { position: relative; border-radius: 16px; overflow: hidden; cursor: pointer; transition: transform 0.3s, box-shadow 0.3s; }
+.concern-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+.concern-card .cc-bg { width: 100%; height: 100%; min-height: 260px; background-size: cover; background-position: center; }
+.concern-card .cc-pill { position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,0.92); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); padding: 10px 24px; border-radius: 20px; font-family: var(--font-primary, 'Plus Jakarta Sans', sans-serif); font-size: 16px; font-weight: 700; color: var(--accent); white-space: nowrap; box-shadow: 0 2px 12px rgba(0,0,0,0.1); }
+
+/* Habit Analysis Tests — lifestyle chips */
+.lifestyle-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; margin-bottom: 20px; }
+.lifestyle-chip { position: relative; border-radius: 14px; overflow: hidden; cursor: pointer; border: 0; transition: transform 0.3s, box-shadow 0.3s; aspect-ratio: 1 / 1.05; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 12px; }
+.lifestyle-chip:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+.lifestyle-chip .lc-bg { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-size: cover; background-position: center; z-index: 0; }
+.lifestyle-chip .lc-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.05) 60%); z-index: 1; }
+.lifestyle-chip .lc-label { position: relative; z-index: 2; font-family: var(--font-primary, 'Plus Jakarta Sans', sans-serif); font-size: 16px; font-weight: 700; color: #fff; text-shadow: 0 1px 6px rgba(0,0,0,0.4); }
+
+@media (max-width: 760px) {
+  .tests-category-scroll { gap: 22px; }
+  .radiology-scroll { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .radio-img-wrap { height: 130px; }
+  .radio-info h4 { font-size: 16px; }
+  .concerns-bento { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .concern-card .cc-bg { min-height: 150px; }
+  .concern-card .cc-pill { font-size: 14px; padding: 8px 18px; }
+  .concern-card--thyroid { display: none; }
+  .lifestyle-grid { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .lifestyle-chip .lc-label { font-size: 14px; }
+  .tests-main .section-header h2, .tests-category-section h2 { font-size: 21px; }
+}
 </style>
 </head>
 <body>
@@ -2375,14 +2437,13 @@ body.has-select-bar { padding-bottom: 80px; }
   </div>
 </section>
 
-<!-- ===== CATEGORY CHIPS + SEARCH (below banner) ===== -->
-<div class="cat-chips-strip" id="catChipsStrip" aria-label="Filter by category">
+<!-- ===== SEARCH (below banner) ===== -->
+<div class="cat-chips-strip">
   <div class="cat-chips-row">
-    <div class="cat-chips" id="catChips"></div>
     <div class="cat-search">
       <label class="search-box">
         <i class="fas fa-magnifying-glass search-icon" aria-hidden="true"></i>
-        <input id="testSearchInput" type="search" placeholder="Search blood tests, scans &amp; health packages…" autocomplete="off" aria-label="Search tests" aria-controls="testsGrid">
+        <input id="testSearchInput" type="search" placeholder="Search blood tests, scans &amp; health packages…" autocomplete="off" aria-label="Search tests">
         <button type="button" class="search-clear" id="searchClear" aria-label="Clear search" hidden><i class="fas fa-xmark"></i></button>
       </label>
     </div>
@@ -2391,24 +2452,189 @@ body.has-select-bar { padding-bottom: 80px; }
 
 <!-- ===== SECTIONS ===== -->
 <main class="tests-main" id="testsMain">
-  <section class="ts-sect" id="secPopPath">
-    <div class="ts-sect-head"><h2>Popular pathology tests</h2></div>
-    <div class="tests-grid" id="popPathGrid"></div>
+  <!-- Tests by Category -->
+  <section class="tests-category-section" aria-label="Tests by Category">
+    <div class="section-header">
+      <h2>Tests by Category</h2>
+      <button class="see-all" aria-label="View all tests by category">View All <i class="fas fa-arrow-right" aria-hidden="true"></i></button>
+    </div>
+    <div class="tests-category-scroll">
+      <div class="test-cat-item" tabindex="0" aria-label="Bone tests">
+        <div class="test-cat-circle"><div class="cat-icon" style="background-image:url('popular-tests/bone.svg')"></div></div>
+        <span class="test-cat-label">Bone</span>
+      </div>
+      <div class="test-cat-item" tabindex="0" aria-label="Diabetes tests">
+        <div class="test-cat-circle"><div class="cat-icon" style="background-image:url('popular-tests/diabetes.svg')"></div></div>
+        <span class="test-cat-label">Diabetes</span>
+      </div>
+      <div class="test-cat-item" tabindex="0" aria-label="Gastro tests">
+        <div class="test-cat-circle"><div class="cat-icon" style="background-image:url('popular-tests/gastro.svg')"></div></div>
+        <span class="test-cat-label">Gastro</span>
+      </div>
+      <div class="test-cat-item" tabindex="0" aria-label="Gynae tests">
+        <div class="test-cat-circle"><div class="cat-icon" style="background-image:url('popular-tests/gynae.svg')"></div></div>
+        <span class="test-cat-label">Gynae</span>
+      </div>
+      <div class="test-cat-item" tabindex="0" aria-label="Heart tests">
+        <div class="test-cat-circle"><div class="cat-icon" style="background-image:url('popular-tests/heart.svg')"></div></div>
+        <span class="test-cat-label">Heart</span>
+      </div>
+      <div class="test-cat-item" tabindex="0" aria-label="Kidney tests">
+        <div class="test-cat-circle"><div class="cat-icon" style="background-image:url('popular-tests/kidney.svg')"></div></div>
+        <span class="test-cat-label">Kidney</span>
+      </div>
+      <div class="test-cat-item" tabindex="0" aria-label="Liver tests">
+        <div class="test-cat-circle"><div class="cat-icon" style="background-image:url('popular-tests/liver.svg')"></div></div>
+        <span class="test-cat-label">Liver</span>
+      </div>
+      <div class="test-cat-item" tabindex="0" aria-label="Prostate tests">
+        <div class="test-cat-circle"><div class="cat-icon" style="background-image:url('popular-tests/prostate.svg')"></div></div>
+        <span class="test-cat-label">Prostate</span>
+      </div>
+      <div class="test-cat-item" tabindex="0" aria-label="Thyroid tests">
+        <div class="test-cat-circle"><div class="cat-icon" style="background-image:url('popular-tests/thyroid.svg')"></div></div>
+        <span class="test-cat-label">Thyroid</span>
+      </div>
+    </div>
   </section>
 
-  <section class="ts-sect" id="secPopRadio">
-    <div class="ts-sect-head"><h2>Popular radiology tests</h2></div>
-    <div class="tests-grid" id="popRadioGrid"></div>
+  <!-- Radiology Tests -->
+  <section aria-label="Radiology tests">
+    <div class="section-header" style="margin-top:20px;">
+      <h2>Radiology Tests</h2>
+      <button class="see-all" aria-label="See all radiology tests">View All <i class="fas fa-arrow-right" aria-hidden="true"></i></button>
+    </div>
+    <div class="radiology-scroll">
+      <article class="radio-card">
+        <div class="radio-img-wrap">
+          <img src="https://images.unsplash.com/photo-1516069677018-378515003435?w=520&h=360&fit=crop" alt="Digital X-ray room with modern equipment">
+        </div>
+        <div class="radio-info">
+          <h4>Digital X-ray</h4>
+          <p class="radio-desc">Precision imaging for bone health and chest scans.</p>
+          <div class="radio-bottom">
+            <div class="radio-price-block">
+              <div class="radio-price-label">Starting @</div>
+              <div class="radio-price-value">₹200</div>
+            </div>
+            <button class="radio-book-btn" aria-label="Book digital x-ray starting at 200 rupees">Book Now</button>
+          </div>
+        </div>
+      </article>
+      <article class="radio-card">
+        <div class="radio-img-wrap">
+          <img src="https://images.unsplash.com/photo-1579154204601-01588f351e67?w=520&h=360&fit=crop" alt="Ultrasound scanning equipment">
+        </div>
+        <div class="radio-info">
+          <h4>Ultrasound</h4>
+          <p class="radio-desc">Non-invasive sound wave imaging for internal organs.</p>
+          <div class="radio-bottom">
+            <div class="radio-price-block">
+              <div class="radio-price-label">Starting @</div>
+              <div class="radio-price-value">₹800</div>
+            </div>
+            <button class="radio-book-btn" aria-label="Book ultrasound starting at 800 rupees">Book Now</button>
+          </div>
+        </div>
+      </article>
+      <article class="radio-card">
+        <div class="radio-img-wrap">
+          <img src="https://images.unsplash.com/photo-1530497610245-94d3c16cda28?w=520&h=360&fit=crop" alt="CT scan machine in hospital">
+        </div>
+        <div class="radio-info">
+          <h4>CT Scan</h4>
+          <p class="radio-desc">Detailed cross-sectional imaging for accurate diagnosis.</p>
+          <div class="radio-bottom">
+            <div class="radio-price-block">
+              <div class="radio-price-label">Starting @</div>
+              <div class="radio-price-value">₹1500</div>
+            </div>
+            <button class="radio-book-btn" aria-label="Book CT scan starting at 1500 rupees">Book Now</button>
+          </div>
+        </div>
+      </article>
+      <article class="radio-card">
+        <div class="radio-img-wrap">
+          <img src="radiology-mri.jpg" alt="MRI scanning machine in a hospital imaging room" loading="lazy">
+        </div>
+        <div class="radio-info">
+          <h4>MRI Scan</h4>
+          <p class="radio-desc">High-resolution magnetic imaging for soft tissues & brain.</p>
+          <div class="radio-bottom">
+            <div class="radio-price-block">
+              <div class="radio-price-label">Starting @</div>
+              <div class="radio-price-value">₹3000</div>
+            </div>
+            <button class="radio-book-btn" aria-label="Book MRI scan starting at 3000 rupees">Book Now</button>
+          </div>
+        </div>
+      </article>
+    </div>
   </section>
 
-  <section class="ts-sect" id="secCat">
-    <div class="ts-sect-head"><h2 id="catSectTitle">Tests by category</h2></div>
-    <div class="tests-count" id="testsCount" aria-live="polite"></div>
-    <div class="tests-grid" id="testsGrid"></div>
-    <div class="tests-empty" id="testsEmpty" hidden>
-      <div class="tests-empty-emoji" aria-hidden="true">🔬</div>
-      <div class="tests-empty-title">No tests found</div>
-      <div class="tests-empty-sub">Try a different category or search term — or let us add the test you need.</div>
+  <!-- Check Your Vitals -->
+  <section aria-label="Health concerns">
+    <div class="section-header" style="margin-bottom:14px;">
+      <h2>Check Your Vitals</h2>
+      <button class="see-all">See all <i class="fas fa-arrow-right" aria-hidden="true"></i></button>
+    </div>
+    <div class="concerns-bento">
+      <article class="concern-card card-large" aria-label="Fever related tests">
+        <div class="cc-bg" style="background-image:url('hc-fever.jpg')"></div>
+        <span class="cc-pill">Fever</span>
+      </article>
+      <article class="concern-card" aria-label="STD Care tests">
+        <div class="cc-bg" style="background-image:url('hc-std.jpg')"></div>
+        <span class="cc-pill">STD Care</span>
+      </article>
+      <article class="concern-card" aria-label="Diabetes related tests">
+        <div class="cc-bg" style="background-image:url('hc-diabetes.jpg')"></div>
+        <span class="cc-pill">Diabetes</span>
+      </article>
+      <article class="concern-card concern-card--thyroid" aria-label="Thyroid related tests">
+        <div class="cc-bg" style="background-image:url('hc-thyroid.webp')"></div>
+        <span class="cc-pill">Thyroid</span>
+      </article>
+    </div>
+  </section>
+
+  <!-- Habit Analysis Tests -->
+  <section aria-label="Lifestyle concerns">
+    <div class="section-header">
+      <h2>Habit Analysis Tests</h2>
+      <button class="see-all">See all <i class="fas fa-arrow-right" aria-hidden="true"></i></button>
+    </div>
+    <div class="lifestyle-grid">
+      <button class="lifestyle-chip" aria-label="Smoking related tests">
+        <div class="lc-bg" style="background-image:url('lc-smoking.jpg')"></div>
+        <div class="lc-overlay"></div>
+        <span class="lc-label">Smoking</span>
+      </button>
+      <button class="lifestyle-chip" aria-label="Alcohol related tests">
+        <div class="lc-bg" style="background-image:url('lc-alcohol.jpg')"></div>
+        <div class="lc-overlay"></div>
+        <span class="lc-label">Alcohol</span>
+      </button>
+      <button class="lifestyle-chip" aria-label="Stress related tests">
+        <div class="lc-bg" style="background-image:url('lc-stress.jpg')"></div>
+        <div class="lc-overlay"></div>
+        <span class="lc-label">Stress</span>
+      </button>
+      <button class="lifestyle-chip" aria-label="Fitness related tests">
+        <div class="lc-bg" style="background-image:url('lc-fitness.jpg')"></div>
+        <div class="lc-overlay"></div>
+        <span class="lc-label">Fitness</span>
+      </button>
+      <button class="lifestyle-chip" aria-label="Diet related tests">
+        <div class="lc-bg" style="background-image:url('lc-diet.jpg')"></div>
+        <div class="lc-overlay"></div>
+        <span class="lc-label">Diet</span>
+      </button>
+      <button class="lifestyle-chip" aria-label="Sleep related tests">
+        <div class="lc-bg" style="background-image:url('lc-sleep.jpg')"></div>
+        <div class="lc-overlay"></div>
+        <span class="lc-label">Sleep</span>
+      </button>
     </div>
   </section>
 </main>
@@ -2465,311 +2691,31 @@ body.has-select-bar { padding-bottom: 80px; }
   </a>
 </nav>
 
-<script>
-(function () {
-  // ===== Test catalog (mirrors index.html / choose-lab.html) =====
-  const CAT_IMG = {
-    Bone: 'package-images/bone-health-panel.jpg',
-    Diabetes: 'package-images/diabetes-screening.jpg',
-    Gastro: 'package-images/healthy-india-2026.jpg',
-    Gynae: 'package-images/flebo-she-care.jpg',
-    Heart: 'package-images/cardiac-risk-panel.jpg',
-    Kidney: 'package-images/complete-vitamin-panel.jpg',
-    Liver: 'package-images/liver-health-complete.jpg',
-    Prostate: 'package-images/flebo-prime-care.jpg',
-    Thyroid: 'package-images/thyroid-basic.jpg',
-    _default: 'package-images/std-basic.jpg'
-  };
-  const CAT_DESC = {
-    Bone: 'Calcium, vitamin D and bone-strength markers.',
-    Diabetes: 'Blood sugar and long-term glucose control.',
-    Gastro: 'Digestive enzymes, gut health and infections.',
-    Gynae: "Women's hormones, fertility and wellness.",
-    Heart: 'Cholesterol, cardiac risk and heart markers.',
-    Kidney: 'Kidney function, electrolytes and filtration.',
-    Liver: 'Liver enzymes, function and screening.',
-    Prostate: 'Prostate health and PSA screening for men.',
-    Thyroid: 'Thyroid hormones (T3, T4, TSH) and metabolism.'
-  };
-  const testCatalog = [
-    // Bone
-    { name: 'Vitamin D 25-Hydroxy', tag: 'Bone', icon: 'fa-bone', price: 799 },
-    { name: 'Calcium Serum', tag: 'Bone', icon: 'fa-bone', price: 249 },
-    { name: 'Bone Health Panel', tag: 'Bone', icon: 'fa-bone', price: 699 },
-    { name: 'Phosphorus Serum', tag: 'Bone', icon: 'fa-bone', price: 249 },
-    // Diabetes
-    { name: 'HbA1c (Diabetes)', tag: 'Diabetes', icon: 'fa-droplet', price: 399 },
-    { name: 'Blood Sugar Fasting', tag: 'Diabetes', icon: 'fa-droplet', price: 149 },
-    { name: 'Blood Sugar Random (BSR)', tag: 'Diabetes', icon: 'fa-droplet', price: 149 },
-    { name: 'Diabetes Profile', tag: 'Diabetes', icon: 'fa-droplet', price: 999 },
-    // Gastro
-    { name: 'H. Pylori Antigen', tag: 'Gastro', icon: 'fa-bacterium', price: 599 },
-    { name: 'Amylase Serum', tag: 'Gastro', icon: 'fa-flask', price: 449 },
-    { name: 'Lipase Serum', tag: 'Gastro', icon: 'fa-flask', price: 499 },
-    { name: 'Stool Routine', tag: 'Gastro', icon: 'fa-vial', price: 299 },
-    // Gynae
-    { name: 'Beta hCG (Pregnancy)', tag: 'Gynae', icon: 'fa-venus', price: 599 },
-    { name: 'AMH (Anti-Müllerian Hormone)', tag: 'Gynae', icon: 'fa-venus', price: 1499 },
-    { name: 'Estradiol (E2)', tag: 'Gynae', icon: 'fa-venus', price: 699 },
-    { name: 'Prolactin', tag: 'Gynae', icon: 'fa-venus', price: 549 },
-    // Heart
-    { name: 'Lipid Profile', tag: 'Heart', icon: 'fa-heart-pulse', price: 499 },
-    { name: 'ECG', tag: 'Heart', icon: 'fa-heart-pulse', price: 249 },
-    { name: '2D Echo', tag: 'Heart', icon: 'fa-heart-pulse', price: 1499 },
-    { name: 'hs-CRP (Cardiac)', tag: 'Heart', icon: 'fa-heart', price: 549 },
-    // Kidney
-    { name: 'Kidney Function Test (KFT)', tag: 'Kidney', icon: 'fa-vial', price: 599 },
-    { name: 'Urine Routine (RU)', tag: 'Kidney', icon: 'fa-flask', price: 199 },
-    { name: 'Uric Acid', tag: 'Kidney', icon: 'fa-vial', price: 299 },
-    { name: 'Creatinine Serum', tag: 'Kidney', icon: 'fa-vial', price: 249 },
-    // Liver
-    { name: 'Liver Function Test (LFT)', tag: 'Liver', icon: 'fa-vial', price: 549 },
-    { name: 'SGPT / SGOT', tag: 'Liver', icon: 'fa-vial', price: 399 },
-    { name: 'Bilirubin Total', tag: 'Liver', icon: 'fa-vial', price: 249 },
-    { name: 'Hepatitis B (HBsAg)', tag: 'Liver', icon: 'fa-virus', price: 499 },
-    // Prostate
-    { name: 'PSA Total (Prostate)', tag: 'Prostate', icon: 'fa-mars', price: 699 },
-    { name: 'PSA Free', tag: 'Prostate', icon: 'fa-mars', price: 799 },
-    { name: 'Prostate Health Panel', tag: 'Prostate', icon: 'fa-mars', price: 1299 },
-    // Thyroid
-    { name: 'Thyroid Profile (T3, T4, TSH)', tag: 'Thyroid', icon: 'fa-gauge', price: 549 },
-    { name: 'TSH (Ultrasensitive)', tag: 'Thyroid', icon: 'fa-gauge', price: 299 },
-    { name: 'Free T4 (FT4)', tag: 'Thyroid', icon: 'fa-gauge', price: 349 },
-    { name: 'Anti-TPO Antibody', tag: 'Thyroid', icon: 'fa-microscope', price: 699 },
-  ];
-
-  // Derive sample type, turnaround and a strike-through MRP for each test.
-  testCatalog.forEach(t => {
-    if (t.tag === 'Radiology') {
-      t.sample = t.name.startsWith('Ultrasound') ? 'Ultrasound scan'
-        : t.name.startsWith('MRI') ? 'MRI scan'
-        : t.name.startsWith('CT') ? 'CT scan' : 'Imaging';
-      t.report = 'Report within 24 hrs';
-    } else if (t.name.startsWith('Urine')) {
-      t.sample = 'Urine sample';
-      t.report = 'Reports in 12 hrs';
-    } else if (t.name === 'ECG' || t.name === '2D Echo') {
-      t.sample = 'In-clinic recording';
-      t.report = 'Same-day report';
-    } else {
-      t.sample = 'Blood sample';
-      t.report = 'Reports in 12–24 hrs';
-    }
-    t.mrp = Math.round((t.price * 1.85) / 10) * 10;
-  });
-  const priceByTest = Object.fromEntries(testCatalog.map(t => [t.name, t.price]));
-
-  // ===== Selection (persists across visits via URL params) =====
-  const params = new URLSearchParams(location.search);
-  const selected = new Map(); // name -> price
-  const preNames = (params.get('tests') || '').split('|').map(s => s.trim()).filter(Boolean);
-  const prePrices = (params.get('prices') || '').split('|');
-  preNames.forEach((n, i) => {
-    let name = n; try { name = decodeURIComponent(n); } catch (e) {}
-    selected.set(name, parseInt(prePrices[i], 10) || priceByTest[name] || 0);
-  });
-
-  // ===== Categories — same set as the home screen "Tests by Category" =====
-  const categories = ['All', 'Bone', 'Diabetes', 'Gastro', 'Gynae', 'Heart', 'Kidney', 'Liver', 'Prostate', 'Thyroid'];
-  let activeCat = 'All';
-  let query = '';
-
-  const catChips = document.getElementById('catChips');
-  const grid = document.getElementById('testsGrid');
-  const testsMain = document.getElementById('testsMain');
-  const emptyEl = document.getElementById('testsEmpty');
-  const countEl = document.getElementById('testsCount');
-  const searchInput = document.getElementById('testSearchInput');
-  const searchClear = document.getElementById('searchClear');
-  const selectBar = document.getElementById('selectBar');
-  const selectChips = document.getElementById('selectChips');
-  const selectCount = document.getElementById('selectCount');
-  const selectTotal = document.getElementById('selectTotal');
-  const continueBtn = document.getElementById('continueBtn');
-
-  catChips.innerHTML = categories.map((c, i) =>
-    `<button type="button" class="cat-chip${i === 0 ? ' is-active' : ''}" data-cat="${c}">${c}</button>`
-  ).join('');
-
-  catChips.addEventListener('click', (e) => {
-    const chip = e.target.closest('.cat-chip');
-    if (!chip) return;
-    activeCat = chip.dataset.cat;
-    catChips.querySelectorAll('.cat-chip').forEach(c => c.classList.toggle('is-active', c === chip));
-    render();
-  });
-
-  // ===== Render grid =====
-  function visibleTests() {
-    const q = query.trim().toLowerCase();
-    return testCatalog.filter(t => {
-      const matchCat = activeCat === 'All' || t.tag === activeCat;
-      const matchQuery = !q || t.name.toLowerCase().includes(q) || t.tag.toLowerCase().includes(q);
-      return matchCat && matchQuery;
+  <!-- See all / category → test list page -->
+  <script>
+  (function () {
+    var main = document.getElementById('testsMain') || document.body;
+    function go(u) { location.href = u; }
+    main.addEventListener('click', function (e) {
+      var sa = e.target.closest('.see-all');
+      if (sa) {
+        var sec = sa.closest('section'), h = sec && sec.querySelector('h2');
+        var t = (h ? h.textContent : '').toLowerCase();
+        var s = t.indexOf('radiolog') > -1 ? 'radiology' : t.indexOf('vital') > -1 ? 'vitals' : t.indexOf('habit') > -1 ? 'habits' : 'category';
+        go('test-list.html?section=' + s); return;
+      }
+      var ci = e.target.closest('.test-cat-item');
+      if (ci) { var n = ci.querySelector('.test-cat-label'); go('test-list.html?cat=' + encodeURIComponent(n ? n.textContent.trim() : '')); return; }
+      var cc = e.target.closest('.concern-card');
+      if (cc) { var p = cc.querySelector('.cc-pill'); go('test-list.html?cat=' + encodeURIComponent(p ? p.textContent.trim() : '')); return; }
+      var lc = e.target.closest('.lifestyle-chip');
+      if (lc) { var l = lc.querySelector('.lc-label'); go('test-list.html?cat=' + encodeURIComponent(l ? l.textContent.trim() : '')); return; }
+      var rb = e.target.closest('.radio-book-btn');
+      if (rb) { var card = rb.closest('.radio-card'), nm = card && card.querySelector('h4'), pv = card && card.querySelector('.radio-price-value'); var price = pv ? pv.textContent.replace(/[^0-9]/g, '') : ''; go('choose-lab.html?tests=' + encodeURIComponent(nm ? nm.textContent.trim() : '') + '&prices=' + price); return; }
     });
-  }
+  })();
+  </script>
 
-  // Radiology tests (own photos + descriptions)
-  const RADIOLOGY = [
-    { name: 'Digital X-ray', tag: 'Radiology', icon: 'fa-x-ray', desc: 'Precision imaging for bone health and chest scans.', sample: 'In-clinic imaging', report: 'Same-day report', price: 200, mrp: 400 },
-    { name: 'Ultrasound Whole Abdomen', tag: 'Radiology', icon: 'fa-wave-square', desc: 'Non-invasive sound-wave imaging of internal organs.', sample: 'In-clinic scan', report: 'Same-day report', price: 800, mrp: 1400 },
-    { name: 'CT Scan', tag: 'Radiology', icon: 'fa-circle-radiation', desc: 'Detailed cross-sectional imaging of the body.', sample: 'In-clinic imaging', report: 'Within 24 hrs', price: 3499, mrp: 6000 },
-    { name: 'MRI Brain', tag: 'Radiology', icon: 'fa-brain', desc: 'High-resolution imaging with no radiation.', sample: 'In-clinic imaging', report: 'Within 24 hrs', price: 4499, mrp: 8000 }
-  ];
-  // One popular test per category
-  const POPULAR_PATH = categories.slice(1).map(cat => testCatalog.find(t => t.tag === cat)).filter(Boolean);
-
-  // Soft header tint + ink colour per category
-  const CAT_THEME = {
-    Bone:      { bg: '#F4EAD6', ink: '#A9762B' },
-    Diabetes:  { bg: '#FBE6E6', ink: '#C6342F' },
-    Gastro:    { bg: '#DCEFEF', ink: '#0A8F8F' },
-    Gynae:     { bg: '#F7E4EC', ink: '#BE3D6B' },
-    Heart:     { bg: '#FBE3E3', ink: '#C0354D' },
-    Kidney:    { bg: '#E2EAFB', ink: '#2563EB' },
-    Liver:     { bg: '#F6E7D2', ink: '#B45309' },
-    Prostate:  { bg: '#E4E8F2', ink: '#334680' },
-    Thyroid:   { bg: '#DEF1E7', ink: '#1B8A5A' },
-    Radiology: { bg: '#ECE5FA', ink: '#7C3AED' },
-    _default:  { bg: '#E9EDF5', ink: '#334680' }
-  };
-  function sampleLabel(s) { s = (s || '').toLowerCase(); if (s.indexOf('urine') > -1) return 'Urine'; if (s.indexOf('stool') > -1) return 'Stool'; if (/scan|imaging|clinic|recording/.test(s)) return 'In-clinic'; return 'Blood'; }
-  function turnaroundLabel(r) { if (!r) return '12–24 hrs'; return r.replace(/reports?\s*(within|in)\s*/i, '').replace(/\s*report$/i, '').trim() || '12–24 hrs'; }
-  function fastingLabel(name) { return /fasting|lipid/i.test(name) ? 'Fasting reqd' : 'No fasting'; }
-  function isBestValue(name) { return /panel|profile|complete|advanced|comprehensive|full/i.test(name); }
-
-  const WAVES = '<svg class="test-waves" viewBox="0 0 300 40" preserveAspectRatio="none" aria-hidden="true"><path d="M0,22 C40,8 60,34 100,22 C140,10 160,34 200,22 C240,10 260,34 300,22" fill="none" stroke="currentColor" stroke-width="2" opacity="0.32"/><path d="M0,30 C40,16 60,42 100,30 C140,18 160,42 200,30 C240,18 260,42 300,30" fill="none" stroke="currentColor" stroke-width="2" opacity="0.18"/></svg>';
-
-  function cardHTML(t) {
-    const isSel = selected.has(t.name);
-    const theme = CAT_THEME[t.tag] || CAT_THEME._default;
-    const desc = t.desc || CAT_DESC[t.tag] || 'Routine diagnostic test with lab-accurate results.';
-    const icon = t.icon || 'fa-vial';
-    const mrp = t.mrp || Math.round((t.price * 1.85) / 10) * 10;
-    const off = Math.round((mrp - t.price) / mrp * 100);
-    const save = mrp - t.price;
-    const best = isBestValue(t.name);
-    return `
-        <article class="test-card${isSel ? ' is-selected' : ''}" data-name="${t.name}">
-          <div class="test-head" style="background:${theme.bg};color:${theme.ink}">
-            ${WAVES}
-            <span class="thead-badge">${t.tag}</span>
-            <span class="thead-ico"><i class="fas ${icon}" aria-hidden="true"></i></span>
-          </div>
-          <div class="test-body">
-            <div class="test-name-row"><h3 class="test-name">${t.name}</h3>${best ? '<span class="test-best">Best value</span>' : ''}</div>
-            <p class="test-desc">${desc}</p>
-            <div class="test-chips">
-              <span class="test-chip"><i class="fas fa-droplet chip-blood" aria-hidden="true"></i> ${sampleLabel(t.sample)}</span>
-              <span class="test-chip"><i class="fas fa-clock" aria-hidden="true"></i> ${turnaroundLabel(t.report)}</span>
-              <span class="test-chip">${fastingLabel(t.name)}</span>
-            </div>
-            <div class="test-divider"></div>
-            <div class="test-foot">
-              <div class="test-price-block">
-                <div class="test-price"><span class="test-price-now">₹${t.price}</span><span class="test-price-mrp">₹${mrp}</span></div>
-                <div class="test-save">${off}% OFF <span class="dot">·</span> Save ₹${save}</div>
-              </div>
-              <button type="button" class="test-add${best ? ' is-solid' : ''}${isSel ? ' is-added' : ''}" data-name="${t.name}" data-price="${t.price}">
-                ${isSel ? '<i class="fas fa-check" aria-hidden="true"></i> Added' : '+ Add'}
-              </button>
-            </div>
-          </div>
-        </article>`;
-  }
-
-  function renderPopular() {
-    document.getElementById('popPathGrid').innerHTML = POPULAR_PATH.map(cardHTML).join('');
-    document.getElementById('popRadioGrid').innerHTML = RADIOLOGY.map(cardHTML).join('');
-  }
-
-  function render() {
-    const list = visibleTests();
-    if (!list.length) {
-      grid.innerHTML = '';
-      emptyEl.hidden = false;
-      countEl.textContent = '';
-    } else {
-      emptyEl.hidden = true;
-      countEl.textContent = `${list.length} test${list.length > 1 ? 's' : ''}${activeCat !== 'All' ? ' in ' + activeCat : ''}`;
-      grid.innerHTML = list.map(cardHTML).join('');
-    }
-  }
-
-  function renderAll() { renderPopular(); render(); }
-
-  testsMain.addEventListener('click', (e) => {
-    const btn = e.target.closest('.test-add');
-    if (!btn) return;
-    const name = btn.dataset.name;
-    const price = parseInt(btn.dataset.price, 10);
-    if (selected.has(name)) selected.delete(name);
-    else selected.set(name, price);
-    renderAll();
-    updateBar();
-  });
-
-  // ===== Search =====
-  const secPopPath = document.getElementById('secPopPath');
-  const secPopRadio = document.getElementById('secPopRadio');
-  const catChipsStrip = document.getElementById('catChipsStrip');
-  const catSectTitle = document.getElementById('catSectTitle');
-  function applySearchLayout() {
-    const searching = !!query.trim();
-    secPopPath.hidden = searching;
-    secPopRadio.hidden = searching;
-    catSectTitle.textContent = searching ? 'Search results' : 'Tests by category';
-  }
-  searchInput.addEventListener('input', () => {
-    query = searchInput.value;
-    searchClear.hidden = !query;
-    applySearchLayout();
-    render();
-  });
-  searchClear.addEventListener('click', () => {
-    query = ''; searchInput.value = ''; searchClear.hidden = true;
-    searchInput.focus();
-    applySearchLayout();
-    render();
-  });
-
-  // ===== Sticky selection bar =====
-  function updateBar() {
-    const n = selected.size;
-    if (!n) { selectBar.hidden = true; document.body.classList.remove('has-select-bar'); return; }
-    selectBar.hidden = false;
-    document.body.classList.add('has-select-bar');
-    let total = 0;
-    selected.forEach(p => total += p);
-    selectCount.textContent = `${n} test${n > 1 ? 's' : ''} selected`;
-    selectTotal.textContent = '₹' + total.toLocaleString('en-IN');
-    selectChips.innerHTML = Array.from(selected.keys()).map(name => `
-      <span class="select-chip">
-        <span class="select-chip-name">${name}</span>
-        <button type="button" class="select-chip-x" data-name="${name}" aria-label="Remove ${name}">×</button>
-      </span>
-    `).join('');
-  }
-
-  selectChips.addEventListener('click', (e) => {
-    const x = e.target.closest('.select-chip-x');
-    if (!x) return;
-    selected.delete(x.dataset.name);
-    render();
-    updateBar();
-  });
-
-  continueBtn.addEventListener('click', () => {
-    if (!selected.size) return;
-    const names = [], prices = [];
-    selected.forEach((p, name) => { names.push(encodeURIComponent(name)); prices.push(p); });
-    location.href = 'choose-lab.html?tests=' + names.join('|') + '&prices=' + prices.join('|');
-  });
-
-  renderAll();
-  updateBar();
-})();
-</script>
   <script src="login-modal.js" defer></script>
 
   <!-- Hero banner auto-rotating carousel -->

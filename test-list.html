@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lab Tests — Flebo.in</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --primary: #1B2A5B;
+  --accent: #D33535;
+  --accent-dark: #B82E2E;
+  --accent-soft: #FDECEC;
+  --green: #1B8A5A;
+  --green-dark: #157049;
+  --green-soft: #E1F5EA;
+  --amber: #B45309;
+  --amber-soft: #FEF3C7;
+  --blue: #1D4ED8;
+  --blue-soft: #EFF6FF;
+  --text-primary: #0B1530;
+  --text-muted: #6B7592;
+  --border-soft: #E5E9F3;
+  --border-mid: #C5CCDB;
+  --bg-soft: #F7F8FB;
+  --bg-page: #F4F6FA;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --site-inset: 32px;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: var(--text-primary);
+  background: var(--bg-page);
+  font-size: 16px;
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: transparent; }
+
+/* TOP BAR + HEADER (identical to siblings) */
+.top-bar { background: #0B1530; position: sticky; top: 0; z-index: 200; }
+.top-bar-inner {
+  max-width: 1480px; margin: 0 auto;
+  padding: 10px var(--site-inset);
+  display: flex; align-items: center; gap: 16px;
+  color: #fff; font-size: 15px; font-weight: 500;
+}
+.top-bar-location {
+  background: transparent; border: 0; color: #fff; font: inherit;
+  display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+}
+.tb-icon-green { color: #21C669; font-size: 16px; }
+.top-bar-link { color: #fff; display: inline-flex; align-items: center; gap: 8px; }
+.top-bar-phone { margin-left: auto; }
+
+.site-header {
+  background: #fff; border-bottom: 1px solid var(--border-soft);
+  position: sticky; top: 38px; z-index: 190;
+}
+.site-header-inner {
+  max-width: 1480px; margin: 0 auto;
+  padding: 9px var(--site-inset);
+  display: flex; align-items: center; gap: 28px;
+}
+.brand-block { display: inline-flex; flex-direction: row; align-items: center; gap: 12px; flex-shrink: 0; }
+.brand { display: inline-flex; align-items: center; }
+.brand-logo { height: 46px; width: auto; }
+.brand-rating {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: #EAF2FC; border-radius: 6px; padding: 3px 8px;
+  font-size: 14px; font-weight: 700; color: var(--primary);
+  line-height: 1;
+}
+.brand-rating-score { font-weight: 800; }
+.brand-rating-stars { display: inline-flex; gap: 1px; color: #F6B100; font-size: 12px; }
+.brand-rating-count { font-weight: 600; opacity: 0.85; }
+.hamburger-btn {
+  width: 40px; height: 40px; border-radius: 12px; display: none;
+  align-items: center; justify-content: center;
+  background: var(--bg-soft); color: var(--text-muted);
+  border: 0; font-size: 20px; cursor: pointer; flex-shrink: 0;
+}
+.top-bar-trust { display: flex; list-style: none; margin: 0; padding: 0; align-items: center; }
+.top-bar-trust li { display: inline-flex; align-items: center; }
+.main-nav { align-self: stretch; display: flex; align-items: center; }
+.main-nav-list { display: flex; list-style: none; margin: 0; padding: 0; gap: 0; }
+.main-nav-list li { list-style: none; }
+.main-nav-link {
+  position: relative; display: inline-flex; align-items: center; gap: 8px;
+  padding: 9px 18px; color: var(--text-primary);
+  text-decoration: none; font-size: 16px; font-weight: 600;
+  white-space: nowrap; transition: color 0.2s;
+}
+.main-nav-link i { font-size: 16px; color: var(--text-muted); transition: color 0.2s; }
+.main-nav-link:hover { color: var(--accent); }
+.main-nav-link:hover i { color: var(--accent); }
+.main-nav-list > li:nth-child(2) > .main-nav-link::before,
+.main-nav-list > li:nth-child(3) > .main-nav-link::before,
+.main-nav-list > li:nth-child(4) > .main-nav-link::before,
+.main-nav-list > li:nth-child(5) > .main-nav-link::before {
+  content: '|'; color: #D5DAE5; font-weight: 400;
+  margin-left: -10px; margin-right: 20px; font-size: 17px;
+}
+.main-nav-pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  border: 1.5px solid var(--accent);
+  background: #fff; color: var(--accent);
+  font-size: 14px; font-weight: 700;
+  padding: 8px 18px; border-radius: 999px;
+  text-decoration: none; white-space: nowrap;
+  transition: background 0.2s, color 0.2s;
+}
+.main-nav-pill:hover { background: var(--accent); color: #fff; }
+.main-nav-pill i { color: var(--accent); font-size: 14px; transition: color 0.2s; }
+.main-nav-pill:hover i { color: #fff; }
+.header-upload, .main-nav-upload {
+  margin-left: auto; display: inline-flex; flex-direction: column;
+  align-items: center; align-self: center;
+}
+.main-nav-upload-sub {
+  margin-top: 4px; font-size: 10px; font-weight: 600;
+  color: var(--primary); white-space: nowrap;
+}
+.main-nav-upload-sub-sep { margin: 0 6px; color: #C5CCDB; }
+.main-nav-bmi { gap: 10px; }
+.bmi-gauge-icon { display: inline-flex; align-items: center; justify-content: center; line-height: 0; }
+
+/* ===== BMI calculator page ===== */
+.bmi-page { max-width: 1480px; margin: 0 auto; padding: 32px var(--site-inset, 32px) 64px; }
+/* ===== Instrument stage: navy panel holding the controls + dial ===== */
+.bmi-stage { position: relative; overflow: hidden; border-radius: var(--radius-xl, 24px); padding-bottom: 40px; background: #131D44 url('b-hero3.jpeg') center / cover no-repeat; box-shadow: 0 26px 64px rgba(11,21,48,0.34); }
+.bmi-stage::before { content: ''; position: absolute; inset: 0; background: linear-gradient(115deg, rgba(11,18,42,0.93) 0%, rgba(13,21,52,0.86) 55%, rgba(13,21,52,0.78) 100%); }
+.bmi-glow { position: absolute; right: -8%; top: -34%; width: 62%; height: 150%; pointer-events: none; opacity: 0.85; background: radial-gradient(circle at 55% 50%, rgba(211,53,53,0.42), transparent 60%); transition: background 0.55s ease; }
+.bmi-stage-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1.04fr 0.96fr; }
+
+/* Left: heading + control deck */
+.bmi-deck { padding: 32px 38px 30px; }
+.bmi-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 11.5px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: #fff; background: rgba(255,255,255,0.10); border: 1px solid rgba(255,255,255,0.18); padding: 6px 13px; border-radius: 999px; }
+.bmi-eyebrow i { font-size: 12px; color: #FF8A8A; }
+.bmi-h1 { font-family: 'Instrument Serif', serif; font-size: 42px; font-weight: 400; color: #fff; line-height: 1.04; margin: 12px 0 6px; letter-spacing: -0.01em; }
+.bmi-sub { font-size: 14.5px; color: rgba(255,255,255,0.72); max-width: 440px; line-height: 1.5; }
+.bmi-controls { margin-top: 18px; }
+.bmi-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 12px; }
+.bmi-row2 .bmi-field { margin-bottom: 0; }
+.bmi-field { margin-bottom: 12px; }
+.bmi-field:last-of-type { margin-bottom: 0; }
+.bmi-field-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+.bmi-label { font-size: 12px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: rgba(255,255,255,0.62); }
+.bmi-toggle { display: inline-flex; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14); border-radius: 999px; padding: 3px; gap: 2px; }
+.bmi-toggle button { border: 0; background: 0; font: inherit; font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.6); padding: 6px 14px; border-radius: 999px; cursor: pointer; transition: background 0.15s, color 0.15s; }
+.bmi-toggle button.is-active { background: #fff; color: var(--primary, #1B2A5B); }
+.bmi-input-row { display: flex; gap: 10px; }
+.bmi-input-wrap { position: relative; flex: 1; }
+.bmi-input { width: 100%; height: 46px; padding: 0 46px 0 15px; border: 1px solid rgba(255,255,255,0.18); border-radius: var(--radius-md, 12px); font: inherit; font-size: 16px; font-weight: 700; color: #fff; outline: 0; background: rgba(255,255,255,0.07); transition: border-color 0.15s, box-shadow 0.15s, background 0.15s; }
+.bmi-input::placeholder { color: rgba(255,255,255,0.38); font-weight: 500; }
+.bmi-input:focus { border-color: rgba(255,255,255,0.55); background: rgba(255,255,255,0.12); box-shadow: 0 0 0 4px rgba(255,255,255,0.08); }
+.bmi-unit { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.5); pointer-events: none; }
+.bmi-gender { display: flex; gap: 10px; }
+.bmi-gender button { flex: 1; height: 46px; border: 1px solid rgba(255,255,255,0.18); border-radius: var(--radius-md, 12px); background: rgba(255,255,255,0.07); font: inherit; font-size: 14px; font-weight: 700; color: rgba(255,255,255,0.82); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: background 0.15s, color 0.15s, border-color 0.15s; }
+.bmi-gender button.is-active { background: #fff; color: var(--primary, #1B2A5B); border-color: #fff; }
+.bmi-gender button i { font-size: 15px; }
+.bmi-hide { display: none !important; }
+.bmi-go { width: 100%; height: 48px; margin-top: 18px; background: var(--accent, #D33535); color: #fff; border: 0; border-radius: 999px; font: inherit; font-size: 15px; font-weight: 800; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 12px 28px rgba(211,53,53,0.42); transition: background 0.2s, transform 0.15s; }
+.bmi-go:hover { background: var(--accent-dark, #B82E2E); transform: translateY(-1px); }
+
+/* Right: illuminated dial readout */
+.bmi-readout { position: relative; padding: 38px 40px; display: flex; flex-direction: column; align-items: center; justify-content: center; border-left: 1px solid rgba(255,255,255,0.10); background: rgba(255,255,255,0.04); }
+.bmi-dial { position: relative; width: 100%; max-width: 330px; }
+.bmi-dial svg { display: block; width: 100%; height: auto; }
+.bmi-needle { transition: transform 0.5s cubic-bezier(.34,1.25,.5,1); }
+.bmi-dial-center { position: absolute; left: 0; right: 0; bottom: 6%; text-align: center; }
+.bmi-score-label { font-size: 10.5px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+.bmi-score { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 60px; font-weight: 800; line-height: 1; color: #fff; transition: color 0.4s ease; }
+.bmi-cat { display: inline-flex; align-items: center; gap: 7px; font-size: 14px; font-weight: 800; padding: 6px 16px; border-radius: 999px; margin-top: 14px; background: rgba(255,255,255,0.12); color: #fff; transition: background 0.4s, color 0.4s; }
+.bmi-readout-range { margin-top: 16px; font-size: 13px; color: rgba(255,255,255,0.72); text-align: center; line-height: 1.5; max-width: 280px; }
+.bmi-readout-range b { color: #fff; font-family: 'Plus Jakarta Sans', sans-serif; }
+.bmi-readout.is-empty .bmi-cat,
+.bmi-readout.is-empty .bmi-readout-range { opacity: 0.5; }
+
+/* Spectrum strip — overlaps the stage for depth */
+.bmi-spectrum { position: relative; z-index: 2; margin: -22px 30px 0; background: #fff; border: 1px solid var(--border-soft, #E5E9F3); border-radius: var(--radius-lg, 16px); box-shadow: 0 16px 44px rgba(11,21,48,0.16); padding: 22px 28px 24px; }
+.bmi-spectrum-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 18px; }
+.bmi-spectrum-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 800; color: var(--primary, #1B2A5B); }
+.bmi-spectrum-note { font-size: 12px; color: var(--text-muted, #6B7592); }
+.bmi-bar { position: relative; height: 16px; border-radius: 999px; background: linear-gradient(90deg, #3B82F6 0%, #3B82F6 14%, #1B8A5A 14%, #1B8A5A 40%, #F4B940 40%, #F4B940 60%, #E8453C 60%, #E8453C 100%); box-shadow: inset 0 1px 3px rgba(11,21,48,0.2); }
+.bmi-bar-marker { position: absolute; top: -7px; left: 50%; width: 4px; height: 30px; background: var(--primary, #1B2A5B); border-radius: 3px; transform: translateX(-50%); transition: left 0.5s cubic-bezier(.34,1.25,.5,1); box-shadow: 0 0 0 3px #fff, 0 3px 7px rgba(11,21,48,0.35); opacity: 0; }
+.bmi-bar-marker.is-on { opacity: 1; }
+.bmi-bar-marker::after { content: attr(data-val); position: absolute; top: -24px; left: 50%; transform: translateX(-50%); background: var(--primary, #1B2A5B); color: #fff; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11px; font-weight: 800; padding: 2px 7px; border-radius: 6px; white-space: nowrap; }
+.bmi-bar-scale { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted, #6B7592); margin-top: 10px; }
+.bmi-bar-cats { display: flex; margin-top: 5px; }
+.bmi-bar-cats span { font-size: 9.5px; font-weight: 800; letter-spacing: 0.03em; text-transform: uppercase; color: var(--text-muted, #6B7592); text-align: center; }
+
+/* Asian-cutoff callout */
+.bmi-callout { margin-top: 18px; display: flex; gap: 12px; align-items: flex-start; background: var(--amber-soft, #FEF3C7); border: 1px solid #F3D58A; border-radius: var(--radius-md, 12px); padding: 14px 16px; font-size: 13px; color: #7A5408; line-height: 1.5; }
+.bmi-callout i { color: var(--amber, #B45309); font-size: 15px; margin-top: 1px; }
+
+/* Content sections */
+.bmi-section { margin-top: 46px; }
+.bmi-section-title { position: relative; font-family: 'Instrument Serif', serif; font-size: 28px; font-weight: 400; color: var(--primary, #1B2A5B); margin-bottom: 14px; padding-left: 16px; }
+.bmi-section-title::before { content: ''; position: absolute; left: 0; top: 5px; bottom: 5px; width: 5px; border-radius: 3px; background: linear-gradient(180deg, var(--accent, #D33535), var(--primary, #1B2A5B)); }
+.bmi-text { font-size: 15px; color: var(--text-secondary, #4A5578); line-height: 1.6; }
+.bmi-text + .bmi-text { margin-top: 12px; }
+.bmi-formula { display: inline-flex; align-items: center; gap: 10px; margin-top: 16px; background: linear-gradient(135deg, #ECF1FB, #F8FAFE); border: 1px solid var(--border-soft, #E5E9F3); border-radius: var(--radius-md, 12px); padding: 13px 18px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; color: var(--primary, #1B2A5B); font-size: 16px; box-shadow: 0 2px 10px rgba(11,21,48,0.05); }
+.bmi-formula i { color: var(--accent, #D33535); font-size: 15px; }
+
+/* Book-a-package image banner */
+.bmi-imgbanner { margin-top: 40px; display: grid; grid-template-columns: 0.92fr 1.08fr; border-radius: var(--radius-xl, 24px); overflow: hidden; border: 1px solid var(--border-soft, #E5E9F3); box-shadow: 0 16px 44px rgba(11,21,48,0.13); background: #fff; }
+.bmi-imgbanner-photo { position: relative; min-height: 268px; background: #0E1A40 url('hc-thyroid.webp') center / cover no-repeat; }
+.bmi-imgbanner-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(100deg, rgba(11,21,48,0.30), transparent 60%); }
+.bmi-imgbanner-tag { position: absolute; left: 18px; top: 18px; z-index: 1; display: inline-flex; align-items: center; gap: 7px; background: rgba(11,21,48,0.55); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); color: #fff; font-size: 12px; font-weight: 700; padding: 7px 13px; border-radius: 999px; }
+.bmi-imgbanner-tag i { color: #FF8A8A; }
+.bmi-imgbanner-body { padding: 38px 42px; display: flex; flex-direction: column; justify-content: center; }
+.bmi-imgbanner-eyebrow { font-size: 12px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent, #D33535); margin-bottom: 8px; }
+.bmi-imgbanner-title { font-family: 'Instrument Serif', serif; font-size: 30px; font-weight: 400; color: var(--primary, #1B2A5B); line-height: 1.12; }
+.bmi-imgbanner-sub { font-size: 14.5px; color: var(--text-secondary, #4A5578); margin-top: 8px; line-height: 1.55; max-width: 560px; }
+.bmi-imgbanner-feats { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 16px; }
+.bmi-imgbanner-feats span { display: inline-flex; align-items: center; gap: 7px; font-size: 12.5px; font-weight: 700; color: var(--text-primary, #0B1530); }
+.bmi-imgbanner-feats i { color: var(--green, #1B8A5A); font-size: 12px; }
+.bmi-imgbanner-btn { align-self: flex-start; margin-top: 20px; display: inline-flex; align-items: center; gap: 9px; background: var(--accent, #D33535); color: #fff; border: 0; border-radius: 999px; padding: 14px 26px; font: inherit; font-size: 15px; font-weight: 800; text-decoration: none; box-shadow: 0 10px 24px rgba(211,53,53,0.32); transition: background 0.2s, transform 0.15s; }
+.bmi-imgbanner-btn:hover { background: var(--accent-dark, #B82E2E); transform: translateY(-1px); }
+@media (max-width: 760px) {
+  .bmi-imgbanner { grid-template-columns: 1fr; }
+  .bmi-imgbanner-photo { min-height: 180px; }
+  .bmi-imgbanner-body { padding: 28px 22px; }
+}
+
+/* Tables */
+.bmi-table-wrap { overflow-x: auto; border: 1px solid var(--border-soft, #E5E9F3); border-radius: var(--radius-lg, 16px); }
+.bmi-table { width: 100%; border-collapse: collapse; background: #fff; min-width: 420px; }
+.bmi-table th, .bmi-table td { text-align: left; padding: 13px 18px; font-size: 14px; border-bottom: 1px solid var(--border-soft, #E5E9F3); }
+.bmi-table th { background: var(--bg-soft, #F7F8FB); font-weight: 800; color: var(--primary, #1B2A5B); font-size: 12px; letter-spacing: 0.04em; text-transform: uppercase; }
+.bmi-table tr:last-child td { border-bottom: 0; }
+.bmi-table td:first-child { font-weight: 700; color: var(--text-primary, #0B1530); }
+.bmi-table tbody tr { transition: background 0.12s; }
+.bmi-table tbody tr:hover { background: var(--bg-soft, #F7F8FB); }
+.bmi-table tr.is-healthy { background: #F1FAF5; }
+.bmi-table tr.is-healthy:hover { background: #E8F5EE; }
+.bmi-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 9px; vertical-align: middle; }
+
+/* Two-column risk lists */
+.bmi-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.bmi-risk { background: #fff; border: 1px solid var(--border-soft, #E5E9F3); border-top: 3px solid var(--accent, #D33535); border-radius: var(--radius-lg, 16px); padding: 22px 24px; transition: transform 0.18s, box-shadow 0.18s; }
+.bmi-risk:hover { transform: translateY(-3px); box-shadow: 0 14px 34px rgba(11,21,48,0.10); }
+.bmi-risk h3 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 16px; font-weight: 800; color: var(--primary, #1B2A5B); margin-bottom: 14px; display: flex; align-items: center; gap: 11px; }
+.bmi-risk h3 i { width: 34px; height: 34px; border-radius: 10px; display: inline-flex; align-items: center; justify-content: center; font-size: 15px; background: var(--accent-soft, #FDECEC); color: var(--accent, #D33535); }
+.bmi-risk ul { list-style: none; }
+.bmi-risk li { font-size: 14px; color: var(--text-secondary, #4A5578); padding: 6px 0 6px 22px; position: relative; line-height: 1.45; }
+.bmi-risk li::before { content: ''; position: absolute; left: 3px; top: 11px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent, #D33535); }
+.bmi-risk.is-under { border-top-color: #3B82F6; }
+.bmi-risk.is-under h3 i { background: #E8F0FE; color: #2563EB; }
+.bmi-risk.is-under li::before { background: #2563EB; }
+
+/* Method / action cards */
+.bmi-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.bmi-mcard { background: #fff; border: 1px solid var(--border-soft, #E5E9F3); border-radius: var(--radius-lg, 16px); padding: 22px; transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s; }
+.bmi-mcard:hover { transform: translateY(-3px); box-shadow: 0 14px 34px rgba(11,21,48,0.10); border-color: var(--border-mid, #C5CCDB); }
+.bmi-mcard-icon { width: 46px; height: 46px; border-radius: 13px; background: var(--accent-soft, #FDECEC); color: var(--accent, #D33535); display: inline-flex; align-items: center; justify-content: center; font-size: 19px; margin-bottom: 14px; }
+.bmi-cards .bmi-mcard:nth-child(1) .bmi-mcard-icon { background: #E8F5EE; color: #1B8A5A; }
+.bmi-cards .bmi-mcard:nth-child(2) .bmi-mcard-icon { background: #E8F0FE; color: #2563EB; }
+.bmi-cards .bmi-mcard:nth-child(3) .bmi-mcard-icon { background: #FEF3C7; color: #B45309; }
+.bmi-mcard h3 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 15px; font-weight: 800; color: var(--text-primary, #0B1530); margin-bottom: 6px; }
+.bmi-mcard p { font-size: 13px; color: var(--text-muted, #6B7592); line-height: 1.55; }
+
+/* Limitations list */
+.bmi-lim { list-style: none; max-width: 820px; }
+.bmi-lim li { font-size: 15px; color: var(--text-secondary, #4A5578); line-height: 1.55; padding: 9px 0 9px 30px; position: relative; border-bottom: 1px solid var(--border-soft, #E5E9F3); }
+.bmi-lim li:last-child { border-bottom: 0; }
+.bmi-lim li i { position: absolute; left: 0; top: 11px; color: var(--primary, #1B2A5B); font-size: 14px; }
+
+/* CTA */
+.bmi-cta { margin-top: 46px; background: #1F2A5F url('b-hero3.jpeg') center / cover no-repeat; border-radius: var(--radius-xl, 24px); padding: 34px 38px; color: #fff; display: flex; align-items: center; justify-content: space-between; gap: 22px; position: relative; overflow: hidden; }
+.bmi-cta::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(11,21,48,0.6) 0%, rgba(15,22,60,0.8) 100%); }
+.bmi-cta > * { position: relative; z-index: 1; }
+.bmi-cta-title { font-family: 'Instrument Serif', serif; font-size: 27px; font-weight: 400; line-height: 1.15; }
+.bmi-cta-sub { font-size: 14px; color: rgba(255,255,255,0.85); margin-top: 5px; max-width: 460px; line-height: 1.45; }
+.bmi-cta-btn { background: #fff; color: var(--primary, #1B2A5B); border: 0; border-radius: 999px; padding: 14px 26px; font: inherit; font-size: 15px; font-weight: 800; cursor: pointer; white-space: nowrap; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
+.bmi-cta-btn:hover { background: #F2F4FA; }
+
+/* Disclaimer */
+.bmi-note { margin-top: 24px; font-size: 13px; color: var(--text-muted, #6B7592); line-height: 1.55; background: var(--bg-soft, #F7F8FB); border-radius: var(--radius-md, 12px); padding: 14px 16px; }
+
+@media (max-width: 860px) {
+  .bmi-stage-grid { grid-template-columns: 1fr; }
+  .bmi-readout { border-left: 0; border-top: 1px solid rgba(255,255,255,0.10); }
+  .bmi-dial { max-width: 280px; }
+  .bmi-cols, .bmi-cards { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .bmi-page { padding-top: 22px; }
+  .bmi-deck { padding: 30px 22px 26px; }
+  .bmi-readout { padding: 30px 22px; }
+  .bmi-row2 { grid-template-columns: 1fr; gap: 0; }
+  .bmi-row2 .bmi-field { margin-bottom: 12px; }
+  .bmi-h1 { font-size: 38px; }
+  .bmi-spectrum { margin: -20px 12px 0; padding: 20px 18px; }
+  .bmi-section-title { font-size: 23px; }
+  .bmi-cta { flex-direction: column; align-items: flex-start; }
+}
+@media (max-width: 1080px) {
+  .page-body { grid-template-columns: 1fr; }
+  .receipt-card { position: static; }
+  .confirm-title { font-size: 36px; }
+}
+@media (max-width: 900px) {
+  html, body { overflow-x: clip; max-width: 100vw; }
+  body { overflow-wrap: anywhere; word-break: break-word; }
+  :root { --site-inset: 16px; }
+
+  /* Width clamps + min-width:0 so flex/grid children can't push past viewport */
+  .confirm-hero-inner, .confirm-text, .page-body, .card, .card-head,
+  .receipt-card, .receipt-head, .receipt-head-text, .receipt-section,
+  .receipt-row,
+  .help-card, .help-text,
+  .detail-grid, .detail-row, .detail-text,
+  .tests-list, .tests-list-item, .tests-list-item-name,
+  .timeline, .timeline-item,
+  .cta-row,
+  .reminder, .pay-on-visit-banner, .pov-text {
+    max-width: 100%;
+    min-width: 0;
+  }
+  .confirm-title, .confirm-sub,
+  .detail-value, .detail-sub,
+  .tests-list-item-name,
+  .timeline-title, .timeline-sub,
+  .receipt-row-key, .receipt-row-val,
+  .pov-title, .pov-sub {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+  .page-body { grid-template-columns: 1fr; display: block; }
+  .page-body > div, .page-body > aside { margin-bottom: 14px; }
+
+  /* Header parity */
+  .top-bar-inner { font-size: 11px; padding: 6px 12px; gap: 8px; line-height: 1.3; flex-wrap: nowrap; }
+  .top-bar-link, .top-bar-location { white-space: nowrap; gap: 5px; font-size: 11px; }
+  .top-bar-link span, .top-bar-location span { font-size: 11px; }
+  .top-bar-location i, .top-bar-link i { font-size: 12px; }
+  .top-bar-phone { margin-left: auto; }
+  .site-header { top: 26px; }
+  .site-header-inner {
+    padding: 10px 16px; gap: 10px; flex-wrap: nowrap; max-width: 100vw; overflow: hidden;
+  }
+  .brand-block { gap: 6px; }
+  .brand-logo { height: 36px; }
+  .brand-rating { padding: 2px 6px; font-size: 10px; gap: 3px; }
+  .brand-rating-stars { font-size: 9px; }
+  .brand-rating-stars i:nth-child(n+2) { display: none; }
+  .main-nav { display: none; }
+  .hamburger-btn { display: inline-flex !important; width: 34px; height: 34px; font-size: 16px; }
+  .header-upload { margin-left: auto; flex-shrink: 0; }
+  .header-upload .main-nav-pill {
+    padding: 6px 10px;
+    font-size: 11px;
+    gap: 5px;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+  .header-upload .main-nav-pill i { font-size: 12px; }
+  .header-upload .main-nav-pill span { display: inline; }
+  .main-nav-upload-sub { display: none; }
+  .site-header-inner { gap: 8px; padding: 8px 12px; }
+
+  /* Confirm hero */
+  .confirm-hero-inner {
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 22px 16px;
+    gap: 14px;
+  }
+  .confirm-tick { width: 52px; height: 52px; flex-shrink: 0; margin-top: 4px; }
+  .confirm-tick i { font-size: 26px; }
+  .confirm-text { flex: 1; min-width: 0; }
+  .confirm-eyebrow { margin-bottom: 4px; }
+  .confirm-title { font-size: 24px; line-height: 1.1; margin-bottom: 8px; }
+  .confirm-eyebrow { font-size: 11px; letter-spacing: 0.10em; margin-bottom: 4px; }
+  .confirm-title { font-size: 28px; line-height: 1.1; margin-bottom: 8px; }
+  .confirm-sub { font-size: 14px; margin-bottom: 12px; }
+  .confirm-id-pill { font-size: 13px; padding: 7px 12px; gap: 8px; }
+
+  /* Page body */
+  .page-body { padding: 16px 16px 28px; gap: 14px; }
+  .card { padding: 18px 16px; }
+  .card-head { flex-wrap: nowrap; gap: 10px; }
+  .card-title { font-size: 18px; flex-shrink: 0; }
+  .card-sub {
+    font-size: 11px;
+    text-align: right;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+  }
+
+  /* Booking details: single col with smaller icons */
+  .detail-grid { grid-template-columns: 1fr; gap: 12px; }
+  .detail-row { gap: 10px; }
+  .detail-ico { width: 32px; height: 32px; font-size: 13px; }
+  .detail-label { font-size: 11px; }
+  .detail-value { font-size: 14px; }
+  .detail-sub { font-size: 12px; }
+
+  /* Tests + timeline */
+  .tests-list-item { font-size: 14px; }
+  .timeline { padding-left: 44px; }
+  .timeline-item { padding-bottom: 18px; }
+  .timeline-dot { left: -44px; width: 26px; height: 26px; font-size: 11px; }
+  .timeline-title { font-size: 14px; }
+  .timeline-sub { font-size: 12px; }
+  .timeline-time { font-size: 11px; padding: 2px 7px; }
+
+  /* Reminder + pay-on-visit banner */
+  .reminder { padding: 12px 14px; font-size: 13px; gap: 10px; }
+  .pay-on-visit-banner { padding: 14px 16px; gap: 12px; }
+  .pov-ico { width: 40px; height: 40px; font-size: 16px; }
+  .pov-title { font-size: 15px; }
+  .pov-sub { font-size: 12px; }
+
+  /* CTAs full-width and stacked-friendly */
+  .cta-row { flex-direction: column; gap: 10px; }
+  .cta-row > button { min-width: 0; width: 100%; height: 54px; padding: 14px 22px; font-size: 15px; gap: 10px; }
+  .cta-row > button i { font-size: 16px; }
+
+  /* Receipt + help inline */
+  .receipt-card { position: static; border-radius: var(--radius-md); }
+  .receipt-head { padding: 14px 16px; }
+  .receipt-head-amount { font-size: 19px; }
+  .receipt-section { padding: 14px 16px; }
+  .receipt-row { font-size: 13px; }
+  .receipt-row.is-total .receipt-row-key { font-size: 14px; }
+  .receipt-row.is-total .receipt-row-val { font-size: 16px; }
+  .help-card { padding: 14px 16px; gap: 12px; }
+  .help-ico { width: 38px; height: 38px; font-size: 15px; }
+}
+
+/* ===== TEST LIST PAGE ===== */
+.tl-page { max-width: 1480px; margin: 0 auto; padding: 28px var(--site-inset,32px) 64px; }
+.tl-crumb { font-size: 13px; color: var(--text-muted); margin-bottom: 14px; }
+.tl-crumb a { color: var(--text-muted); text-decoration: none; }
+.tl-crumb a:hover { color: var(--primary); }
+.tl-head { margin-bottom: 22px; }
+.tl-h1 { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 38px; color: var(--primary); letter-spacing: -0.01em; line-height: 1.05; }
+.tl-sub { font-size: 15px; color: var(--text-muted); margin-top: 6px; }
+.tl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 16px; }
+.tl-card { display: flex; align-items: center; gap: 16px; background: #fff; border: 1px solid var(--border-soft); border-radius: 16px; padding: 18px 20px; box-shadow: 0 2px 8px rgba(11,21,48,0.05); transition: box-shadow .16s, transform .16s; }
+.tl-card:hover { box-shadow: 0 10px 26px rgba(11,21,48,0.1); transform: translateY(-2px); }
+.tl-ico { width: 48px; height: 48px; border-radius: 13px; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; font-size: 20px; background: var(--accent-soft, #FDECEC); color: var(--accent, #D33535); }
+.tl-body { flex: 1; min-width: 0; }
+.tl-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 16px; font-weight: 800; color: var(--text-primary); line-height: 1.3; margin-bottom: 6px; }
+.tl-price { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.tl-now { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 18px; font-weight: 800; color: var(--text-primary); }
+.tl-mrp { font-size: 13px; color: var(--text-muted); text-decoration: line-through; }
+.tl-off { font-size: 12px; font-weight: 800; color: var(--green, #1B8A5A); }
+.tl-book { flex-shrink: 0; border: 0; background: var(--accent, #D33535); color: #fff; font-size: 14px; font-weight: 800; padding: 11px 20px; border-radius: 11px; cursor: pointer; white-space: nowrap; transition: background .15s; text-decoration: none; }
+.tl-book:hover { background: var(--accent-dark, #B82E2E); }
+.tl-empty { text-align: center; padding: 60px 20px; color: var(--text-muted); font-size: 15px; }
+@media (max-width: 700px) { .tl-h1 { font-size: 30px; } .tl-grid { grid-template-columns: 1fr; } .tl-card { padding: 14px 15px; gap: 12px; } .tl-book { padding: 10px 16px; } }
+</style>
+</head>
+<body>
+
+<!-- ===== TOP BAR ===== -->
+<div class="top-bar">
+  <div class="top-bar-inner">
+    <ul class="top-bar-trust" aria-label="Location">
+      <li>
+        <button class="top-bar-location" aria-label="Change location">
+          <i class="fas fa-location-dot tb-icon-green"></i>
+          <span>Gurgaon - 122001</span>
+          <i class="fas fa-chevron-down"></i>
+        </button>
+      </li>
+    </ul>
+    <a href="tel:01244550000" class="top-bar-link top-bar-phone">
+      <i class="fas fa-phone"></i><span>0124-4550000</span>
+    </a>
+    <a href="login.html" class="top-bar-link">
+      <i class="fas fa-user"></i><span>Login / Signup</span>
+    </a>
+  </div>
+</div>
+
+<!-- ===== SITE HEADER ===== -->
+<header class="site-header" role="banner">
+  <div class="site-header-inner">
+    <button class="hamburger-btn" aria-label="Open menu"><i class="fas fa-bars"></i></button>
+    <div class="brand-block">
+      <a href="index.html" class="brand" aria-label="Flebo.in"><img src="flebo-logo.svg" alt="Flebo.in" class="brand-logo"></a>
+      <div class="brand-rating" aria-label="Rated 4.9 out of 5">
+        <span class="brand-rating-score">4.9</span>
+        <span class="brand-rating-stars" aria-hidden="true"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+      </div>
+    </div>
+    <nav class="main-nav" role="navigation" aria-label="Primary">
+      <ul class="main-nav-list">
+        <li><a href="tests.html" class="main-nav-link"><i class="fas fa-flask-vial"></i><span>Tests</span></a></li>
+        <li><a href="packages.html" class="main-nav-link"><i class="fas fa-box-open"></i><span>Packages</span></a></li>
+        <li><a href="reports.html" class="main-nav-link"><i class="fas fa-folder-open"></i><span>Reports</span></a></li>
+        <li><a href="health-trends.html" class="main-nav-link"><i class="fas fa-chart-line"></i><span>Health Trend Graph</span></a></li>
+        <li><a href="bmi.html" class="main-nav-link main-nav-bmi is-active" aria-current="page">
+          <span class="bmi-gauge-icon">
+            <svg viewBox="0 0 24 14" width="22" height="13" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="bmiGrad" x1="0" x2="1" y1="0" y2="0">
+                  <stop offset="0" stop-color="#E8453C"/><stop offset="0.35" stop-color="#F4B940"/>
+                  <stop offset="0.65" stop-color="#C7D147"/><stop offset="1" stop-color="#3FAE5A"/>
+                </linearGradient>
+              </defs>
+              <path d="M 2.5 12.5 A 9.5 9.5 0 0 1 21.5 12.5" stroke="url(#bmiGrad)" stroke-width="2.8" stroke-linecap="round" fill="none"/>
+              <line x1="12" y1="12.5" x2="8" y2="5" stroke="#2C3E50" stroke-width="1.6" stroke-linecap="round"/>
+              <circle cx="12" cy="12.5" r="1.4" fill="#2C3E50"/>
+            </svg>
+          </span>
+          <span>BMI Calculator</span>
+        </a></li>
+      </ul>
+    </nav>
+    <div class="header-upload main-nav-upload">
+      <a href="#" class="main-nav-pill"><i class="fas fa-cloud-arrow-up"></i><span>Upload Report of Any Lab</span></a>
+      <span class="main-nav-upload-sub">Secure Data Vault <span class="main-nav-upload-sub-sep">|</span> Free AI Analysis</span>
+    </div>
+  </div>
+</header>
+
+<!-- ===== BMI CALCULATOR ===== -->
+<main class="tl-page">
+  <div class="tl-crumb"><a href="index.html">Home</a> &nbsp;/&nbsp; <a href="tests.html">Tests</a> &nbsp;/&nbsp; <span id="tlCrumb">Tests</span></div>
+  <div class="tl-head">
+    <h1 class="tl-h1" id="tlTitle">Tests</h1>
+    <p class="tl-sub" id="tlSub"></p>
+  </div>
+  <div class="tl-grid" id="tlGrid"></div>
+</main>
+<script>
+(function () {
+  var CAT = {
+    Bone: [
+      { name: 'Vitamin D 25-Hydroxy', icon: 'fa-bone', price: 799, mrp: 1480 },
+      { name: 'Calcium Serum', icon: 'fa-bone', price: 249, mrp: 460 },
+      { name: 'Bone Health Panel', icon: 'fa-bone', price: 699, mrp: 1290 },
+      { name: 'Phosphorus Serum', icon: 'fa-bone', price: 249, mrp: 450 }
+    ],
+    Diabetes: [
+      { name: 'HbA1c (Glycated Hb)', icon: 'fa-droplet', price: 399, mrp: 740 },
+      { name: 'Blood Sugar Fasting', icon: 'fa-droplet', price: 149, mrp: 280 },
+      { name: 'Diabetes Profile', icon: 'fa-droplet', price: 999, mrp: 2100 }
+    ],
+    Gastro: [
+      { name: 'H. Pylori Antigen', icon: 'fa-bacterium', price: 599, mrp: 1150 },
+      { name: 'Amylase Serum', icon: 'fa-flask', price: 449, mrp: 850 },
+      { name: 'Stool Routine', icon: 'fa-vial', price: 299, mrp: 560 }
+    ],
+    Gynae: [
+      { name: 'Beta hCG (Pregnancy)', icon: 'fa-venus', price: 599, mrp: 1100 },
+      { name: 'AMH (Anti-Mullerian Hormone)', icon: 'fa-venus', price: 1499, mrp: 2800 },
+      { name: 'Estradiol (E2)', icon: 'fa-venus', price: 699, mrp: 1300 }
+    ],
+    Heart: [
+      { name: 'Lipid Profile', icon: 'fa-heart-pulse', price: 499, mrp: 950 },
+      { name: 'Cardiac Risk Markers', icon: 'fa-heart-pulse', price: 1299, mrp: 2600 },
+      { name: 'Homocysteine', icon: 'fa-heart-pulse', price: 899, mrp: 1700 }
+    ],
+    Kidney: [
+      { name: 'Kidney Function Test (KFT)', icon: 'fa-prescription-bottle-medical', price: 549, mrp: 1050 },
+      { name: 'Creatinine Serum', icon: 'fa-flask', price: 199, mrp: 380 },
+      { name: 'Urine Routine', icon: 'fa-vial', price: 199, mrp: 380 }
+    ],
+    Liver: [
+      { name: 'Liver Function Test (LFT)', icon: 'fa-flask', price: 599, mrp: 1100 },
+      { name: 'SGPT / SGOT', icon: 'fa-flask', price: 349, mrp: 650 },
+      { name: 'Bilirubin Total', icon: 'fa-flask', price: 249, mrp: 470 }
+    ],
+    Prostate: [
+      { name: 'PSA Total', icon: 'fa-mars', price: 599, mrp: 1150 },
+      { name: 'PSA Free', icon: 'fa-mars', price: 749, mrp: 1400 },
+      { name: 'Prostate Health Panel', icon: 'fa-mars', price: 1299, mrp: 2500 }
+    ],
+    Thyroid: [
+      { name: 'Thyroid Profile (T3, T4, TSH)', icon: 'fa-shield-virus', price: 449, mrp: 850 },
+      { name: 'TSH Ultrasensitive', icon: 'fa-shield-virus', price: 249, mrp: 470 },
+      { name: 'Anti-TPO Antibody', icon: 'fa-shield-virus', price: 699, mrp: 1300 }
+    ],
+    Radiology: [
+      { name: 'Digital X-ray', icon: 'fa-x-ray', price: 200, mrp: 400 },
+      { name: 'Ultrasound Whole Abdomen', icon: 'fa-wave-square', price: 800, mrp: 1400 },
+      { name: 'CT Scan', icon: 'fa-circle-radiation', price: 1500, mrp: 3000 },
+      { name: 'MRI Scan', icon: 'fa-brain', price: 3000, mrp: 6000 }
+    ],
+    Fever: [
+      { name: 'Fever Panel Basic', icon: 'fa-temperature-half', price: 599, mrp: 1200 },
+      { name: 'Dengue NS1 Antigen', icon: 'fa-mosquito', price: 699, mrp: 1300 },
+      { name: 'Malaria Antigen', icon: 'fa-mosquito', price: 399, mrp: 750 },
+      { name: 'Typhoid (Widal)', icon: 'fa-temperature-half', price: 299, mrp: 560 }
+    ],
+    'STD Care': [
+      { name: 'HIV 1 & 2', icon: 'fa-ribbon', price: 499, mrp: 950 },
+      { name: 'VDRL (Syphilis)', icon: 'fa-ribbon', price: 299, mrp: 560 },
+      { name: 'STD Comprehensive Panel', icon: 'fa-ribbon', price: 1999, mrp: 3800 }
+    ],
+    Smoking: [
+      { name: 'Lung Function Panel', icon: 'fa-lungs', price: 899, mrp: 1700 },
+      { name: 'Chest X-ray', icon: 'fa-x-ray', price: 300, mrp: 550 },
+      { name: 'CEA (Tumour Marker)', icon: 'fa-lungs', price: 699, mrp: 1300 }
+    ],
+    Alcohol: [
+      { name: 'Liver Function Test (LFT)', icon: 'fa-wine-glass', price: 599, mrp: 1100 },
+      { name: 'GGT', icon: 'fa-wine-glass', price: 299, mrp: 560 }
+    ],
+    Stress: [
+      { name: 'Cortisol Serum', icon: 'fa-brain', price: 699, mrp: 1300 },
+      { name: 'Thyroid Profile (T3, T4, TSH)', icon: 'fa-brain', price: 449, mrp: 850 }
+    ],
+    Fitness: [
+      { name: 'Vitamin D + B12', icon: 'fa-dumbbell', price: 999, mrp: 1900 },
+      { name: 'Testosterone Total', icon: 'fa-dumbbell', price: 699, mrp: 1300 }
+    ],
+    Diet: [
+      { name: 'Lipid Profile', icon: 'fa-apple-whole', price: 499, mrp: 950 },
+      { name: 'Iron Studies', icon: 'fa-apple-whole', price: 699, mrp: 1300 }
+    ],
+    Sleep: [
+      { name: 'Thyroid Profile (T3, T4, TSH)', icon: 'fa-moon', price: 449, mrp: 850 },
+      { name: 'Vitamin D 25-Hydroxy', icon: 'fa-moon', price: 799, mrp: 1480 }
+    ]
+  };
+  var SECTIONS = {
+    category: { title: 'All lab tests', keys: ['Bone','Diabetes','Gastro','Gynae','Heart','Kidney','Liver','Prostate','Thyroid'] },
+    radiology: { title: 'Radiology tests', keys: ['Radiology'] },
+    vitals: { title: 'Check your vitals', keys: ['Fever','STD Care','Diabetes','Thyroid'] },
+    habits: { title: 'Habit analysis tests', keys: ['Smoking','Alcohol','Stress','Fitness','Diet','Sleep'] }
+  };
+  var params = new URLSearchParams(location.search);
+  var cat = params.get('cat'), section = params.get('section');
+  var title = 'All lab tests', tests = [];
+  if (cat && CAT[cat]) { title = cat + ' tests'; tests = CAT[cat].slice(); }
+  else if (section && SECTIONS[section]) { title = SECTIONS[section].title; SECTIONS[section].keys.forEach(function (k) { if (CAT[k]) tests = tests.concat(CAT[k]); }); }
+  else { SECTIONS.category.keys.forEach(function (k) { tests = tests.concat(CAT[k]); }); }
+
+  document.getElementById('tlTitle').textContent = title;
+  document.getElementById('tlCrumb').textContent = title;
+  document.getElementById('tlSub').textContent = tests.length + ' test' + (tests.length !== 1 ? 's' : '') + ' available';
+  document.getElementById('tlGrid').innerHTML = tests.length ? tests.map(function (t) {
+    var off = (t.mrp && t.mrp > t.price) ? Math.round((1 - t.price / t.mrp) * 100) : 0;
+    var book = 'choose-lab.html?tests=' + encodeURIComponent(t.name) + '&prices=' + t.price;
+    return '<article class="tl-card"><span class="tl-ico"><i class="fas ' + (t.icon || 'fa-vial') + '"></i></span>' +
+      '<div class="tl-body"><div class="tl-name">' + t.name + '</div>' +
+      '<div class="tl-price"><span class="tl-now">₹' + t.price.toLocaleString() + '</span>' +
+      (off ? '<span class="tl-mrp">₹' + t.mrp.toLocaleString() + '</span><span class="tl-off">' + off + '% off</span>' : '') +
+      '</div></div><a class="tl-book" href="' + book + '">Book now</a></article>';
+  }).join('') : '<div class="tl-empty">No tests found for this selection.</div>';
+})();
+</script>
+
+  <script src="login-modal.js" defer></script>
+
+</body>
+</html>
