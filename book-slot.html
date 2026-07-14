@@ -489,6 +489,13 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   transition: border-color 0.15s, color 0.15s;
 }
 .add-addr-btn:hover { border-color: var(--primary); }
+.add-addr-form { margin-top: 12px; border: 1.5px solid var(--border-soft); border-radius: var(--radius-md); background: var(--bg-soft, #F7F8FB); padding: 16px; }
+.aaf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.aaf-actions { display: flex; gap: 10px; margin-top: 14px; }
+.aaf-actions .pp-act { flex: 0 0 auto; min-width: 110px; }
+.add-addr-save { flex: 1; border: 0; border-radius: var(--radius-md); background: var(--accent); color: #fff; font: inherit; font-size: 14px; font-weight: 800; padding: 12px 16px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: background 0.14s; }
+.add-addr-save:hover { background: var(--accent-dark); }
+@media (max-width: 560px) { .aaf-grid { grid-template-columns: 1fr; } }
 
 .add-patient-btn {
   margin-top: 14px;
@@ -1617,7 +1624,19 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
           </div>
         </div>
       </div>
-      <button class="add-addr-btn"><i class="fas fa-plus"></i> Add a new address</button>
+      <button type="button" class="add-addr-btn" id="addAddrBtn"><i class="fas fa-plus"></i> Add a new address</button>
+      <div class="add-addr-form" id="addAddrForm" hidden>
+        <div class="aaf-grid">
+          <div><label class="pp-label">Full name</label><input class="pp-input" id="aafName" type="text" placeholder="Recipient name"></div>
+          <div><label class="pp-label">Phone</label><input class="pp-input" id="aafPhone" type="tel" placeholder="+91 98765 43210"></div>
+          <div class="pp-field--full"><label class="pp-label">Address</label><input class="pp-input" id="aafLine" type="text" placeholder="House / flat, area, city, pincode"></div>
+          <div class="pp-field--full"><label class="pp-label">Label</label><select class="pp-select" id="aafTag"><option>Home</option><option>Office</option><option>Other</option></select></div>
+        </div>
+        <div class="aaf-actions">
+          <button type="button" class="pp-act" id="aafCancel">Cancel</button>
+          <button type="button" class="add-addr-save" id="aafSave"><i class="fas fa-check"></i> Save address</button>
+        </div>
+      </div>
     </section>
 
     <!-- STEP 3: DATE -->
@@ -1967,6 +1986,44 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
     document.querySelectorAll('.addr-card').forEach(c => c.classList.remove('is-active'));
     card.classList.add('is-active');
   });
+
+  // Add a new address (inline form)
+  (function setupAddAddress() {
+    const btn = document.getElementById('addAddrBtn');
+    const form = document.getElementById('addAddrForm');
+    const list = document.querySelector('.addr-list');
+    if (!btn || !form || !list) return;
+    const nameEl = document.getElementById('aafName');
+    const phoneEl = document.getElementById('aafPhone');
+    const lineEl = document.getElementById('aafLine');
+    const tagEl = document.getElementById('aafTag');
+    const escHtml = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    const tagIcon = { Home: 'fa-house', Office: 'fa-briefcase', Other: 'fa-location-dot' };
+
+    function openForm() { form.hidden = false; btn.hidden = true; nameEl.focus(); }
+    function closeForm() { form.hidden = true; btn.hidden = false; [nameEl, phoneEl, lineEl].forEach(i => i.value = ''); tagEl.value = 'Home'; }
+
+    btn.addEventListener('click', openForm);
+    document.getElementById('aafCancel').addEventListener('click', closeForm);
+    document.getElementById('aafSave').addEventListener('click', () => {
+      const name = nameEl.value.trim(), line = lineEl.value.trim();
+      if (!name || !line) { [!name && nameEl, !line && lineEl].filter(Boolean).forEach(i => { i.style.borderColor = 'var(--accent)'; i.addEventListener('input', () => { i.style.borderColor = ''; }, { once: true }); }); return; }
+      const phone = phoneEl.value.trim(), tag = tagEl.value, icon = tagIcon[tag] || 'fa-location-dot';
+      const card = document.createElement('div');
+      card.className = 'addr-card';
+      card.dataset.addr = tag.toLowerCase();
+      card.innerHTML = '<span class="addr-radio"></span><div class="addr-info">' +
+        '<span class="addr-tag"><i class="fas ' + icon + '"></i> ' + escHtml(tag) + '</span>' +
+        '<div class="addr-name">' + escHtml(name) + '</div>' +
+        '<div class="addr-line">' + escHtml(line) + (phone ? '<span class="addr-phone"> · ' + escHtml(phone) + '</span>' : '') + '</div>' +
+        '</div>';
+      list.appendChild(card);
+      document.querySelectorAll('.addr-card').forEach(c => c.classList.remove('is-active'));
+      card.classList.add('is-active');
+      closeForm();
+      if (typeof showToast === 'function') showToast('✓ Address added');
+    });
+  })();
 
   // Who toggle + gender
   // ===== Patients — rendered by the patient/package accordion (setupPatientPackages) =====
