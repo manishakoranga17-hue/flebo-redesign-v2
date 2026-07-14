@@ -423,7 +423,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   .thg-sel { gap: 10px; width: 100%; }
   .thg-sel-item { flex: 1 1 140px; }
   .thg-sel-v { min-width: 0; width: 100%; }
-  .thg-chart-wrap { height: 260px; }
+  .thg-chart-wrap { height: 300px; }
   /* Legend on one line — shrink font/gap/swatch to fit */
   .thg-legend { flex-wrap: nowrap; gap: 9px; margin-top: 12px; }
   .thg-leg { font-size: 10.5px; gap: 5px; white-space: nowrap; }
@@ -1608,11 +1608,11 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
       var isMobile = window.innerWidth <= 768;
       ctx.fillStyle = 'rgba(255,255,255,0.85)';
       if (isMobile) {
-        ctx.font = '700 12px ' + Chart.defaults.font.family; ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+        ctx.font = '700 10px ' + Chart.defaults.font.family; ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
         LABS.forEach(function (n, i) {
           ctx.save();
           ctx.translate(pts[i].x, y.top - 3);
-          ctx.rotate(-0.95);         // steeper tilt so the last name stays on-canvas
+          ctx.rotate(-0.82);         // tilt up-right
           ctx.fillText(n, 4, 0);
           ctx.restore();
         });
@@ -1643,7 +1643,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
     ] },
     options: {
       responsive: true, maintainAspectRatio: false,
-      layout: { padding: window.innerWidth <= 768 ? { top: 78, right: 16 } : { top: 34 } },
+      layout: { padding: window.innerWidth <= 768 ? { top: 88, right: 44 } : { top: 34 } },
       plugins: { legend: { display: false }, tooltip: { enabled: false } },
       scales: {
         x: { stacked: true, grid: { color: 'rgba(255,255,255,0.12)' }, ticks: { font: { size: 12, weight: '700' }, color: 'rgba(255,255,255,0.85)' } },
@@ -1654,7 +1654,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 
   // Keep the top padding in step with the mobile/desktop label layout
   window.addEventListener('resize', function () {
-    var pad = window.innerWidth <= 768 ? { top: 78, right: 16 } : { top: 34 };
+    var pad = window.innerWidth <= 768 ? { top: 88, right: 44 } : { top: 34 };
     if (chart.options.layout.padding.top !== pad.top) { chart.options.layout.padding = pad; chart.update('none'); }
   });
 
