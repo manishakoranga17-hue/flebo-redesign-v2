@@ -408,9 +408,12 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   .rep-fsub { position: static; display: block; left: auto; top: auto; min-width: 0; max-height: none; overflow: visible; margin: 2px 0 2px 8px; padding: 2px 0 4px 8px; border: 0; border-left: 2px solid var(--border-soft, #E5E9F3); border-radius: 0; box-shadow: none; }
   .rep-fgroup:hover > .rep-fitem--parent { background: none; color: var(--text-secondary, #4A5578); }
   .rep-fgroup:hover > .rep-fitem--parent .fa-chevron-right { color: var(--text-muted, #6B7592); }
-  /* Phone: keep the trend graph (navy card), drop the text panel; plain heading above */
-  .rep-hero { display: block; padding: 16px 14px; border-radius: 18px; margin-bottom: 18px; }
-  .tests-hero-text { display: none; }
+  /* Phone: show the full trend hero (text panel + graph) stacked */
+  .rep-hero { display: grid; grid-template-columns: 1fr; gap: 18px; padding: 20px 16px; border-radius: 18px; margin-bottom: 18px; }
+  .tests-hero-text { display: block; }
+  .tests-h1 { font-size: 30px; margin-top: 16px; }
+  .hero-latest-val { font-size: 42px; }
+  .tests-hero-meta { gap: 16px; margin-top: 18px; }
   .tests-hero-graph { padding: 14px 14px 12px; border-radius: 14px; }
   .thg-top { margin-bottom: 12px; }
   .thg-sel { gap: 10px; width: 100%; }
