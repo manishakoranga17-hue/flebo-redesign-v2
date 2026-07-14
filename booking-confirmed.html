@@ -732,6 +732,106 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   .help-card { padding: 14px 16px; gap: 12px; }
   .help-ico { width: 38px; height: 38px; font-size: 15px; }
 }
+
+/* ===== SAVINGS CELEBRATION POPUP ===== */
+.saved-overlay {
+  position: fixed; inset: 0; z-index: 3000;
+  display: none; align-items: center; justify-content: center;
+  padding: 20px;
+  background: rgba(11, 21, 48, 0.55);
+  -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
+}
+.saved-overlay.is-open { display: flex; }
+.saved-card {
+  position: relative; overflow: hidden;
+  width: 100%; max-width: 380px;
+  background: #fff; border-radius: 24px;
+  padding: 40px 28px 28px;
+  text-align: center;
+  box-shadow: 0 30px 80px rgba(11, 21, 48, 0.4);
+  animation: savedPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+@keyframes savedPop { from { transform: translateY(24px) scale(0.9); opacity: 0; } to { transform: none; opacity: 1; } }
+.saved-card::before {
+  content: ''; position: absolute; top: -60px; left: 50%; transform: translateX(-50%);
+  width: 260px; height: 160px; border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(27,138,90,0.16), transparent);
+  pointer-events: none;
+}
+.saved-close {
+  position: absolute; top: 14px; right: 14px; z-index: 3;
+  width: 32px; height: 32px; border: 0; border-radius: 50%;
+  background: var(--bg-soft, #F2F4F8); color: var(--text-muted, #6B7592);
+  font-size: 18px; line-height: 1; cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.saved-close:hover { background: #e6e9f0; }
+.saved-badge {
+  position: relative; z-index: 2;
+  width: 88px; height: 88px; margin: 0 auto 18px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #1FA968, #12854F);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 38px;
+  box-shadow: 0 12px 26px rgba(27,138,90,0.4), inset 0 2px 0 rgba(255,255,255,0.4);
+  animation: savedCoin 0.7s ease 0.15s both;
+}
+@keyframes savedCoin { 0% { transform: scale(0) rotate(-30deg); } 70% { transform: scale(1.12) rotate(6deg); } 100% { transform: scale(1) rotate(0); } }
+.saved-eyebrow {
+  position: relative; z-index: 2;
+  font-size: 13px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--green, #1B8A5A); margin-bottom: 8px;
+}
+.saved-amount {
+  position: relative; z-index: 2;
+  font-family: 'Instrument Serif', serif; font-weight: 400;
+  font-size: 56px; line-height: 1; color: var(--primary, #1B2A5B);
+  letter-spacing: -0.02em; margin-bottom: 10px;
+}
+.saved-sub {
+  position: relative; z-index: 2;
+  font-size: 14.5px; color: var(--text-secondary, #4A5578); line-height: 1.5;
+  margin-bottom: 20px;
+}
+.saved-sub b { color: var(--accent, #D33535); }
+.saved-breakdown {
+  position: relative; z-index: 2;
+  background: var(--bg-soft, #F7F8FB); border-radius: 14px;
+  padding: 12px 16px; margin-bottom: 22px; text-align: left;
+}
+.saved-brk-row { display: flex; align-items: center; justify-content: space-between; font-size: 13px; padding: 4px 0; }
+.saved-brk-row .k { color: var(--text-secondary, #4A5578); display: inline-flex; align-items: center; gap: 8px; }
+.saved-brk-row .k i { color: var(--green, #1B8A5A); font-size: 12px; }
+.saved-brk-row .v { font-weight: 800; color: var(--text-primary); font-variant-numeric: tabular-nums; }
+.saved-cta {
+  position: relative; z-index: 2;
+  width: 100%; border: 0; border-radius: 14px;
+  background: var(--accent, #D33535); color: #fff;
+  font: inherit; font-size: 15px; font-weight: 800;
+  padding: 14px 16px; cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  transition: background 0.15s;
+}
+.saved-cta:hover { background: var(--accent-dark, #B82E2E); }
+/* Confetti */
+.saved-confetti { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 1; }
+.saved-confetti i {
+  position: absolute; top: -12px; width: 8px; height: 12px; border-radius: 2px;
+  opacity: 0; animation: savedFall linear forwards;
+}
+@keyframes savedFall {
+  0% { transform: translateY(-20px) rotate(0deg); opacity: 0; }
+  10% { opacity: 1; }
+  100% { transform: translateY(520px) rotate(540deg); opacity: 0; }
+}
+@media (max-width: 480px) {
+  .saved-card { padding: 34px 20px 22px; border-radius: 20px; }
+  .saved-amount { font-size: 46px; }
+  .saved-badge { width: 76px; height: 76px; font-size: 32px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .saved-card, .saved-badge, .saved-confetti i { animation: none !important; }
+}
 </style>
 </head>
 <body>
@@ -969,6 +1069,20 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 </div>
 
 <div class="toast" id="toast"></div>
+
+<!-- ===== SAVINGS CELEBRATION POPUP ===== -->
+<div class="saved-overlay" id="savedOverlay" role="dialog" aria-modal="true" aria-labelledby="savedAmount">
+  <div class="saved-card">
+    <div class="saved-confetti" id="savedConfetti" aria-hidden="true"></div>
+    <button type="button" class="saved-close" id="savedClose" aria-label="Close">&times;</button>
+    <div class="saved-badge"><i class="fas fa-piggy-bank" aria-hidden="true"></i></div>
+    <div class="saved-eyebrow">Woohoo! You just saved</div>
+    <div class="saved-amount" id="savedAmount">₹0</div>
+    <div class="saved-sub" id="savedSub">That's <b>0% off</b> the MRP on this booking.</div>
+    <div class="saved-breakdown" id="savedBreakdown"></div>
+    <button type="button" class="saved-cta" id="savedCta"><i class="fas fa-thumbs-up"></i> Awesome, thanks!</button>
+  </div>
+</div>
 
 <script>
 (function () {
@@ -1224,6 +1338,60 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2400);
   }
+
+  // ===== Savings celebration popup =====
+  (function savedPopup() {
+    const overlay = document.getElementById('savedOverlay');
+    if (!overlay) return;
+    const totalSaved = Math.max(0, mrp - price);
+    if (totalSaved <= 0) return;   // nothing to celebrate
+    const pct = Math.round((totalSaved / mrp) * 100);
+    const couponPart = (couponCode && couponDiscount > 0) ? Math.min(couponDiscount, totalSaved) : 0;
+    const labPart = Math.max(0, totalSaved - couponPart);
+
+    // Breakdown
+    let brk = `<div class="saved-brk-row"><span class="k"><i class="fas fa-tag"></i> Lab discount</span><span class="v">₹${labPart.toLocaleString()}</span></div>`;
+    if (couponPart > 0) brk += `<div class="saved-brk-row"><span class="k"><i class="fas fa-ticket"></i> Coupon (${couponCode})</span><span class="v">₹${couponPart.toLocaleString()}</span></div>`;
+    brk += `<div class="saved-brk-row"><span class="k"><i class="fas fa-circle-check"></i> You paid</span><span class="v">₹${price.toLocaleString()}</span></div>`;
+    document.getElementById('savedBreakdown').innerHTML = brk;
+    document.getElementById('savedSub').innerHTML = `That's <b>${pct}% off</b> the ₹${mrp.toLocaleString()} MRP on this booking.`;
+
+    // Confetti
+    const colors = ['#D33535', '#1B8A5A', '#1B2A5B', '#F5A623', '#3D56A0'];
+    const cf = document.getElementById('savedConfetti');
+    let cfHtml = '';
+    for (let i = 0; i < 30; i++) {
+      const left = Math.round((i / 30) * 100 + (i % 5) * 2);
+      const dur = (2.2 + (i % 6) * 0.35).toFixed(2);
+      const delay = ((i % 10) * 0.12).toFixed(2);
+      const col = colors[i % colors.length];
+      const w = 6 + (i % 3) * 2;
+      cfHtml += `<i style="left:${left}%;background:${col};width:${w}px;height:${w + 4}px;animation-duration:${dur}s;animation-delay:${delay}s;"></i>`;
+    }
+    cf.innerHTML = cfHtml;
+
+    // Count-up amount
+    const amtEl = document.getElementById('savedAmount');
+    function countUp() {
+      const start = performance.now(), dur = 900;
+      function tick(now) {
+        const t = Math.min(1, (now - start) / dur);
+        const eased = 1 - Math.pow(1 - t, 3);
+        amtEl.textContent = '₹' + Math.round(totalSaved * eased).toLocaleString();
+        if (t < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+
+    function close() { overlay.classList.remove('is-open'); }
+    document.getElementById('savedClose').addEventListener('click', close);
+    document.getElementById('savedCta').addEventListener('click', close);
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && overlay.classList.contains('is-open')) close(); });
+
+    // Reveal shortly after the page settles
+    setTimeout(() => { overlay.classList.add('is-open'); countUp(); }, 550);
+  })();
 })();
 </script>
   <script src="login-modal.js" defer></script>
