@@ -1187,23 +1187,21 @@ body.pkg-flow .ctx-chip { flex-shrink: 0; white-space: nowrap; }
 .pkg-sub-row .tbl-lab-pkg-name { font-size: 13.5px; }
 /* (legacy card-panel styles kept for the mobile expand list) */
 .pkg-expand { display: flex; flex-direction: column; gap: 10px; padding: 14px 18px 16px 20px; border-left: 3px solid var(--accent, #D33535); }
-.pkg-ex-card { display: flex; align-items: center; gap: 18px; background: #fff; border: 1px solid var(--border-soft); border-radius: 12px; padding: 14px 16px; box-shadow: 0 1px 3px rgba(11,21,48,0.04); }
-.pkg-ex-info { flex: 1; min-width: 0; }
-.pkg-ex-info .tbl-lab-pkg-name { margin-bottom: 6px; }
-.pkg-ex-info .tbl-lab-pkg-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px; }
-.pkg-ex-meta { margin-top: 8px; }
-.pkg-ex-price { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; white-space: nowrap; }
+.pkg-ex-card { display: flex; flex-direction: column; align-items: stretch; gap: 9px; background: #fff; border: 1px solid var(--border-soft); border-radius: 12px; padding: 14px 16px; box-shadow: 0 1px 3px rgba(11,21,48,0.04); }
+.pkg-ex-name { min-width: 0; }
+/* tests on the left, fasting note on the right */
+.pkg-ex-tests { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.pkg-ex-tests .ltab-pkg-tests, .pkg-ex-tests .ltab-pkg-fast { display: inline-flex; align-items: center; gap: 6px; }
+.pkg-ex-meta { margin: 0; }
+/* price on the left, CTA next to it */
+.pkg-ex-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 2px; padding-top: 10px; border-top: 1px dashed var(--border-soft); }
+.pkg-ex-price { display: flex; flex-direction: row; align-items: baseline; flex-wrap: wrap; gap: 3px 8px; min-width: 0; }
 .pkg-ex-price .tbl-price { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 18px; font-weight: 800; color: var(--text-primary); }
 .pkg-ex-price .tbl-price-mrp { font-size: 12px; color: var(--text-muted); text-decoration: line-through; }
-.pkg-ex-price .tbl-save { font-size: 11.5px; font-weight: 700; color: var(--green, #1B8A5A); }
+.pkg-ex-price .tbl-save { flex-basis: 100%; font-size: 11.5px; font-weight: 700; color: var(--green, #1B8A5A); }
 .pkg-ex-book { flex-shrink: 0; }
 .mlab-ex { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--border-mid, #C5CCDB); }
 .mlab-ex .pkg-ex-card { background: var(--bg-soft, #F7F8FB); }
-@media (max-width: 700px) {
-  .pkg-ex-card { flex-wrap: wrap; gap: 10px; }
-  .pkg-ex-price { align-items: flex-start; }
-  .pkg-ex-book { width: 100%; }
-}
 /* Timing cell — day on top, time below */
 .tbl-timing-day {
   display: block;
@@ -3350,21 +3348,21 @@ body.has-cmp-bar { padding-bottom: 92px; }
             const sv = rr.mrp - rr.price;
             const pc = Math.round((sv / rr.mrp) * 100);
             return `<div class="pkg-ex-card" data-id="${rr.rowId}">
-              <div class="pkg-ex-info">
-                <div class="tbl-lab-pkg-name">${pp.name}</div>
-                <div class="tbl-lab-pkg-meta">
-                  <button type="button" class="ltab-pkg-tests" data-pkg-name="${pp.name}" data-pkg-tests="${pp.tests}"><i class="fas fa-vial"></i> ${pp.tests} tests <i class="fas fa-chevron-right ltab-pkg-tests-caret"></i></button>
-                  <span class="ltab-pkg-fast ${pp.fasting ? 'is-fasting' : 'no-fasting'}"><i class="fas fa-${pp.fasting ? 'mug-saucer' : 'circle-check'}"></i> ${pp.fasting ? 'Fasting required' : 'No fasting'}</span>
-                </div>
-                <div class="mlab-meta pkg-ex-meta">
-                  ${ratingHtml}
-                  <span class="mlab-meta-item"><i class="fas fa-route"></i>${l.distanceKm.toFixed(1)} km</span>
-                  <span class="mlab-meta-item"><i class="fas fa-bolt"></i>${tatShort}</span>
-                  <span class="mlab-meta-item"><i class="fas fa-clock"></i>${dayPart}${timePart ? ' · ' + timePart : ''}</span>
-                </div>
+              <div class="pkg-ex-name tbl-lab-pkg-name">${pp.name}</div>
+              <div class="pkg-ex-tests">
+                <button type="button" class="ltab-pkg-tests" data-pkg-name="${pp.name}" data-pkg-tests="${pp.tests}"><i class="fas fa-vial"></i> ${pp.tests} tests <i class="fas fa-chevron-right ltab-pkg-tests-caret"></i></button>
+                <span class="ltab-pkg-fast ${pp.fasting ? 'is-fasting' : 'no-fasting'}"><i class="fas fa-${pp.fasting ? 'mug-saucer' : 'circle-check'}"></i> ${pp.fasting ? 'Fasting required' : 'No fasting'}</span>
               </div>
-              <div class="pkg-ex-price"><span class="tbl-price">₹${rr.price.toLocaleString()}</span><span class="tbl-price-mrp">₹${rr.mrp.toLocaleString()}</span><span class="tbl-save">Save ₹${sv.toLocaleString()} · ${pc}% off</span></div>
-              <button type="button" class="tbl-select pkg-ex-book" data-action="select" data-name="${l.name}">${ctaLabel}</button>
+              <div class="mlab-meta pkg-ex-meta">
+                ${ratingHtml}
+                <span class="mlab-meta-item"><i class="fas fa-route"></i>${l.distanceKm.toFixed(1)} km</span>
+                <span class="mlab-meta-item"><i class="fas fa-bolt"></i>${tatShort}</span>
+                <span class="mlab-meta-item"><i class="fas fa-clock"></i>${dayPart}${timePart ? ' · ' + timePart : ''}</span>
+              </div>
+              <div class="pkg-ex-foot">
+                <div class="pkg-ex-price"><span class="tbl-price">₹${rr.price.toLocaleString()}</span><span class="tbl-price-mrp">₹${rr.mrp.toLocaleString()}</span><span class="tbl-save">Save ₹${sv.toLocaleString()} · ${pc}% off</span></div>
+                <button type="button" class="tbl-select pkg-ex-book" data-action="select" data-name="${l.name}">${ctaLabel}</button>
+              </div>
             </div>`;
           }).join('')}</div>` : '';
       return `
