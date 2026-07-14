@@ -7,6 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -488,6 +490,16 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 .ab-field label { display:block; font-size:12.5px; font-weight:700; color:var(--text-secondary,#4A5578); margin-bottom:7px; }
 .ab-input { width:100%; border:1.5px solid var(--border-mid,#C5CCDB); border-radius:11px; padding:12px 14px; font:inherit; font-size:15px; color:var(--text-primary); background:#fff; }
 .ab-input:focus { outline:none; border-color:var(--primary); box-shadow:0 0 0 3px rgba(27,42,91,.1); }
+.ab-map-search { display:flex; gap:10px; margin-bottom:10px; }
+.ab-map-search .ab-input { flex:1; }
+.ab-map-searchbtn { flex:0 0 46px; border:1.5px solid var(--border-mid,#C5CCDB); border-radius:11px; background:#fff; color:var(--primary); font-size:15px; cursor:pointer; }
+.ab-map-searchbtn:hover { border-color:var(--primary); background:var(--bg-soft,#F7F8FB); }
+.ab-map-wrap { position:relative; border-radius:12px; overflow:hidden; border:1.5px solid var(--border-soft,#E5E9F3); }
+.ab-map { width:100%; height:220px; background:var(--bg-soft,#F7F8FB); z-index:0; }
+.ab-map-locate { position:absolute; left:12px; bottom:12px; z-index:500; display:inline-flex; align-items:center; gap:8px; background:#fff; border:1.5px solid var(--border-mid,#C5CCDB); border-radius:50px; padding:9px 14px; font:inherit; font-size:13px; font-weight:700; color:var(--primary); cursor:pointer; box-shadow:0 3px 10px rgba(0,0,0,.12); }
+.ab-map-locate:hover { border-color:var(--primary); }
+.ab-map-hint { display:flex; align-items:center; gap:8px; font-size:12.5px; color:var(--text-muted); margin-top:9px; }
+.ab-map-hint i { color:var(--accent,#D33535); }
 .ab-row2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
 .ab-typechips { display:flex; gap:10px; }
 .ab-typechip { flex:1; border:1.5px solid var(--border-mid,#C5CCDB); background:#fff; border-radius:11px; padding:11px; font:inherit; font-size:14px; font-weight:700; color:var(--text-muted); cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:8px; transition:.15s; }
@@ -584,6 +596,17 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   <div class="ab-modal-box">
     <div class="ab-modal-head"><h2 id="abModalTitle">Add new address</h2><button type="button" class="ab-modal-x" data-close aria-label="Close">&times;</button></div>
     <form class="ab-form" id="abForm">
+      <div class="ab-field"><label>Select on map</label>
+        <div class="ab-map-search">
+          <input class="ab-input" id="abMapSearch" type="text" placeholder="Search area, landmark or pincode" autocomplete="off">
+          <button type="button" class="ab-map-searchbtn" id="abMapSearchBtn" aria-label="Search"><i class="fas fa-magnifying-glass"></i></button>
+        </div>
+        <div class="ab-map-wrap">
+          <div id="abMap" class="ab-map"></div>
+          <button type="button" class="ab-map-locate" id="abMapLocate"><i class="fas fa-location-crosshairs"></i> Use my current location</button>
+        </div>
+        <div class="ab-map-hint"><i class="fas fa-map-pin"></i> Drag the pin or tap the map to set your exact location</div>
+      </div>
       <div class="ab-field"><label>Address type</label>
         <div class="ab-typechips" id="abTypeChips">
           <button type="button" class="ab-typechip is-active" data-type="Home"><i class="fas fa-house"></i> Home</button>
@@ -659,8 +682,54 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
     setVal('abPin', addr ? addr.pin : ''); setVal('abCity', addr ? addr.city : ''); setVal('abState', addr ? addr.state : '');
     modal.classList.add('is-open'); document.body.style.overflow = 'hidden';
     setTimeout(function () { document.getElementById('abName').focus(); }, 30);
+    requestAnimationFrame(function () { abInitMap(); });
   }
   function closeModal() { modal.classList.remove('is-open'); document.body.style.overflow = ''; }
+
+  // ===== Select on map (Leaflet + OpenStreetMap) =====
+  var abMap = null, abMarker = null;
+  var AB_DEFAULT = [28.4595, 77.0266];
+  function abReverse(lat, lng) {
+    fetch('https://nominatim.openstreetmap.org/reverse?format=json&zoom=18&addressdetails=1&lat=' + lat + '&lon=' + lng, { headers: { 'Accept-Language': 'en' } })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) {
+        if (!d || !d.address) return;
+        var a = d.address;
+        var area = [a.road, a.neighbourhood, a.suburb].filter(Boolean).join(', ');
+        if (area) setVal('abLine2', area);
+        if (a.postcode) setVal('abPin', a.postcode);
+        var city = a.city || a.town || a.village || a.county;
+        if (city) setVal('abCity', city);
+        if (a.state) setVal('abState', a.state);
+      }).catch(function () {});
+  }
+  function abSetPin(lat, lng, geocode) {
+    if (!abMap) return;
+    if (abMarker) abMarker.setLatLng([lat, lng]);
+    else { abMarker = L.marker([lat, lng], { draggable: true }).addTo(abMap); abMarker.on('dragend', function () { var p = abMarker.getLatLng(); abReverse(p.lat, p.lng); }); }
+    if (geocode) abReverse(lat, lng);
+  }
+  function abInitMap() {
+    if (typeof L === 'undefined') return;
+    if (!abMap) {
+      abMap = L.map('abMap', { zoomControl: true }).setView(AB_DEFAULT, 12);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '© OpenStreetMap' }).addTo(abMap);
+      abMap.on('click', function (e) { abSetPin(e.latlng.lat, e.latlng.lng, true); });
+    }
+    setTimeout(function () { abMap.invalidateSize(); }, 60);
+  }
+  function abGeocodeSearch() {
+    var q = document.getElementById('abMapSearch').value.trim(); if (!q || !abMap) return;
+    fetch('https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=in&q=' + encodeURIComponent(q), { headers: { 'Accept-Language': 'en' } })
+      .then(function (r) { return r.ok ? r.json() : []; })
+      .then(function (d) { if (d && d[0]) { var lat = +d[0].lat, lng = +d[0].lon; abMap.setView([lat, lng], 16); abSetPin(lat, lng, true); } }).catch(function () {});
+  }
+  document.getElementById('abMapSearchBtn').addEventListener('click', abGeocodeSearch);
+  document.getElementById('abMapSearch').addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); abGeocodeSearch(); } });
+  document.getElementById('abMapLocate').addEventListener('click', function () {
+    if (!navigator.geolocation) return;
+    navigator.geolocation.getCurrentPosition(function (pos) { var lat = pos.coords.latitude, lng = pos.coords.longitude; if (abMap) abMap.setView([lat, lng], 16); abSetPin(lat, lng, true); }, function () {});
+  });
 
   typeChips.addEventListener('click', function (e) { var b = e.target.closest('.ab-typechip'); if (b) setType(b.dataset.type); });
   document.getElementById('abAddBtn').addEventListener('click', function () { openModal(null); });
