@@ -1207,15 +1207,15 @@ body.pkg-flow .ctx-chip { flex-shrink: 0; white-space: nowrap; }
   display: block;
   color: var(--text-primary);
   font-weight: 700;
-  font-size: 14px;
+  font-size: 13px;   /* match .tbl-dist / .tbl-tat */
   white-space: nowrap;
-  margin-bottom: 3px;
+  margin-bottom: 2px;
 }
 .tbl-timing-time {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  font-size: 12px;
+  font-size: 11px;   /* match .tbl-dist-eta */
   color: var(--text-muted);
   font-weight: 500;
   white-space: nowrap;
@@ -2833,7 +2833,9 @@ body.has-cmp-bar { padding-bottom: 92px; }
       location: 'Pan India · Mumbai HQ',
       tat: 'Reports in 18 hours',
       hours: 'All Days 24×7',
-      ratingType: 'new',
+      ratingType: 'on-platform',
+      rating: 4.1,
+      reviews: 2300,
       ratingExt: 'Google: 4.1 ★ (2,300+ reviews)',
       tags: ['Home collection', 'Digital reports', 'WhatsApp delivery', 'Pan India chain'],
       mrp: 1582,
@@ -3163,9 +3165,7 @@ body.has-cmp-bar { padding-bottom: 92px; }
       `<th class="ltab-h-lab">Lab</th><th>Test details</th><th>Price</th><th></th>`;
 
     document.getElementById('labTableBody').innerHTML = list.map(lab => {
-      const ratingHtml = lab.ratingType === 'new'
-        ? `<span class="ltab-rating ltab-rating-new">New</span>`
-        : `<span class="ltab-rating"><i class="fas fa-star"></i> ${lab.rating.toFixed(1)}</span>`;
+      const ratingHtml = `<span class="ltab-rating"><i class="fas fa-star"></i> ${(lab.rating || 4.5).toFixed(1)}</span>`;
       const tatShort = (lab.tat || '').replace(/^Reports in\s*/, '').replace(/^Reports\s*/, '');
       const timing = isVisit ? `${lab.days || ''}${lab.visitHours ? ' · ' + lab.visitHours : ''}` : (lab.hours || '');
       const badgeHtml = lab.badges.slice(0, 3).map(b => `<span class="badge ${badgeClass(b[1])}">${b[0]}</span>`).join('');
@@ -3260,9 +3260,7 @@ body.has-cmp-bar { padding-bottom: 92px; }
   function renderPkgMobileCards(list) {
     const isVisit = mode === 'visit';
     document.getElementById('labCardsMobile').innerHTML = list.map(lab => {
-      const ratingHtml = lab.ratingType === 'new'
-        ? `<span class="ltab-rating ltab-rating-new">New</span>`
-        : `<span class="ltab-rating"><i class="fas fa-star"></i> ${lab.rating.toFixed(1)}</span>`;
+      const ratingHtml = `<span class="ltab-rating"><i class="fas fa-star"></i> ${(lab.rating || 4.5).toFixed(1)}</span>`;
       const tatShort = (lab.tat || '').replace(/^Reports in\s*/, '').replace(/^Reports\s*/, '');
       const timing = isVisit ? `${lab.days || ''}${lab.visitHours ? ' · ' + lab.visitHours : ''}` : (lab.hours || '');
       const badgeHtml = lab.badges.slice(0, 3).map(b => `<span class="badge ${badgeClass(b[1])}">${b[0]}</span>`).join('');
@@ -3317,9 +3315,7 @@ body.has-cmp-bar { padding-bottom: 92px; }
       const rowId = pr ? pr.rowId : l.id;
       const save = mrp - price;
       const pct = Math.round((save / mrp) * 100);
-      const ratingHtml = l.ratingType === 'new'
-        ? `<span class="mlab-meta-rating"><span class="new-tag">No rating</span></span>`
-        : `<span class="mlab-meta-rating">${l.rating.toFixed(1)} <span class="stars">★</span></span>`;
+      const ratingHtml = `<span class="mlab-meta-rating">${(l.rating || 4.5).toFixed(1)} <span class="stars">★</span></span>`;
       const tatShort = (l.tat || '').replace(/^Reports in\s*/, '').replace(/^Reports\s*/, '');
       // Day / time split for mobile (same heuristic as table)
       let dayPart = '', timePart = '';
@@ -3435,12 +3431,7 @@ body.has-cmp-bar { padding-bottom: 92px; }
       const save = mrp - price;
       const pct = Math.round((save / mrp) * 100);
       // Rating cell
-      let ratingCell;
-      if (l.ratingType === 'new') {
-        ratingCell = `<span class="tbl-rating"><span class="reviews">No rating</span></span>`;
-      } else {
-        ratingCell = `<span class="tbl-rating"><span class="num">${l.rating.toFixed(1)}</span><span class="stars">★</span></span>`;
-      }
+      const ratingCell = `<span class="tbl-rating"><span class="num">${(l.rating || 4.5).toFixed(1)}</span><span class="stars">★</span></span>`;
       // TAT — strip "Reports in " prefix for compactness
       const tatShort = (l.tat || '').replace(/^Reports in\s*/, '').replace(/^Reports\s*/, '');
       const tatCell = `<span class="tbl-tat"><i class="fas fa-bolt tbl-tat-icon"></i>${tatShort}</span>`;
@@ -3689,7 +3680,7 @@ body.has-cmp-bar { padding-bottom: 92px; }
           ${l.badges.slice(0, 3).map(x => `<span class="badge ${badgeClass(x[1])}">${x[0]}</span>`).join('')}
         </div>
         <div class="cmp-pkg-meta">
-          ${l.ratingType === 'new' ? '<span class="cmp-pkg-rating cmp-pkg-new">New</span>' : `<span class="cmp-pkg-rating"><i class="fas fa-star"></i> ${l.rating.toFixed(1)}</span>`}
+          <span class="cmp-pkg-rating"><i class="fas fa-star"></i> ${(l.rating || 4.5).toFixed(1)}</span>
           <span><i class="fas fa-route"></i> ${l.distanceKm.toFixed(1)} km</span>
           <span><i class="fas fa-location-dot"></i> ${l.location}</span>
         </div>
