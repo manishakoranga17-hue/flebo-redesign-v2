@@ -424,8 +424,10 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   .thg-sel-item { flex: 1 1 140px; }
   .thg-sel-v { min-width: 0; width: 100%; }
   .thg-chart-wrap { height: 260px; }
-  .thg-legend { gap: 14px; margin-top: 12px; }
-  .thg-leg { font-size: 12px; }
+  /* Legend on one line — shrink font/gap/swatch to fit */
+  .thg-legend { flex-wrap: nowrap; gap: 9px; margin-top: 12px; }
+  .thg-leg { font-size: 10.5px; gap: 5px; white-space: nowrap; }
+  .thg-sw { width: 11px; height: 11px; }
   .rep-mobile-h1 { display: block; font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 24px; color: var(--primary, #1B2A5B); letter-spacing: -0.01em; margin: 0 0 4px; }
 
   /* Each report as its own spaced card */
