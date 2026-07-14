@@ -2777,6 +2777,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
       }
       url.searchParams.set('date', `${dateLabel} · ${slotLabel}`);
       url.searchParams.set('address', addressLabel);
+      url.searchParams.set('mode', isVisit ? 'visit' : 'home');
       url.searchParams.set('patient', patientLabel);
       if (typeof window.getBookingPatients === 'function') {
         try { url.searchParams.set('patients', JSON.stringify(window.getBookingPatients())); } catch (e) {}

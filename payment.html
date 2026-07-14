@@ -1311,6 +1311,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   const couponDiscount = parseInt(params.get('couponDiscount'), 10) || 0;
   const dateLabel = params.get('date') || 'Tomorrow · 7:00 AM';
   const addressLabel = params.get('address') || 'Home · DLF Phase 4, Gurgaon';
+  const bookingMode = params.get('mode') || '';
   const patientLabel = params.get('patient') || 'Self · Adult';
   const patientsParam = params.get('patients') || '';
 
@@ -1480,6 +1481,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
       }
       url.searchParams.set('date', dateLabel);
       url.searchParams.set('address', addressLabel);
+      if (bookingMode) url.searchParams.set('mode', bookingMode);
       url.searchParams.set('patient', patientLabel);
       if (patientsParam) url.searchParams.set('patients', patientsParam);
       url.searchParams.set('bookingId', bookingId);

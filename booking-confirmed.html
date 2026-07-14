@@ -832,15 +832,15 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
           <div class="detail-text">
             <div class="detail-label">Date &amp; slot</div>
             <div class="detail-value" id="detailDate">Tomorrow · 7:00 AM</div>
-            <div class="detail-sub">Technician arrives 5 min before slot</div>
+            <div class="detail-sub" id="detailDateSub">Technician arrives 5 min before slot</div>
           </div>
         </div>
         <div class="detail-row">
-          <span class="detail-ico"><i class="fas fa-location-dot"></i></span>
+          <span class="detail-ico" id="detailAddrIco"><i class="fas fa-location-dot"></i></span>
           <div class="detail-text">
-            <div class="detail-label">Collection address</div>
+            <div class="detail-label" id="detailAddrLabel">Collection address</div>
             <div class="detail-value" id="detailAddress">Home · DLF Phase 4, Gurgaon</div>
-            <div class="detail-sub">Free home collection</div>
+            <div class="detail-sub" id="detailAddrSub">Free home collection</div>
           </div>
         </div>
         <div class="detail-row">
@@ -873,7 +873,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
         <h2 class="card-title">What happens next</h2>
       </div>
 
-      <div class="timeline">
+      <div class="timeline" id="timeline">
         <div class="timeline-item is-done">
           <span class="timeline-dot"><i class="fas fa-check"></i></span>
           <div class="timeline-title">Booking confirmed</div>
@@ -1044,6 +1044,55 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   document.getElementById('detailLab').textContent = labName;
   document.getElementById('detailPatient').textContent = patientLabel;
   document.getElementById('timelineSlotSub').textContent = `A certified phlebotomist will visit at ${dateLabel}. Track them live from your dashboard.`;
+
+  // Lab-visit vs home-collection: different "what happens next" + labels
+  const isVisit = (params.get('mode') === 'visit') || /^lab visit/i.test(addressLabel);
+  if (isVisit) {
+    const centerName = addressLabel.replace(/^lab visit\s*·\s*/i, '').trim() || labName;
+    const setTxt = (id, t) => { const e = document.getElementById(id); if (e) e.textContent = t; };
+    setTxt('detailAddrLabel', 'Lab center');
+    setTxt('detailAddress', centerName);
+    setTxt('detailAddrSub', 'Carry a valid photo ID');
+    const ico = document.getElementById('detailAddrIco'); if (ico) ico.innerHTML = '<i class="fas fa-hospital"></i>';
+    setTxt('detailDateSub', 'Reach the center a few minutes before your slot');
+    if (!payOnVisit) setTxt('confirmSub', `Your lab visit is confirmed for ${dateLabel}. We've sent the details to your phone and email.`);
+    // Receipt: this isn't a home collection
+    document.querySelectorAll('.receipt-row-key').forEach(k => { if (/home collection/i.test(k.textContent)) k.textContent = 'Lab visit'; });
+    // Rebuild the timeline for an at-center visit
+    const tl = document.getElementById('timeline');
+    if (tl) tl.innerHTML = `
+      <div class="timeline-item is-done">
+        <span class="timeline-dot"><i class="fas fa-check"></i></span>
+        <div class="timeline-title">Booking confirmed</div>
+        <div class="timeline-sub">You'll receive an SMS &amp; email confirmation within 2 minutes.</div>
+      </div>
+      <div class="timeline-item is-active">
+        <span class="timeline-dot">2</span>
+        <div class="timeline-title">Confirmation call from Flebo</div>
+        <div class="timeline-sub">Our team will call to confirm your visit slot and any prep instructions.</div>
+        <span class="timeline-time">Within 30 minutes</span>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-dot">3</span>
+        <div class="timeline-title">Visit the center at your slot</div>
+        <div class="timeline-sub">Reach <b>${centerName}</b> at your booked time — carry a valid photo ID and your booking ID.</div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-dot">4</span>
+        <div class="timeline-title">Sample collection at the lab</div>
+        <div class="timeline-sub">Our phlebotomist collects your sample at the center — usually 5–10 minutes, no waiting.</div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-dot">5</span>
+        <div class="timeline-title">Report delivered to your dashboard</div>
+        <div class="timeline-sub">Get the report on email, WhatsApp, and the app.</div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-dot">6</span>
+        <div class="timeline-title">Cashback credited</div>
+        <div class="timeline-sub">Cashback hits your Flebo wallet after the report is delivered. Use it on your next booking.</div>
+      </div>`;
+  }
 
   // Per-test report turnaround time (TAT) — each test can differ
   const TAT_HOURS = {
