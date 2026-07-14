@@ -2244,7 +2244,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
         '<button type="button" class="pp-pkg-meta" data-viewparams>' + meta + ' <i class="fas fa-chevron-right" aria-hidden="true"></i></button>' +
         '<div class="pp-chips">' + catChips + testChips + '</div>' +
         '<div class="pp-pkg-actions">' +
-          '<button type="button" class="pp-act" data-act="change"><i class="fas fa-' + (p.pkg.cats.length ? 'right-left' : 'box-open') + '"></i> ' + (p.pkg.cats.length ? 'Change package' : 'Add a package') + '</button>' +
+          (isPackage ? '<button type="button" class="pp-act" data-act="change"><i class="fas fa-' + (p.pkg.cats.length ? 'right-left' : 'box-open') + '"></i> ' + (p.pkg.cats.length ? 'Change package' : 'Add a package') + '</button>' : '') +
           '<button type="button" class="pp-act" data-act="customise"><i class="fas fa-plus"></i> Add test or package</button>' +
         '</div></div>';
     }
