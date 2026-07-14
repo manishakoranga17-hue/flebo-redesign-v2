@@ -1192,9 +1192,9 @@ body.pkg-flow .ctx-chip { flex-shrink: 0; white-space: nowrap; }
 /* tests then fasting note, sitting next to each other — same as the main card */
 .pkg-ex-tests { display: flex; align-items: center; justify-content: flex-start; gap: 4px 12px; flex-wrap: wrap; font-size: 12px; font-weight: 600; }
 .pkg-ex-tests .ltab-pkg-tests, .pkg-ex-tests .ltab-pkg-fast { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; white-space: nowrap; }
-/* all meta items on one line (scroll if they overflow) — beats .mlab-meta wrap */
-.pkg-ex-card .pkg-ex-meta { margin: 0; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; }
-.pkg-ex-card .pkg-ex-meta::-webkit-scrollbar { display: none; }
+/* all meta items on one line, no scroll — smaller font so everything fits */
+.pkg-ex-card .pkg-ex-meta { margin: 0; flex-wrap: nowrap; gap: 3px 8px; font-size: 10px; line-height: 1.2; overflow: hidden; }
+.pkg-ex-card .pkg-ex-meta .mlab-meta-item i, .pkg-ex-card .pkg-ex-meta .mlab-meta-rating .stars { font-size: 8.5px; }
 /* price on the left, CTA next to it */
 .pkg-ex-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 2px; padding-top: 10px; border-top: 1px dashed var(--border-soft); }
 .pkg-ex-price { display: flex; flex-direction: row; align-items: baseline; flex-wrap: wrap; gap: 3px 8px; min-width: 0; }
