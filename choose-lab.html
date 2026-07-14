@@ -1191,6 +1191,7 @@ body.pkg-flow .ctx-chip { flex-shrink: 0; white-space: nowrap; }
 .pkg-ex-info { flex: 1; min-width: 0; }
 .pkg-ex-info .tbl-lab-pkg-name { margin-bottom: 6px; }
 .pkg-ex-info .tbl-lab-pkg-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px; }
+.pkg-ex-meta { margin-top: 8px; }
 .pkg-ex-price { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; white-space: nowrap; }
 .pkg-ex-price .tbl-price { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 18px; font-weight: 800; color: var(--text-primary); }
 .pkg-ex-price .tbl-price-mrp { font-size: 12px; color: var(--text-muted); text-decoration: line-through; }
@@ -3355,6 +3356,12 @@ body.has-cmp-bar { padding-bottom: 92px; }
                   <button type="button" class="ltab-pkg-tests" data-pkg-name="${pp.name}" data-pkg-tests="${pp.tests}"><i class="fas fa-vial"></i> ${pp.tests} tests <i class="fas fa-chevron-right ltab-pkg-tests-caret"></i></button>
                   <span class="ltab-pkg-fast ${pp.fasting ? 'is-fasting' : 'no-fasting'}"><i class="fas fa-${pp.fasting ? 'mug-saucer' : 'circle-check'}"></i> ${pp.fasting ? 'Fasting required' : 'No fasting'}</span>
                 </div>
+                <div class="mlab-meta pkg-ex-meta">
+                  ${ratingHtml}
+                  <span class="mlab-meta-item"><i class="fas fa-route"></i>${l.distanceKm.toFixed(1)} km</span>
+                  <span class="mlab-meta-item"><i class="fas fa-bolt"></i>${tatShort}</span>
+                  <span class="mlab-meta-item"><i class="fas fa-clock"></i>${dayPart}${timePart ? ' · ' + timePart : ''}</span>
+                </div>
               </div>
               <div class="pkg-ex-price"><span class="tbl-price">₹${rr.price.toLocaleString()}</span><span class="tbl-price-mrp">₹${rr.mrp.toLocaleString()}</span><span class="tbl-save">Save ₹${sv.toLocaleString()} · ${pc}% off</span></div>
               <button type="button" class="tbl-select pkg-ex-book" data-action="select" data-name="${l.name}">${ctaLabel}</button>
@@ -3528,10 +3535,10 @@ body.has-cmp-bar { padding-bottom: 92px; }
               <span class="ltab-pkg-fast ${pp.fasting ? 'is-fasting' : 'no-fasting'}"><i class="fas fa-${pp.fasting ? 'mug-saucer' : 'circle-check'}"></i> ${pp.fasting ? 'Fasting required' : 'No fasting'}</span>
             </div>
           </td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          ${distCell}
+          <td>${ratingCell}</td>
+          <td>${tatCell}</td>
+          ${timingCell}
           <td>
             <div class="tbl-price-wrap">
               <span class="tbl-price-mrp">₹${rr.mrp.toLocaleString()}</span>
