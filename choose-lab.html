@@ -1201,7 +1201,6 @@ body.pkg-flow .ctx-chip { flex-shrink: 0; white-space: nowrap; }
 .pkg-ex-now { display: flex; align-items: baseline; flex-wrap: wrap; gap: 3px 8px; }
 .pkg-ex-price .tbl-price { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 18px; font-weight: 800; color: var(--text-primary); }
 .pkg-ex-price .tbl-price-mrp { font-size: 12px; color: var(--text-muted); text-decoration: line-through; }
-.pkg-ex-price .tbl-save { align-self: flex-start; font-size: 11px; }
 .pkg-ex-book { flex-shrink: 0; }
 .mlab-ex { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--border-mid, #C5CCDB); }
 .mlab-ex .pkg-ex-card { background: var(--bg-soft, #F7F8FB); }
@@ -3359,7 +3358,7 @@ body.has-cmp-bar { padding-bottom: 92px; }
                 <span class="mlab-meta-item"><i class="fas fa-clock"></i>${dayPart}${timePart ? ' · ' + timePart : ''}</span>
               </div>
               <div class="pkg-ex-foot">
-                <div class="pkg-ex-price"><span class="pkg-ex-now"><span class="tbl-price">₹${rr.price.toLocaleString()}</span><span class="tbl-price-mrp">₹${rr.mrp.toLocaleString()}</span></span><span class="tbl-save">Save ₹${sv.toLocaleString()} · ${pc}% off</span></div>
+                <div class="pkg-ex-price"><span class="pkg-ex-now"><span class="tbl-price">₹${rr.price.toLocaleString()}</span><span class="tbl-price-mrp">₹${rr.mrp.toLocaleString()}</span></span><span class="mlab-save">💚 Save ₹${sv.toLocaleString()} · ${pc}% off</span></div>
                 <button type="button" class="tbl-select pkg-ex-book" data-action="select" data-name="${l.name}">${ctaLabel}</button>
               </div>
             </div>`;
