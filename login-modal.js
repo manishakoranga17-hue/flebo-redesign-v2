@@ -135,6 +135,12 @@
   .main-nav.lmnav-open .main-nav-link::before{content:none !important;}\
   .main-nav.lmnav-open .main-nav-link:hover{background:var(--bg-soft,#F7F8FB);}\
   .hamburger-btn.lmnav-active{background:var(--primary,#1B2A5B);color:#fff;}\
+  /* account items injected into the mobile drawer (logged in) */\
+  .lmnav-acct{display:none;}\
+  .main-nav.lmnav-open .lmnav-acct{display:block;width:100%;}\
+  .main-nav.lmnav-open .lmnav-acct-head{padding:12px 14px 4px;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted,#6B7592);}\
+  .main-nav.lmnav-open .lmnav-acct-sep{height:1px;background:var(--border-soft,#E5E9F3);margin:8px 6px;padding:0;}\
+  .main-nav.lmnav-open .lmnav-acct .main-nav-link.is-logout,.main-nav.lmnav-open .lmnav-acct .main-nav-link.is-logout i{color:var(--accent,#D33535);}\
   @media (max-width:820px){.lm-card{grid-template-columns:1fr;max-width:440px;}.lm-left{display:none;}.lm-right{max-height:92vh;}}\
   @media (max-width:520px){.lm-right{padding:32px 20px 24px;}.lm-title{font-size:26px;}.lm-social{grid-template-columns:1fr;}}';
 
@@ -482,6 +488,21 @@
     try { return localStorage.getItem('flebo:wallet') || '250'; } catch (e) { return '250'; }
   }
 
+  // Mirror the profile-dropdown items into the mobile hamburger drawer when logged in
+  function syncNavAccount() {
+    var list = document.querySelector('.main-nav .main-nav-list');
+    if (!list) return;
+    Array.prototype.slice.call(list.querySelectorAll('.lmnav-acct')).forEach(function (el) { el.remove(); });
+    if (!isLoggedIn()) return;
+    var html = '<li class="lmnav-acct lmnav-acct-sep" aria-hidden="true"></li>' +
+      '<li class="lmnav-acct lmnav-acct-head">My account</li>' +
+      MENU_ITEMS.map(function (m) {
+        return '<li class="lmnav-acct"><a class="main-nav-link" href="' + m.href + '"><i class="fas ' + m.icon + '"></i><span>' + m.label + '</span></a></li>';
+      }).join('') +
+      '<li class="lmnav-acct"><a class="main-nav-link is-logout" href="#" data-action="logout"><i class="fas fa-right-from-bracket"></i><span>Logout</span></a></li>';
+    list.insertAdjacentHTML('beforeend', html);
+  }
+
   function reflectLoggedIn() {
     var on = isLoggedIn(), phone;
     try { phone = localStorage.getItem('flebo:phone'); } catch (e) {}
@@ -515,6 +536,7 @@
         }
       }
     });
+    syncNavAccount();
   }
 
   function openMenu(trigger) {
@@ -571,6 +593,9 @@
       ham.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
     document.addEventListener('click', function (e) {
+      // Logout from the account items injected into the drawer
+      var lo = e.target.closest('.main-nav .lmnav-acct a[data-action="logout"]');
+      if (lo) { e.preventDefault(); logout(); closeNav(); return; }
       if (siteNav.classList.contains('lmnav-open') && !e.target.closest('.main-nav') && !e.target.closest('.hamburger-btn')) closeNav();
     });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeNav(); });
