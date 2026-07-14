@@ -334,7 +334,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 
 .tests-list { display: flex; flex-direction: column; gap: 8px; }
 .tests-list-item {
-  display: flex; align-items: center; gap: 10px;
+  display: flex; align-items: flex-start; gap: 10px;
   font-size: 15px;
 }
 .tests-list-item::before {
@@ -344,9 +344,11 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   border-radius: 50%;
   display: inline-flex; align-items: center; justify-content: center;
   font-size: 13px; font-weight: 800;
-  flex-shrink: 0;
+  flex-shrink: 0; margin-top: 1px;
 }
-.tests-list-item-name { flex: 1; min-width: 0; }
+.tests-list-item-name { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.tests-list-item-tat { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: var(--text-muted); }
+.tests-list-item-tat i { font-size: 10px; color: var(--green); }
 .tests-list-item-price {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-weight: 700;
@@ -857,14 +859,6 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
             <div class="detail-sub" id="detailContact">+91 98xxxxxx00</div>
           </div>
         </div>
-        <div class="detail-row">
-          <span class="detail-ico"><i class="fas fa-clock"></i></span>
-          <div class="detail-text">
-            <div class="detail-label">Report turnaround time</div>
-            <div class="detail-value" id="detailTat">Within 18 hours of sample pickup</div>
-            <div class="detail-sub">Delivered on the app, email &amp; WhatsApp</div>
-          </div>
-        </div>
       </div>
 
       <div class="detail-divider"></div>
@@ -1064,7 +1058,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   document.getElementById('detailPatient').textContent = patientLabel;
   document.getElementById('timelineSlotSub').textContent = `A certified phlebotomist will visit at ${dateLabel}. Track them live from your dashboard.`;
 
-  // Report turnaround time (TAT) — show the LONGEST turnaround among the booked tests
+  // Per-test report turnaround time (TAT) — each test can differ
   const TAT_HOURS = {
     'CBC (Complete Blood Count)': 12, 'Thyroid Profile (T3, T4, TSH)': 18, 'Lipid Profile': 18,
     'HbA1c (Diabetes)': 18, 'Blood Sugar Fasting': 6, 'Blood Sugar Random (BSR)': 6,
@@ -1075,21 +1069,17 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
     'X-Ray Chest PA View': 4, 'MRI Brain': 24, 'CT Scan Abdomen': 24,
     'Ultrasound Whole Abdomen': 4, 'ECG': 2, '2D Echo': 4,
   };
-  function tatFor(name) {
+  function tatHours(name) {
     if (TAT_HOURS[name] != null) return TAT_HOURS[name];
     const n = (name || '').toLowerCase();
     if (/mri|ct scan|covid|rt-pcr|culture|vitamin|iron|widal|typhoid/.test(n)) return 24;
     if (/x-ray|ecg|echo|ultrasound|usg|scan|doppler/.test(n)) return 6;   // imaging: usually same-day
     return 18;  // default pathology turnaround
   }
-  let tatNames = tests.slice();
-  patientsData.forEach(p => { if (p.added) tatNames = tatNames.concat(p.added); });
-  const maxTat = tatNames.length ? Math.max.apply(null, tatNames.map(tatFor)) : 18;
-  const allImaging = tatNames.length && tatNames.every(t => /x-ray|ecg|echo|ultrasound|usg|mri|ct scan|scan|doppler/i.test(t));
-  const tatEl = document.getElementById('detailTat');
-  if (tatEl) tatEl.textContent = maxTat <= 6
-    ? `Same day — within ${maxTat} hours of your ${allImaging ? 'scan' : 'sample pickup'}`
-    : `Within ${maxTat} hours of your ${allImaging ? 'scan' : 'sample pickup'}`;
+  function tatLabel(name) {
+    const h = tatHours(name);
+    return h <= 6 ? `Report same day (~${h}h)` : `Report in ~${h} hrs`;
+  }
 
   // Tests list — per-patient cards when structured data is present, else a flat list
   const testsListEl = document.getElementById('testsList');
@@ -1098,7 +1088,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
     if (lbl && lbl.classList.contains('detail-label')) lbl.textContent = 'Patients & packages';
     testsListEl.innerHTML = patientsData.map(p => {
       const chips = (p.catNames || []).map(c => `<span class="cf-chip cf-chip--cat">${c}</span>`).join('') +
-        (p.added || []).map(t => `<span class="cf-chip cf-chip--test">${t}</span>`).join('');
+        (p.added || []).map(t => `<span class="cf-chip cf-chip--test">${t} · ~${tatHours(t)}h</span>`).join('');
       const meta = p.metaText || ((p.params || 0) + ' parameters');
       const instr = (p.instr || []).map(s => `<li>${s}</li>`).join('');
       return `<div class="cf-pt">
@@ -1114,7 +1104,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
     testsListEl.innerHTML = tests.map((t, i) => {
       const p = testPrices[i];
       const label = p > 0 ? `₹${p.toLocaleString()}` : '—';
-      return `<div class="tests-list-item"><span class="tests-list-item-name">${t}</span><span class="tests-list-item-price">${label}</span></div>`;
+      return `<div class="tests-list-item"><div class="tests-list-item-name"><span class="til-nm">${t}</span><span class="tests-list-item-tat"><i class="fas fa-clock"></i> ${tatLabel(t)}</span></div><span class="tests-list-item-price">${label}</span></div>`;
     }).join('');
   }
 
