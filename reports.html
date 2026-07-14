@@ -648,13 +648,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   .ai-sec-title .ico { font-size: 19px; }
 
   /* findings */
-  .ai-findings-scroll { max-height: 620px; overflow-y: auto; padding-right: 8px; scrollbar-width: thin; scrollbar-color: #C5CCDB transparent; }
-  .ai-findings-scroll::-webkit-scrollbar { width: 8px; }
-  .ai-findings-scroll::-webkit-scrollbar-thumb { background: #C5CCDB; border-radius: 999px; }
-  .ai-findings-scroll::-webkit-scrollbar-track { background: transparent; }
   .ai-finding { background: #fff; border: 1px solid #EBEEF5; border-radius: 16px; padding: 22px 24px; margin-bottom: 13px; box-shadow: 0 2px 4px rgba(11,21,48,0.03); }
-  .ai-finding:last-child { margin-bottom: 0; }
-  @media (max-width: 640px) { .ai-findings-scroll { max-height: 68vh; } }
   .ai-finding-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
   .ai-finding-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 17px; font-weight: 800; color: var(--text-primary, #0B1530); }
   .ai-sev { font-size: 10.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; padding: 6px 13px; border-radius: 999px; white-space: nowrap; }
@@ -786,7 +780,10 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 
   .aid-group-h { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid #F0F2F8; font-family: 'Plus Jakarta Sans',sans-serif; font-weight: 800; font-size: 14.5px; color: var(--text-primary,#0B1530); }
   .aid-group-h i { color: var(--text-muted,#6B7592); font-size: 12px; }
-  .aid-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #F0F2F8; border-radius: 0 0 20px 20px; overflow: hidden; }
+  .aid-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #F0F2F8; border-radius: 0 0 20px 20px; max-height: 300px; overflow: hidden auto; scrollbar-width: thin; scrollbar-color: #C5CCDB transparent; }
+  .aid-tiles::-webkit-scrollbar { width: 8px; }
+  .aid-tiles::-webkit-scrollbar-thumb { background: #C5CCDB; border-radius: 999px; }
+  .aid-tiles::-webkit-scrollbar-track { background: transparent; }
   .aid-tile { background: #fff; padding: 18px 18px 16px; }
   .aid-tile-top { display: flex; align-items: center; justify-content: space-between; }
   .aid-tile-ic { width: 38px; height: 38px; border-radius: 11px; display: grid; place-items: center; font-size: 15px; background: #F4F6FB; color: var(--text-secondary,#4A5578); }
@@ -1522,7 +1519,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
         '</div>' +
       '</div></div>';
 
-      var findings = '<div class="ai-sec"><div class="ai-sec-title"><span class="ico">⚠️</span> Key Findings &amp; Abnormalities</div><div class="ai-findings-scroll">' +
+      var findings = '<div class="ai-sec"><div class="ai-sec-title"><span class="ico">⚠️</span> Key Findings &amp; Abnormalities</div>' +
         AI.findings.map(function (f) {
           function scaleHTML(sc) {
             if (!sc) return '';
@@ -1547,7 +1544,7 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
             '<span class="ai-sev ' + f.sev + '">' + (f.sev === 'high' ? 'High' : 'Moderate') + '</span></div>' +
             '<div class="ai-finding-desc">' + f.desc + '</div>' +
             scaleHTML(f.scale) + '</div>';
-        }).join('') + '</div></div>';
+        }).join('') + '</div>';
 
       var normals = '<div class="ai-sec"><div class="ai-sec-title"><span class="ico">✅</span> Normal Findings</div><div class="ai-normal-grid">' +
         AI.normals.map(function (n) {
