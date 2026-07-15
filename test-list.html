@@ -681,8 +681,11 @@ body.has-tl-bar { padding-bottom: 92px; }
       '<button type="button" class="tl-book" data-test="' + t.name.replace(/"/g, '&quot;') + '" data-price="' + t.price + '"><i class="fas fa-plus"></i> Add</button></article>';
   }).join('') : '<div class="tl-empty">No tests found for this selection.</div>';
 
-  // ----- Multi-add selection + sticky bar -----
+  // ----- Multi-add selection + sticky bar (persisted across pages) -----
+  var STORE = 'flebo:selectedTests';
   var selected = new Map();
+  try { var s = JSON.parse(localStorage.getItem(STORE) || '{}'); Object.keys(s).forEach(function (n) { selected.set(n, s[n]); }); } catch (e) {}
+  function saveStore() { var o = {}; selected.forEach(function (p, n) { o[n] = p; }); try { localStorage.setItem(STORE, JSON.stringify(o)); } catch (e) {} }
   var bar = document.getElementById('tlBar');
   var barCount = document.getElementById('tlBarCount');
   var barTotal = document.getElementById('tlBarTotal');
@@ -694,11 +697,17 @@ body.has-tl-bar { padding-bottom: 92px; }
     bar.hidden = n === 0;
     document.body.classList.toggle('has-tl-bar', n > 0);
   }
+  // Reflect already-selected tests on the freshly rendered cards
+  [].forEach.call(grid.querySelectorAll('.tl-book'), function (b) {
+    if (selected.has(b.dataset.test)) { b.classList.add('is-added'); b.innerHTML = '<i class="fas fa-check"></i> Added'; }
+  });
+  refresh();
   grid.addEventListener('click', function (e) {
     var b = e.target.closest('.tl-book'); if (!b) return;
     var name = b.dataset.test, price = parseInt(b.dataset.price, 10);
     if (selected.has(name)) { selected.delete(name); b.classList.remove('is-added'); b.innerHTML = '<i class="fas fa-plus"></i> Add'; }
     else { selected.set(name, price); b.classList.add('is-added'); b.innerHTML = '<i class="fas fa-check"></i> Added'; }
+    saveStore();
     refresh();
   });
   document.getElementById('tlContinue').addEventListener('click', function () {

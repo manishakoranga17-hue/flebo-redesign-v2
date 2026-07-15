@@ -2718,6 +2718,42 @@ body.has-select-bar { padding-bottom: 80px; }
   })();
   </script>
 
+  <!-- Selected-tests sticky bar (restored from the shared store) -->
+  <script>
+  (function () {
+    var STORE = 'flebo:selectedTests';
+    var bar = document.getElementById('selectBar');
+    if (!bar) return;
+    var countEl = document.getElementById('selectCount');
+    var totalEl = document.getElementById('selectTotal');
+    var chipsEl = document.getElementById('selectChips');
+    var contBtn = document.getElementById('continueBtn');
+    function load() { try { return JSON.parse(localStorage.getItem(STORE) || '{}'); } catch (e) { return {}; } }
+    function save(o) { try { localStorage.setItem(STORE, JSON.stringify(o)); } catch (e) {} }
+    function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+    function render() {
+      var sel = load(), names = Object.keys(sel), n = names.length, total = 0;
+      names.forEach(function (nm) { total += (sel[nm] || 0); });
+      if (!n) { bar.hidden = true; document.body.classList.remove('has-select-bar'); return; }
+      bar.hidden = false; document.body.classList.add('has-select-bar');
+      countEl.textContent = n + ' test' + (n !== 1 ? 's' : '') + ' selected';
+      totalEl.textContent = '₹' + total.toLocaleString('en-IN');
+      chipsEl.innerHTML = names.map(function (nm) {
+        return '<span class="select-chip">' + esc(nm) + '<button type="button" class="select-chip-x" data-remove="' + esc(nm) + '" aria-label="Remove"><i class="fas fa-xmark"></i></button></span>';
+      }).join('');
+    }
+    chipsEl.addEventListener('click', function (e) {
+      var x = e.target.closest('[data-remove]'); if (!x) return;
+      var sel = load(); delete sel[x.getAttribute('data-remove')]; save(sel); render();
+    });
+    contBtn.addEventListener('click', function () {
+      var sel = load(), names = Object.keys(sel); if (!names.length) return;
+      location.href = 'choose-lab.html?tests=' + names.map(encodeURIComponent).join('|') + '&prices=' + names.map(function (n) { return sel[n]; }).join('|');
+    });
+    render();
+  })();
+  </script>
+
   <script src="login-modal.js?v=5" defer></script>
 
   <!-- Hero banner auto-rotating carousel -->
