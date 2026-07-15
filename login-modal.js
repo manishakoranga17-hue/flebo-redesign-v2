@@ -77,6 +77,9 @@
   .lm-cta{width:100%;height:54px;background:var(--accent,#D33535);color:#fff;border:0;border-radius:999px;font:inherit;font-size:16px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:10px;margin-top:20px;transition:background .2s,transform .15s;box-shadow:0 6px 20px rgba(211,53,53,.25);}\
   .lm-cta:hover:not(:disabled){background:var(--accent-dark,#B82E2E);transform:translateY(-1px);}\
   .lm-cta:disabled{background:#E5A7A7;cursor:not-allowed;box-shadow:none;}\
+  .lm-toggle{display:flex;width:100%;background:var(--bg-soft,#F7F8FB);border:1px solid var(--border-soft,#E5E9F3);border-radius:999px;padding:4px;gap:2px;margin-bottom:22px;}\
+  .lm-toggle button{flex:1;border:0;background:transparent;font:inherit;font-size:14px;font-weight:800;color:var(--text-muted,#6B7592);padding:10px 14px;border-radius:999px;cursor:pointer;transition:background .15s,color .15s,box-shadow .15s;}\
+  .lm-toggle button.is-active{background:var(--primary,#1B2A5B);color:#fff;box-shadow:0 3px 10px rgba(27,42,91,.22);}\
   .lm-fieldlabel{display:block;font-size:14px;font-weight:700;color:var(--text-primary,#0B1530);margin:0 0 8px;}\
   .lm-fieldlabel.mt{margin-top:18px;}\
   .lm-req{color:var(--accent,#D33535);margin-left:2px;}\
@@ -257,17 +260,22 @@
     <div class="lm-right">\
       <p class="lm-help">Need help? <a href="tel:01244550000">0124-4550000</a></p>\
       <section class="lm-step is-active" id="lmPhoneStep">\
-        <div class="lm-eyebrow">Login or Sign up</div>\
         <h2 class="lm-title">Login</h2>\
         <p class="lm-sub">Login with your mobile no. and OTP.</p>\
+        <div class="lm-toggle" id="lmToggle" role="tablist">\
+          <button type="button" class="is-active" data-mode="individual" role="tab">Individual</button>\
+          <button type="button" data-mode="corporate" role="tab">Corporate</button>\
+        </div>\
         <label class="lm-fieldlabel" for="lmPhone">Mobile No.<span class="lm-req">*</span></label>\
         <div class="lm-phone-row">\
           <span class="lm-country"><span class="lm-flag" aria-hidden="true"></span><span>+91</span></span>\
           <input id="lmPhone" class="lm-phone-input" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="98765 43210" maxlength="16" aria-label="Mobile number">\
         </div>\
         <div class="lm-error" id="lmPhoneError"><i class="fas fa-circle-exclamation"></i><span>Please enter a valid 10-digit mobile number.</span></div>\
-        <label class="lm-fieldlabel mt" for="lmEmail">Email ID</label>\
-        <input id="lmEmail" class="lm-textinput" type="email" autocomplete="email" placeholder="you@example.com" aria-label="Email ID">\
+        <div class="lm-email-wrap" id="lmEmailWrap" hidden>\
+          <label class="lm-fieldlabel mt" for="lmEmail">Email ID<span class="lm-req">*</span></label>\
+          <input id="lmEmail" class="lm-textinput" type="email" autocomplete="email" placeholder="name@company.com" aria-label="Email ID">\
+        </div>\
         <p class="lm-recaptcha">This site is protected by reCAPTCHA and the Google <a href="#">Privacy Policy</a> and <a href="#">Terms of Service</a> apply.</p>\
         <label class="lm-consent"><input type="checkbox" id="lmConsent1" checked><span>I agree to receive communication through SMS, email or WhatsApp regarding my booking.</span></label>\
         <label class="lm-consent"><input type="checkbox" id="lmConsent2" checked><span>Receive latest offers &amp; discounts through SMS, email or WhatsApp.</span></label>\
@@ -366,7 +374,7 @@
     phoneStep.classList.add('is-active');
     otpStep.classList.remove('is-active');
     hideError(phoneError); hideError(otpError);
-    sendBtn.disabled = getDigits().length !== 10;
+    updateSend();
     otpBoxes.forEach(function (b) { b.value = ''; b.classList.remove('is-filled', 'is-error'); });
     verifyBtn.disabled = true;
   }
@@ -382,16 +390,34 @@
   });
 
   /* ---------- phone step ---------- */
+  var loginMode = 'individual';
+  var emailWrap = $('lmEmailWrap'), emailInput = $('lmEmail');
+  function emailValid() { return emailInput && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value.trim()); }
+  function updateSend() {
+    var okPhone = getDigits().length === 10;
+    var okEmail = loginMode === 'individual' || emailValid();
+    sendBtn.disabled = !(okPhone && okEmail);
+  }
   function handlePhoneInput() {
     var d = getDigits();
     phoneInput.value = formatPhone(d);
-    sendBtn.disabled = d.length !== 10;
+    updateSend();
     hideError(phoneError);
   }
   phoneInput.addEventListener('input', handlePhoneInput);
   phoneInput.addEventListener('change', handlePhoneInput); // catches autofill
   phoneInput.addEventListener('keydown', function (e) {
     if (e.key === 'Enter' && !sendBtn.disabled) sendOtp();
+  });
+  if (emailInput) emailInput.addEventListener('input', updateSend);
+  // Individual = mobile only; Corporate = mobile + email
+  var toggleEl = $('lmToggle');
+  if (toggleEl) toggleEl.addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-mode]'); if (!b) return;
+    loginMode = b.dataset.mode;
+    Array.prototype.forEach.call(toggleEl.children, function (c) { c.classList.toggle('is-active', c === b); });
+    if (emailWrap) emailWrap.hidden = (loginMode !== 'corporate');
+    updateSend();
   });
   sendBtn.addEventListener('click', sendOtp);
 
@@ -473,7 +499,7 @@
     clearInterval(resendInterval);
     otpBoxes.forEach(function (b) { b.value = ''; b.classList.remove('is-filled', 'is-error'); });
     hideError(otpError); hideError(phoneError);
-    sendBtn.disabled = getDigits().length !== 10;
+    updateSend();
     phoneInput.focus();
   });
 
