@@ -2187,8 +2187,27 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 }
 .select-chip-x:hover { background: var(--accent); color: #fff; }
 .select-bar-info { display: flex; flex-direction: column; gap: 1px; }
-.select-bar-count { font-size: 13px; font-weight: 600; color: var(--text-muted); }
+.select-bar-count { font-size: 13px; font-weight: 700; color: var(--accent); cursor: pointer; display: inline-flex; align-items: center; gap: 5px; text-decoration: underline; text-underline-offset: 2px; }
+.select-bar-count i { font-size: 10px; text-decoration: none; }
 .select-bar-total { font-size: 20px; font-weight: 800; color: var(--text-primary); }
+/* Selected-tests popup */
+.seltests-overlay { position: fixed; inset: 0; z-index: 3200; display: none; align-items: flex-end; justify-content: center; background: rgba(11,21,48,0.55); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); }
+.seltests-overlay.is-open { display: flex; }
+.seltests-modal { width: 100%; max-width: 480px; background: #fff; border-radius: 22px 22px 0 0; max-height: 72vh; display: flex; flex-direction: column; box-shadow: 0 -12px 40px rgba(11,21,48,0.28); animation: selPop 0.24s cubic-bezier(.2,.8,.3,1) both; }
+@keyframes selPop { from { transform: translateY(20px); opacity: 0; } to { transform: none; opacity: 1; } }
+@media (min-width: 600px) { .seltests-overlay { align-items: center; padding: 20px; } .seltests-modal { border-radius: 20px; } }
+.seltests-head { display: flex; align-items: center; justify-content: space-between; padding: 18px 20px; border-bottom: 1px solid var(--border-soft); flex-shrink: 0; }
+.seltests-title { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 17px; color: var(--primary); }
+.seltests-x { width: 32px; height: 32px; border: 0; border-radius: 50%; background: var(--bg-soft); color: var(--text-muted); font-size: 18px; line-height: 1; cursor: pointer; }
+.seltests-x:hover { background: #e6e9f0; }
+.seltests-list { overflow-y: auto; padding: 6px 0; }
+.seltests-item { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 13px 20px; border-bottom: 1px solid var(--border-soft); }
+.seltests-item:last-child { border-bottom: 0; }
+.seltests-item-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 700; color: var(--text-primary); }
+.seltests-item-price { font-size: 12.5px; color: var(--text-muted); margin-top: 2px; }
+.seltests-item-x { flex-shrink: 0; width: 30px; height: 30px; border: 1.5px solid var(--border-mid); border-radius: 50%; background: #fff; color: var(--text-muted); font-size: 13px; cursor: pointer; transition: border-color .15s, color .15s, background .15s; }
+.seltests-item-x:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+.seltests-empty { padding: 34px 20px; text-align: center; color: var(--text-muted); font-size: 14px; }
 .select-bar-btn {
   border: none;
   background: var(--accent); color: #fff;
@@ -2669,6 +2688,14 @@ body.has-select-bar { padding-bottom: 80px; }
   </div>
 </div>
 
+<!-- Selected tests popup -->
+<div class="seltests-overlay" id="selTestsPopup" role="dialog" aria-modal="true" aria-labelledby="selTestsTitle">
+  <div class="seltests-modal">
+    <div class="seltests-head"><span class="seltests-title" id="selTestsTitle">Your selected tests</span><button type="button" class="seltests-x" data-close aria-label="Close">&times;</button></div>
+    <div class="seltests-list" id="selTestsList"></div>
+  </div>
+</div>
+
 <!-- ===== MOBILE BOTTOM NAV ===== -->
 <nav class="bottom-nav" aria-label="Mobile navigation">
   <a href="index.html" class="nav-item">
@@ -2728,24 +2755,39 @@ body.has-select-bar { padding-bottom: 80px; }
     var totalEl = document.getElementById('selectTotal');
     var chipsEl = document.getElementById('selectChips');
     var contBtn = document.getElementById('continueBtn');
+    var popup = document.getElementById('selTestsPopup');
+    var popupList = document.getElementById('selTestsList');
     function load() { try { return JSON.parse(localStorage.getItem(STORE) || '{}'); } catch (e) { return {}; } }
     function save(o) { try { localStorage.setItem(STORE, JSON.stringify(o)); } catch (e) {} }
     function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
     function render() {
       var sel = load(), names = Object.keys(sel), n = names.length, total = 0;
       names.forEach(function (nm) { total += (sel[nm] || 0); });
-      if (!n) { bar.hidden = true; document.body.classList.remove('has-select-bar'); return; }
+      if (!n) { bar.hidden = true; document.body.classList.remove('has-select-bar'); closePopup(); return; }
       bar.hidden = false; document.body.classList.add('has-select-bar');
-      countEl.textContent = n + ' test' + (n !== 1 ? 's' : '') + ' selected';
+      countEl.innerHTML = n + ' test' + (n !== 1 ? 's' : '') + ' added <i class="fas fa-chevron-right"></i>';
       totalEl.textContent = '₹' + total.toLocaleString('en-IN');
       chipsEl.innerHTML = names.map(function (nm) {
         return '<span class="select-chip">' + esc(nm) + '<button type="button" class="select-chip-x" data-remove="' + esc(nm) + '" aria-label="Remove"><i class="fas fa-xmark"></i></button></span>';
       }).join('');
+      if (popup.classList.contains('is-open')) renderPopup();
     }
-    chipsEl.addEventListener('click', function (e) {
-      var x = e.target.closest('[data-remove]'); if (!x) return;
-      var sel = load(); delete sel[x.getAttribute('data-remove')]; save(sel); render();
-    });
+    function renderPopup() {
+      var sel = load(), names = Object.keys(sel);
+      popupList.innerHTML = names.length ? names.map(function (nm) {
+        return '<div class="seltests-item"><div><div class="seltests-item-name">' + esc(nm) + '</div><div class="seltests-item-price">₹' + (sel[nm] || 0).toLocaleString('en-IN') + '</div></div>' +
+          '<button type="button" class="seltests-item-x" data-remove="' + esc(nm) + '" aria-label="Remove"><i class="fas fa-xmark"></i></button></div>';
+      }).join('') : '<div class="seltests-empty">No tests selected.</div>';
+    }
+    function openPopup() { renderPopup(); popup.classList.add('is-open'); document.body.style.overflow = 'hidden'; }
+    function closePopup() { popup.classList.remove('is-open'); document.body.style.overflow = ''; }
+    function removeTest(nm) { var sel = load(); delete sel[nm]; save(sel); render(); }
+
+    countEl.addEventListener('click', openPopup);
+    chipsEl.addEventListener('click', function (e) { var x = e.target.closest('[data-remove]'); if (x) removeTest(x.getAttribute('data-remove')); });
+    popupList.addEventListener('click', function (e) { var x = e.target.closest('[data-remove]'); if (x) removeTest(x.getAttribute('data-remove')); });
+    popup.addEventListener('click', function (e) { if (e.target === popup || e.target.closest('[data-close]')) closePopup(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && popup.classList.contains('is-open')) closePopup(); });
     contBtn.addEventListener('click', function () {
       var sel = load(), names = Object.keys(sel); if (!names.length) return;
       location.href = 'choose-lab.html?tests=' + names.map(encodeURIComponent).join('|') + '&prices=' + names.map(function (n) { return sel[n]; }).join('|');
