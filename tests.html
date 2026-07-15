@@ -2757,6 +2757,7 @@ body.has-select-bar { padding-bottom: 80px; }
     var contBtn = document.getElementById('continueBtn');
     var popup = document.getElementById('selTestsPopup');
     var popupList = document.getElementById('selTestsList');
+    if (popup && popup.parentNode !== document.body) document.body.appendChild(popup);   // escape any transformed ancestor
     function load() { try { return JSON.parse(localStorage.getItem(STORE) || '{}'); } catch (e) { return {}; } }
     function save(o) { try { localStorage.setItem(STORE, JSON.stringify(o)); } catch (e) {} }
     function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
@@ -2783,7 +2784,7 @@ body.has-select-bar { padding-bottom: 80px; }
     function closePopup() { popup.classList.remove('is-open'); document.body.style.overflow = ''; }
     function removeTest(nm) { var sel = load(); delete sel[nm]; save(sel); render(); }
 
-    countEl.addEventListener('click', openPopup);
+    document.addEventListener('click', function (e) { if (e.target.closest('#selectCount')) { e.preventDefault(); openPopup(); } });
     chipsEl.addEventListener('click', function (e) { var x = e.target.closest('[data-remove]'); if (x) removeTest(x.getAttribute('data-remove')); });
     popupList.addEventListener('click', function (e) { var x = e.target.closest('[data-remove]'); if (x) removeTest(x.getAttribute('data-remove')); });
     popup.addEventListener('click', function (e) { if (e.target === popup || e.target.closest('[data-close]')) closePopup(); });
