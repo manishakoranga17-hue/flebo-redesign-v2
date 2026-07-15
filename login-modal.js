@@ -272,9 +272,9 @@
           <input id="lmPhone" class="lm-phone-input" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="98765 43210" maxlength="16" aria-label="Mobile number">\
         </div>\
         <div class="lm-error" id="lmPhoneError"><i class="fas fa-circle-exclamation"></i><span>Please enter a valid 10-digit mobile number.</span></div>\
-        <div class="lm-email-wrap" id="lmEmailWrap" hidden>\
-          <label class="lm-fieldlabel mt" for="lmEmail">Email ID<span class="lm-req">*</span></label>\
-          <input id="lmEmail" class="lm-textinput" type="email" autocomplete="email" placeholder="name@company.com" aria-label="Email ID">\
+        <div class="lm-email-wrap" id="lmEmailWrap">\
+          <label class="lm-fieldlabel mt" for="lmEmail">Email ID<span class="lm-req" id="lmEmailReq" hidden>*</span></label>\
+          <input id="lmEmail" class="lm-textinput" type="email" autocomplete="email" placeholder="you@example.com" aria-label="Email ID">\
         </div>\
         <p class="lm-recaptcha">This site is protected by reCAPTCHA and the Google <a href="#">Privacy Policy</a> and <a href="#">Terms of Service</a> apply.</p>\
         <label class="lm-consent"><input type="checkbox" id="lmConsent1" checked><span>I agree to receive communication through SMS, email or WhatsApp regarding my booking.</span></label>\
@@ -391,7 +391,7 @@
 
   /* ---------- phone step ---------- */
   var loginMode = 'individual';
-  var emailWrap = $('lmEmailWrap'), emailInput = $('lmEmail');
+  var emailInput = $('lmEmail'), emailReq = $('lmEmailReq');
   function emailValid() { return emailInput && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value.trim()); }
   function updateSend() {
     var okPhone = getDigits().length === 10;
@@ -416,7 +416,7 @@
     var b = e.target.closest('button[data-mode]'); if (!b) return;
     loginMode = b.dataset.mode;
     Array.prototype.forEach.call(toggleEl.children, function (c) { c.classList.toggle('is-active', c === b); });
-    if (emailWrap) emailWrap.hidden = (loginMode !== 'corporate');
+    if (emailReq) emailReq.hidden = (loginMode !== 'corporate');   // email required only for corporate
     updateSend();
   });
   sendBtn.addEventListener('click', sendOtp);
