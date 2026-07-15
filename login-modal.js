@@ -77,6 +77,16 @@
   .lm-cta{width:100%;height:54px;background:var(--accent,#D33535);color:#fff;border:0;border-radius:999px;font:inherit;font-size:16px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:10px;margin-top:20px;transition:background .2s,transform .15s;box-shadow:0 6px 20px rgba(211,53,53,.25);}\
   .lm-cta:hover:not(:disabled){background:var(--accent-dark,#B82E2E);transform:translateY(-1px);}\
   .lm-cta:disabled{background:#E5A7A7;cursor:not-allowed;box-shadow:none;}\
+  .lm-fieldlabel{display:block;font-size:14px;font-weight:700;color:var(--text-primary,#0B1530);margin:0 0 8px;}\
+  .lm-fieldlabel.mt{margin-top:18px;}\
+  .lm-req{color:var(--accent,#D33535);margin-left:2px;}\
+  .lm-textinput{width:100%;height:52px;padding:0 16px;border:1.5px solid var(--border-mid,#C5CCDB);border-radius:var(--radius-md,12px);font:inherit;font-size:15px;color:var(--text-primary,#0B1530);background:#fff;outline:0;transition:border-color .15s,box-shadow .15s;}\
+  .lm-textinput:focus{border-color:var(--primary,#1B2A5B);box-shadow:0 0 0 4px rgba(27,42,91,.08);}\
+  .lm-textinput::placeholder{color:var(--text-muted,#6B7592);}\
+  .lm-recaptcha{font-size:12px;color:var(--text-muted,#6B7592);line-height:1.5;margin:18px 0 6px;text-align:center;}\
+  .lm-recaptcha a{color:var(--text-secondary,#4A5578);text-decoration:underline;}\
+  .lm-consent{display:flex;align-items:flex-start;gap:11px;margin-top:14px;cursor:pointer;font-size:13.5px;line-height:1.4;color:var(--text-primary,#0B1530);}\
+  .lm-consent input{width:20px;height:20px;flex-shrink:0;margin-top:1px;accent-color:var(--accent,#D33535);cursor:pointer;}\
   .lm-divider{display:flex;align-items:center;gap:14px;font-size:12px;font-weight:700;color:var(--text-muted,#6B7592);letter-spacing:.06em;text-transform:uppercase;margin:24px 0 16px;}\
   .lm-divider::before,.lm-divider::after{content:"";flex:1;height:1px;background:var(--border-soft,#E5E9F3);}\
   .lm-social{display:grid;grid-template-columns:1fr 1fr;gap:10px;}\
@@ -248,20 +258,21 @@
       <p class="lm-help">Need help? <a href="tel:01244550000">0124-4550000</a></p>\
       <section class="lm-step is-active" id="lmPhoneStep">\
         <div class="lm-eyebrow">Login or Sign up</div>\
-        <h2 class="lm-title">Welcome to Flebo.</h2>\
-        <p class="lm-sub">Enter your mobile number — we’ll send a 6-digit OTP to verify.</p>\
+        <h2 class="lm-title">Login</h2>\
+        <p class="lm-sub">Login with your mobile no. and OTP.</p>\
+        <label class="lm-fieldlabel" for="lmPhone">Mobile No.<span class="lm-req">*</span></label>\
         <div class="lm-phone-row">\
           <span class="lm-country"><span class="lm-flag" aria-hidden="true"></span><span>+91</span></span>\
           <input id="lmPhone" class="lm-phone-input" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="98765 43210" maxlength="16" aria-label="Mobile number">\
         </div>\
         <div class="lm-error" id="lmPhoneError"><i class="fas fa-circle-exclamation"></i><span>Please enter a valid 10-digit mobile number.</span></div>\
-        <button class="lm-cta" id="lmSend" disabled><span>Send OTP</span><i class="fas fa-arrow-right"></i></button>\
-        <div class="lm-divider">or continue with</div>\
-        <div class="lm-social">\
-          <button class="lm-social-btn" data-prov="google"><i class="fab fa-google"></i> Google</button>\
-          <button class="lm-social-btn" data-prov="apple"><i class="fab fa-apple"></i> Apple</button>\
-        </div>\
-        <p class="lm-terms">By continuing, you agree to Flebo’s <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</p>\
+        <label class="lm-fieldlabel mt" for="lmEmail">Email ID</label>\
+        <input id="lmEmail" class="lm-textinput" type="email" autocomplete="email" placeholder="you@example.com" aria-label="Email ID">\
+        <p class="lm-recaptcha">This site is protected by reCAPTCHA and the Google <a href="#">Privacy Policy</a> and <a href="#">Terms of Service</a> apply.</p>\
+        <label class="lm-consent"><input type="checkbox" id="lmConsent1" checked><span>I agree to receive communication through SMS, email or WhatsApp regarding my booking.</span></label>\
+        <label class="lm-consent"><input type="checkbox" id="lmConsent2" checked><span>Receive latest offers &amp; discounts through SMS, email or WhatsApp.</span></label>\
+        <button class="lm-cta" id="lmSend" disabled><span>Submit</span><i class="fas fa-arrow-right"></i></button>\
+        <p class="lm-terms">By logging in, you agree to our <a href="#">Terms and Conditions</a> &amp; <a href="#">Privacy Policy</a>.</p>\
       </section>\
       <section class="lm-step" id="lmOtpStep">\
         <div class="lm-eyebrow">OTP verification</div>\
