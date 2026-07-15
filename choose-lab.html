@@ -2321,6 +2321,10 @@ body.pkg-flow .ctx-inner { display: none; }  /* drop the "Comparing labs for" ro
 }
 .cmp-check input { width: 15px; height: 15px; accent-color: var(--accent, #D33535); cursor: pointer; }
 .cmp-check:hover { color: var(--primary, #1B2A5B); }
+/* compare checkbox sits under the CTA button */
+.tbl-select + .cmp-check { display: flex; justify-content: center; margin-top: 8px; }
+.mlab-cta-col { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex-shrink: 0; }
+.mlab-cta-col .cmp-check { margin-top: 0; }
 
 /* ===== LAB COMPARE: sticky bar ===== */
 .cmp-bar {
@@ -3374,7 +3378,7 @@ body.has-cmp-bar { padding-bottom: 92px; }
               </div>
               <div class="pkg-ex-foot">
                 <div class="pkg-ex-price"><span class="pkg-ex-now"><span class="tbl-price">₹${rr.price.toLocaleString()}</span><span class="tbl-price-mrp">₹${rr.mrp.toLocaleString()}</span></span><span class="mlab-save">💚 Save ₹${sv.toLocaleString()} · ${pc}% off</span></div>
-                <button type="button" class="tbl-select pkg-ex-book" data-action="select" data-name="${l.name}">${ctaLabel}</button>
+                <div class="mlab-cta-col"><button type="button" class="tbl-select pkg-ex-book" data-action="select" data-name="${l.name}">${ctaLabel}</button><label class="cmp-check"><input type="checkbox" class="cmp-checkbox" data-cmp="${rr.rowId}"><span>Compare</span></label></div>
               </div>
             </div>`;
           }).join('')}</div>` : '';
@@ -3407,7 +3411,7 @@ body.has-cmp-bar { padding-bottom: 92px; }
               </span>
               <span class="mlab-save">💚 Save ₹${save.toLocaleString()} · ${pct}% off</span>
             </div>
-            <button class="mlab-select" data-action="select" data-name="${l.name}">${ctaLabel}</button>
+            <div class="mlab-cta-col"><button class="mlab-select" data-action="select" data-name="${l.name}">${ctaLabel}</button>${isPkgFlow ? `<label class="cmp-check"><input type="checkbox" class="cmp-checkbox" data-cmp="${rowId}"><span>Compare</span></label>` : ''}</div>
           </div>
           ${exBlock}
         </article>
@@ -3521,7 +3525,7 @@ body.has-cmp-bar { padding-bottom: 92px; }
               <span class="tbl-price-note">incl. cashback &amp; discount</span>
             </div>
           </td>
-          <td><button class="tbl-select" data-action="select" data-name="${l.name}">${ctaLabel}</button></td>
+          <td><button class="tbl-select" data-action="select" data-name="${l.name}">${ctaLabel}</button>${isPkgFlow ? `<label class="cmp-check"><input type="checkbox" class="cmp-checkbox" data-cmp="${rowId}"><span>Compare</span></label>` : ''}</td>
         </tr>`;
       let expandRows = '';
       if (isPkgFlow && expanded && moreN > 0) {
@@ -3556,7 +3560,7 @@ body.has-cmp-bar { padding-bottom: 92px; }
               <span class="tbl-price-note">incl. cashback &amp; discount</span>
             </div>
           </td>
-          <td><button class="tbl-select" data-action="select" data-name="${l.name}">${ctaLabel}</button></td>
+          <td><button class="tbl-select" data-action="select" data-name="${l.name}">${ctaLabel}</button>${isPkgFlow ? `<label class="cmp-check"><input type="checkbox" class="cmp-checkbox" data-cmp="${rr.rowId}"><span>Compare</span></label>` : ''}</td>
         </tr>`;
         }).join('');
       }
