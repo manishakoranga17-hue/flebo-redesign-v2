@@ -448,7 +448,12 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 .tl-crumb { font-size: 13px; color: var(--text-muted); margin-bottom: 14px; }
 .tl-crumb a { color: var(--text-muted); text-decoration: none; }
 .tl-crumb a:hover { color: var(--primary); }
-.tl-head { margin-bottom: 22px; }
+.tl-head { margin-bottom: 16px; }
+.tl-search { display: flex; align-items: center; gap: 11px; background: #fff; border: 1.5px solid var(--border-mid, #C5CCDB); border-radius: 12px; padding: 12px 16px; margin-bottom: 22px; transition: border-color .15s, box-shadow .15s; }
+.tl-search:focus-within { border-color: var(--primary, #1B2A5B); box-shadow: 0 0 0 3px rgba(27,42,91,.1); }
+.tl-search i { color: var(--accent, #D33535); font-size: 15px; }
+.tl-search input { flex: 1; min-width: 0; border: 0; outline: none; background: transparent; font: inherit; font-size: 15px; color: var(--text-primary, #0B1530); }
+.tl-search input::placeholder { color: var(--text-muted, #6B7592); }
 .tl-h1 { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 38px; color: var(--primary); letter-spacing: -0.01em; line-height: 1.05; }
 .tl-sub { font-size: 15px; color: var(--text-muted); margin-top: 6px; }
 .tl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 16px; }
@@ -569,6 +574,10 @@ body.has-tl-bar { padding-bottom: 92px; }
     <h1 class="tl-h1" id="tlTitle">Tests</h1>
     <p class="tl-sub" id="tlSub"></p>
   </div>
+  <label class="tl-search">
+    <i class="fas fa-magnifying-glass" aria-hidden="true"></i>
+    <input type="search" id="tlSearch" placeholder="Search any test…" autocomplete="off" aria-label="Search tests">
+  </label>
   <div class="tl-grid" id="tlGrid"></div>
 </main>
 
@@ -694,25 +703,47 @@ body.has-tl-bar { padding-bottom: 92px; }
   else if (section && SECTIONS[section]) { title = SECTIONS[section].title; SECTIONS[section].keys.forEach(function (k) { if (CAT[k]) tests = tests.concat(CAT[k]); }); }
   else { SECTIONS.category.keys.forEach(function (k) { tests = tests.concat(CAT[k]); }); }
 
+  // Full catalog (dedup by name) — used by the search box
+  var ALL = [], seenNames = {};
+  Object.keys(CAT).forEach(function (k) { CAT[k].forEach(function (t) { if (!seenNames[t.name]) { seenNames[t.name] = 1; ALL.push(t); } }); });
+
+  // ----- Shared selection store (persisted across pages) -----
+  var STORE = 'flebo:selectedTests';
+  var selected = new Map();
+  try { var s0 = JSON.parse(localStorage.getItem(STORE) || '{}'); Object.keys(s0).forEach(function (n) { selected.set(n, s0[n]); }); } catch (e) {}
+  function saveStore() { var o = {}; selected.forEach(function (p, n) { o[n] = p; }); try { localStorage.setItem(STORE, JSON.stringify(o)); } catch (e) {} }
+
   document.getElementById('tlTitle').textContent = title;
   document.getElementById('tlCrumb').textContent = title;
-  document.getElementById('tlSub').textContent = tests.length + ' test' + (tests.length !== 1 ? 's' : '') + ' available';
+  var subEl = document.getElementById('tlSub');
+  subEl.textContent = tests.length + ' test' + (tests.length !== 1 ? 's' : '') + ' available';
   var grid = document.getElementById('tlGrid');
-  grid.innerHTML = tests.length ? tests.map(function (t) {
+
+  function cardHTML(t) {
     var off = (t.mrp && t.mrp > t.price) ? Math.round((1 - t.price / t.mrp) * 100) : 0;
+    var added = selected.has(t.name);
     return '<article class="tl-card"><span class="tl-ico"><i class="fas ' + (t.icon || 'fa-vial') + '"></i></span>' +
       '<div class="tl-name">' + t.name + '</div>' +
       '<div class="tl-price"><span class="tl-now">₹' + t.price.toLocaleString() + '</span>' +
       (off ? '<span class="tl-mrp">₹' + t.mrp.toLocaleString() + '</span><span class="tl-off">' + off + '% off</span>' : '') +
       '</div>' +
-      '<button type="button" class="tl-book" data-test="' + t.name.replace(/"/g, '&quot;') + '" data-price="' + t.price + '"><i class="fas fa-plus"></i> Add</button></article>';
-  }).join('') : '<div class="tl-empty">No tests found for this selection.</div>';
+      '<button type="button" class="tl-book' + (added ? ' is-added' : '') + '" data-test="' + t.name.replace(/"/g, '&quot;') + '" data-price="' + t.price + '"><i class="fas fa-' + (added ? 'check' : 'plus') + '"></i> ' + (added ? 'Added' : 'Add') + '</button></article>';
+  }
+  function renderTests(list) { grid.innerHTML = list.length ? list.map(cardHTML).join('') : '<div class="tl-empty">No tests found.</div>'; }
+  renderTests(tests);
 
-  // ----- Multi-add selection + sticky bar (persisted across pages) -----
-  var STORE = 'flebo:selectedTests';
-  var selected = new Map();
-  try { var s = JSON.parse(localStorage.getItem(STORE) || '{}'); Object.keys(s).forEach(function (n) { selected.set(n, s[n]); }); } catch (e) {}
-  function saveStore() { var o = {}; selected.forEach(function (p, n) { o[n] = p; }); try { localStorage.setItem(STORE, JSON.stringify(o)); } catch (e) {} }
+  // Search across the full catalog
+  var searchEl = document.getElementById('tlSearch');
+  if (searchEl) {
+    searchEl.addEventListener('input', function () {
+      var q = searchEl.value.trim().toLowerCase();
+      if (!q) { renderTests(tests); subEl.textContent = tests.length + ' test' + (tests.length !== 1 ? 's' : '') + ' available'; return; }
+      var res = ALL.filter(function (t) { return t.name.toLowerCase().indexOf(q) > -1; });
+      renderTests(res);
+      subEl.textContent = res.length + ' result' + (res.length !== 1 ? 's' : '') + ' for “' + searchEl.value.trim() + '”';
+    });
+  }
+
   var bar = document.getElementById('tlBar');
   var barCount = document.getElementById('tlBarCount');
   var barTotal = document.getElementById('tlBarTotal');
@@ -751,10 +782,6 @@ body.has-tl-bar { padding-bottom: 92px; }
   popupList.addEventListener('click', function (e) { var x = e.target.closest('[data-remove]'); if (x) removeTest(x.getAttribute('data-remove')); });
   popup.addEventListener('click', function (e) { if (e.target === popup || e.target.closest('[data-close]')) closePopup(); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && popup.classList.contains('is-open')) closePopup(); });
-  // Reflect already-selected tests on the freshly rendered cards
-  [].forEach.call(grid.querySelectorAll('.tl-book'), function (b) {
-    if (selected.has(b.dataset.test)) { b.classList.add('is-added'); b.innerHTML = '<i class="fas fa-check"></i> Added'; }
-  });
   refresh();
   grid.addEventListener('click', function (e) {
     var b = e.target.closest('.tl-book'); if (!b) return;
