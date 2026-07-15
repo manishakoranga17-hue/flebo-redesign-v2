@@ -2456,21 +2456,30 @@ body.has-cmp-bar { padding-bottom: 92px; }
   .cmp-modal-overlay { align-items: flex-end; padding: 0; }
   .cmp-modal-body { overflow: auto; -webkit-overflow-scrolling: touch; }
   .cmp-table { table-layout: fixed; }
-  .cmp-table th, .cmp-table td { padding: 10px 8px; font-size: 12px; }
+  .cmp-table th, .cmp-table td { padding: 10px 8px; font-size: 12px; overflow: hidden; }
   .cmp-table tbody td { white-space: normal; text-align: center; }
-  .cmp-table .cmp-corner { width: 44%; }
+  .cmp-table .cmp-corner { width: 34%; }
   .cmp-grp { font-size: 11.5px !important; line-height: 1.3; }
   .cmp-grp-plus { margin-right: 5px; }
-  .cmp-pkg-top { flex-direction: column; gap: 6px; }
-  .cmp-pkg-name { font-size: 12px; }
+  /* Package header card — centered & compact */
+  .cmp-pkg { text-align: center; }
+  .cmp-pkg-top { flex-direction: column; align-items: center; gap: 6px; margin-bottom: 8px; }
+  .cmp-pkg-logo { width: 44px; height: 44px; border-radius: 12px; }
+  .cmp-pkg-name { font-size: 12.5px; }
   .cmp-pkg-lab { font-size: 10.5px; }
-  .cmp-pkg-badges { display: none; }               /* save width on phones */
-  .cmp-pkg-meta { font-size: 10px; gap: 3px 8px; margin-bottom: 4px; }
-  .cmp-pkg-logo { width: 30px; height: 30px; }
+  .cmp-pkg-badges { display: none; }
+  .cmp-pkg-meta { font-size: 10px; gap: 3px 6px; margin-bottom: 4px; justify-content: center; }
+  .cmp-pkg-meta i { width: auto; margin-right: 2px; }
+  /* Price picker — stacked & centered, no overflow */
   .cmp-price-pick { flex-direction: column; align-items: center; gap: 6px; text-align: center; }
-  .cmp-price-now { font-size: 15px; }
-  .cmp-pcount { font-size: 12px; font-weight: 800; }
-  .cmp-pcount em { display: none; }                /* show just the number */
+  .cmp-price-pick .tbl-price-wrap { align-items: center; }
+  .cmp-price-cell .tbl-price { font-size: 18px; }
+  .cmp-price-cell .tbl-price-mrp { font-size: 11px; }
+  .cmp-price-cell .tbl-save { font-size: 9.5px; white-space: normal; line-height: 1.2; padding: 3px 7px; }
+  .cmp-price-cell .tbl-price-note { display: none; }
+  /* Parameter count cells — number only */
+  .cmp-pcount { font-size: 13px; font-weight: 800; }
+  .cmp-pcount em { display: none; }
   .cmp-yes, .cmp-no { margin-right: 4px; width: 18px; height: 18px; }
   .cmp-foot { padding: 12px 14px; gap: 8px; }
   .cmp-back { padding: 11px 14px; }
