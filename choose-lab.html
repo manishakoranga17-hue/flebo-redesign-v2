@@ -1909,6 +1909,7 @@ body.pkg-flow .ctx-inner { display: none; }  /* drop the "Comparing labs for" ro
 }
 .mlab-logo img { max-width: 100%; max-height: 100%; object-fit: contain; }
 .mlab-head-text { flex: 1; min-width: 0; }
+.mlab-head-rating { flex-shrink: 0; align-self: flex-start; margin-top: 1px; }
 .mlab-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 15px; font-weight: 700; color: var(--text-primary); margin-bottom: 3px; line-height: 1.2; }
 .mlab-badges { display: inline-flex; gap: 4px; flex-wrap: wrap; }
 .mlab-badges .badge { font-size: 9px; padding: 1px 5px; border-radius: 3px; font-weight: 700; }
@@ -3411,10 +3412,10 @@ body.has-cmp-bar { padding-bottom: 92px; }
               <div class="mlab-name">${l.name}</div>
               <div class="mlab-badges">${badgeHtml}</div>
             </div>
+            <span class="mlab-head-rating">${ratingHtml}</span>
           </div>
           ${pkgBlock}
           <div class="mlab-meta">
-            ${ratingHtml}
             <span class="mlab-meta-item"><i class="fas fa-route"></i>${l.distanceKm.toFixed(1)} km</span>
             <span class="mlab-meta-item"><i class="fas fa-bolt"></i>${tatShort}</span>
             <span class="mlab-meta-item"><i class="fas fa-clock"></i>${dayPart}${timePart ? ' · ' + timePart : ''}</span>
