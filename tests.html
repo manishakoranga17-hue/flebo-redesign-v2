@@ -2792,7 +2792,11 @@ body.has-select-bar { padding-bottom: 80px; }
       var sel = load(), names = Object.keys(sel); if (!names.length) return;
       location.href = 'choose-lab.html?tests=' + names.map(encodeURIComponent).join('|') + '&prices=' + names.map(function (n) { return sel[n]; }).join('|');
     });
+    // Re-read the store on first load AND when returning via the back button (bfcache) or tab focus
     render();
+    window.addEventListener('pageshow', render);
+    window.addEventListener('focus', render);
+    window.addEventListener('storage', function (e) { if (e.key === STORE) render(); });
   })();
   </script>
 
