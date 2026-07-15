@@ -738,100 +738,79 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   position: fixed; inset: 0; z-index: 3000;
   display: none; align-items: center; justify-content: center;
   padding: 20px;
-  background: rgba(11, 21, 48, 0.55);
+  background: rgba(11, 21, 48, 0.6);
   -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
 }
 .saved-overlay.is-open { display: flex; }
 .saved-card {
   position: relative; overflow: hidden;
-  width: 100%; max-width: 380px;
-  background: #fff; border-radius: 24px;
-  padding: 40px 28px 28px;
-  text-align: center;
-  box-shadow: 0 30px 80px rgba(11, 21, 48, 0.4);
-  animation: savedPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  width: 100%; max-width: 372px;
+  border-radius: 22px;
+  background: linear-gradient(180deg, #FBE59A 0%, #F6C64B 100%);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+  text-align: center; padding-bottom: 18px;
+  animation: savedPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
-@keyframes savedPop { from { transform: translateY(24px) scale(0.9); opacity: 0; } to { transform: none; opacity: 1; } }
-.saved-card::before {
-  content: ''; position: absolute; top: -60px; left: 50%; transform: translateX(-50%);
-  width: 260px; height: 160px; border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(27,138,90,0.16), transparent);
-  pointer-events: none;
-}
+@keyframes savedPop { from { transform: translateY(24px) scale(0.92); opacity: 0; } to { transform: none; opacity: 1; } }
 .saved-close {
-  position: absolute; top: 14px; right: 14px; z-index: 3;
-  width: 32px; height: 32px; border: 0; border-radius: 50%;
-  background: var(--bg-soft, #F2F4F8); color: var(--text-muted, #6B7592);
+  position: absolute; top: 14px; right: 14px; z-index: 5;
+  width: 34px; height: 34px; border: 0; border-radius: 50%;
+  background: #fff; color: #2A2A2A;
   font-size: 18px; line-height: 1; cursor: pointer;
   display: inline-flex; align-items: center; justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
-.saved-close:hover { background: #e6e9f0; }
-.saved-badge {
-  position: relative; z-index: 2;
-  width: 88px; height: 88px; margin: 0 auto 18px;
-  border-radius: 50%;
-  background: linear-gradient(145deg, #1FA968, #12854F);
-  display: flex; align-items: center; justify-content: center;
-  color: #fff; font-size: 38px;
-  box-shadow: 0 12px 26px rgba(27,138,90,0.4), inset 0 2px 0 rgba(255,255,255,0.4);
-  animation: savedCoin 0.7s ease 0.15s both;
+/* Red top with a curved bottom + wallet scene */
+.saved-top {
+  position: relative; background: #E0362B; padding: 34px 20px 30px;
+  border-radius: 0 0 50% 50% / 0 0 16% 16%;
 }
-@keyframes savedCoin { 0% { transform: scale(0) rotate(-30deg); } 70% { transform: scale(1.12) rotate(6deg); } 100% { transform: scale(1) rotate(0); } }
-.saved-eyebrow {
-  position: relative; z-index: 2;
-  font-size: 13px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
-  color: var(--green, #1B8A5A); margin-bottom: 8px;
+.saved-wallet { position: relative; z-index: 2; font-size: 84px; line-height: 1; filter: drop-shadow(0 8px 14px rgba(0,0,0,0.28)); animation: savedFloat 3s ease-in-out infinite; }
+@keyframes savedFloat { 0%,100% { transform: translateY(0) rotate(-4deg); } 50% { transform: translateY(-6px) rotate(-4deg); } }
+.saved-coin { position: absolute; z-index: 2; font-size: 30px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25)); }
+.saved-coin.c1 { left: 16%; top: 44%; } .saved-coin.c2 { right: 12%; top: 34%; font-size: 34px; } .saved-coin.c3 { left: 28%; top: 12%; font-size: 22px; }
+/* Content on the gold area */
+.saved-ribbon {
+  position: relative; z-index: 3; display: inline-block; margin: -22px auto 6px;
+  background: #B8322A; color: #fff;
+  font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 23px; letter-spacing: 1px;
+  padding: 9px 34px; text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  clip-path: polygon(0 0, 100% 0, 94% 50%, 100% 100%, 0 100%, 6% 50%);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.2);
 }
-.saved-amount {
-  position: relative; z-index: 2;
-  font-family: 'Instrument Serif', serif; font-weight: 400;
-  font-size: 56px; line-height: 1; color: var(--primary, #1B2A5B);
-  letter-spacing: -0.02em; margin-bottom: 10px;
+.saved-saved { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 22px; color: #13235C; margin: 6px 0 16px; }
+.saved-saved b { font-size: 24px; }
+.saved-discount {
+  position: relative; display: inline-flex; align-items: center; gap: 8px;
+  background: #13235C; color: #fff; border-radius: 12px;
+  font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 21px;
+  padding: 12px 26px; margin: 0 auto;
 }
-.saved-sub {
-  position: relative; z-index: 2;
-  font-size: 14.5px; color: var(--text-secondary, #4A5578); line-height: 1.5;
-  margin-bottom: 20px;
+.saved-discount b { color: #F6B921; font-size: 24px; }
+.saved-cashrow { display: inline-flex; align-items: center; margin-top: -8px; position: relative; z-index: 2; }
+.saved-plus { width: 40px; height: 40px; border-radius: 50%; background: #fff; color: #13235C; font-weight: 900; font-size: 22px; display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.18); }
+.saved-enjoy { font-family: 'Plus Jakarta Sans', sans-serif; font-style: italic; font-weight: 800; font-size: 18px; color: #E0362B; margin: 0 8px 0 -4px; }
+.saved-cbtag {
+  background: linear-gradient(180deg, #F6C64B, #EBA92C); color: #B8322A;
+  font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 900; line-height: 1;
+  padding: 8px 16px 8px 14px; border-radius: 4px; text-align: left;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
-.saved-sub b { color: var(--accent, #D33535); }
-.saved-breakdown {
-  position: relative; z-index: 2;
-  background: var(--bg-soft, #F7F8FB); border-radius: 14px;
-  padding: 12px 16px; margin-bottom: 22px; text-align: left;
-}
-.saved-brk-row { display: flex; align-items: center; justify-content: space-between; font-size: 13px; padding: 4px 0; }
-.saved-brk-row .k { color: var(--text-secondary, #4A5578); display: inline-flex; align-items: center; gap: 8px; }
-.saved-brk-row .k i { color: var(--green, #1B8A5A); font-size: 12px; }
-.saved-brk-row .v { font-weight: 800; color: var(--text-primary); font-variant-numeric: tabular-nums; }
-.saved-cta {
-  position: relative; z-index: 2;
-  width: 100%; border: 0; border-radius: 14px;
-  background: var(--accent, #D33535); color: #fff;
-  font: inherit; font-size: 15px; font-weight: 800;
-  padding: 14px 16px; cursor: pointer;
-  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  transition: background 0.15s;
-}
-.saved-cta:hover { background: var(--accent-dark, #B82E2E); }
+.saved-cbtag b { display: block; color: #13235C; font-size: 22px; }
+.saved-cbtag span { font-size: 12px; letter-spacing: 1px; }
+.saved-note { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 16px; color: #13235C; line-height: 1.4; margin: 18px 24px 0; }
+.saved-usenote { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 17px; color: #13235C; margin: 16px 24px 0; }
+.saved-tc { font-size: 11px; color: #7A5A12; margin-top: 14px; }
 /* Confetti */
 .saved-confetti { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 1; }
-.saved-confetti i {
-  position: absolute; top: -12px; width: 8px; height: 12px; border-radius: 2px;
-  opacity: 0; animation: savedFall linear forwards;
+.saved-confetti i { position: absolute; top: -12px; width: 7px; height: 11px; border-radius: 2px; opacity: 0; animation: savedFall linear forwards; }
+@keyframes savedFall { 0% { transform: translateY(-20px) rotate(0deg); opacity: 0; } 10% { opacity: 1; } 100% { transform: translateY(560px) rotate(540deg); opacity: 0; } }
+@media (max-width: 400px) {
+  .saved-wallet { font-size: 72px; }
+  .saved-ribbon { font-size: 20px; padding: 8px 26px; }
+  .saved-discount { font-size: 18px; padding: 11px 18px; } .saved-discount b { font-size: 21px; }
 }
-@keyframes savedFall {
-  0% { transform: translateY(-20px) rotate(0deg); opacity: 0; }
-  10% { opacity: 1; }
-  100% { transform: translateY(520px) rotate(540deg); opacity: 0; }
-}
-@media (max-width: 480px) {
-  .saved-card { padding: 34px 20px 22px; border-radius: 20px; }
-  .saved-amount { font-size: 46px; }
-  .saved-badge { width: 76px; height: 76px; font-size: 32px; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .saved-card, .saved-badge, .saved-confetti i { animation: none !important; }
-}
+@media (prefers-reduced-motion: reduce) { .saved-card, .saved-wallet, .saved-confetti i { animation: none !important; } }
 </style>
 </head>
 <body>
@@ -1073,14 +1052,23 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 <!-- ===== SAVINGS CELEBRATION POPUP ===== -->
 <div class="saved-overlay" id="savedOverlay" role="dialog" aria-modal="true" aria-labelledby="savedAmount">
   <div class="saved-card">
-    <div class="saved-confetti" id="savedConfetti" aria-hidden="true"></div>
     <button type="button" class="saved-close" id="savedClose" aria-label="Close">&times;</button>
-    <div class="saved-badge"><i class="fas fa-piggy-bank" aria-hidden="true"></i></div>
-    <div class="saved-eyebrow">Woohoo! You just saved</div>
-    <div class="saved-amount" id="savedAmount">₹0</div>
-    <div class="saved-sub" id="savedSub">That's <b>0% off</b> the MRP on this booking.</div>
-    <div class="saved-breakdown" id="savedBreakdown"></div>
-    <button type="button" class="saved-cta" id="savedCta"><i class="fas fa-thumbs-up"></i> Awesome, thanks!</button>
+    <div class="saved-top">
+      <div class="saved-confetti" id="savedConfetti" aria-hidden="true"></div>
+      <span class="saved-coin c1">🪙</span><span class="saved-coin c2">🪙</span><span class="saved-coin c3">🪙</span>
+      <span class="saved-wallet" aria-hidden="true">👛</span>
+    </div>
+    <div class="saved-ribbon">CONGRATULATIONS</div>
+    <div class="saved-saved">YOU'VE SAVED <b id="savedAmount">₹0</b></div>
+    <div class="saved-discount">Discount applied! <b id="savedDiscount">₹0</b></div>
+    <div class="saved-cashrow">
+      <span class="saved-plus">+</span>
+      <span class="saved-enjoy">Enjoy</span>
+      <span class="saved-cbtag"><b id="savedCashback">₹0</b><span>CASHBACK</span></span>
+    </div>
+    <div class="saved-note">Cashback will be credited to your wallet after your report is published.</div>
+    <div class="saved-usenote">Use it to save on your next booking!</div>
+    <div class="saved-tc">T&amp;Cs Apply</div>
   </div>
 </div>
 
@@ -1343,18 +1331,13 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
   (function savedPopup() {
     const overlay = document.getElementById('savedOverlay');
     if (!overlay) return;
-    const totalSaved = Math.max(0, mrp - price);
-    if (totalSaved <= 0) return;   // nothing to celebrate
-    const pct = Math.round((totalSaved / mrp) * 100);
-    const couponPart = (couponCode && couponDiscount > 0) ? Math.min(couponDiscount, totalSaved) : 0;
-    const labPart = Math.max(0, totalSaved - couponPart);
+    const discount = Math.max(0, mrp - price);        // discount applied on this booking
+    const cashback = Math.round(price * 0.15);        // wallet cashback credited after report
+    const totalSaved = discount + cashback;
+    if (totalSaved <= 0) return;                      // nothing to celebrate
 
-    // Breakdown
-    let brk = `<div class="saved-brk-row"><span class="k"><i class="fas fa-tag"></i> Lab discount</span><span class="v">₹${labPart.toLocaleString()}</span></div>`;
-    if (couponPart > 0) brk += `<div class="saved-brk-row"><span class="k"><i class="fas fa-ticket"></i> Coupon (${couponCode})</span><span class="v">₹${couponPart.toLocaleString()}</span></div>`;
-    brk += `<div class="saved-brk-row"><span class="k"><i class="fas fa-circle-check"></i> You paid</span><span class="v">₹${price.toLocaleString()}</span></div>`;
-    document.getElementById('savedBreakdown').innerHTML = brk;
-    document.getElementById('savedSub').innerHTML = `That's <b>${pct}% off</b> the ₹${mrp.toLocaleString()} MRP on this booking.`;
+    document.getElementById('savedDiscount').textContent = '₹' + discount.toLocaleString();
+    document.getElementById('savedCashback').textContent = '₹' + cashback.toLocaleString();
 
     // Confetti
     const colors = ['#D33535', '#1B8A5A', '#1B2A5B', '#F5A623', '#3D56A0'];
@@ -1385,7 +1368,6 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 
     function close() { overlay.classList.remove('is-open'); }
     document.getElementById('savedClose').addEventListener('click', close);
-    document.getElementById('savedCta').addEventListener('click', close);
     overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && overlay.classList.contains('is-open')) close(); });
 
