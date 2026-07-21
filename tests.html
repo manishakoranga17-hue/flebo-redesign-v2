@@ -2142,45 +2142,38 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 .test-add.is-added { background: var(--accent); color: #fff; border-color: var(--accent); }
 .test-add.is-added:hover { background: var(--accent-dark); border-color: var(--accent-dark); }
 
-/* ===== Popular Tests — two-row horizontal scroller ===== */
+/* ===== Popular Tests — 4-per-row grid, same card as the test-list page ===== */
 .pop-tests-section { margin: 24px 0; }
-.pop-tests-scroll {
-  display: grid; grid-auto-flow: column;
-  grid-template-rows: repeat(2, auto);
-  grid-auto-columns: 240px;
-  gap: 14px; overflow-x: auto; padding: 4px 2px 12px;
-  scroll-snap-type: x proximity;
-  scrollbar-width: none; -ms-overflow-style: none;
-  -webkit-overflow-scrolling: touch;
-}
-.pop-tests-scroll::-webkit-scrollbar { display: none; height: 0; width: 0; }
+.pop-tests-scroll { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
 .pop-card {
-  scroll-snap-align: start;
-  background: #fff; border: 1px solid var(--border-soft);
-  border-radius: var(--radius-md, 12px); padding: 14px 15px;
-  display: flex; flex-direction: column; gap: 9px;
-  box-shadow: 0 1px 3px rgba(11,21,48,0.04);
-  transition: box-shadow 0.18s, border-color 0.18s;
+  display: grid; grid-template-columns: auto 1fr auto;
+  grid-template-areas: "ico name name" "price price btn";
+  align-items: center; column-gap: 14px; row-gap: 12px;
+  background: #fff; border: 1px solid var(--border-soft); border-radius: 16px;
+  padding: 18px 20px; box-shadow: 0 2px 8px rgba(11,21,48,0.05);
+  transition: box-shadow .16s, transform .16s, border-color .16s;
 }
+.pop-card:hover { box-shadow: 0 10px 26px rgba(11,21,48,0.1); transform: translateY(-2px); }
 .pop-card.is-selected { border-color: var(--primary); box-shadow: 0 0 0 1.5px var(--primary); }
-.pop-card-top { display: flex; align-items: flex-start; gap: 10px; }
-.pop-card-ico { flex-shrink: 0; width: 34px; height: 34px; border-radius: 9px; background: var(--accent-soft, #FDECEC); color: var(--accent); display: inline-flex; align-items: center; justify-content: center; font-size: 15px; }
-.pop-card-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14.5px; font-weight: 800; color: var(--text-primary); line-height: 1.3; }
-.pop-card-sub { font-size: 11.5px; color: var(--text-muted); margin-top: 2px; }
-.pop-card-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: auto; }
-.pop-card-price { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; }
+.pop-card-ico { grid-area: ico; width: 48px; height: 48px; border-radius: 13px; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; font-size: 20px; background: var(--accent-soft, #FDECEC); color: var(--accent, #D33535); }
+.pop-card-name { grid-area: name; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 16px; font-weight: 800; color: var(--text-primary); line-height: 1.3; }
+.pop-card-price { grid-area: price; display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
 .pop-card-now { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 18px; font-weight: 800; color: var(--text-primary); }
-.pop-card-mrp { font-size: 12.5px; color: var(--text-muted); text-decoration: line-through; }
+.pop-card-mrp { font-size: 13px; color: var(--text-muted); text-decoration: line-through; }
+.pop-card-off { font-size: 12px; font-weight: 800; color: var(--green, #1B8A5A); }
 .pop-add {
+  grid-area: btn; justify-self: end; flex-shrink: 0;
   border: 1.5px solid var(--accent); background: #fff; color: var(--accent);
-  font-size: 13px; font-weight: 800; padding: 7px 16px; border-radius: 9px;
-  cursor: pointer; white-space: nowrap; flex-shrink: 0;
+  font-size: 14px; font-weight: 800; padding: 10px 18px; border-radius: 11px;
+  cursor: pointer; white-space: nowrap;
   transition: background 0.15s, color 0.15s, border-color 0.15s;
 }
 .pop-add:hover { background: var(--accent-soft); }
 .pop-add.is-added { background: var(--accent); color: #fff; }
 .pop-add.is-added:hover { background: var(--accent-dark); border-color: var(--accent-dark); }
-@media (max-width: 480px) { .pop-tests-scroll { grid-auto-columns: 78vw; } }
+@media (max-width: 1024px) { .pop-tests-scroll { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 768px)  { .pop-tests-scroll { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 460px)  { .pop-tests-scroll { grid-template-columns: 1fr; } }
 
 /* Empty state */
 .tests-empty { text-align: center; padding: 60px 20px; }
@@ -2818,13 +2811,16 @@ body.has-select-bar { padding-bottom: 80px; }
     function load() { try { return JSON.parse(localStorage.getItem(STORE) || '{}'); } catch (e) { return {}; } }
     function save(o) { try { localStorage.setItem(STORE, JSON.stringify(o)); } catch (e) {} }
     function refreshBar() { try { window.dispatchEvent(new Event('focus')); } catch (e) {} }
+    POP = POP.slice(0, 8);   // two rows of four
     wrap.innerHTML = POP.map(function (t, i) {
+      var off = Math.round((t.mrp - t.price) / t.mrp * 100);
       return '<div class="pop-card" data-i="' + i + '">' +
-        '<div class="pop-card-top"><div class="pop-card-ico"><i class="fas ' + t.icon + '"></i></div>' +
-        '<div><div class="pop-card-name">' + t.name + '</div><div class="pop-card-sub">' + t.sub + '</div></div></div>' +
-        '<div class="pop-card-foot"><div class="pop-card-price"><span class="pop-card-now">₹' + t.price + '</span>' +
-        '<span class="pop-card-mrp">₹' + t.mrp + '</span></div>' +
-        '<button type="button" class="pop-add" data-i="' + i + '"><span>Add</span></button></div></div>';
+        '<div class="pop-card-ico"><i class="fas ' + t.icon + '"></i></div>' +
+        '<div class="pop-card-name">' + t.name + '</div>' +
+        '<div class="pop-card-price"><span class="pop-card-now">₹' + t.price + '</span>' +
+        '<span class="pop-card-mrp">₹' + t.mrp + '</span>' +
+        '<span class="pop-card-off">' + off + '% off</span></div>' +
+        '<button type="button" class="pop-add" data-i="' + i + '"><span>Add</span></button></div>';
     }).join('');
     function syncStates() {
       var sel = load();
