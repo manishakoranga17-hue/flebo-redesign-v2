@@ -2142,6 +2142,46 @@ button { font-family: inherit; color: inherit; -webkit-tap-highlight-color: tran
 .test-add.is-added { background: var(--accent); color: #fff; border-color: var(--accent); }
 .test-add.is-added:hover { background: var(--accent-dark); border-color: var(--accent-dark); }
 
+/* ===== Popular Tests — two-row horizontal scroller ===== */
+.pop-tests-section { margin: 24px 0; }
+.pop-tests-scroll {
+  display: grid; grid-auto-flow: column;
+  grid-template-rows: repeat(2, auto);
+  grid-auto-columns: 240px;
+  gap: 14px; overflow-x: auto; padding: 4px 2px 12px;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none; -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+}
+.pop-tests-scroll::-webkit-scrollbar { display: none; height: 0; width: 0; }
+.pop-card {
+  scroll-snap-align: start;
+  background: #fff; border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md, 12px); padding: 14px 15px;
+  display: flex; flex-direction: column; gap: 9px;
+  box-shadow: 0 1px 3px rgba(11,21,48,0.04);
+  transition: box-shadow 0.18s, border-color 0.18s;
+}
+.pop-card.is-selected { border-color: var(--primary); box-shadow: 0 0 0 1.5px var(--primary); }
+.pop-card-top { display: flex; align-items: flex-start; gap: 10px; }
+.pop-card-ico { flex-shrink: 0; width: 34px; height: 34px; border-radius: 9px; background: var(--accent-soft, #FDECEC); color: var(--accent); display: inline-flex; align-items: center; justify-content: center; font-size: 15px; }
+.pop-card-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14.5px; font-weight: 800; color: var(--text-primary); line-height: 1.3; }
+.pop-card-sub { font-size: 11.5px; color: var(--text-muted); margin-top: 2px; }
+.pop-card-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: auto; }
+.pop-card-price { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; }
+.pop-card-now { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 18px; font-weight: 800; color: var(--text-primary); }
+.pop-card-mrp { font-size: 12.5px; color: var(--text-muted); text-decoration: line-through; }
+.pop-add {
+  border: 1.5px solid var(--accent); background: #fff; color: var(--accent);
+  font-size: 13px; font-weight: 800; padding: 7px 16px; border-radius: 9px;
+  cursor: pointer; white-space: nowrap; flex-shrink: 0;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.pop-add:hover { background: var(--accent-soft); }
+.pop-add.is-added { background: var(--accent); color: #fff; }
+.pop-add.is-added:hover { background: var(--accent-dark); border-color: var(--accent-dark); }
+@media (max-width: 480px) { .pop-tests-scroll { grid-auto-columns: 78vw; } }
+
 /* Empty state */
 .tests-empty { text-align: center; padding: 60px 20px; }
 .tests-empty-emoji { font-size: 44px; margin-bottom: 12px; }
@@ -2475,6 +2515,15 @@ body.has-select-bar { padding-bottom: 80px; }
 
 <!-- ===== SECTIONS ===== -->
 <main class="tests-main" id="testsMain">
+  <!-- Popular Tests -->
+  <section class="pop-tests-section" aria-label="Popular Tests">
+    <div class="section-header">
+      <h2>Popular Tests</h2>
+      <button class="see-all" data-viewall="popular" aria-label="View all popular tests">View All <i class="fas fa-arrow-right" aria-hidden="true"></i></button>
+    </div>
+    <div class="pop-tests-scroll" id="popTestsScroll"></div>
+  </section>
+
   <!-- Tests by Category -->
   <section class="tests-category-section" aria-label="Tests by Category">
     <div class="section-header">
@@ -2730,6 +2779,7 @@ body.has-select-bar { padding-bottom: 80px; }
     main.addEventListener('click', function (e) {
       var sa = e.target.closest('.see-all');
       if (sa) {
+        if (sa.getAttribute('data-viewall') === 'popular') { go('test-list.html'); return; }
         var sec = sa.closest('section'), h = sec && sec.querySelector('h2');
         var t = (h ? h.textContent : '').toLowerCase();
         var s = t.indexOf('radiolog') > -1 ? 'radiology' : t.indexOf('vital') > -1 ? 'vitals' : t.indexOf('habit') > -1 ? 'habits' : 'category';
@@ -2744,6 +2794,60 @@ body.has-select-bar { padding-bottom: 80px; }
       var rb = e.target.closest('.radio-book-btn');
       if (rb) { var card = rb.closest('.radio-card'), nm = card && card.querySelector('h4'), pv = card && card.querySelector('.radio-price-value'); var price = pv ? pv.textContent.replace(/[^0-9]/g, '') : ''; go('choose-lab.html?tests=' + encodeURIComponent(nm ? nm.textContent.trim() : '') + '&prices=' + price); return; }
     });
+  })();
+  </script>
+
+  <!-- Popular Tests — render cards + add-to-cart into the shared store -->
+  <script>
+  (function () {
+    var STORE = 'flebo:selectedTests';
+    var wrap = document.getElementById('popTestsScroll');
+    if (!wrap) return;
+    var POP = [
+      { name: 'Complete Blood Count (CBC)', sub: 'Screens overall health', price: 299, mrp: 500, icon: 'fa-droplet' },
+      { name: 'Thyroid Profile (T3 T4 TSH)', sub: 'Thyroid function', price: 499, mrp: 850, icon: 'fa-shield-heart' },
+      { name: 'Vitamin D (25-OH)', sub: 'Bone &amp; immunity', price: 899, mrp: 1600, icon: 'fa-sun' },
+      { name: 'HbA1c (Diabetes)', sub: '3-month sugar average', price: 399, mrp: 650, icon: 'fa-droplet' },
+      { name: 'Lipid Profile', sub: 'Cholesterol &amp; heart', price: 499, mrp: 900, icon: 'fa-heart-pulse' },
+      { name: 'Vitamin B12', sub: 'Energy &amp; nerves', price: 699, mrp: 1200, icon: 'fa-bolt' },
+      { name: 'Liver Function Test (LFT)', sub: 'Liver health', price: 499, mrp: 850, icon: 'fa-disease' },
+      { name: 'Kidney Function Test (KFT)', sub: 'Kidney health', price: 499, mrp: 850, icon: 'fa-droplet' },
+      { name: 'Blood Sugar Fasting', sub: 'Fasting glucose', price: 149, mrp: 280, icon: 'fa-droplet' },
+      { name: 'Complete Urine Analysis', sub: 'Routine screening', price: 199, mrp: 350, icon: 'fa-vial' }
+    ];
+    function load() { try { return JSON.parse(localStorage.getItem(STORE) || '{}'); } catch (e) { return {}; } }
+    function save(o) { try { localStorage.setItem(STORE, JSON.stringify(o)); } catch (e) {} }
+    function refreshBar() { try { window.dispatchEvent(new Event('focus')); } catch (e) {} }
+    wrap.innerHTML = POP.map(function (t, i) {
+      return '<div class="pop-card" data-i="' + i + '">' +
+        '<div class="pop-card-top"><div class="pop-card-ico"><i class="fas ' + t.icon + '"></i></div>' +
+        '<div><div class="pop-card-name">' + t.name + '</div><div class="pop-card-sub">' + t.sub + '</div></div></div>' +
+        '<div class="pop-card-foot"><div class="pop-card-price"><span class="pop-card-now">₹' + t.price + '</span>' +
+        '<span class="pop-card-mrp">₹' + t.mrp + '</span></div>' +
+        '<button type="button" class="pop-add" data-i="' + i + '"><span>Add</span></button></div></div>';
+    }).join('');
+    function syncStates() {
+      var sel = load();
+      [].forEach.call(wrap.querySelectorAll('.pop-card'), function (card) {
+        var t = POP[+card.getAttribute('data-i')];
+        var added = Object.prototype.hasOwnProperty.call(sel, t.name.replace(/&amp;/g, '&'));
+        card.classList.toggle('is-selected', added);
+        var btn = card.querySelector('.pop-add');
+        btn.classList.toggle('is-added', added);
+        btn.querySelector('span').textContent = added ? 'Added ✓' : 'Add';
+      });
+    }
+    wrap.addEventListener('click', function (e) {
+      var btn = e.target.closest('.pop-add'); if (!btn) return;
+      var t = POP[+btn.getAttribute('data-i')], nm = t.name.replace(/&amp;/g, '&');
+      var sel = load();
+      if (Object.prototype.hasOwnProperty.call(sel, nm)) delete sel[nm]; else sel[nm] = t.price;
+      save(sel); syncStates(); refreshBar();
+    });
+    syncStates();
+    window.addEventListener('pageshow', syncStates);
+    window.addEventListener('focus', syncStates);
+    window.addEventListener('storage', function (e) { if (e.key === STORE) syncStates(); });
   })();
   </script>
 
