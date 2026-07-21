@@ -1763,6 +1763,7 @@ body.pkg-flow .ctx-chip { flex-shrink: 0; white-space: nowrap; }
 .ltab-pkg-fast { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
 .ltab-pkg-fast.is-fasting { color: var(--amber); }
 .ltab-pkg-fast.no-fasting { color: var(--green); }
+.fast-ic { display: inline-block; width: 1.05em; height: 1.05em; vertical-align: -0.17em; background: currentColor; -webkit-mask: url(fasting.png) center/contain no-repeat; mask: url(fasting.png) center/contain no-repeat; }
 .ltab-viewtests {
   margin-top: 7px; border: none; background: none; cursor: pointer; padding: 0;
   font: inherit; font-size: 12px; font-weight: 700; color: var(--primary);
@@ -3248,7 +3249,7 @@ body.has-cmp-bar { padding-bottom: 92px; }
               <div class="ltab-pkg-name">${p.name}</div>
               <div class="ltab-pkg-tags">
                 <button type="button" class="ltab-pkg-tests" data-pkg-name="${p.name}" data-pkg-tests="${p.tests}"><i class="fas fa-vial"></i> ${p.tests} tests <i class="fas fa-chevron-right ltab-pkg-tests-caret"></i></button>
-                <span class="ltab-pkg-fast ${p.fasting ? 'is-fasting' : 'no-fasting'}"><i class="fas fa-${p.fasting ? 'mug-saucer' : 'circle-check'}"></i> ${p.fasting ? 'Fasting required' : 'No fasting'}</span>
+                <span class="ltab-pkg-fast ${p.fasting ? 'is-fasting' : 'no-fasting'}">${p.fasting ? '<span class="fast-ic"></span> ' : ''}${p.fasting ? 'Fasting required' : 'No fasting'}</span>
               </div>
             </td>
             <td class="ltab-price">
@@ -3287,7 +3288,7 @@ body.has-cmp-bar { padding-bottom: 92px; }
     return `
       <div class="plab-tags">
         <button type="button" class="ltab-pkg-tests" data-pkg-name="${p.name}" data-pkg-tests="${p.tests}"><i class="fas fa-vial"></i> ${p.tests} tests <i class="fas fa-chevron-right ltab-pkg-tests-caret"></i></button>
-        <span class="ltab-pkg-fast ${p.fasting ? 'is-fasting' : 'no-fasting'}"><i class="fas fa-${p.fasting ? 'mug-saucer' : 'circle-check'}"></i> ${p.fasting ? 'Fasting' : 'No fasting'}</span>
+        <span class="ltab-pkg-fast ${p.fasting ? 'is-fasting' : 'no-fasting'}">${p.fasting ? '<span class="fast-ic"></span> ' : ''}${p.fasting ? 'Fasting' : 'No fasting'}</span>
       </div>
       <div class="plab-detail-foot">
         <div class="plab-priceblock">
@@ -3378,7 +3379,7 @@ body.has-cmp-bar { padding-bottom: 92px; }
             <span class="tbl-lab-pkg-name">${pkg.name}</span>
             <span class="tbl-lab-pkg-meta">
               <button type="button" class="ltab-pkg-tests" data-pkg-name="${pkg.name}" data-pkg-tests="${pkg.tests}"><i class="fas fa-vial"></i> ${pkg.tests} tests <i class="fas fa-chevron-right ltab-pkg-tests-caret"></i></button>
-              <span class="ltab-pkg-fast ${pkg.fasting ? 'is-fasting' : 'no-fasting'}"><i class="fas fa-${pkg.fasting ? 'mug-saucer' : 'circle-check'}"></i> ${pkg.fasting ? 'Fasting required' : 'No fasting'}</span>
+              <span class="ltab-pkg-fast ${pkg.fasting ? 'is-fasting' : 'no-fasting'}">${pkg.fasting ? '<span class="fast-ic"></span> ' : ''}${pkg.fasting ? 'Fasting required' : 'No fasting'}</span>
             </span>
             ${moreN > 0 ? `<button type="button" class="pkg-more-toggle" data-lab-toggle="${l.id}">${expanded ? '<i class="fas fa-chevron-up"></i> Show fewer' : '<i class="fas fa-chevron-down"></i> +' + moreN + ' more package' + (moreN > 1 ? 's' : '')}</button>` : ''}
           </div>` : '';
@@ -3392,7 +3393,7 @@ body.has-cmp-bar { padding-bottom: 92px; }
               <div class="pkg-ex-name tbl-lab-pkg-name">${pp.name}</div>
               <div class="pkg-ex-tests">
                 <button type="button" class="ltab-pkg-tests" data-pkg-name="${pp.name}" data-pkg-tests="${pp.tests}"><i class="fas fa-vial"></i> ${pp.tests} tests <i class="fas fa-chevron-right ltab-pkg-tests-caret"></i></button>
-                <span class="ltab-pkg-fast ${pp.fasting ? 'is-fasting' : 'no-fasting'}"><i class="fas fa-${pp.fasting ? 'mug-saucer' : 'circle-check'}"></i> ${pp.fasting ? 'Fasting required' : 'No fasting'}</span>
+                <span class="ltab-pkg-fast ${pp.fasting ? 'is-fasting' : 'no-fasting'}">${pp.fasting ? '<span class="fast-ic"></span> ' : ''}${pp.fasting ? 'Fasting required' : 'No fasting'}</span>
               </div>
               <div class="mlab-meta pkg-ex-meta">
                 ${ratingHtml}
@@ -3513,7 +3514,7 @@ body.has-cmp-bar { padding-bottom: 92px; }
             <div class="tbl-lab-pkg-name">${pkg.name}</div>
             <div class="tbl-lab-pkg-meta">
               <button type="button" class="ltab-pkg-tests" data-pkg-name="${pkg.name}" data-pkg-tests="${pkg.tests}"><i class="fas fa-vial"></i> ${pkg.tests} tests <i class="fas fa-chevron-right ltab-pkg-tests-caret"></i></button>
-              <span class="ltab-pkg-fast ${pkg.fasting ? 'is-fasting' : 'no-fasting'}"><i class="fas fa-${pkg.fasting ? 'mug-saucer' : 'circle-check'}"></i> ${pkg.fasting ? 'Fasting required' : 'No fasting'}</span>
+              <span class="ltab-pkg-fast ${pkg.fasting ? 'is-fasting' : 'no-fasting'}">${pkg.fasting ? '<span class="fast-ic"></span> ' : ''}${pkg.fasting ? 'Fasting required' : 'No fasting'}</span>
             </div>
             ${moreN > 0 ? `<button type="button" class="pkg-more-toggle" data-lab-toggle="${l.id}">${expanded ? '<i class="fas fa-chevron-up"></i> Show fewer' : '<i class="fas fa-chevron-down"></i> +' + moreN + ' more package' + (moreN > 1 ? 's' : '')}</button>` : ''}
           </td>` : '';
@@ -3566,7 +3567,7 @@ body.has-cmp-bar { padding-bottom: 92px; }
             <div class="tbl-lab-pkg-name">${pp.name}</div>
             <div class="tbl-lab-pkg-meta">
               <button type="button" class="ltab-pkg-tests" data-pkg-name="${pp.name}" data-pkg-tests="${pp.tests}"><i class="fas fa-vial"></i> ${pp.tests} tests <i class="fas fa-chevron-right ltab-pkg-tests-caret"></i></button>
-              <span class="ltab-pkg-fast ${pp.fasting ? 'is-fasting' : 'no-fasting'}"><i class="fas fa-${pp.fasting ? 'mug-saucer' : 'circle-check'}"></i> ${pp.fasting ? 'Fasting required' : 'No fasting'}</span>
+              <span class="ltab-pkg-fast ${pp.fasting ? 'is-fasting' : 'no-fasting'}">${pp.fasting ? '<span class="fast-ic"></span> ' : ''}${pp.fasting ? 'Fasting required' : 'No fasting'}</span>
             </div>
           </td>
           ${distCell}
